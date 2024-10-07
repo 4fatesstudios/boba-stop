@@ -5,6 +5,6 @@ In **Boba Stop**, we hope to give the player the sense of freedom in this world,
 ## Contributors
 Angel Cervantes\
 Christopher Liwanag\
-Alexis Nemsingh\
+Alexis Nemsingh
 
 ## ...
