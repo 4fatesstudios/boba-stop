@@ -11,7 +11,7 @@ public class SaveSystem
     public struct SaveData
     {
         // public PlayerSaveData PlayerData;
-        // PlayerSaveData needs to be made in Player.cs
+        // PlayerSaveData needs to be made in Player.cs, will add more to struct after
     }
 
     // creates save file
