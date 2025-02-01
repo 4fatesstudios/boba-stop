@@ -437,8 +437,10 @@ GameObject:
   - component: {fileID: 881452118}
   - component: {fileID: 881452120}
   - component: {fileID: 881452121}
+  - component: {fileID: 881452122}
+  - component: {fileID: 881452123}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: PlayerVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,6 +526,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 330585545}
+--- !u!95 &881452122
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881452117}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ebd2a4669f0e7d42ba7bc93ed30161a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &881452123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881452117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f35f4776b7ac34ea4ef1b9414cb2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1088668371}
 --- !u!1 &1088668370
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447d97fd848fdee4eaf1dec76bb1f24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1.5
 --- !u!4 &1088668372
 Transform:
   m_ObjectHideFlags: 0
