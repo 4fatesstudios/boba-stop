@@ -1,10 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+    [SerializeField] private float moveSpeed = 1.5f;
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake() {
+        spriteRenderer = transform.Find("Capsule").GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null) {
+            Debug.LogError("SpriteRenderer not found!");
+        }
+    }
+
     private void Update() {
         Vector2 inputVector = new Vector2(0, 0);
         
@@ -24,6 +35,9 @@ public class Player : MonoBehaviour
         inputVector = inputVector.normalized;
         
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        transform.position += moveDir * Time.deltaTime;
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
+        
+        // Set sprite orientation to face direction moving towards
+        spriteRenderer.flipX = inputVector.x == 0 ? spriteRenderer.flipX : inputVector.x < 0;
     }
 }
