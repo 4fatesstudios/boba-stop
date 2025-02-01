@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] private float moveSpeed = 1.2f;
     private SpriteRenderer spriteRenderer;
     private bool isWalking;
 
