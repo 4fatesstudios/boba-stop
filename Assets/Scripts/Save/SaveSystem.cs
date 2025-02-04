@@ -15,10 +15,36 @@ public class SaveSystem
     }
 
     // creates save file
-    public static string SaveFilePath()
+    public static string SaveFileName()
     {
         string saveFile = Application.persistentDataPath + "/save" + ".save";
         return saveFile;
+    }
+
+    public static void Save()
+    {
+        // HandleSaveData();
+        
+        File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData, true));
+    }
+
+    private static void HandleSaveData()
+    {
+        // GameManager.Instance.Player.Save(ref _saveData.PlayerData);
+        // 
+    }
+
+    public static void Load()
+    {
+        string saveContent = File.ReadAllText(SaveFileName());
+        
+        _saveData = JsonUtility.FromJson<SaveData>(saveContent);
+        
+    }
+
+    private static void HandleLoadData()
+    {
+        // GameManager.Instance.Player.Load(_saveData.PlayerData);
     }
     
 }
