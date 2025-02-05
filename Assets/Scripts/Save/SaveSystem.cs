@@ -1,50 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
-public class SaveSystem
+public static class SaveSystem
 {
-    private static SaveData _saveData = new SaveData();
-    
-    [System.Serializable]
-    public struct SaveData
+    // Constants for PlayerPrefs keys
+    private const string PearlsKey = "PlayerPearls";
+    private const string EnergyKey = "PlayerEnergy";
+    private const string ShopReputationKey = "ShopReputation";
+
+    // Save player's data to PlayerPrefs
+    public static void Save(int pearls, int energy, int shopReputation)
     {
-        // public PlayerSaveData PlayerData;
-        // PlayerSaveData needs to be made in Player.cs, will add more to struct after
+        PlayerPrefs.SetInt(PearlsKey, pearls);
+        PlayerPrefs.SetInt(EnergyKey, energy);
+        PlayerPrefs.SetInt(ShopReputationKey, shopReputation);
+        PlayerPrefs.Save();
     }
 
-    // creates save file
-    public static string SaveFileName()
+    // Load player's data from PlayerPrefs
+    public static void Load(out int pearls, out int energy, out int shopReputation)
     {
-        string saveFile = Application.persistentDataPath + "/save" + ".save";
-        return saveFile;
+        pearls = PlayerPrefs.GetInt(PearlsKey, 0); // Default to 0 if no saved data
+        energy = PlayerPrefs.GetInt(EnergyKey, 100); // Default to 100 Energy
+        shopReputation = PlayerPrefs.GetInt(ShopReputationKey, 0); // Default to 0 Reputation
     }
 
-    public static void Save()
+    // Reset all player's data (for debugging or new game)
+    public static void ResetData()
     {
-        // HandleSaveData();
-        
-        File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData, true));
+        PlayerPrefs.SetInt(PearlsKey, 0);
+        PlayerPrefs.SetInt(EnergyKey, 100);
+        PlayerPrefs.SetInt(ShopReputationKey, 0);
+        PlayerPrefs.Save();
     }
-
-    private static void HandleSaveData()
-    {
-        // GameManager.Instance.Player.Save(ref _saveData.PlayerData);
-        // 
-    }
-
-    public static void Load()
-    {
-        string saveContent = File.ReadAllText(SaveFileName());
-        
-        _saveData = JsonUtility.FromJson<SaveData>(saveContent);
-        
-    }
-
-    private static void HandleLoadData()
-    {
-        // GameManager.Instance.Player.Load(_saveData.PlayerData);
-    }
-    
 }
