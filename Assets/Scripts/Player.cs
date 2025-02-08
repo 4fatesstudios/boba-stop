@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private float playerRadius = 0.1f;
     private float playerHeight = 0.15f;
-
+    private float interactDistance = 0.4f;
+    private Vector3 lastInteractDir;
+    
     private void Awake() {
         spriteRenderer = transform.Find("PlayerVisual").GetComponent<SpriteRenderer>();
 
@@ -21,6 +23,32 @@ public class Player : MonoBehaviour
     }
 
     private void Update() {
+        HandleMovement();
+        if (Input.GetKeyDown(KeyCode.E)) { // TODO: stop using legacy input system
+            HandleInteractions();
+        }
+    }
+
+    public bool IsWalking() {
+        return isWalking;
+    }
+
+    private void HandleInteractions() {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero) {
+            lastInteractDir = moveDir;
+        }
+
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance)) {
+            if (raycastHit.transform.TryGetComponent(out IInteractable interactable)) {
+                interactable.Interact();
+            }
+        }
+    }
+    private void HandleMovement() {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
@@ -55,9 +83,5 @@ public class Player : MonoBehaviour
         
         // Set sprite orientation to face direction moving towards
         spriteRenderer.flipX = inputVector.x == 0 ? spriteRenderer.flipX : inputVector.x < 0;
-    }
-
-    public bool IsWalking() {
-        return isWalking;
     }
 }
