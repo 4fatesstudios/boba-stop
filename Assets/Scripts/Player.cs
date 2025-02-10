@@ -7,13 +7,19 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1.2f;
     [SerializeField] private GameInput gameInput;
+    
     private SpriteRenderer spriteRenderer;
     private bool isWalking;
-    private float playerRadius = 0.1f;
-    private float playerHeight = 0.15f;
-    private float interactDistance = 0.4f;
+    private readonly float playerRadius = 0.1f;
+    private readonly float playerHeight = 0.15f;
+    private readonly float interactDistance = 0.4f;
     private Vector3 lastInteractDir;
-    
+    private IInteractable selectedInteractable;
+
+    private void Start() {
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+    }
+
     private void Awake() {
         spriteRenderer = transform.Find("PlayerVisual").GetComponent<SpriteRenderer>();
 
@@ -24,9 +30,11 @@ public class Player : MonoBehaviour
 
     private void Update() {
         HandleMovement();
-        if (Input.GetKeyDown(KeyCode.E)) { // TODO: stop using legacy input system
-            HandleInteractions();
-        }
+        HandleInteractions();
+    }
+    
+    private void GameInput_OnInteractAction(object sender, EventArgs e) {
+        selectedInteractable?.Interact();
     }
 
     public bool IsWalking() {
@@ -44,8 +52,12 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance)) {
             if (raycastHit.transform.TryGetComponent(out IInteractable interactable)) {
-                interactable.Interact();
+                selectedInteractable = interactable;
+            } else {
+                selectedInteractable = null;
             }
+        } else {
+            selectedInteractable = null;
         }
     }
     private void HandleMovement() {
