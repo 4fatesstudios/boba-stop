@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
+    public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;
+
+    public class OnSelectedInteractableChangedEventArgs : EventArgs {
+        public IInteractable selectedInteractable;
+    }
+    
     [SerializeField] private float moveSpeed = 1.2f;
     [SerializeField] private GameInput gameInput;
     
@@ -16,13 +24,17 @@ public class Player : MonoBehaviour
     private Vector3 lastInteractDir;
     private IInteractable selectedInteractable;
 
+    private void Awake() {
+        if (Instance != null) {
+            Debug.LogError($"{nameof(Player)} already exists.");
+        }
+        Instance = this;
+    }
+    
     private void Start() {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
-    }
-
-    private void Awake() {
+        
         spriteRenderer = transform.Find("PlayerVisual").GetComponent<SpriteRenderer>();
-
         if (spriteRenderer == null) {
             Debug.LogError("SpriteRenderer not found!");
         }
@@ -52,12 +64,12 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance)) {
             if (raycastHit.transform.TryGetComponent(out IInteractable interactable)) {
-                selectedInteractable = interactable;
+                SetSelectedInteractable(interactable);
             } else {
-                selectedInteractable = null;
+                SetSelectedInteractable(null);
             }
         } else {
-            selectedInteractable = null;
+            SetSelectedInteractable(null);
         }
     }
     private void HandleMovement() {
@@ -95,5 +107,13 @@ public class Player : MonoBehaviour
         
         // Set sprite orientation to face direction moving towards
         spriteRenderer.flipX = inputVector.x == 0 ? spriteRenderer.flipX : inputVector.x < 0;
+    }
+
+    private void SetSelectedInteractable(IInteractable interactable) {
+        this.selectedInteractable = interactable;
+        
+        OnSelectedInteractableChanged?.Invoke(this, new OnSelectedInteractableChangedEventArgs {
+            selectedInteractable = selectedInteractable
+        });
     }
 }
