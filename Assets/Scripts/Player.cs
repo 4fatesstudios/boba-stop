@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private readonly float playerRadius = 0.1f;
     private readonly float playerHeight = 0.15f;
-    private readonly float interactDistance = 0.4f;
+    private readonly float interactDistance = 0.5f;
     private Vector3 lastInteractDir;
     private IInteractable selectedInteractable;
 
@@ -54,24 +54,29 @@ public class Player : MonoBehaviour
     }
 
     private void HandleInteractions() {
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
-        
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-
-        if (moveDir != Vector3.zero) {
-            lastInteractDir = moveDir;
-        }
-
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance)) {
-            if (raycastHit.transform.TryGetComponent(out IInteractable interactable)) {
-                SetSelectedInteractable(interactable);
-            } else {
-                SetSelectedInteractable(null);
+        List<IInteractable> interactableList = new List<IInteractable>();
+        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactDistance);
+        foreach (Collider collider in colliderArray) {
+            if (collider.TryGetComponent(out IInteractable interactable)) {
+                interactableList.Add(interactable);
             }
-        } else {
-            SetSelectedInteractable(null);
         }
+        
+        selectedInteractable = null;
+        foreach (IInteractable interactable in interactableList) {
+            if (selectedInteractable == null) {
+                selectedInteractable = interactable;
+            } else {
+                if (Vector3.Distance(transform.position, interactable.GetTransform().position) <
+                    Vector3.Distance(transform.position, selectedInteractable.GetTransform().position)) {
+                    selectedInteractable = interactable;
+                }
+            }
+        }
+        
+        SetSelectedInteractable(selectedInteractable);
     }
+    
     private void HandleMovement() {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         
