@@ -8,20 +8,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject dropped = eventData.pointerDrag;
-        DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-        draggableItem.parentAfterDrag = transform;
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (transform.childCount == 0)
+        {
+            GameObject dropped = eventData.pointerDrag;
+            DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
+            draggableItem.parentAfterDrag = transform;
+        }
     }
 }
