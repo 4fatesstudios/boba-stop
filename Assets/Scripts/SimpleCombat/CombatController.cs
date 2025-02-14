@@ -36,7 +36,8 @@ namespace SimpleCombat {
                 }
             }
         }
-
+        
+        // TODO: implement event notification system for taking damage/dying, possibly use interface to implement methods
         private void TakeDamage(int damage) {
             healthComponent.SetCurrentHealth(healthComponent.GetCurrentHealth() - damage);
             if (healthComponent.GetCurrentHealth() <= 0) {
