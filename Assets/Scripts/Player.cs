@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     
     [SerializeField] private float moveSpeed = 1.2f;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private SimpleCombat.CombatController combatController; // TESTING ONLY, DELETE LATER
+    [SerializeField] private SimpleCombat.Components.Attack attack; // TESTING ONLY, DELETE LATER
     
     private SpriteRenderer spriteRenderer;
     private bool isWalking;
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
     private void Update() {
         HandleMovement();
         HandleInteractions();
+        HandleCombat();
     }
     
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
@@ -51,6 +54,12 @@ public class Player : MonoBehaviour
 
     public bool IsWalking() {
         return isWalking;
+    }
+
+    private void HandleCombat() {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            combatController.Attack(attack);
+        }
     }
 
     private void HandleInteractions() {
