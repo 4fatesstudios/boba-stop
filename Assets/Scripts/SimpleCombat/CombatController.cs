@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SimpleCombat {
@@ -8,10 +9,18 @@ namespace SimpleCombat {
     }
 
     public class CombatController : MonoBehaviour {
+        
         [SerializeField] private Faction faction = Faction.Unset;
         [SerializeField] private Components.Health healthComponent = null;
         [SerializeField] private Components.Hitbox hitboxComponent = null;
+        
+        private IDamageable damageable;
 
+        private void Awake() {
+            if (!TryGetComponent(out damageable)) {
+                Debug.LogWarning("No interface of type " + typeof(IDamageable) + " in " + gameObject.name);
+            }
+        }
         private void Start() {
             if (faction == Faction.Unset) {
                 Debug.LogWarning("SimpleCombat: Faction is unset on " + gameObject.name);
@@ -31,22 +40,21 @@ namespace SimpleCombat {
                 if (collider is BoxCollider &&
                     collider.gameObject.TryGetComponent(out CombatController combatController)) {
                     if (combatController.faction != faction) {
-                        combatController.TakeDamage(attackComponent.GetDamage());
+                        combatController.TakeDamage(attackComponent, this);
                     }
                 }
             }
         }
         
-        // TODO: implement event notification system for taking damage/dying, possibly use interface to implement methods
-        private void TakeDamage(int damage) {
-            healthComponent.SetCurrentHealth(healthComponent.GetCurrentHealth() - damage);
+        private void TakeDamage(Components.Attack attackComponent, CombatController source) {
+            healthComponent.SetCurrentHealth(Mathf.Max(0, healthComponent.GetCurrentHealth() - attackComponent.GetDamage()));
             if (healthComponent.GetCurrentHealth() <= 0) {
-                // notify gameobject of death
-                Debug.Log("dies");
+                Debug.Log("lethal damage taken");
+                damageable?.OnDeath(attackComponent, source);
             }
             else {
-                // notify gameobject of damage taken
-                Debug.Log("take damage");
+                Debug.Log("non-lethal damage taken");
+                damageable?.OnDamageTaken(attackComponent, source);
             }
         }
     }

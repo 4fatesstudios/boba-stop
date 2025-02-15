@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleCombat;
+using SimpleCombat.Components;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     public static Player Instance { get; private set; }
 
@@ -129,5 +131,12 @@ public class Player : MonoBehaviour
         OnSelectedInteractableChanged?.Invoke(this, new OnSelectedInteractableChangedEventArgs {
             selectedInteractable = selectedInteractable
         });
+    }
+
+    public void OnDamageTaken(Attack attackComponent, CombatController source) {
+        throw new NotImplementedException();
+    }
+    public void OnDeath(Attack attackComponent, CombatController source) {
+        throw new NotImplementedException();
     }
 }
