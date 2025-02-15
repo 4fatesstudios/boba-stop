@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public Sprite image;
     public ItemType itemType;
     public ActionType actionType;
+    public bool stackable = true;
     
     // weapon
     public bool isWeapon;
@@ -25,8 +26,6 @@ public class Item : ScriptableObject
     // energy container
     public bool isEnergyContainer;
     public int energyAmount;
-
-    public bool stackable = true;
 }
 
 public enum ItemType
