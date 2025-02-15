@@ -2,17 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+public class Item : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string itemName;
+    public Sprite image;
+    public ItemType itemType;
+    public ActionType actionType;
+    
+    // weapon
+    public bool isWeapon;
+    public int damage;
+    
+    // armor
+    public bool isArmor;
+    public int defense;
+    
+    // health container
+    public bool isHealthContainer;
+    public int healthAmount;
+    
+    // energy container
+    public bool isEnergyContainer;
+    public int energyAmount;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool stackable = true;
+}
+
+public enum ItemType
+{
+    Weapon,
+    Armor,
+    HealthContainer,
+    EnergyContainer,
+}
+
+public enum ActionType
+{
+    None,
+    Equip,
+    Consume,
 }
