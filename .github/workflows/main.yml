@@ -20,12 +20,6 @@ jobs:
         with:
           lfs: true
 
-      # Ensure Test Jobs Have Proper Access to Library
-      - name: Fix Permissions Before Tests
-        run: |
-          sudo chmod -R 777 ${{ matrix.testMode }}/Library
-          sudo chown -R $USER:$USER ${{ matrix.testMode }}/Library
-
       # Cache Library folder to speed up builds
       - name: Cache Unity Library
         uses: actions/cache@v3
@@ -101,10 +95,3 @@ jobs:
         with:
           name: Build-Windows
           path: build/StandaloneWindows64
-
-      # **Fix Library Permissions After Build**
-      - name: Fix Library Permissions
-        if: always()
-        run: |
-          sudo chmod -R 777 Library
-          sudo chown -R $USER:$USER Library
