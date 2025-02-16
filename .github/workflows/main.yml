@@ -29,6 +29,10 @@ jobs:
           restore-keys: |
             Library-${{ matrix.testMode }}-
 
+      # Fix permissions before running tests
+      - name: Fix Library Permissions Before Tests
+        run: sudo chmod -R 777 ${{ matrix.testMode }}/Library
+
       # Run tests using GameCI's unity-test-runner
       - name: Run tests
         uses: game-ci/unity-test-runner@v4
@@ -44,6 +48,12 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.testMode }} Test Results
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+my.assembly.*'
+          dockerOptions: "--user $(id -u):$(id -g)"
+
+      # Reset permissions after tests
+      - name: Reset Permissions After Tests
+        if: always()
+        run: sudo chown -R $USER:$USER $GITHUB_WORKSPACE
 
       # Upload test results and coverage reports
       - name: Upload Test Results
@@ -79,6 +89,10 @@ jobs:
           restore-keys: |
             Library-Windows-
 
+      # Fix permissions before build
+      - name: Fix Library Permissions Before Build
+        run: sudo chmod -R 777 Library
+
       # Build project for Windows using GameCI's unity-builder
       - name: Build project for Windows
         uses: game-ci/unity-builder@v4
@@ -88,6 +102,12 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
+          dockerOptions: "--user $(id -u):$(id -g)"
+
+      # Reset permissions after build
+      - name: Reset Permissions After Build
+        if: always()
+        run: sudo chown -R $USER:$USER $GITHUB_WORKSPACE
 
       # Upload build artifact (Windows build)
       - name: Upload Windows Build Artifact
