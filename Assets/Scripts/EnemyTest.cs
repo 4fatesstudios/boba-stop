@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleCombat;
@@ -6,8 +7,14 @@ using UnityEngine;
 
 public class EnemyTest : MonoBehaviour, IDamageable
 {
+    private DamageFlash damageFlash;
+    public void Start() {
+        damageFlash = GetComponent<DamageFlash>();
+    }
+
     public void OnDamageTaken(Attack attackComponent, CombatController source) {
         Debug.Log("enemy test has taken damage!");
+        damageFlash.CallDamageFlash();
     }
     public void OnDeath(Attack attackComponent, CombatController source) {
         Debug.Log("enemy test has died!");
