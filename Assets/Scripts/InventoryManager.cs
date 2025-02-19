@@ -6,15 +6,14 @@ public class InventoryManager : MonoBehaviour
     public InventorySlot armorSlot;
     
     public InventorySlot[] inventorySlots;
+    public GameObject inventoryItemPrefab;
 
     public void AddItem(Item item)
     {
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
+        for (int i = 0; i < inventorySlots.Length; i++) {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null)
-            {
+            if (itemInSlot == null) {
                 SpawnNewItem(item, slot);
                 return;
             }
@@ -23,22 +22,8 @@ public class InventoryManager : MonoBehaviour
 
     void SpawnNewItem(Item item, InventorySlot slot)
     {
-        
+        GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+        InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
+        inventoryItem.InitializeItem(item);
     }
-
-    // public void AddItemToSlot(GameObject item, InventorySlot slot)
-    // {
-    //     InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-    //
-    //     if (inventoryItem != null && slot.IsValidForSlot(inventoryItem))
-    //     {
-    //         inventoryItem.parentAfterDrag = slot.transform;
-    //         slot.AddItem(item);
-    //         Debug.Log($"{inventoryItem.GetComponent<Item>().itemName} added to the {slot.allowedItemType} slot!");
-    //     }
-    //     else
-    //     {
-    //         Debug.LogWarning("This item cannot be placed in this slot.");
-    //     }
-    // }
 }
