@@ -8,16 +8,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Item item;
     public Image image;
     [HideInInspector] public Transform parentAfterDrag;
-
-    private void Start()
-    {
-        InitializeItem(item);
-    }
-
-    public void InitializeItem(Item newItem)
-    {
-        image.sprite = newItem.image;
-    }
     
     public void OnBeginDrag(PointerEventData eventData)
     {

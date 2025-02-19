@@ -11,26 +11,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             GameObject dropped = eventData.pointerDrag;
             InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-
-            if (inventoryItem != null && IsValidForSlot(inventoryItem))
-            {
-                inventoryItem.parentAfterDrag = transform;
-            }
-            else
-            {
-                Debug.LogWarning("This item cannot be placed in this slot.");
-            }
+            inventoryItem.parentAfterDrag = transform;
         }
-    }
-
-    // check if the item is valid for the slot based on its type
-    private bool IsValidForSlot(InventoryItem inventoryItem)
-    {
-        Item item = inventoryItem.GetComponent<Item>();
-        if (item != null && item.itemType == allowedItemType)
-        {
-            return true;
-        }
-        return false;
     }
 }
