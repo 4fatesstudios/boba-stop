@@ -1,16 +1,23 @@
-name: Build for Windows
+name: Build project
 
 on: [workflow_dispatch]
 
 jobs:
-  buildWindows:
-    name: Build for Windows
+  buildForAllSupportedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
     runs-on: [self-hosted]
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows64
     steps:
       # Checkout repository with LFS
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           lfs: true
 
       # Cache Unity Library
@@ -18,9 +25,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: Library
-          key: Library-Windows-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-Windows-
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
 
       # Build project for Windows using GameCI's unity-builder
       - name: Build project for Windows
@@ -30,12 +36,12 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: StandaloneWindows64
+          targetPlatform: ${{ matrix.targetPlatform }}
           runAsHostUser: true
 
       # Upload build artifact (Windows build)
       - name: Upload Windows Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Build-Windows
-          path: build/StandaloneWindows64
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
