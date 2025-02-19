@@ -28,8 +28,8 @@ jobs:
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
 
-      # Build project for Windows using GameCI's unity-builder
-      - name: Build project for Windows
+      # Build project using GameCI's unity-builder
+      - name: Build project
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -39,8 +39,8 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           runAsHostUser: true
 
-      # Upload build artifact (Windows build)
-      - name: Upload Windows Build Artifact
+      # Upload build artifacs
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Build-${{ matrix.targetPlatform }}
