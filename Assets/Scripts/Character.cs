@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleCombat;
 using SimpleCombat.Components;
-using UnityEditor.UI;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour, IDamageable {
