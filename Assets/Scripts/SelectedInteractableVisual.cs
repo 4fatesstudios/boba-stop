@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SelectedInteractableVisual : MonoBehaviour {
     
-    [SerializeField] private GameObject gameObject;
+    [SerializeField] private GameObject topLevelGameObject;
     [SerializeField] private GameObject visualGameObject;
 
     private IInteractable interactable;
 
     private void Awake() {
-        interactable = gameObject.GetComponent<IInteractable>();
+        interactable = topLevelGameObject.GetComponent<IInteractable>();
     }
     
     private void Start() {
