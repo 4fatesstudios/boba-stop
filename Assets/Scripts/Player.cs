@@ -33,10 +33,8 @@ public class Player : Character
         Instance = this;
     }
     
-    private void Start() {
-        damageFlash = GetComponent<DamageFlash>();
-        combatController = GetComponent<CombatController>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    protected override void Start() {
+        base.Start();
         
         gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
