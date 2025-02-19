@@ -11,8 +11,8 @@ namespace SimpleCombat {
     public class CombatController : MonoBehaviour {
         
         [SerializeField] private Faction faction = Faction.Unset;
-        [SerializeField] private Components.Health healthComponent = null;
-        [SerializeField] private Components.Hitbox hitboxComponent = null;
+        private Components.Health healthComponent;
+        private Components.Hitbox hitboxComponent;
         
         private IDamageable damageable;
 
@@ -25,6 +25,8 @@ namespace SimpleCombat {
             if (faction == Faction.Unset) {
                 Debug.LogWarning("SimpleCombat: Faction is unset on " + gameObject.name);
             }
+            healthComponent = GetComponent<Components.Health>();
+            hitboxComponent = GetComponent<Components.Hitbox>();
             if (healthComponent == null || hitboxComponent == null) {
                 Debug.LogWarning("SimpleCombat: No health/hitbox component found on " + gameObject.name);
             }

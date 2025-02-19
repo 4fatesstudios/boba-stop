@@ -5,7 +5,7 @@ using SimpleCombat;
 using SimpleCombat.Components;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : Character
 {
     public static Player Instance { get; private set; }
 
@@ -17,11 +17,9 @@ public class Player : MonoBehaviour, IDamageable
     
     [SerializeField] private float moveSpeed = 1.2f;
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private SimpleCombat.CombatController combatController; // TESTING ONLY, DELETE LATER
-    [SerializeField] private SimpleCombat.Components.Attack attack; // TESTING ONLY, DELETE LATER
+    [SerializeField] private Attack attack; // TESTING ONLY, DELETE LATER
     
-    private SpriteRenderer spriteRenderer;
-    private bool isWalking;
+    
     private readonly float playerRadius = 0.1f;
     private readonly float playerHeight = 0.15f;
     private readonly float interactDistance = 0.5f;
@@ -36,12 +34,11 @@ public class Player : MonoBehaviour, IDamageable
     }
     
     private void Start() {
-        gameInput.OnInteractAction += GameInput_OnInteractAction;
+        damageFlash = GetComponent<DamageFlash>();
+        combatController = GetComponent<CombatController>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         
-        spriteRenderer = transform.Find("PlayerVisual").GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null) {
-            Debug.LogError("SpriteRenderer not found!");
-        }
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
     private void Update() {
@@ -52,10 +49,6 @@ public class Player : MonoBehaviour, IDamageable
     
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
         selectedInteractable?.Interact();
-    }
-
-    public bool IsWalking() {
-        return isWalking;
     }
 
     private void HandleCombat() {
@@ -122,7 +115,7 @@ public class Player : MonoBehaviour, IDamageable
         isWalking = moveDir != Vector3.zero;
         
         // Set sprite orientation to face direction moving towards
-        spriteRenderer.flipX = inputVector.x == 0 ? spriteRenderer.flipX : inputVector.x < 0;
+        FlipSpriteToForwardVector(inputVector);
     }
 
     private void SetSelectedInteractable(IInteractable interactable) {
@@ -132,11 +125,5 @@ public class Player : MonoBehaviour, IDamageable
             selectedInteractable = selectedInteractable
         });
     }
-
-    public void OnDamageTaken(Attack attackComponent, CombatController source) {
-        throw new NotImplementedException();
-    }
-    public void OnDeath(Attack attackComponent, CombatController source) {
-        throw new NotImplementedException();
-    }
+    
 }
