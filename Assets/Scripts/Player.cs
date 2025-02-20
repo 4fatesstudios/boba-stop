@@ -43,6 +43,20 @@ public class Player : Character
         HandleMovement();
         HandleInteractions();
         HandleCombat();
+
+        // quit application
+        if (Input.GetKeyDown("escape")) {
+            Quit();
+        }
+    }
+
+    private void Quit() {
+        #if UNITY_STANDALONE
+            Application.Quit();
+        #endif
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
     
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
@@ -52,7 +66,13 @@ public class Player : Character
     private void HandleCombat() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             combatController.Attack(attack);
+            OnAttack();
+            gameInput.DisableAllInputs();
         }
+    }
+
+    public override void OnAttackAnimationFinish() {
+        gameInput.EnableAllInputs();
     }
 
     private void HandleInteractions() {
