@@ -27,7 +27,7 @@ public class EnemyKnifeAnimator : MonoBehaviour
         animator.SetTrigger(ON_ATTACK);
     }
     
-    public void OnAttackAnimationEnd() {
+    public void OnAttackAnimationAnimatorFinish() {
         Debug.Log("Attack animation finished");
         character.OnAttackAnimationFinish();
     }

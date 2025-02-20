@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleCombat;
+using SimpleCombat.Components;
 using UnityEngine;
 using UnityEngine.AI;
 public class EnemyKnife : Enemy
@@ -17,6 +19,8 @@ public class EnemyKnife : Enemy
     // Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public Attack attack; // TESTING, IMPLEMENT BETTER LATER
+    [SerializeField] public GameObject attackGameObject;
     
     // States
     public float sightRange, attackRange;
@@ -27,6 +31,7 @@ public class EnemyKnife : Enemy
         // player = Player.Instance.gameObject.transform; \\ use in Start
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        attack = attackGameObject.GetComponent<Attack>();
         allowStateChange = true;
     }
 
@@ -78,8 +83,16 @@ public class EnemyKnife : Enemy
         // transform.LookAt(player.position);
 
         if (!alreadyAttacked) {
-            Debug.Log("Attacking!");
             allowStateChange = false;
+
+            // set Transform location of child gameObject attackGameObject to normalized vector of this gameObject to Player.Instance * 0.2
+            // Calculate the direction from this GameObject to the Player.Instance
+            Vector3 directionToPlayer = (Player.Instance.transform.position - transform.position).normalized;
+            // Set the position of the child attackGameObject
+            attackGameObject.transform.position = transform.position + directionToPlayer * 0.2f;
+
+            combatController.Attack(attack);
+
             OnAttack();
             
             alreadyAttacked = true;

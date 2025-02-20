@@ -30,4 +30,18 @@ public class GameInput : MonoBehaviour
         
         return inputVector;
     }
+
+    /// <summary>
+    /// Enables all input actions.
+    /// </summary>
+    public void EnableAllInputs() {
+        playerInputActions.Enable();
+    }
+
+    /// <summary>
+    /// Disables all input actions.
+    /// </summary>
+    public void DisableAllInputs() {
+        playerInputActions.Disable();
+    }
 }
