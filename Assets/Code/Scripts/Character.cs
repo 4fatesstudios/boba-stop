@@ -34,10 +34,9 @@ public abstract class Character : MonoBehaviour, IDamageable {
         return isWalking;
     }
 
-    protected void OnAttack() {
+    protected virtual void OnAttack() {
         OnAttackAction?.Invoke(this, EventArgs.Empty);
     }
 
     public virtual void OnAttackAnimationFinish() { }
-
 }

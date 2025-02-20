@@ -2,15 +2,20 @@ using UnityEngine;
 
 namespace SimpleCombat.Components {
     public class Attack : MonoBehaviour {
-        [SerializeField] private int damage = 0;
-        [SerializeField] private BoxCollider hurtbox = null;
+        [SerializeField] private int damage;
+        [SerializeField] private BoxCollider attackbox;
+        [SerializeField] private CombatController combatController;
 
         public int GetDamage() {
             return damage;
         }
 
-        public BoxCollider GetHurtbox() {
-            return hurtbox;
+        public BoxCollider GetAttackbox() {
+            return attackbox;
+        }
+        
+        public CombatController GetCombatController() {
+            return combatController;
         }
     }
 }

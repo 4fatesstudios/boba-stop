@@ -69,7 +69,7 @@ public class Player : Character
     private void HandleCombat() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             combatController.Attack(attack);
-            OnAttack();
+            base.OnAttack();
             gameInput.DisableAllInputs();
         }
     }

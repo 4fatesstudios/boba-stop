@@ -28,7 +28,7 @@ public class PlayerAnimator : MonoBehaviour
     }
     
     public void OnAttackAnimationAnimatorFinish() {
-        Debug.Log("Attack animation finished");
+        // Debug.Log("Attack animation finished");
         character.OnAttackAnimationFinish();
     }
 }

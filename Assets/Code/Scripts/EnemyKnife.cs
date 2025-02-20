@@ -41,7 +41,7 @@ public class EnemyKnife : Enemy
         
         if (!playerInSightRange && !playerInAttackRange && allowStateChange) Patrolling();
         if (playerInSightRange && !playerInAttackRange && allowStateChange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange && allowStateChange) AttackPlayer();
+        if (playerInAttackRange && playerInSightRange && allowStateChange) OnAttack();
         
         FlipSpriteToForwardVector(agent.desiredVelocity.normalized);
         isWalking = agent.velocity.sqrMagnitude > 0;
@@ -77,7 +77,7 @@ public class EnemyKnife : Enemy
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer() {
+    protected override void OnAttack() {
         agent.SetDestination(transform.position);
         
         // transform.LookAt(player.position);
@@ -85,15 +85,14 @@ public class EnemyKnife : Enemy
         if (!alreadyAttacked) {
             allowStateChange = false;
 
-            // set Transform location of child gameObject attackGameObject to normalized vector of this gameObject to Player.Instance * 0.2
             // Calculate the direction from this GameObject to the Player.Instance
             Vector3 directionToPlayer = (Player.Instance.transform.position - transform.position).normalized;
             // Set the position of the child attackGameObject
             attackGameObject.transform.position = transform.position + directionToPlayer * 0.2f;
 
+            Debug.Log("attack");
             combatController.Attack(attack);
-
-            OnAttack();
+            base.OnAttack();
             
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
