@@ -19,8 +19,8 @@ public class EnemyKnife : Enemy
     // Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public Attack attack; // TESTING, IMPLEMENT BETTER LATER
-    [SerializeField] public GameObject attackGameObject;
+    private Attack attack; // TESTING, IMPLEMENT BETTER LATER
+    [SerializeField] public GameObject attackGameObject; // TESTING, IMPLEMENT BETTER LATER
     
     // States
     public float sightRange, attackRange;

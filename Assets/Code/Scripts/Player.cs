@@ -17,7 +17,8 @@ public class Player : Character
     
     [SerializeField] private float moveSpeed = 1.2f;
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private Attack attack; // TESTING ONLY, DELETE LATER
+    [SerializeField] private GameObject attackGameObject;
+    private Attack attack; // TESTING ONLY, DELETE LATER
     
     
     private readonly float playerRadius = 0.1f;
@@ -31,6 +32,8 @@ public class Player : Character
             Debug.LogError($"{nameof(Player)} already exists.");
         }
         Instance = this;
+
+        attack = attackGameObject.GetComponent<Attack>();
     }
     
     protected override void Start() {

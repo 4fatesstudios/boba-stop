@@ -12,6 +12,7 @@ namespace SimpleCombat {
         
         [SerializeField] private Faction faction = Faction.Unset;
         private Components.Health healthComponent;
+        [SerializeField] private GameObject gameObjectHitbox;
         private Components.Hitbox hitboxComponent;
         
         private IDamageable damageable;
@@ -26,23 +27,48 @@ namespace SimpleCombat {
                 Debug.LogWarning("SimpleCombat: Faction is unset on " + gameObject.name);
             }
             healthComponent = GetComponent<Components.Health>();
-            hitboxComponent = GetComponent<Components.Hitbox>();
+            hitboxComponent = gameObjectHitbox.GetComponent<Components.Hitbox>();
             if (healthComponent == null || hitboxComponent == null) {
                 Debug.LogWarning("SimpleCombat: No health/hitbox component found on " + gameObject.name);
             }
         }
         
+        // public void Attack(Components.Attack attackComponent) {
+        //     var colliders = Physics.OverlapBox(
+        //         attackComponent.GetHurtbox().bounds.center,
+        //         attackComponent.GetHurtbox().bounds.extents,
+        //         attackComponent.GetHurtbox().transform.rotation);
+            
+        //     foreach (var collider in colliders) {
+        //         if (collider is BoxCollider &&
+        //             collider.gameObject.gameObject.TryGetComponent(out CombatController combatController)) {
+        //             if (combatController.faction != faction) {
+        //                 combatController.TakeDamage(attackComponent, this);
+        //             }
+        //         }
+        //     }
+        // }
         public void Attack(Components.Attack attackComponent) {
+            // Get all colliders within the attack's hurtbox
             var colliders = Physics.OverlapBox(
                 attackComponent.GetHurtbox().bounds.center,
                 attackComponent.GetHurtbox().bounds.extents,
                 attackComponent.GetHurtbox().transform.rotation);
-            
+
+            // Iterate through all colliders
             foreach (var collider in colliders) {
-                if (collider is BoxCollider &&
-                    collider.gameObject.TryGetComponent(out CombatController combatController)) {
-                    if (combatController.faction != faction) {
-                        combatController.TakeDamage(attackComponent, this);
+                // Check if the collider is a BoxCollider and if its GameObject is named "Hitbox"
+                if (collider is BoxCollider && collider.gameObject.name == "Hitbox") {
+                    // Get the parent GameObject of the "Hitbox"
+                    GameObject parentObject = collider.transform.parent.gameObject;
+
+                    // Try to get the CombatController component from the parent GameObject
+                    if (parentObject.TryGetComponent(out CombatController combatController)) {
+                        // Check if the combatController's faction is different from this object's faction
+                        if (combatController.faction != faction) {
+                            // Apply damage to the target
+                            combatController.TakeDamage(attackComponent, this);
+                        }
                     }
                 }
             }

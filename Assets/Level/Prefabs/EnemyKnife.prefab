@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1941487145710526435}
   - component: {fileID: 300289545327173637}
   - component: {fileID: 7231804019970499828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -91,6 +91,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 96fcd54ab9b8cef45a4db7fe01a8abe2, type: 2}
+    - target: {fileID: 2652607876812138044, guid: 5d7ccb618d152b740b81c9fd36e17f38,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652607876812138044, guid: 5d7ccb618d152b740b81c9fd36e17f38,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.63
+      objectReference: {fileID: 0}
     - target: {fileID: 4050204583257080242, guid: 5d7ccb618d152b740b81c9fd36e17f38,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -105,6 +115,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyKnife
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982887697908059479, guid: 5d7ccb618d152b740b81c9fd36e17f38,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5651994326377302166, guid: 5d7ccb618d152b740b81c9fd36e17f38,
         type: 3}
@@ -228,7 +243,6 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 4
   timeBetweenAttacks: 1
-  attack: {fileID: 0}
   attackGameObject: {fileID: 503620794871738232}
   sightRange: 2
   attackRange: 0.4
