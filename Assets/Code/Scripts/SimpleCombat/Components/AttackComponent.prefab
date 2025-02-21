@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   attackbox: {fileID: -1088810940280906374}
+  combatController: {fileID: 0}
 --- !u!65 &-1088810940280906374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57,7 +58,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
