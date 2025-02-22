@@ -36,12 +36,12 @@ PrefabInstance:
     - target: {fileID: 8067089985510938981, guid: a1d8df55848b13945ae67667c1dc804e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2
+      value: 0.2058
       objectReference: {fileID: 0}
     - target: {fileID: 8067089985510938981, guid: a1d8df55848b13945ae67667c1dc804e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0295
       objectReference: {fileID: 0}
     - target: {fileID: 8067089985510938981, guid: a1d8df55848b13945ae67667c1dc804e,
         type: 3}
@@ -166,12 +166,22 @@ PrefabInstance:
     - target: {fileID: 1741763931515413843, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328418501623656787, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0251
       objectReference: {fileID: 0}
     - target: {fileID: 3034448290485047516, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       propertyPath: m_Height
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3034448290485047516, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3718228382492485605, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
@@ -209,6 +219,16 @@ PrefabInstance:
       propertyPath: faction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7293596607773911478, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0104
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293596607773911478, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 7457978666611337182, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -224,8 +244,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.27
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 3034448290485047516, guid: a365969b644fec645b2436138e6bf567, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8974075098166087979, guid: a365969b644fec645b2436138e6bf567, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1396909732984725650, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
@@ -236,6 +258,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2117329721287885076}
+    - targetCorrespondingSourceObject: {fileID: 1741763931515413843, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1670999901581763595}
     - targetCorrespondingSourceObject: {fileID: 3159689981241414268, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       insertIndex: -1
@@ -274,6 +300,32 @@ MonoBehaviour:
   moveSpeed: 1.2
   gameInput: {fileID: 0}
   attackGameObject: {fileID: 8091952532321897365}
+--- !u!143 &1670999901581763595
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882524982614940487}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 448
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0.3
+  m_Radius: 0.1
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.01
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &5227299878878355078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1396909732984725650, guid: a365969b644fec645b2436138e6bf567,
