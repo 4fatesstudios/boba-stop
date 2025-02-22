@@ -19,5 +19,13 @@ namespace BobaStop.Items {
         public Sprite itemSprite;
         public bool itemStackable = true;
         public Rarity itemRarity;
+
+        public static bool operator==(Item a, Item b) {
+            return a?.itemName == b?.itemName;
+        }
+
+        public static bool operator !=(Item a, Item b) {
+            return a?.itemName != b?.itemName;
+        }
     }
 }
