@@ -20,6 +20,10 @@ namespace BobaStop.Characters.Animation {
         }
 
         protected void Update() {
+            SetWalkingAnimation();
+        }
+
+        protected void SetWalkingAnimation() {
             animator.SetBool(IS_WALKING, character.IsWalking());
         }
 
