@@ -27,5 +27,16 @@ namespace BobaStop.Items {
         public static bool operator !=(Item a, Item b) {
             return a?.itemName != b?.itemName;
         }
+
+        public override bool Equals(object obj) {
+            if (obj is Item item) {
+                return this == item;
+            }
+            return false;
+        }
+
+        public override int GetHashCode() {
+            return itemName?.GetHashCode() ?? 0;
+        }
     }
 }
