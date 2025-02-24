@@ -79,7 +79,7 @@ namespace BobaStop.Characters {
             agent.SetDestination(player.position);
         }
 
-        protected override void OnAttack() {
+        public override void OnAttack() {
             agent.SetDestination(transform.position);
 
             // transform.LookAt(player.position);
@@ -101,7 +101,7 @@ namespace BobaStop.Characters {
             }
         }
 
-        public override void OnAttackAnimationFinish() {
+        public override void OnAttackFinish() {
             allowStateChange = true;
         }
 

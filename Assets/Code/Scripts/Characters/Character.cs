@@ -37,10 +37,10 @@ namespace BobaStop.Characters {
             return isWalking;
         }
 
-        protected virtual void OnAttack() {
+        public virtual void OnAttack() {
             OnAttackAction?.Invoke(this, EventArgs.Empty);
         }
 
-        public virtual void OnAttackAnimationFinish() { }
+        public virtual void OnAttackFinish() { }
     }
 }
