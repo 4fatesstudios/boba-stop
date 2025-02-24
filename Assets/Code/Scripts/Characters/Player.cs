@@ -75,7 +75,7 @@ namespace BobaStop.Characters {
             }
         }
 
-        public override void OnAttackAnimationFinish() {
+        public override void OnAttackFinish() {
             gameInput.EnableAllInputs();
         }
 
