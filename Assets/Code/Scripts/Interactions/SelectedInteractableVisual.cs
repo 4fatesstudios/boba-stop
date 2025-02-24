@@ -6,7 +6,8 @@ namespace BobaStop.Interactions {
     public class SelectedInteractableVisual : MonoBehaviour {
 
         [SerializeField] private GameObject topLevelGameObject;
-        [SerializeField] private GameObject visualGameObject;
+        [SerializeField] private GameObject selectedVisualGameObject;
+        [SerializeField] private GameObject unselectedVisualGameObject;
 
         private IInteractable interactable;
 
@@ -20,19 +21,21 @@ namespace BobaStop.Interactions {
 
         void Player_OnSelectedInteractableChanged(object sender, Characters.Player.OnSelectedInteractableChangedEventArgs e) {
             if (e.selectedInteractable == interactable) {
-                Show();
+                Select();
             }
             else {
-                Hide();
+                Unselect();
             }
         }
 
-        private void Show() {
-            visualGameObject.SetActive(true);
+        private void Select() {
+            selectedVisualGameObject.SetActive(true);
+            unselectedVisualGameObject.SetActive(false);
         }
 
-        private void Hide() {
-            visualGameObject.SetActive(false);
+        private void Unselect() {
+            selectedVisualGameObject.SetActive(false);
+            unselectedVisualGameObject.SetActive(true);
         }
     }
 }
