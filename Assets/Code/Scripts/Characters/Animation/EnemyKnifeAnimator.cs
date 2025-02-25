@@ -4,33 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace BobaStop.Characters.Animation {
-    public class EnemyKnifeAnimator : MonoBehaviour {
-        private const string IS_WALKING = "IsWalking";
-        private const string ON_ATTACK = "OnAttack";
-
-        [SerializeField] private Character character;
-        private Animator animator;
-
-        private void Awake() {
-            animator = GetComponent<Animator>();
+    public class EnemyKnifeAnimator : CharacterAnimator {
+        // call from specific associated animation frame event
+        public override void OnAttackAnimation_Attack() {
+            Debug.Log("enemy attack called");
+            character.OnAttack();
         }
 
-        private void Start() {
-            character.OnAttackAction += Character_OnHandleAttackAction;
+        // call from specific associated animation frame event
+        public override void OnAttackAnimation_Finish() {
+            Debug.Log("enemy animation finish called");
+            character.OnAttackFinish();
         }
-
-        private void Update() {
-            animator.SetBool(IS_WALKING, character.IsWalking());
-        }
-
-        private void Character_OnHandleAttackAction(object sender, EventArgs e) {
-            animator.SetTrigger(ON_ATTACK);
-        }
-
-        public void OnAttackAnimationAnimatorFinish() {
-            Debug.Log("Attack animation finished");
-            character.OnAttackAnimationFinish();
-        }
-
     }
 }

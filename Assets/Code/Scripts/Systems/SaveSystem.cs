@@ -1,33 +1,42 @@
+using System.IO;
+using BobaStop.Data;
 using UnityEngine;
 
 namespace BobaStop.Systems {
-    public static class SaveSystem {
-        // Constants for PlayerPrefs keys
-        private const string PearlsKey = "PlayerPearls";
-        private const string EnergyKey = "PlayerEnergy";
-        private const string ShopReputationKey = "ShopReputation";
+    public class SaveSystem {
+        private int saveSlot;
+        
+        private string playerPath;
+        private string worldPath;
 
-        // Save player's data to PlayerPrefs
-        public static void Save(int pearls, int energy, int shopReputation) {
-            PlayerPrefs.SetInt(PearlsKey, pearls);
-            PlayerPrefs.SetInt(EnergyKey, energy);
-            PlayerPrefs.SetInt(ShopReputationKey, shopReputation);
-            PlayerPrefs.Save();
+        public void SetSaveLoadSlot(int slot) {
+            saveSlot = slot;
+            UpdatePaths();
         }
 
-        // Load player's data from PlayerPrefs
-        public static void Load(out int pearls, out int energy, out int shopReputation) {
-            pearls = PlayerPrefs.GetInt(PearlsKey, 0); // Default to 0 if no saved data
-            energy = PlayerPrefs.GetInt(EnergyKey, 100); // Default to 100 Energy
-            shopReputation = PlayerPrefs.GetInt(ShopReputationKey, 0); // Default to 0 Reputation
+        private void UpdatePaths() {
+            playerPath = Path.Combine(Application.persistentDataPath + $"/playerdata{saveSlot}.json");
+            worldPath = Path.Combine(Application.persistentDataPath + $"/worlddata{saveSlot}.json");
         }
 
-        // Reset all player's data (for debugging or new game)
-        public static void ResetData() {
-            PlayerPrefs.SetInt(PearlsKey, 0);
-            PlayerPrefs.SetInt(EnergyKey, 100);
-            PlayerPrefs.SetInt(ShopReputationKey, 0);
-            PlayerPrefs.Save();
+        public void SaveData(Data.PlayerData playerData, Data.WorldData worldData) {
+            File.WriteAllText(playerPath, JsonUtility.ToJson(playerData, true));
+            File.WriteAllText(worldPath, JsonUtility.ToJson(worldData, true));
         }
+
+        public void LoadData(Data.PlayerData playerData, Data.WorldData worldData) {
+            if (File.Exists(playerPath) && File.Exists(worldPath)) {
+                JsonUtility.FromJsonOverwrite(File.ReadAllText(playerPath), playerData);
+                JsonUtility.FromJsonOverwrite(File.ReadAllText(worldPath), worldData);
+            } else {
+                Debug.LogError($"Player/World save file not found: {playerPath}");
+            }
+        }
+
+        public void DeleteData() {
+            File.Delete(playerPath);
+            File.Delete(worldPath);
+        }
+        
     }
 }
