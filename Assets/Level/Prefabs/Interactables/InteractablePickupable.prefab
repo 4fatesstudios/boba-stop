@@ -8,6 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 957576501280014238, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 957576501280014238, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 957576501280014238, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 1800407938430928362, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
         type: 3}
       propertyPath: m_Name
@@ -21,17 +36,17 @@ PrefabInstance:
     - target: {fileID: 5355921818696473066, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 5355921818696473066, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 5355921818696473066, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7034427764661113668, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
         type: 3}
@@ -152,7 +167,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6869851478307710683
 MonoBehaviour:

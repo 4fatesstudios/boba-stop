@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0847ba2ecb923f448f24f1b0affbb6c, type: 3}
+  m_Name: TestLootTable
+  m_EditorClassIdentifier: 
+  lootEntries:
+  - minimumDropAmount: 2
+    maximumDropAmount: 5
+    loot: {fileID: 11400000, guid: 7fba7f767ac494d43ba64e684f51ec4b, type: 2}
+  - minimumDropAmount: 5
+    maximumDropAmount: 8
+    loot: {fileID: 11400000, guid: 2961bd560290e2443932037c8e814232, type: 2}
+  - minimumDropAmount: 5
+    maximumDropAmount: 8
+    loot: {fileID: 11400000, guid: a92422fe0ba33c04fa7f555333b5e57d, type: 2}

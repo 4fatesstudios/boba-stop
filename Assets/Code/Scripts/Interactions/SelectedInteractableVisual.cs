@@ -37,5 +37,9 @@ namespace BobaStop.Interactions {
             selectedVisualGameObject.SetActive(false);
             unselectedVisualGameObject.SetActive(true);
         }
+        
+        private void OnDestroy() {
+            Characters.Player.Instance.OnSelectedInteractableChanged -= Player_OnSelectedInteractableChanged;
+        }
     }
 }

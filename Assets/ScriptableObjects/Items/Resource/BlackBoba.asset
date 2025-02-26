@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da7e9eb55be645e4b93bee238cfde22a, type: 3}
-  m_Name: LeatherGear
+  m_Script: {fileID: 11500000, guid: a71242421c1092444830b0e0ccbb59cd, type: 3}
+  m_Name: BlackBoba
   m_EditorClassIdentifier: 
-  itemName: Leather Gear
-  itemDescription: Typical gear for typical adventures.
-  itemSprite: {fileID: 21300000, guid: 4870d1e373be1439399ed3b124252271, type: 3}
-  itemStackable: 0
+  itemName: Black Boba
+  itemDescription: 
+  itemSprite: {fileID: -285659847, guid: cc6f6d3aec381be4c83c8961bc8f36d8, type: 3}
+  itemStackable: 1
   itemRarity: 2
-  defenseScore: 5
+  resourceType: 0
+  resourceSellValue: 2
+  resourceBuyValue: 15

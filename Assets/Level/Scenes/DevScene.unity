@@ -735,6 +735,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d, type: 3}
+--- !u!1 &732974508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4882524982614940487, guid: c388d3e1579db4d97aeeb08e1a914d9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2127580091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &782158874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1222,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2127580091}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1400584569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732974508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3cca03dcdfe774eb447d8214acdfcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTables: {fileID: 11400000, guid: e2fb33f6e7e2a2c42b04dd0e06d67475, type: 2}
+  lootGenerationOrigin: {fileID: 1400584563}
+  pickupPrefab: {fileID: 6489827932950999955, guid: d94627af8387e9242bd41bcf8b2ab560,
+    type: 3}
 --- !u!1 &1459066777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1800407938430928362, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,
@@ -1627,7 +1649,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4882524982614940487, guid: c388d3e1579db4d97aeeb08e1a914d9c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1400584569}
   m_SourcePrefab: {fileID: 100100000, guid: c388d3e1579db4d97aeeb08e1a914d9c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
