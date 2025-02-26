@@ -1827,7 +1827,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &350564663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2699,7 +2702,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &639669891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3932,7 +3938,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &932467610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4101,7 +4110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &970048515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4458,7 +4470,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!114 &1071686836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4602,6 +4617,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item
       objectReference: {fileID: 0}
+    - target: {fileID: 4550049876483834320, guid: 1ef63ad605c7b4d41b7b03fc9bd0d32f,
+        type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 021f39b6f63b5c64cb264f8d7acd2194,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4940,7 +4961,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1178599189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5109,7 +5133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1222675834 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363704815705125467, guid: e03239aee48b94afda55721a707cf9e2,
@@ -5152,7 +5179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1225641653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5321,7 +5351,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1256187911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5883,7 +5916,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1308917122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6058,7 +6094,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1314264574 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363704815705125467, guid: e03239aee48b94afda55721a707cf9e2,
@@ -6101,7 +6140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1365886105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6270,7 +6312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!224 &1400942851 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3872751934082898603, guid: 0e946e97bd2fa4a2dadf15f52fd9fe50,
@@ -6451,7 +6496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1465955737
 GameObject:
   m_ObjectHideFlags: 0
@@ -6569,7 +6617,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1488781734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6738,7 +6789,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1599797046 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363704815705125467, guid: e03239aee48b94afda55721a707cf9e2,
@@ -6781,7 +6835,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1609774797
 GameObject:
   m_ObjectHideFlags: 0
@@ -6896,7 +6953,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 1
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!224 &1678987124 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 128416685794959388, guid: 1ef63ad605c7b4d41b7b03fc9bd0d32f,
@@ -6945,7 +7005,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1802147311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363704815705125467, guid: e03239aee48b94afda55721a707cf9e2,
@@ -6988,7 +7051,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1809243882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7161,7 +7227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &1893716246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363704815705125467, guid: e03239aee48b94afda55721a707cf9e2,
@@ -7204,7 +7273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &1928307503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7371,7 +7443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &2021755774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7674,7 +7749,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1 &2093957689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4363704815705125467, guid: e03239aee48b94afda55721a707cf9e2,
@@ -7717,7 +7795,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &2117859136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8276,7 +8357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedItemType: 0
+  allowResources: 1
+  allowWeapons: 1
+  allowPacks: 1
+  allowGear: 1
 --- !u!1001 &5012721995468934459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8390,6 +8474,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item
       objectReference: {fileID: 0}
+    - target: {fileID: 4550049876483834320, guid: 1ef63ad605c7b4d41b7b03fc9bd0d32f,
+        type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: e94878a26d1c38542ad62d67ac404133,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
