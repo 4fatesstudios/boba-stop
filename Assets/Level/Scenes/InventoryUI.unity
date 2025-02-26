@@ -2859,11 +2859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622b74ba5b7c245c2afaf151e62a2abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 0}
-  armorSlot: {fileID: 0}
-  inventorySlots: []
-  inventoryItemPrefab: {fileID: 1950646250820539959, guid: 5c5df2f42951d41268c99382bce00ed5,
-    type: 3}
 --- !u!4 &669717775
 Transform:
   m_ObjectHideFlags: 0
@@ -4470,10 +4465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowResources: 1
+  allowResources: 0
   allowWeapons: 1
-  allowPacks: 1
-  allowGear: 1
+  allowPacks: 0
+  allowGear: 0
 --- !u!114 &1071686836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6853,7 +6848,7 @@ GameObject:
   - component: {fileID: 1609774802}
   - component: {fileID: 1609774801}
   m_Layer: 5
-  m_Name: ArmorSlot
+  m_Name: GearSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6953,9 +6948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb20b2d6d5e8d419faecea561b2b64bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowResources: 1
-  allowWeapons: 1
-  allowPacks: 1
+  allowResources: 0
+  allowWeapons: 0
+  allowPacks: 0
   allowGear: 1
 --- !u!224 &1678987124 stripped
 RectTransform:
