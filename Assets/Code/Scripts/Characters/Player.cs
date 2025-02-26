@@ -115,10 +115,13 @@ namespace BobaStop.Characters {
 
         private void HandleCombat() {
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
-                combatController.Attack(attack);
                 base.OnAttack();
                 gameInput.DisableAllInputs();
             }
+        }
+
+        public override void OnAttack() {
+            combatController.Attack(attack);
         }
 
         public override void OnAttackFinish() {
