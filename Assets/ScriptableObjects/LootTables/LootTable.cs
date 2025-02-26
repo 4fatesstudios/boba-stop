@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace BobaStop.LootTables
 {
@@ -9,20 +10,20 @@ namespace BobaStop.LootTables
     public class LootTableEntry {
         [SerializeField] private int minimumDropAmount;
         [SerializeField] private int maximumDropAmount;
-        [SerializeField] private Items.Item loot;
+        [FormerlySerializedAs("loot")] [SerializeField] private Items.Item item;
         private const int MAX = 100;
 
         public void Validate(LootTable parentLootTable) {
             minimumDropAmount = Mathf.Clamp(minimumDropAmount, 0, maximumDropAmount);
             maximumDropAmount = Mathf.Clamp(maximumDropAmount, minimumDropAmount, MAX);
-            if (loot == null) {
+            if (item == null) {
                 Debug.LogWarning($"Missing loot in '{parentLootTable.name}'!", parentLootTable);
             }
         }
 
         public int GetMinimumDropAmount() => minimumDropAmount;
         public int GetMaximumDropAmount() => maximumDropAmount;
-        public Items.Item GetLoot() => loot;
+        public Items.Item GetItem() => item;
     }
     
     [CreateAssetMenu(menuName = "Loot Table", fileName = "LootTable")]

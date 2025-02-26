@@ -26,7 +26,7 @@ namespace BobaStop
                 
                 for (int i = 0; i < generatedLootAmount; i++) {
                     GameObject lootInstance = Instantiate(pickupPrefab, lootGenerationOrigin.position, Quaternion.identity);
-                    lootInstance.GetComponent<InteractablePickupable>().SetItem(lootEntry.GetLoot());
+                    lootInstance.GetComponent<InteractablePickupable>().SetItem(lootEntry.GetItem());
                     
                     Rigidbody rb = lootInstance.GetComponent<Rigidbody>();
                     
