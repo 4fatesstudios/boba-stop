@@ -11,6 +11,8 @@ namespace BobaStop.Inventory
         public bool allowPacks = true;    // Allow Pack items
         public bool allowGear = true;     // Allow Gear items
 
+        public InventoryItem currentItem; // The item currently in the slot
+
         public void OnDrop(PointerEventData eventData)
         {
             if (transform.childCount == 0) // Check if the slot is empty
@@ -21,6 +23,8 @@ namespace BobaStop.Inventory
                 // Check if the item is allowed in this slot
                 if (IsItemAllowed(inventoryItem.item))
                 {
+                    // Set the current item in the slot
+                    currentItem = inventoryItem;
                     inventoryItem.parentAfterDrag = transform;
                 }
                 else
@@ -38,6 +42,12 @@ namespace BobaStop.Inventory
             if (item is Pack && allowPacks) return true;
             if (item is Gear && allowGear) return true;
             return false;
+        }
+
+        // Remove the item from this slot
+        public void RemoveItem()
+        {
+            currentItem = null;
         }
     }
 }
