@@ -9,6 +9,7 @@ namespace BobaStop.Systems {
         private static SaveSystem saveSystem;
         private static PlayerDataManager playerDataManager;
         private static WorldDataManager worldDataManager;
+        private static DayCycleManager dayCycleManager;
         private static int saveSlot;
 
         private void Awake() {
@@ -23,11 +24,18 @@ namespace BobaStop.Systems {
             saveSystem = new SaveSystem();
             playerDataManager = new PlayerDataManager();
             worldDataManager = new WorldDataManager();
+            dayCycleManager = new DayCycleManager();
         }
 
         private void Start() {
             playerDataManager.playerData = ScriptableObject.CreateInstance<Data.PlayerData>();
             worldDataManager.worldData = ScriptableObject.CreateInstance<Data.WorldData>();
+            dayCycleManager.Start();
+            dayCycleManager.StartDay();
+        }
+
+        private void Update() {
+            dayCycleManager.Update();
         }
 
         public void SetSaveSlot(int slot) {
@@ -58,6 +66,14 @@ namespace BobaStop.Systems {
 
         public void AddPlayerPearls(int pearls) {
             playerDataManager.AddPlayerPearls(pearls);
+        }
+
+        public string GetStandardTime() {
+            return dayCycleManager.GetStandardTime();
+        }
+
+        public string GetMilitaryTime() {
+            return dayCycleManager.GetMilitaryTime();
         }
     }
 }
