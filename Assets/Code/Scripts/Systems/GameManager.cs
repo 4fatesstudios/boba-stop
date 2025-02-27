@@ -11,6 +11,7 @@ namespace BobaStop.Systems {
         private static WorldDataManager worldDataManager;
         private static DayCycleManager dayCycleManager;
         private static int saveSlot;
+        
 
         private void Awake() {
             if (Instance == null) {
@@ -28,10 +29,9 @@ namespace BobaStop.Systems {
         }
 
         private void Start() {
-            playerDataManager.playerData = ScriptableObject.CreateInstance<Data.PlayerData>();
-            worldDataManager.worldData = ScriptableObject.CreateInstance<Data.WorldData>();
+            playerDataManager.Start();
+            worldDataManager.Start();
             dayCycleManager.Start();
-            dayCycleManager.StartDay();
         }
 
         private void Update() {
