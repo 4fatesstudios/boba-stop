@@ -56,6 +56,13 @@ namespace BobaStop.Characters {
             }
 
             SaveTests();
+
+            if (Input.GetKeyDown(KeyCode.O)) {
+                Debug.Log(GameManager.Instance.GetStandardTime());
+            }
+            if (Input.GetKeyDown(KeyCode.P)) {
+                Debug.Log(GameManager.Instance.GetMilitaryTime());
+            }
         }
 
         private void SaveTests() {

@@ -6,6 +6,10 @@ namespace BobaStop.Systems {
         public PlayerData playerData;
         private int playerMaxPearls = 100000;
 
+        public void Start() {
+            playerData = ScriptableObject.CreateInstance<PlayerData>();
+        }
+
         public bool SetPlayerName(string playerName) {
             // TODO: add regex and filters to ensure no inappropriate or game-breaking names
             playerData.playerName = playerName;
