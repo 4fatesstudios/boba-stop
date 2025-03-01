@@ -1,31 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
-using BobaStop.Inventory;
 using BobaStop.Items;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+namespace BobaStop.Inventory
 {
-    public InventorySlot[] inventorySlots;
-
-    public bool AddItem(Item item)
+    public class InventoryManager : MonoBehaviour
     {
-        for (int i = 0; i < inventorySlots.Length; i++)
+        public InventorySlot[] inventorySlots;
+        public GameObject inventoryItemPrefab; // Prefab for the inventory item
+
+        public bool AddItem(Item item)
         {
-            InventorySlot slot = inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null)
+            // Find the first empty slot
+            for (int i = 0; i < inventorySlots.Length; i++)
             {
-                // SpawnNewItem(item, slot);
-                return true;
+                InventorySlot slot = inventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                if (itemInSlot == null)
+                {
+                    SpawnNewItem(item, slot);
+                    return true;
+                }
             }
+
+            // No empty slots available
+            return false;
         }
 
-        return false;
-    }
+        private void SpawnNewItem(Item item, InventorySlot slot)
+        {
+            // Instantiate the new item prefab
+            GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+            InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
+            inventoryItem.item = item;
+            inventoryItem.image.sprite = item.itemSprite;
 
-    // void SpawnNewItem(Item item, InventorySlot slot)
-    // {
-    //     
-    // }
+            // Set the current item in the slot
+            slot.currentItem = inventoryItem;
+        }
+    }
 }
