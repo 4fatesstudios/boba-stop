@@ -5,7 +5,15 @@ using UnityEngine;
 namespace BobaStop.Systems.World
 {
     public abstract class WorldSystemManager {
+        public abstract void Start();
+        
+        public abstract void Update();
+
+        public abstract bool LoadData();
+        
         public abstract void Pause();
+        
         public abstract void Unpause();
+        
     }
 }
