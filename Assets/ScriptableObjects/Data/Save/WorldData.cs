@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace BobaStop.Data
+namespace BobaStop.Data.Saved
 {
-    [CreateAssetMenu(menuName = "Data/World", fileName = "WorldData")]
+    [CreateAssetMenu(menuName = "Data/Saved/World", fileName = "WorldData")]
     public class WorldData : ScriptableObject {
         public int day;
     }
