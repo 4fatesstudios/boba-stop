@@ -1621,6 +1621,7 @@ MonoBehaviour:
   toolbar: {fileID: 1196878525}
   darkBackground: {fileID: 541185360}
   mainInventory: {fileID: 2102629171}
+  player: {fileID: 1400584571}
 --- !u!114 &419351780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6404,6 +6405,18 @@ MonoBehaviour:
   lootGenerationOrigin: {fileID: 1400584563}
   pickupPrefab: {fileID: 6489827932950999955, guid: d94627af8387e9242bd41bcf8b2ab560,
     type: 3}
+--- !u!114 &1400584571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2117329721287885076, guid: c388d3e1579db4d97aeeb08e1a914d9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2127580091}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732974508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447d97fd848fdee4eaf1dec76bb1f24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1459066777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1800407938430928362, guid: 6abf3dc83d7eb2c47a13f4a5a5e2c97d,

@@ -1,4 +1,5 @@
 using System;
+using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Inventory
@@ -8,6 +9,7 @@ namespace BobaStop.Inventory
         [SerializeField] private GameObject toolbar;
         [SerializeField] private GameObject darkBackground;
         [SerializeField] private GameObject mainInventory;
+        [SerializeField] private Player player;
 
         private bool isInventoryVisible = false;
 
@@ -34,6 +36,9 @@ namespace BobaStop.Inventory
             toolbar.SetActive(!isInventoryVisible);
             darkBackground.SetActive(isInventoryVisible);
             mainInventory.SetActive(isInventoryVisible);
+            
+            // disable player movement when inventory is visible
+            player.enabled = !isInventoryVisible;
         }
     }
 }
