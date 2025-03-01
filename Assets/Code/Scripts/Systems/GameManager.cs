@@ -1,4 +1,5 @@
 using System;
+using BobaStop.Data.Level;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -10,6 +11,7 @@ namespace BobaStop.Systems {
         private static PlayerDataManager playerDataManager;
         private static WorldDataManager worldDataManager;
         private static DayCycleManager dayCycleManager;
+        private static LevelManagerHelper levelManagerHelper;
         private static int saveSlot;
         #endregion
         
@@ -27,6 +29,7 @@ namespace BobaStop.Systems {
             playerDataManager = new PlayerDataManager();
             worldDataManager = new WorldDataManager();
             dayCycleManager = new DayCycleManager();
+            levelManagerHelper = new LevelManagerHelper();
         }
 
         private void Start() {
@@ -39,6 +42,14 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
         }
         #endregion
+
+        public void PauseTime() {
+            dayCycleManager.PauseDay();
+        }
+
+        public void UnpauseTime() {
+            dayCycleManager.StartDay();
+        }
         
         #region SaveSystem Functions
         public void SetSaveSlot(int slot) {
@@ -93,7 +104,12 @@ namespace BobaStop.Systems {
             dayCycleManager.OnDayPhaseChanged -= handler;
         }
         #endregion
-        
-        
+
+        #region Level Manager Helper
+        public void SwitchScene(LevelProperties level) {
+            levelManagerHelper.SwitchScene(level);
+        }
+
+        #endregion
     }
 }

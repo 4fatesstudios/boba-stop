@@ -1,5 +1,5 @@
 using System.IO;
-using BobaStop.Data;
+using BobaStop.Data.Saved;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -19,12 +19,12 @@ namespace BobaStop.Systems {
             worldPath = Path.Combine(Application.persistentDataPath + $"/worlddata{saveSlot}.json");
         }
 
-        public void SaveData(Data.PlayerData playerData, Data.WorldData worldData) {
+        public void SaveData(Data.Saved.PlayerData playerData, Data.Saved.WorldData worldData) {
             File.WriteAllText(playerPath, JsonUtility.ToJson(playerData, true));
             File.WriteAllText(worldPath, JsonUtility.ToJson(worldData, true));
         }
 
-        public void LoadData(Data.PlayerData playerData, Data.WorldData worldData) {
+        public void LoadData(Data.Saved.PlayerData playerData, Data.Saved.WorldData worldData) {
             if (File.Exists(playerPath) && File.Exists(worldPath)) {
                 JsonUtility.FromJsonOverwrite(File.ReadAllText(playerPath), playerData);
                 JsonUtility.FromJsonOverwrite(File.ReadAllText(worldPath), worldData);

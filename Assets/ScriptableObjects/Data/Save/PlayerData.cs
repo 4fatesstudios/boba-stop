@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace BobaStop.Data
+namespace BobaStop.Data.Saved
 {
-    [CreateAssetMenu(menuName = "Data/Player", fileName = "PlayerData")]
+    [CreateAssetMenu(menuName = "Data/Saved/Player", fileName = "PlayerData")]
     public class PlayerData : ScriptableObject {
         public string playerName;
         
