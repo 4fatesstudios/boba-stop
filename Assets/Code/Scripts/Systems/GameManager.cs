@@ -42,6 +42,14 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
         }
         #endregion
+
+        public void PauseTime() {
+            dayCycleManager.PauseDay();
+        }
+
+        public void UnpauseTime() {
+            dayCycleManager.StartDay();
+        }
         
         #region SaveSystem Functions
         public void SetSaveSlot(int slot) {
