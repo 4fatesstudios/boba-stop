@@ -14,25 +14,33 @@ namespace BobaStop.Systems.World
         private List<Resource> shopSelection;
         private int maxShopSelectionSize;
         private int shopSelectionScore;
+        private int ordersGeneratedPotential;
+        private bool shopIsRunning;
 
         public override void Start() {
-            
+            shopSelection = new List<Resource>();
         }
 
         public override void Update() {
-            //
+            if (shopIsRunning) {
+                OnRunShop();
+            }
         }
 
         public override bool LoadData() {
             return true;
         }
-        
-        public override void Pause() {
-            //
+
+        public void StartShopDay() {
+            shopIsRunning = true;
         }
-        
-        public override void Unpause() {
-            //
+
+        public void EndShopDay() {
+            shopIsRunning = false;
+        }
+
+        private void OnRunShop() {
+            
         }
 
         public int GetShopSelectionScore() {
@@ -48,13 +56,13 @@ namespace BobaStop.Systems.World
         }
 
         /// <summary>
-        /// Uniquely adds a given resource to the Shop's Selection
+        /// Uniquely adds a given resource to the Shop's Selection, not allowed to alter while running shop
         /// </summary>
         /// <param name="resource"></param>
         /// <returns>true if resource was successfully added to selection, false otherwise</returns>
         public bool AddToShopSelection(Resource resource) {
+            if (shopIsRunning) return false;
             if (shopSelection.Count >= maxShopSelectionSize) return false;
-                
             if (shopSelection.Contains(resource)) return false;
                 
             shopSelection.Add(resource);
