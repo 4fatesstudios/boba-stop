@@ -119,30 +119,20 @@ namespace BobaStop.Systems.World
 
         // AI generated - REQUIRES REVIEW
         public Order GenerateOrder() {
-            Order defaultOrder = new Order {
-                drinkBase = Resources.Load<Resource>("Items/Resource/Bases/BlackTea"),
-                drinkFoam = Resources.Load<Resource>("Items/Resource/Foams/MilkFoam"),
-                drinkSweetener = Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"),
-                drinkToppings = new Resource[] {Resources.Load<Resource>("Items/Resource/Toppings/Boba")}
-            };
+            // Order defaultOrder = new Order {
+            //     drinkBase = Resources.Load<Resource>("Items/Resource/Bases/BlackTea"),
+            //     drinkFoam = Resources.Load<Resource>("Items/Resource/Foams/MilkFoam"),
+            //     drinkSweetener = Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"),
+            //     drinkToppings = new Resource[] {Resources.Load<Resource>("Items/Resource/Toppings/Boba")}
+            // };
             
-            // Ensure that shopSelection has at least one of each type (Base, Foam, Sweetener, Topping)
-            if (shopSelection.Count == 0) {
-                Debug.LogError("Shop selection is empty, cannot generate an order.");
-                return defaultOrder;
-            }
+            ValidateShopSelection();
 
-            // Filter resources by type
+            // filter resources by type
             var baseResources = shopSelection.Where(r => r.resourceType == ResourceType.Base).ToList();
             var foamResources = shopSelection.Where(r => r.resourceType == ResourceType.Foam).ToList();
             var sweetenerResources = shopSelection.Where(r => r.resourceType == ResourceType.Sweetener).ToList();
             var toppingResources = shopSelection.Where(r => r.resourceType == ResourceType.Topping).ToList();
-
-            // Check if we have the required resources in the shop selection
-            if (baseResources.Count == 0 || foamResources.Count == 0 || sweetenerResources.Count == 0 || toppingResources.Count == 0) {
-                Debug.LogError("Missing required resource types in shop selection.");
-                return defaultOrder;
-            }
 
             // Randomly select one resource from each type
             Resource drinkBase = baseResources[Random.Range(0, baseResources.Count)];
