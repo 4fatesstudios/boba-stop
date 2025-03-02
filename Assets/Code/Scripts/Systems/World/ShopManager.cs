@@ -12,13 +12,22 @@ namespace BobaStop.Systems.World
     {
         // private ShopInventory shopInventory;
         private List<Resource> shopSelection;
+        private List<Resource> defaultShopSelection;
         private int maxShopSelectionSize;
         private int shopSelectionScore;
         private int ordersGeneratedPotential;
         private bool shopIsRunning;
 
         public override void Start() {
-            shopSelection = new List<Resource>();
+            defaultShopSelection = new List<Resource> {
+                Resources.Load<Resource>("Items/Resource/Bases/BlackTea"), // default Base
+                Resources.Load<Resource>("Items/Resource/Foams/MilkFoam"), // default Foam
+                Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
+                Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
+            };
+            shopSelection = new List<Resource>(defaultShopSelection); // will be overwritten by save
+
+            maxShopSelectionSize = 10; // something to be loaded in later
         }
 
         public override void Update() {
@@ -55,6 +64,25 @@ namespace BobaStop.Systems.World
             return shopSelection;
         }
 
+        private void ValidateShopSelection() {
+            void EnsureResource(ResourceType type) {
+                if (!shopSelection.Exists(r => r.resourceType == type)) {
+                    Resource defaultResource = defaultShopSelection.Find(r => r.resourceType == type);
+                    if (defaultResource != null) {
+                        if (shopSelection.Count >= maxShopSelectionSize) {
+                            shopSelection.RemoveAt(shopSelection.Count - 1); // Remove last added
+                        }
+                        shopSelection.Add(defaultResource);
+                    }
+                }
+            }
+
+            EnsureResource(ResourceType.Topping);
+            EnsureResource(ResourceType.Base);
+            EnsureResource(ResourceType.Foam);
+            EnsureResource(ResourceType.Sweetener);
+        }
+
         /// <summary>
         /// Uniquely adds a given resource to the Shop's Selection, not allowed to alter while running shop
         /// </summary>
@@ -66,6 +94,17 @@ namespace BobaStop.Systems.World
             if (shopSelection.Contains(resource)) return false;
                 
             shopSelection.Add(resource);
+            ValidateShopSelection();
+            UpdateShopSelectionScore();
+            return true;
+        }
+
+        public bool RemoveFromShopSelection(Resource resource) {
+            if (shopIsRunning) return false; 
+            if (!shopSelection.Contains(resource)) return false;
+
+            shopSelection.Remove(resource);
+            ValidateShopSelection();
             UpdateShopSelectionScore();
             return true;
         }
