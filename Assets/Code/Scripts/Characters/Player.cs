@@ -61,6 +61,26 @@ namespace BobaStop.Characters {
             if (Input.GetKeyDown(KeyCode.P)) {
                 Debug.Log(GameManager.Instance.GetMilitaryTime());
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+                GameManager.Instance.PrintShopSelection();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2)) {
+                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3)) {
+                GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha4)) {
+                GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5)) {
+                GameManager.Instance.GenerateOrder();
+            }
         }
 
         private void Quit() {
