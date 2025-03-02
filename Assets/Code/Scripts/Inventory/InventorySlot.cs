@@ -15,6 +15,7 @@ namespace BobaStop.Inventory
 
         public void OnDrop(PointerEventData eventData)
         {
+            if (!InventoryToggle.isInventoryVisible) return;
             if (transform.childCount == 0) // Check if the slot is empty
             {
                 GameObject dropped = eventData.pointerDrag;

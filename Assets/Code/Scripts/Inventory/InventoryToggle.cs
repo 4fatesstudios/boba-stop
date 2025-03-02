@@ -11,7 +11,7 @@ namespace BobaStop.Inventory
         [SerializeField] private GameObject mainInventory;
         [SerializeField] private Player player;
 
-        private bool isInventoryVisible = false;
+        public static bool isInventoryVisible = false;
 
         private void Start()
         {

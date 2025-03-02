@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Items;
@@ -9,6 +10,17 @@ namespace BobaStop.Inventory
     {
         public InventorySlot[] inventorySlots;
         public GameObject inventoryItemPrefab; // Prefab for the inventory item
+        public List<Item> items;
+        
+        private Dictionary<int, Item> itemDatabase = new Dictionary<int, Item>();
+
+        private void Start()
+        {
+            foreach (Item item in items)
+            {
+                itemDatabase[item.id] = item;
+            }
+        }
 
         public bool AddItem(Item item)
         {
