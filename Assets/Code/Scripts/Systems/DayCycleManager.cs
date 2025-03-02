@@ -51,6 +51,14 @@ namespace BobaStop.Systems
                 UpdateDayPhase();
             }
         }
+        
+        public float SecondsInMinute() {
+            return SECONDS_IN_MINUTE;
+        }
+
+        public float SecondsInHour() {
+            return SECONDS_IN_HOUR;
+        }
 
         public bool GetIsTimeMoving() {
             return timeIsMoving;

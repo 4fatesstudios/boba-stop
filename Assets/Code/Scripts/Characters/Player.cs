@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BobaStop.Data;
+using BobaStop.Data.Saved;
 using BobaStop.Systems;
 using SimpleCombat;
 using SimpleCombat.Components;
@@ -55,55 +55,33 @@ namespace BobaStop.Characters {
                 Quit();
             }
 
-            SaveTests();
-
             if (Input.GetKeyDown(KeyCode.O)) {
                 Debug.Log(GameManager.Instance.GetStandardTime());
             }
             if (Input.GetKeyDown(KeyCode.P)) {
                 Debug.Log(GameManager.Instance.GetMilitaryTime());
             }
-        }
 
-        private void SaveTests() {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                GameManager.Instance.SetSaveSlot(1);
-                Debug.Log("SAVE SLOT SET TO 1");
+                GameManager.Instance.PrintShopSelection();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                GameManager.Instance.SetSaveSlot(2);
-                Debug.Log("SAVE SLOT SET TO 2");
+                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping1"));
+                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping2"));
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Alpha3)) {
-                GameManager.Instance.SaveData();
-                Debug.Log("SAVED");
+                GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
             }
             
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
-                GameManager.Instance.LoadData();
-                Debug.Log("LOADED");
+                GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                GameManager.Instance.SetPlayerName("Chris");
-                Debug.Log("SET PLAYER NAME TO \"Chris\"");
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha6)) {
-                GameManager.Instance.SetPlayerName("Angel");
-                Debug.Log("SET PLAYER NAME TO \"Angel\"");
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha7)) {
-                GameManager.Instance.SetPlayerName("Alexis");
-                Debug.Log("SET PLAYER NAME TO \"Alexis\"");
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha0)) {
-                GameManager.Instance.GetPlayerName();
-                Debug.Log("PLAYER NAME: " + GameManager.Instance.GetPlayerName());
+                GameManager.Instance.GenerateOrder();
             }
         }
 

@@ -1,4 +1,7 @@
 using System;
+using BobaStop.Data.Level;
+using BobaStop.Items;
+using BobaStop.Systems.World;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -10,6 +13,8 @@ namespace BobaStop.Systems {
         private static PlayerDataManager playerDataManager;
         private static WorldDataManager worldDataManager;
         private static DayCycleManager dayCycleManager;
+        private static LevelManagerHelper levelManagerHelper;
+        private static ShopManager shopManager;
         private static int saveSlot;
         #endregion
         
@@ -27,18 +32,29 @@ namespace BobaStop.Systems {
             playerDataManager = new PlayerDataManager();
             worldDataManager = new WorldDataManager();
             dayCycleManager = new DayCycleManager();
+            levelManagerHelper = new LevelManagerHelper();
+            shopManager = new ShopManager();
         }
 
         private void Start() {
             playerDataManager.Start();
             worldDataManager.Start();
             dayCycleManager.Start();
+            shopManager.Start();
         }
 
         private void Update() {
             dayCycleManager.Update();
         }
         #endregion
+
+        public void PauseTime() {
+            dayCycleManager.PauseDay();
+        }
+
+        public void UnpauseTime() {
+            dayCycleManager.StartDay();
+        }
         
         #region SaveSystem Functions
         public void SetSaveSlot(int slot) {
@@ -93,7 +109,34 @@ namespace BobaStop.Systems {
             dayCycleManager.OnDayPhaseChanged -= handler;
         }
         #endregion
+
+        #region Level Manager Helper
+        public void SwitchScene(LevelProperties level) {
+            levelManagerHelper.SwitchScene(level);
+        }
+
+        #endregion
         
+        #region Shop Functions
+        public void PrintShopSelection() {
+            var shopSelection = shopManager.GetShopSelection();
+            foreach (var resource in shopSelection) {
+                Debug.Log(resource);
+            }
+        }
+
+        public bool AddToShopSelection(Resource resource) {
+            return shopManager.AddToShopSelection(resource);
+        }
+
+        public bool RemoveFromShopSelection(Resource resource) {
+            return shopManager.RemoveFromShopSelection(resource);
+        }
+
+        public void GenerateOrder() {
+            shopManager.GenerateOrder();
+        }
         
+        #endregion
     }
 }
