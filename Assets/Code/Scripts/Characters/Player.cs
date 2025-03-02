@@ -68,6 +68,8 @@ namespace BobaStop.Characters {
 
             if (Input.GetKeyDown(KeyCode.Alpha2)) {
                 GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping1"));
+                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping2"));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3)) {

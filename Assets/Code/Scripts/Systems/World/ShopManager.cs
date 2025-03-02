@@ -119,40 +119,29 @@ namespace BobaStop.Systems.World
 
         // AI generated - REQUIRES REVIEW
         public Order GenerateOrder() {
-            Order defaultOrder = new Order {
-                drinkBase = Resources.Load<Resource>("Items/Resource/Bases/BlackTea"),
-                drinkFoam = Resources.Load<Resource>("Items/Resource/Foams/MilkFoam"),
-                drinkSweetener = Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"),
-                drinkToppings = new Resource[] {Resources.Load<Resource>("Items/Resource/Toppings/Boba")}
-            };
+            // Order defaultOrder = new Order {
+            //     drinkBase = Resources.Load<Resource>("Items/Resource/Bases/BlackTea"),
+            //     drinkFoam = Resources.Load<Resource>("Items/Resource/Foams/MilkFoam"),
+            //     drinkSweetener = Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"),
+            //     drinkToppings = new Resource[] {Resources.Load<Resource>("Items/Resource/Toppings/Boba")}
+            // };
             
-            // Ensure that shopSelection has at least one of each type (Base, Foam, Sweetener, Topping)
-            if (shopSelection.Count == 0) {
-                Debug.LogError("Shop selection is empty, cannot generate an order.");
-                return defaultOrder;
-            }
+            ValidateShopSelection();
 
-            // Filter resources by type
+            // filter resources by type
             var baseResources = shopSelection.Where(r => r.resourceType == ResourceType.Base).ToList();
             var foamResources = shopSelection.Where(r => r.resourceType == ResourceType.Foam).ToList();
             var sweetenerResources = shopSelection.Where(r => r.resourceType == ResourceType.Sweetener).ToList();
             var toppingResources = shopSelection.Where(r => r.resourceType == ResourceType.Topping).ToList();
-
-            // Check if we have the required resources in the shop selection
-            if (baseResources.Count == 0 || foamResources.Count == 0 || sweetenerResources.Count == 0 || toppingResources.Count == 0) {
-                Debug.LogError("Missing required resource types in shop selection.");
-                return defaultOrder;
-            }
 
             // Randomly select one resource from each type
             Resource drinkBase = baseResources[Random.Range(0, baseResources.Count)];
             Resource drinkFoam = foamResources[Random.Range(0, foamResources.Count)];
             Resource drinkSweetener = sweetenerResources[Random.Range(0, sweetenerResources.Count)];
             
-            // Calculate the minimum number of toppings as the max between the number of toppings available in the shop selection and a random number between 1 and 3
-            int minNumToppings = toppingResources.Count; // Minimum toppings should be the number of available toppings in the shop
-            int maxNumToppings = Mathf.Min(minNumToppings, 3); // Limit the number to 3, or the available number
-            int numToppings = Random.Range(minNumToppings, maxNumToppings + 1); // Randomly generate number of toppings (at least the available toppings)
+            // Calculate the number of toppings as a random number between 1 and 3
+            int maxNumToppings = Math.Min(toppingResources.Count, 3);
+            int numToppings = Random.Range(1, maxNumToppings); // Randomly generate number of toppings (at least the available toppings)
 
             List<Resource> selectedToppings = new List<Resource>();
             
