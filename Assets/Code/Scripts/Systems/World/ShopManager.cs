@@ -139,10 +139,9 @@ namespace BobaStop.Systems.World
             Resource drinkFoam = foamResources[Random.Range(0, foamResources.Count)];
             Resource drinkSweetener = sweetenerResources[Random.Range(0, sweetenerResources.Count)];
             
-            // Calculate the minimum number of toppings as the max between the number of toppings available in the shop selection and a random number between 1 and 3
-            int minNumToppings = toppingResources.Count; // Minimum toppings should be the number of available toppings in the shop
-            int maxNumToppings = Mathf.Min(minNumToppings, 3); // Limit the number to 3, or the available number
-            int numToppings = Random.Range(minNumToppings, maxNumToppings + 1); // Randomly generate number of toppings (at least the available toppings)
+            // Calculate the number of toppings as a random number between 1 and 3
+            int maxNumToppings = Math.Min(toppingResources.Count, 3);
+            int numToppings = Random.Range(1, maxNumToppings); // Randomly generate number of toppings (at least the available toppings)
 
             List<Resource> selectedToppings = new List<Resource>();
             
