@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using BobaStop.Items;
 using BobaStop.Systems;
 using BobaStop.Systems.World;
+using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace BobaStop.Systems.World
 {
@@ -113,8 +117,121 @@ namespace BobaStop.Systems.World
             //
         }
 
-        private void GenerateOrder() {
-            //
+        // AI generated - REQUIRES REVIEW
+        public Order GenerateOrder() {
+            Order defaultOrder = new Order {
+                drinkBase = Resources.Load<Resource>("Items/Resource/Bases/BlackTea"),
+                drinkFoam = Resources.Load<Resource>("Items/Resource/Foams/MilkFoam"),
+                drinkSweetener = Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"),
+                drinkToppings = new Resource[] {Resources.Load<Resource>("Items/Resource/Toppings/Boba")}
+            };
+            
+            // Ensure that shopSelection has at least one of each type (Base, Foam, Sweetener, Topping)
+            if (shopSelection.Count == 0) {
+                Debug.LogError("Shop selection is empty, cannot generate an order.");
+                return defaultOrder;
+            }
+
+            // Filter resources by type
+            var baseResources = shopSelection.Where(r => r.resourceType == ResourceType.Base).ToList();
+            var foamResources = shopSelection.Where(r => r.resourceType == ResourceType.Foam).ToList();
+            var sweetenerResources = shopSelection.Where(r => r.resourceType == ResourceType.Sweetener).ToList();
+            var toppingResources = shopSelection.Where(r => r.resourceType == ResourceType.Topping).ToList();
+
+            // Check if we have the required resources in the shop selection
+            if (baseResources.Count == 0 || foamResources.Count == 0 || sweetenerResources.Count == 0 || toppingResources.Count == 0) {
+                Debug.LogError("Missing required resource types in shop selection.");
+                return defaultOrder;
+            }
+
+            // Randomly select one resource from each type
+            Resource drinkBase = baseResources[Random.Range(0, baseResources.Count)];
+            Resource drinkFoam = foamResources[Random.Range(0, foamResources.Count)];
+            Resource drinkSweetener = sweetenerResources[Random.Range(0, sweetenerResources.Count)];
+            
+            // Calculate the minimum number of toppings as the max between the number of toppings available in the shop selection and a random number between 1 and 3
+            int minNumToppings = toppingResources.Count; // Minimum toppings should be the number of available toppings in the shop
+            int maxNumToppings = Mathf.Min(minNumToppings, 3); // Limit the number to 3, or the available number
+            int numToppings = Random.Range(minNumToppings, maxNumToppings + 1); // Randomly generate number of toppings (at least the available toppings)
+
+            List<Resource> selectedToppings = new List<Resource>();
+            
+            // Ensure unique toppings by using a HashSet
+            HashSet<Resource> uniqueToppings = new HashSet<Resource>();
+
+            while (uniqueToppings.Count < numToppings) {
+                Resource randomTopping = toppingResources[Random.Range(0, toppingResources.Count)];
+                uniqueToppings.Add(randomTopping);  // HashSet ensures uniqueness
+            }
+
+            // Convert the HashSet to a list for the order
+            selectedToppings = uniqueToppings.ToList();
+
+            // Create the order
+            Order generatedOrder = new Order {
+                drinkBase = drinkBase,
+                drinkFoam = drinkFoam,
+                drinkSweetener = drinkSweetener,
+                drinkToppings = selectedToppings.ToArray()
+            };
+
+            // Log the generated order for debugging
+            Debug.Log($"Generated Order: {generatedOrder.drinkBase.itemName}, {generatedOrder.drinkFoam.itemName}, {generatedOrder.drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
+            return generatedOrder;
         }
+
+        
+        public struct Order {
+            private Resource _drinkBase;
+            private Resource _drinkFoam;
+            private Resource _drinkSweetener;
+            private Resource[] _drinkToppings;
+
+            public Resource drinkBase {
+                get => _drinkBase;
+                set {
+                    if (value.resourceType == ResourceType.Base) {
+                        _drinkBase = value;
+                    } else {
+                        Debug.LogError("Invalid Resource type for drinkBase. Must be of type Base.");
+                    }
+                }
+            }
+
+            public Resource drinkFoam {
+                get => _drinkFoam;
+                set {
+                    if (value.resourceType == ResourceType.Foam) {
+                        _drinkFoam = value;
+                    } else {
+                        Debug.LogError("Invalid Resource type for drinkFoam. Must be of type Foam.");
+                    }
+                }
+            }
+
+            public Resource drinkSweetener {
+                get => _drinkSweetener;
+                set {
+                    if (value.resourceType == ResourceType.Sweetener) {
+                        _drinkSweetener = value;
+                    } else {
+                        Debug.LogError("Invalid Resource type for drinkSweetener. Must be of type Sweetener.");
+                    }
+                }
+            }
+
+            public Resource[] drinkToppings {
+                get => _drinkToppings;
+                set {
+                    // Check if all resources in the array are of type Topping
+                    if (value.All(r => r.resourceType == ResourceType.Topping)) {
+                        _drinkToppings = value;
+                    } else {
+                        Debug.LogError("Invalid Resource type for drinkToppings. All must be of type Topping.");
+                    }
+                }
+            }
+        }
+        
     }
 }

@@ -132,6 +132,10 @@ namespace BobaStop.Systems {
         public bool RemoveFromShopSelection(Resource resource) {
             return shopManager.RemoveFromShopSelection(resource);
         }
+
+        public void GenerateOrder() {
+            shopManager.GenerateOrder();
+        }
         
         #endregion
     }

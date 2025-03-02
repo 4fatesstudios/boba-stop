@@ -77,6 +77,10 @@ namespace BobaStop.Characters {
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
                 GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5)) {
+                GameManager.Instance.GenerateOrder();
+            }
         }
 
         private void Quit() {
