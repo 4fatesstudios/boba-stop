@@ -12,7 +12,7 @@ namespace BobaStop.Inventory
         public bool allowGear = true;     // Allow Gear items
 
         public InventoryItem currentItem; // The item currently in the slot
-
+        
         public void OnDrop(PointerEventData eventData)
         {
             if (!InventoryToggle.isInventoryVisible) return;
@@ -20,7 +20,7 @@ namespace BobaStop.Inventory
             {
                 GameObject dropped = eventData.pointerDrag;
                 InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-
+        
                 // Check if the item is allowed in this slot
                 if (IsItemAllowed(inventoryItem.item))
                 {

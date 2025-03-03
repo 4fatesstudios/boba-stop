@@ -9,7 +9,7 @@ namespace BobaStop.Inventory {
         [Header("UI")]
         public Image image;
         
-        [HideInInspector] public Item item;
+        public Item item;
         [HideInInspector] public Transform parentAfterDrag;
 
         public void InitializeItem(Item newItem)
@@ -21,10 +21,10 @@ namespace BobaStop.Inventory {
         public void OnBeginDrag(PointerEventData eventData) {
             if (!InventoryToggle.isInventoryVisible) return;
             Debug.Log("begin drag");
+            image.raycastTarget = false;
             parentAfterDrag = transform.parent;
             transform.SetParent(transform.root);
-            transform.SetAsLastSibling();
-            image.raycastTarget = false;
+            // transform.SetAsLastSibling();
         }
 
         public void OnDrag(PointerEventData eventData) {
@@ -36,8 +36,8 @@ namespace BobaStop.Inventory {
         public void OnEndDrag(PointerEventData eventData) {
             if (!InventoryToggle.isInventoryVisible) return;
             Debug.Log("end drag");
-            transform.SetParent(parentAfterDrag);
             image.raycastTarget = true;
+            transform.SetParent(parentAfterDrag);
         }
     }
 }
