@@ -14,6 +14,10 @@ namespace BobaStop.Systems {
             UpdatePaths();
         }
 
+        public int GetSaveLoadSlot() {
+            return saveSlot;
+        }
+
         private void UpdatePaths() {
             playerPath = Path.Combine(Application.persistentDataPath + $"/playerdata{saveSlot}.json");
             worldPath = Path.Combine(Application.persistentDataPath + $"/worlddata{saveSlot}.json");

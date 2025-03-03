@@ -11,7 +11,6 @@ namespace BobaStop.Systems {
         
         #region Manager Instances & Related Vars
         private static SaveSystem saveSystem;
-        private static int saveSlot;
         
         public static PlayerDataManager playerDataManager;
         private static PlayerData playerData;
@@ -57,45 +56,29 @@ namespace BobaStop.Systems {
         }
         #endregion
 
-        public void PauseTime() {
+        public static void PauseTime() {
             dayCycleManager.PauseDay();
         }
 
-        public void UnpauseTime() {
+        public static void UnpauseTime() {
             dayCycleManager.StartDay();
         }
         
         #region SaveSystem Functions
-        public void SetSaveSlot(int slot) {
-            saveSlot = slot;
+        public static void SetSaveSlot(int slot) {
+            saveSystem.SetSaveLoadSlot(slot);
         }
 
-        public void LoadData() {
-            saveSystem.SetSaveLoadSlot(saveSlot);
+        public static void GetSaveSlot() {
+            saveSystem.GetSaveLoadSlot();
+        }
+
+        public static void LoadData() {
             saveSystem.LoadData(playerData, worldData);
         }
 
-        public void SaveData() {
-            saveSystem.SetSaveLoadSlot(saveSlot);
+        public static void SaveData() {
             saveSystem.SaveData(playerData, worldData);
-        }
-        #endregion
-        
-        #region Player Data Functions
-        public bool SetPlayerName(string playerName) {
-            return playerDataManager.SetPlayerName(playerName);
-        }
-
-        public string GetPlayerName() {
-            return playerDataManager.GetPlayerName();
-        }
-
-        public int GetPlayerPearls() {
-            return playerDataManager.GetPlayerPearls();
-        }
-
-        public void AddPlayerPearls(int pearls) {
-            playerDataManager.AddPlayerPearls(pearls);
         }
         #endregion
         
