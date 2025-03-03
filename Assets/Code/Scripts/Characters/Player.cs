@@ -83,6 +83,10 @@ namespace BobaStop.Characters {
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
                 GameManager.Instance.shopManager.GenerateOrder();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6)) {
+                GameManager.Instance.shopManager.GetShopSelectionScore();
+            }
         }
 
         private void Quit() {
