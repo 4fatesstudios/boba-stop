@@ -5,10 +5,18 @@ using UnityEngine;
 
 namespace BobaStop.Systems {
     public class WorldDataManager {
-        public WorldData worldData;
+        private WorldData worldData;
 
-        public void Start() {
-            worldData = ScriptableObject.CreateInstance<WorldData>();
+        public WorldDataManager(WorldData worldData) {
+            this.worldData = worldData;
+        }
+        
+        public void SetWorldData(WorldData data) {
+            worldData = data;
+        }
+
+        public WorldData GetWorldData() {
+            return worldData;
         }
 
         public int GetDay() {

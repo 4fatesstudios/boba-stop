@@ -2,43 +2,52 @@ using System;
 using BobaStop.Data.Level;
 using BobaStop.Items;
 using BobaStop.Systems.World;
+using BobaStop.Data.Saved;
 using UnityEngine;
 
 namespace BobaStop.Systems {
     public class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
-        #region Manager Instances
+        #region Manager Instances & Related Vars
         private static SaveSystem saveSystem;
-        private static PlayerDataManager playerDataManager;
-        private static WorldDataManager worldDataManager;
+        private static int saveSlot;
+        
+        public static PlayerDataManager playerDataManager;
+        private static PlayerData playerData;
+        
+        public static WorldDataManager worldDataManager;
+        private static WorldData worldData;
+        
         private static DayCycleManager dayCycleManager;
         private static LevelManagerHelper levelManagerHelper;
         private static ShopManager shopManager;
-        private static int saveSlot;
         #endregion
         
         #region Unity Functions
         private void Awake() {
             if (Instance == null) {
                 Instance = this;
-                DontDestroyOnLoad(gameObject); // Make persistent across scenes
+                DontDestroyOnLoad(gameObject); // make persistent across scenes
             }
             else {
-                Destroy(gameObject); // Delete duplicates
+                Destroy(gameObject); // delete duplicates
             }
             
             saveSystem = new SaveSystem();
-            playerDataManager = new PlayerDataManager();
-            worldDataManager = new WorldDataManager();
+            
+            playerDataManager = new PlayerDataManager(playerData);
+            playerData = ScriptableObject.CreateInstance<PlayerData>();
+            
+            worldDataManager = new WorldDataManager(worldData);
+            worldData = ScriptableObject.CreateInstance<WorldData>();
+            
             dayCycleManager = new DayCycleManager();
             levelManagerHelper = new LevelManagerHelper();
             shopManager = new ShopManager();
         }
 
         private void Start() {
-            playerDataManager.Start();
-            worldDataManager.Start();
             dayCycleManager.Start();
             shopManager.Start();
         }
@@ -63,12 +72,12 @@ namespace BobaStop.Systems {
 
         public void LoadData() {
             saveSystem.SetSaveLoadSlot(saveSlot);
-            saveSystem.LoadData(playerDataManager.playerData, worldDataManager.worldData);
+            saveSystem.LoadData(playerData, worldData);
         }
 
         public void SaveData() {
             saveSystem.SetSaveLoadSlot(saveSlot);
-            saveSystem.SaveData(playerDataManager.playerData, worldDataManager.worldData);
+            saveSystem.SaveData(playerData, worldData);
         }
         #endregion
         
