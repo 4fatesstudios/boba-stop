@@ -34,7 +34,7 @@ namespace BobaStop.Systems {
                 Destroy(gameObject); // delete duplicates
             }
             
-            saveSystem = new SaveSystem(playerDataManager, worldDataManager);
+            saveSystem = new SaveSystem();
             
             playerDataManager = new PlayerDataManager(playerData);
             playerData = ScriptableObject.CreateInstance<PlayerData>();

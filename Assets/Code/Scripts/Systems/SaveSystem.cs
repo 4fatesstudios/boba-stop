@@ -9,14 +9,6 @@ namespace BobaStop.Systems {
         
         private string playerPath;
         private string worldPath;
-        
-        private PlayerDataManager playerDataManager;
-        private WorldDataManager worldDataManager;
-
-        public SaveSystem(PlayerDataManager playerDataManager, WorldDataManager worldDataManager) {
-            this.playerDataManager = playerDataManager;
-            this.worldDataManager = worldDataManager;
-        }
 
         public void SetSaveLoadSlot(int slot) {
             saveSlot = slot;
@@ -60,11 +52,11 @@ namespace BobaStop.Systems {
         }
 
         private void SaveShopManagerData() {
-            worldDataManager.SetShopSelection(GameManager.Instance.shopManager.GetShopSelection());
+            GameManager.Instance.worldDataManager.SetShopSelection(GameManager.Instance.shopManager.GetShopSelection());
         }
 
         private void LoadShopManagerData() {
-            GameManager.Instance.shopManager.SetShopSelection(worldDataManager.GetShopSelection());
+            GameManager.Instance.shopManager.SetShopSelection(GameManager.Instance.worldDataManager.GetShopSelection());
         }
         
     }
