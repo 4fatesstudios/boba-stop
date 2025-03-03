@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BobaStop.Data.Level;
 using BobaStop.Items;
 using BobaStop.Systems.World;
@@ -33,7 +34,7 @@ namespace BobaStop.Systems {
                 Destroy(gameObject); // delete duplicates
             }
             
-            saveSystem = new SaveSystem();
+            saveSystem = new SaveSystem(playerDataManager, worldDataManager);
             
             playerDataManager = new PlayerDataManager(playerData);
             playerData = ScriptableObject.CreateInstance<PlayerData>();
@@ -43,7 +44,7 @@ namespace BobaStop.Systems {
             
             dayCycleManager = new DayCycleManager();
             levelManagerHelper = new LevelManagerHelper();
-            shopManager = new ShopManager();
+            shopManager = new ShopManager(worldData);
         }
 
         private void Start() {
@@ -56,28 +57,28 @@ namespace BobaStop.Systems {
         }
         #endregion
 
-        public static void PauseTime() {
+        public void PauseTime() {
             dayCycleManager.PauseDay();
         }
 
-        public static void UnpauseTime() {
+        public void UnpauseTime() {
             dayCycleManager.StartDay();
         }
         
         #region SaveSystem Functions
-        public static void SetSaveSlot(int slot) {
+        public void SetSaveSlot(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
         }
 
-        public static void GetSaveSlot() {
+        public void GetSaveSlot() {
             saveSystem.GetSaveLoadSlot();
         }
 
-        public static void LoadData() {
+        public void LoadData() {
             saveSystem.LoadData(playerData, worldData);
         }
 
-        public static void SaveData() {
+        public void SaveData() {
             saveSystem.SaveData(playerData, worldData);
         }
         #endregion
@@ -115,6 +116,14 @@ namespace BobaStop.Systems {
             foreach (var resource in shopSelection) {
                 Debug.Log(resource);
             }
+        }
+
+        public List<Resource> ShopManager_GetShopSelection() {
+            return worldData.shopSelection;
+        }
+
+        public void SetShopSelection(List<Resource> shopSelection) {
+            shopManager.SetupShopSelection(shopSelection);
         }
 
         public bool AddToShopSelection(Resource resource) {

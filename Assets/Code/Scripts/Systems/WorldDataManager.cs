@@ -26,5 +26,16 @@ namespace BobaStop.Systems {
         public void AddDay() {
             ++worldData.day;
         }
+        
+        #region Shop Manager Info
+        public List<Items.Resource> GetShopSelection() {
+            return worldData.shopSelection;
+        }
+
+        public void SetShopSelection(List<Items.Resource> shopSelection) {
+            worldData.shopSelection = shopSelection;
+        }
+
+        #endregion
     }
 }

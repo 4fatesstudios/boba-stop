@@ -1,5 +1,6 @@
 using System.IO;
 using BobaStop.Data.Saved;
+using BobaStop.Systems.World;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -8,6 +9,14 @@ namespace BobaStop.Systems {
         
         private string playerPath;
         private string worldPath;
+        
+        private PlayerDataManager playerDataManager;
+        private WorldDataManager worldDataManager;
+
+        public SaveSystem(PlayerDataManager playerDataManager, WorldDataManager worldDataManager) {
+            this.playerDataManager = playerDataManager;
+            this.worldDataManager = worldDataManager;
+        }
 
         public void SetSaveLoadSlot(int slot) {
             saveSlot = slot;
@@ -40,6 +49,22 @@ namespace BobaStop.Systems {
         public void DeleteData() {
             File.Delete(playerPath);
             File.Delete(worldPath);
+        }
+
+        public void LoadAllData() {
+            LoadShopManagerData();
+        }
+
+        public void SaveAllData() {
+            SaveShopManagerData();
+        }
+
+        private void SaveShopManagerData() {
+            worldDataManager.SetShopSelection(GameManager.Instance.ShopManager_GetShopSelection());
+        }
+
+        private void LoadShopManagerData() {
+            GameManager.Instance.SetShopSelection(worldDataManager.GetShopSelection());
         }
         
     }
