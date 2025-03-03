@@ -21,6 +21,8 @@ namespace BobaStop.Systems.World
         private int shopSelectionScore;
         private int ordersGeneratedPotential;
         private bool shopIsRunning;
+        
+        public ShopManager(Data.Saved.WorldData worldData) : base(worldData) { }
 
         public override void Start() {
             defaultShopSelection = new List<Resource> {
@@ -29,7 +31,6 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
-            shopSelection = new List<Resource>(defaultShopSelection); // will be overwritten by save
 
             maxShopSelectionSize = 10; // something to be loaded in later
         }
@@ -38,11 +39,7 @@ namespace BobaStop.Systems.World
             if (shopIsRunning) {
                 OnRunShop();
             }
-        }
-
-        public override bool LoadData() {
-            return true;
-        }
+        } 
 
         public void StartShopDay() {
             shopIsRunning = true;
@@ -66,6 +63,16 @@ namespace BobaStop.Systems.World
 
         public List<Resource> GetShopSelection() {
             return shopSelection;
+        }
+
+        public void SetShopSelection(List<Resource> shopSelection) {
+            this.shopSelection = shopSelection;
+        }
+        
+        public void PrintShopSelection() {
+            foreach (var resource in shopSelection) {
+                Debug.Log(resource);
+            }
         }
 
         private void ValidateShopSelection() {

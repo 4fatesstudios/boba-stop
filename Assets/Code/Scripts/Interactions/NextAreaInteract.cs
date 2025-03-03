@@ -9,7 +9,7 @@ namespace BobaStop.Interactions {
         [SerializeField] LevelProperties nextArea;
         
         public override void Interact() {
-            GameManager.Instance.SwitchScene(nextArea);
+            GameManager.Instance.levelManagerHelper.SwitchScene(nextArea);
         }
         
         

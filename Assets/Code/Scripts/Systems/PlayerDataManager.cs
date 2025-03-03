@@ -3,13 +3,22 @@ using UnityEngine;
 
 namespace BobaStop.Systems {
     public class PlayerDataManager {
-        public PlayerData playerData;
+        private PlayerData playerData;
+        
         private int playerMaxPearls = 100000;
 
-        public void Start() {
-            playerData = ScriptableObject.CreateInstance<PlayerData>();
+        public PlayerDataManager(PlayerData playerData) {
+            this.playerData = playerData;
+        }
+        
+        public void SetPlayerData(PlayerData data) {
+            playerData = data;
         }
 
+        public PlayerData GetPlayerData() {
+            return playerData;
+        }
+        
         public bool SetPlayerName(string playerName) {
             // TODO: add regex and filters to ensure no inappropriate or game-breaking names
             playerData.playerName = playerName;

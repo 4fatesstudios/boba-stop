@@ -6,13 +6,16 @@ namespace BobaStop.Systems.World
 {
     public abstract class WorldSystemManager {
         public bool isPaused;
+        private Data.Saved.WorldData worldData;
+        
+        protected WorldSystemManager(Data.Saved.WorldData worldData) {
+            this.worldData = worldData;
+        }
         
         public abstract void Start();
         
         public abstract void Update();
-
-        public abstract bool LoadData();
-
+        
         public virtual void Pause() {
             isPaused = true;
         }
