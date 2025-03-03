@@ -11,17 +11,17 @@ namespace BobaStop.Systems {
         public static GameManager Instance { get; private set; }
         
         #region Manager Instances & Related Vars
-        private static SaveSystem saveSystem;
+        public SaveSystem saveSystem;
         
-        public static PlayerDataManager playerDataManager;
-        private static PlayerData playerData;
+        public PlayerDataManager playerDataManager;
+        private PlayerData playerData;
         
-        public static WorldDataManager worldDataManager;
-        private static WorldData worldData;
+        public WorldDataManager worldDataManager;
+        private WorldData worldData;
         
-        private static DayCycleManager dayCycleManager;
-        private static LevelManagerHelper levelManagerHelper;
-        private static ShopManager shopManager;
+        public DayCycleManager dayCycleManager;
+        public LevelManagerHelper levelManagerHelper;
+        public ShopManager shopManager;
         #endregion
         
         #region Unity Functions
@@ -55,89 +55,6 @@ namespace BobaStop.Systems {
         private void Update() {
             dayCycleManager.Update();
         }
-        #endregion
-
-        public void PauseTime() {
-            dayCycleManager.PauseDay();
-        }
-
-        public void UnpauseTime() {
-            dayCycleManager.StartDay();
-        }
-        
-        #region SaveSystem Functions
-        public void SetSaveSlot(int slot) {
-            saveSystem.SetSaveLoadSlot(slot);
-        }
-
-        public void GetSaveSlot() {
-            saveSystem.GetSaveLoadSlot();
-        }
-
-        public void LoadData() {
-            saveSystem.LoadData(playerData, worldData);
-        }
-
-        public void SaveData() {
-            saveSystem.SaveData(playerData, worldData);
-        }
-        #endregion
-        
-        #region Day Cycle Functions
-        public string GetStandardTime() {
-            return dayCycleManager.GetStandardTime();
-        }
-
-        public string GetMilitaryTime() {
-            return dayCycleManager.GetMilitaryTime();
-        }
-        
-        public void SubscribeToDayPhaseChanges(EventHandler<DayCycleManager.OnDayPhaseChangeEventArgs> handler)
-        {
-            dayCycleManager.OnDayPhaseChanged += handler;
-        }
-
-        public void UnsubscribeFromDayPhaseChanges(EventHandler<DayCycleManager.OnDayPhaseChangeEventArgs> handler)
-        {
-            dayCycleManager.OnDayPhaseChanged -= handler;
-        }
-        #endregion
-
-        #region Level Manager Helper
-        public void SwitchScene(LevelProperties level) {
-            levelManagerHelper.SwitchScene(level);
-        }
-
-        #endregion
-        
-        #region Shop Functions
-        public void PrintShopSelection() {
-            var shopSelection = shopManager.GetShopSelection();
-            foreach (var resource in shopSelection) {
-                Debug.Log(resource);
-            }
-        }
-
-        public List<Resource> ShopManager_GetShopSelection() {
-            return worldData.shopSelection;
-        }
-
-        public void SetShopSelection(List<Resource> shopSelection) {
-            shopManager.SetupShopSelection(shopSelection);
-        }
-
-        public bool AddToShopSelection(Resource resource) {
-            return shopManager.AddToShopSelection(resource);
-        }
-
-        public bool RemoveFromShopSelection(Resource resource) {
-            return shopManager.RemoveFromShopSelection(resource);
-        }
-
-        public void GenerateOrder() {
-            shopManager.GenerateOrder();
-        }
-        
         #endregion
     }
 }

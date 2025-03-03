@@ -65,8 +65,14 @@ namespace BobaStop.Systems.World
             return shopSelection;
         }
 
-        public void SetupShopSelection(List<Resource> shopSelection) {
+        public void SetShopSelection(List<Resource> shopSelection) {
             this.shopSelection = shopSelection;
+        }
+        
+        public void PrintShopSelection() {
+            foreach (var resource in shopSelection) {
+                Debug.Log(resource);
+            }
         }
 
         private void ValidateShopSelection() {
