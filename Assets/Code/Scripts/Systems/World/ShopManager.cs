@@ -14,6 +14,12 @@ namespace BobaStop.Systems.World
 {
     public class ShopManager : WorldSystemManager
     {
+        /// <summary>
+        /// TODO
+        /// - A shop "promotion" UI that allows player to increase/decrease weight of specific shop score categories
+        /// - Make a variable for max toppings (currently 3, could be okay?) 
+        /// </summary>
+        
         // private ShopInventory shopInventory;
         private List<Resource> shopSelection;
         private List<Resource> defaultShopSelection;
@@ -35,8 +41,8 @@ namespace BobaStop.Systems.World
             shopSelection = new List<Resource>();
 
             maxShopSelectionSize = 10; // something to be loaded in later
+            
             ValidateShopSelection();
-            UpdateShopSelectionScore();
         }
 
         public override void Update() {
@@ -58,7 +64,6 @@ namespace BobaStop.Systems.World
         }
 
         public int GetShopSelectionScore() {
-            UpdateShopSelectionScore();
             return shopSelectionScore;
         }
 
@@ -97,6 +102,8 @@ namespace BobaStop.Systems.World
             EnsureResource(ResourceType.Base);
             EnsureResource(ResourceType.Foam);
             EnsureResource(ResourceType.Sweetener);
+            
+            UpdateShopSelectionScore();
         }
 
         /// <summary>
@@ -111,7 +118,6 @@ namespace BobaStop.Systems.World
                 
             shopSelection.Add(resource);
             ValidateShopSelection();
-            UpdateShopSelectionScore();
             return true;
         }
 
@@ -121,7 +127,6 @@ namespace BobaStop.Systems.World
 
             shopSelection.Remove(resource);
             ValidateShopSelection();
-            UpdateShopSelectionScore();
             return true;
         }
 
