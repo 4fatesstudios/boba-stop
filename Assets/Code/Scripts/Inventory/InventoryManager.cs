@@ -12,15 +12,7 @@ namespace BobaStop.Inventory
         public GameObject inventoryItemPrefab; // Prefab for the inventory item
         public List<Item> items;
         
-        // private Dictionary<int, Item> itemDatabase = new Dictionary<int, Item>();
-
-        // private void Start()
-        // {
-        //     foreach (Item item in items)
-        //     {
-        //         itemDatabase[item.id] = item;
-        //     }
-        // }
+        
 
         public bool AddItem(Item item)
         {
@@ -32,6 +24,7 @@ namespace BobaStop.Inventory
                 if (itemInSlot == null)
                 {
                     SpawnNewItem(item, slot);
+                    items.Add(item);
                     return true;
                 }
             }
