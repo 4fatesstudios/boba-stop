@@ -14,6 +14,12 @@ namespace BobaStop.Systems.World
 {
     public class ShopManager : WorldSystemManager
     {
+        /// <summary>
+        /// TODO
+        /// - A shop "promotion" UI that allows player to increase/decrease weight of specific shop score categories
+        /// - Make a variable for max toppings (currently 3, could be okay?) 
+        /// </summary>
+        
         // private ShopInventory shopInventory;
         private List<Resource> shopSelection;
         private List<Resource> defaultShopSelection;
@@ -21,6 +27,8 @@ namespace BobaStop.Systems.World
         private int shopSelectionScore;
         private int ordersGeneratedPotential;
         private bool shopIsRunning;
+        
+        public ShopManager(Data.Saved.WorldData worldData) : base(worldData) { }
 
         public override void Start() {
             defaultShopSelection = new List<Resource> {
@@ -29,20 +37,19 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
-            shopSelection = new List<Resource>(defaultShopSelection); // will be overwritten by save
+            
+            shopSelection = new List<Resource>();
 
             maxShopSelectionSize = 10; // something to be loaded in later
+            
+            ValidateShopSelection();
         }
 
         public override void Update() {
             if (shopIsRunning) {
                 OnRunShop();
             }
-        }
-
-        public override bool LoadData() {
-            return true;
-        }
+        } 
 
         public void StartShopDay() {
             shopIsRunning = true;
@@ -68,6 +75,16 @@ namespace BobaStop.Systems.World
             return shopSelection;
         }
 
+        public void SetShopSelection(List<Resource> shopSelection) {
+            this.shopSelection = shopSelection;
+        }
+        
+        public void PrintShopSelection() {
+            foreach (var resource in shopSelection) {
+                Debug.Log(resource);
+            }
+        }
+
         private void ValidateShopSelection() {
             void EnsureResource(ResourceType type) {
                 if (!shopSelection.Exists(r => r.resourceType == type)) {
@@ -85,6 +102,8 @@ namespace BobaStop.Systems.World
             EnsureResource(ResourceType.Base);
             EnsureResource(ResourceType.Foam);
             EnsureResource(ResourceType.Sweetener);
+            
+            UpdateShopSelectionScore();
         }
 
         /// <summary>
@@ -99,7 +118,6 @@ namespace BobaStop.Systems.World
                 
             shopSelection.Add(resource);
             ValidateShopSelection();
-            UpdateShopSelectionScore();
             return true;
         }
 
@@ -109,13 +127,84 @@ namespace BobaStop.Systems.World
 
             shopSelection.Remove(resource);
             ValidateShopSelection();
-            UpdateShopSelectionScore();
             return true;
         }
 
+        // AI generated - REQUIRES REVIEW
         private void UpdateShopSelectionScore() {
-            //
+            // Weights for each factor
+            float weightCount = 1f;
+            float weightRarity = 1f;
+            float weightTypeBalance = 1f;
+            float weightRarityBalance = 1f;
+
+            int score = 0;
+
+            // 1. Base score: +1 per resource
+            int baseScore = Mathf.RoundToInt(shopSelection.Count * weightCount);
+            score += baseScore;
+            Debug.Log($"Base Score (Count): {baseScore}");
+
+            // 2. Rarity Bonus
+            Dictionary<Rarity, int> rarityPoints = new Dictionary<Rarity, int> {
+                { Rarity.Special, 1 },
+                { Rarity.Premium, 2 },
+                { Rarity.Exquisite, 3 }
+            };
+
+            int rarityBonusScore = 0;
+            foreach (var resource in shopSelection) {
+                if (rarityPoints.TryGetValue(resource.itemRarity, out int rarityBonus)) {
+                    rarityBonusScore += Mathf.RoundToInt(rarityBonus * weightRarity);
+                }
+            }
+            score += rarityBonusScore;
+            Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
+
+            // 3. Resource Type Balance (0-10 points)
+            var typeCounts = shopSelection.GroupBy(r => r.resourceType)
+                .Select(g => g.Count())
+                .ToList();
+
+            float typeBalanceScore = CalculateBalanceScore(typeCounts);
+            score += Mathf.RoundToInt(typeBalanceScore * weightTypeBalance);
+            Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
+
+            // 4. Rarity Spread Balance (0-10 points)
+            var consideredRarities = new List<Rarity> { Rarity.Classic, Rarity.Special, Rarity.Premium, Rarity.Exquisite };
+            var rarityCounts = consideredRarities.Select(rarity => shopSelection.Count(resource => resource.itemRarity == rarity)).ToList();
+            Debug.Log(rarityCounts.ToString());
+
+            float rarityBalanceScore = CalculateBalanceScore(rarityCounts);
+            score += Mathf.RoundToInt(rarityBalanceScore * weightRarityBalance);
+            Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
+
+            // Store the final score
+            shopSelectionScore = score;
+            Debug.Log($"Total Shop Selection Score: {shopSelectionScore}");
         }
+
+        // AI generated - REQUIRES REVIEW
+        // Helper function to compute balance score (0-10)
+        private float CalculateBalanceScore(List<int> counts) {
+            if (counts.Count == 0) return 0;
+
+            float total = counts.Sum();
+            if (total == 0) return 0; // No resources, score should be 0.
+
+            float avg = total / counts.Count;
+    
+            // Calculate variance (higher variance = worse balance)
+            float variance = counts.Sum(c => Mathf.Pow(c - avg, 2)) / counts.Count;
+    
+            // Normalize to a 0-10 scale (higher variance = lower score)
+            float balanceScore = Mathf.Clamp(10 - (variance * 2), 0, 10);
+
+            Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
+            return balanceScore;
+        }
+
+
 
         // AI generated - REQUIRES REVIEW
         public Order GenerateOrder() {

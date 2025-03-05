@@ -56,32 +56,36 @@ namespace BobaStop.Characters {
             }
 
             if (Input.GetKeyDown(KeyCode.O)) {
-                Debug.Log(GameManager.Instance.GetStandardTime());
+                Debug.Log(GameManager.Instance.dayCycleManager.GetStandardTime());
             }
             if (Input.GetKeyDown(KeyCode.P)) {
-                Debug.Log(GameManager.Instance.GetMilitaryTime());
+                Debug.Log(GameManager.Instance.dayCycleManager.GetMilitaryTime());
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                GameManager.Instance.PrintShopSelection();
+                GameManager.Instance.shopManager.PrintShopSelection();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
-                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping1"));
-                GameManager.Instance.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping2"));
+                GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+                GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping1"));
+                GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping2"));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3)) {
-                GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+                GameManager.Instance.shopManager.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
             }
             
             if (Input.GetKeyDown(KeyCode.Alpha4)) {
-                GameManager.Instance.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
+                GameManager.Instance.shopManager.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                GameManager.Instance.GenerateOrder();
+                GameManager.Instance.shopManager.GenerateOrder();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6)) {
+                GameManager.Instance.shopManager.GetShopSelectionScore();
             }
         }
 
