@@ -1,4 +1,5 @@
 using BobaStop.Items;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -8,14 +9,24 @@ namespace BobaStop.Inventory {
 
         [Header("UI")]
         public Image image;
+        public TextMeshProUGUI countText;
         
-        public Item item;
+        [HideInInspector] public Item item;
+        [HideInInspector] public int count = 1;
         [HideInInspector] public Transform parentAfterDrag;
 
         public void InitializeItem(Item newItem)
         {
             item = newItem;
             image.sprite = newItem.itemSprite;
+            RefreshCount();
+        }
+        
+        public void RefreshCount()
+        {
+            countText.text = count.ToString();
+            bool textActive = count > 1;
+            countText.gameObject.SetActive(textActive);
         }
 
         public void OnBeginDrag(PointerEventData eventData) {
@@ -24,7 +35,6 @@ namespace BobaStop.Inventory {
             image.raycastTarget = false;
             parentAfterDrag = transform.parent;
             transform.SetParent(transform.root);
-            // transform.SetAsLastSibling();
         }
 
         public void OnDrag(PointerEventData eventData) {

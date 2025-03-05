@@ -8,14 +8,27 @@ namespace BobaStop.Inventory
 {
     public class InventoryManager : MonoBehaviour
     {
+        public int maxStackedItems = 10;
         public InventorySlot[] inventorySlots;
         public GameObject inventoryItemPrefab; // Prefab for the inventory item
         public List<Item> items;
         
-        
 
         public bool AddItem(Item item)
         {
+            // check if any slot has the same item with count lower than max
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                InventorySlot slot = inventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < maxStackedItems)
+                {
+                    itemInSlot.count++;
+                    itemInSlot.RefreshCount();
+                    return true;
+                }
+            }
+            
             // Find the first empty slot
             for (int i = 0; i < inventorySlots.Length; i++)
             {
