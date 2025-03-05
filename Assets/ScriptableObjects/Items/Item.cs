@@ -13,7 +13,9 @@ namespace BobaStop.Items {
         Exquisite
     }
     
-    public abstract class Item : ScriptableObject {
+    public abstract class Item : ScriptableObject
+    {
+        public int id;
         public string itemName;
         public string itemDescription;
         public Sprite itemSprite;

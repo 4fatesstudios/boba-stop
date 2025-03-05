@@ -16,5 +16,6 @@ namespace BobaStop.Items
         public ResourceType resourceType;
         public int resourceSellValue;
         public int resourceBuyValue;
+        public GameObject itemPrefab;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Interactions;
+using BobaStop.Inventory;
 using UnityEngine;
 
 namespace BobaStop.Interactions
@@ -15,14 +16,33 @@ namespace BobaStop.Interactions
             unselectedVisualGameObject.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
         }
         
-        public override void Interact() {
-            Debug.Log(gameObject.name + " picked up");
-            Destroy(gameObject);
-            // TODO
-            // add to inventory
-            // if inventory full, dont collect
-            // else destroy object
-            // sound effect when picking up
+        // public override void Interact() {
+        //     Debug.Log(gameObject.name + " picked up");
+        //     Destroy(gameObject);
+        //     // add to inventory
+        //     // if inventory full, dont collect
+        //     // else destroy object
+        //     // sound effect when picking up
+        // }
+
+        public override void Interact()
+        {
+            if (InventoryToggle.isInventoryVisible)
+            {
+                Debug.Log("Cannot pick up item while inventory is open");
+                return;
+            }
+            
+            InventoryManager inventoryManager = FindObjectOfType<InventoryManager>();
+            if (inventoryManager != null && inventoryManager.AddItem(item))
+            {
+                Debug.Log("Picked up " + item.itemName);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("Inventory full");
+            }
         }
 
         public void SetItem(Items.Item newItem) {

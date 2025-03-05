@@ -7,5 +7,6 @@ namespace BobaStop.Items
     [CreateAssetMenu(menuName = "Item/Equipment/Weapon", fileName = "Weapon")]
     public class Weapon : Equipment {
         public int attackScore;
+        public GameObject itemPrefab;
     }
 }
