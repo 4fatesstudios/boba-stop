@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BobaStop.Systems
+namespace BobaStop.Systems.World
 {
     public enum DayPhase {
         Morning,
@@ -10,7 +10,7 @@ namespace BobaStop.Systems
         Late
     }
     
-    public class DayCycleManager {
+    public class DayCycleManager : WorldSystemManager {
         private const float SECONDS_IN_MINUTE = 1.0f;
         private const float SECONDS_IN_HOUR = 60.0f;
         private const float SECONDS_IN_DAY = 1440.0f;
@@ -26,8 +26,11 @@ namespace BobaStop.Systems
         private bool timeIsMoving;
         private DayPhase currentDayPhase;
 
-        public event EventHandler<OnDayPhaseChangeEventArgs> OnDayPhaseChanged;
-
+        public event EventHandler<OnDayPhaseChangeEventArgs> OnDayPhaseChanged; // event that is triggered whenever day phase changes
+        
+        // possibly deprecated
+        public event EventHandler OnDayEnd; // event that is triggered whenever day ends (ends on LATE_THRESHOLD)
+        
         public class OnDayPhaseChangeEventArgs : EventArgs {
             public DayPhase DayPhase { get; }
 
@@ -36,13 +39,13 @@ namespace BobaStop.Systems
             }
         }
 
-        public void Start() {
+        public override void Start() {
             timeIsMoving = false;
             elapsedSeconds = 0;
             UpdateDayPhase(); // initialize the correct day phase
         }
 
-        public void Update() {
+        public override void Update() {
             if (timeIsMoving) {
                 elapsedSeconds += Time.deltaTime;
                 if (elapsedSeconds >= SECONDS_IN_DAY) {
@@ -94,11 +97,18 @@ namespace BobaStop.Systems
             if (newPhase != currentDayPhase) {
                 currentDayPhase = newPhase;
                 TriggerOnDayPhaseChange(newPhase);
+                
+                if (currentDayPhase == DayPhase.Evening)
+                    TriggerOnDayEnd();
             }
         }
 
         private void TriggerOnDayPhaseChange(DayPhase newPhase) {
             OnDayPhaseChanged?.Invoke(this, new OnDayPhaseChangeEventArgs(newPhase));
+        }
+
+        private void TriggerOnDayEnd() {
+            OnDayEnd?.Invoke(this, EventArgs.Empty);
         }
 
         public string GetMilitaryTime() {

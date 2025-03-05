@@ -28,8 +28,6 @@ namespace BobaStop.Systems.World
         private int ordersGeneratedPotential;
         private bool shopIsRunning;
         
-        public ShopManager(Data.Saved.WorldData worldData) : base(worldData) { }
-
         public override void Start() {
             defaultShopSelection = new List<Resource> {
                 Resources.Load<Resource>("Items/Resource/Bases/BlackTea"), // default Base
