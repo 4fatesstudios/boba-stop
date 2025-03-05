@@ -21,7 +21,7 @@ namespace BobaStop.Inventory
             {
                 InventorySlot slot = inventorySlots[i];
                 InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-                if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < maxStackedItems)
+                if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < maxStackedItems && itemInSlot.item.itemStackable)
                 {
                     itemInSlot.count++;
                     itemInSlot.RefreshCount();
