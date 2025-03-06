@@ -8,20 +8,20 @@ namespace BobaStop
 {
     public class GeneratePickupableLoot : MonoBehaviour
     {
-        [SerializeField] private LootTable lootTables;
+        [SerializeField] private LootTable lootTable;
         [SerializeField] private Transform lootGenerationOrigin;
         [SerializeField] private GameObject pickupPrefab;
         private float initialVelocityStrength = 2f;
-        
-        private void Update() {
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                GenerateLoot();
-            }
+
+        public void Initialize(LootTable lootTable, Transform lootGenerationOrigin, GameObject pickupPrefab) {
+            this.lootTable = lootTable;
+            this.lootGenerationOrigin = lootGenerationOrigin;
+            this.pickupPrefab = pickupPrefab;
         }
         
-        void GenerateLoot() {
+        public void GenerateLoot() {
             Debug.Log("Generating pickupable loot");
-            foreach (var lootEntry in lootTables) {
+            foreach (var lootEntry in lootTable) {
                 int generatedLootAmount = Random.Range(lootEntry.GetMinimumDropAmount(), lootEntry.GetMaximumDropAmount());
                 
                 for (int i = 0; i < generatedLootAmount; i++) {
