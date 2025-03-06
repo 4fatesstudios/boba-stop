@@ -9,6 +9,8 @@ namespace BobaStop.Inventory
         [SerializeField] private GameObject toolbar;
         [SerializeField] private GameObject darkBackground;
         [SerializeField] private GameObject mainInventory;
+        [SerializeField] private GameObject shopSelection;
+        [SerializeField] private GameObject shopInventory;
         [SerializeField] private Player player;
 
         public static bool isInventoryVisible = false;
@@ -19,6 +21,8 @@ namespace BobaStop.Inventory
             toolbar.SetActive(true);
             darkBackground.SetActive(false);
             mainInventory.SetActive(false);
+            shopSelection.SetActive(false);
+            shopInventory.SetActive(false);
         }
 
         void Update()
@@ -36,6 +40,8 @@ namespace BobaStop.Inventory
             toolbar.SetActive(!isInventoryVisible);
             darkBackground.SetActive(isInventoryVisible);
             mainInventory.SetActive(isInventoryVisible);
+            shopSelection.SetActive(isInventoryVisible);
+            shopInventory.SetActive(isInventoryVisible);
             
             // disable player movement when inventory is visible
             player.enabled = !isInventoryVisible;
