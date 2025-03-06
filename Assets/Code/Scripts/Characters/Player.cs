@@ -155,6 +155,7 @@ namespace BobaStop.Characters {
 
             // Set sprite orientation to face direction moving towards
             FlipSpriteToForwardVector(inputVector);
+            FlipRelevantPlayerAssets(inputVector);
         }
 
         private void SetSelectedInteractable(Interactions.IInteractable interactable) {
@@ -164,6 +165,15 @@ namespace BobaStop.Characters {
                 selectedInteractable = selectedInteractable
             });
         }
+
+        private void FlipRelevantPlayerAssets(Vector3 normalizedVector) {
+            if (normalizedVector.x > 0) {
+                attackGameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            } else if (normalizedVector.x < 0) {
+                attackGameObject.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            }
+        }
+
 
     }
 }
