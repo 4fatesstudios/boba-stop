@@ -4,6 +4,7 @@ using BobaStop.Data.Level;
 using BobaStop.Items;
 using BobaStop.Systems.World;
 using BobaStop.Data.Saved;
+using BobaStop.Inventory;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -22,6 +23,7 @@ namespace BobaStop.Systems {
         public DayCycleManager dayCycleManager;
         public LevelManagerHelper levelManagerHelper;
         public ShopManager shopManager;
+        // public InventoryManager inventoryManager; to be uncommented later when inventory is worked on
         #endregion
         
         #region Unity Functions
