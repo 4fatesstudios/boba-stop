@@ -12,7 +12,9 @@ namespace BobaStop.Inventory
         public ItemSlot[] inventorySlots;
         public GameObject inventoryItemPrefab; // Prefab for the inventory item
         public List<Item> items;
-        
+
+        public ItemSlot[] toolbar1Slots;
+        public ItemSlot[] toolbar2Slots;
 
         public bool AddItem(Item item)
         {
@@ -25,6 +27,7 @@ namespace BobaStop.Inventory
                 {
                     itemUIInSlot.count++;
                     itemUIInSlot.RefreshCount();
+                    SyncToolbars();
                     return true;
                 }
             }
@@ -38,6 +41,7 @@ namespace BobaStop.Inventory
                 {
                     SpawnNewItem(item, slot);
                     items.Add(item);
+                    SyncToolbars();
                     return true;
                 }
             }
@@ -56,5 +60,36 @@ namespace BobaStop.Inventory
             // Set the current item in the slot
             slot.currentItemUI = itemUI;
         }
+        
+        private void SyncToolbars()
+        {
+            for (int i = 0; i < toolbar2Slots.Length; i++)
+            {
+                if (i < toolbar1Slots.Length)
+                {
+                    ItemSlot slot1 = toolbar1Slots[i];
+                    ItemSlot slot2 = toolbar2Slots[i];
+
+                    if (slot1.currentItemUI != null)
+                    {
+                        if (slot2.currentItemUI == null)
+                        {
+                            SpawnNewItem(slot1.currentItemUI.item, slot2);
+                        }
+                        else
+                        {
+                            slot2.currentItemUI.item = slot1.currentItemUI.item;
+                            slot2.currentItemUI.count = slot1.currentItemUI.count;
+                            slot2.currentItemUI.RefreshCount();
+                        }
+                    }
+                    else
+                    {
+                        slot2.RemoveItem();
+                    }
+                }
+            }
+        }
+        
     }
 }
