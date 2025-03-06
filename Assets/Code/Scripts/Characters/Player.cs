@@ -43,12 +43,12 @@ namespace BobaStop.Characters {
             base.Start();
 
             gameInput.OnInteractAction += GameInput_OnInteractAction;
+            gameInput.OnAttackAction += GameInput_OnAttackAction;
         }
 
         private void Update() {
             HandleMovement();
             HandleInteractions();
-            HandleCombat();
 
             // quit application
             if (Input.GetKeyDown("escape")) {
@@ -102,11 +102,13 @@ namespace BobaStop.Characters {
             selectedInteractable?.Interact();
         }
 
+        private void GameInput_OnAttackAction(object sender, EventArgs e) {
+            HandleCombat();
+        }
+
         private void HandleCombat() {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
-                base.OnAttack();
-                gameInput.DisableAllInputs();
-            }
+            base.OnAttack();
+            gameInput.DisableAllInputs();
         }
 
         public override void OnAttack() {

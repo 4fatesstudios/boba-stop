@@ -23,11 +23,11 @@ namespace BobaStop.Characters.Animation {
             SetWalkingAnimation();
         }
 
-        protected void SetWalkingAnimation() {
+        protected virtual void SetWalkingAnimation() {
             animator.SetBool(IS_WALKING, character.IsWalking());
         }
 
-        protected void Character_OnHandleAttackAction(object sender, EventArgs e) {
+        protected virtual void Character_OnHandleAttackAction(object sender, EventArgs e) {
             animator.SetTrigger(ON_ATTACK);
         }
 

@@ -8,6 +8,7 @@ namespace BobaStop.Systems {
     public class GameInput : MonoBehaviour {
 
         public event EventHandler OnInteractAction;
+        public event EventHandler OnAttackAction;
 
         private PlayerInputActions playerInputActions;
 
@@ -16,10 +17,15 @@ namespace BobaStop.Systems {
             playerInputActions.Player.Enable();
 
             playerInputActions.Player.Interact.performed += Interact_performed;
+            playerInputActions.Player.Attack.performed += Attack_performed;
         }
 
         private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
             OnInteractAction?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Attack_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+            OnAttackAction?.Invoke(this, EventArgs.Empty);
         }
 
         public Vector2 GetMovementVectorNormalized() {
