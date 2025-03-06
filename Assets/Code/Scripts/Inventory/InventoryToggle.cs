@@ -15,8 +15,9 @@ namespace BobaStop.Inventory
 
         public static bool isInventoryVisible = false;
 
-        private void Start()
-        {
+        private void Start() {
+            Player.Instance.OnOpenInventory += ToggleInventory;
+            
             // only toolbar is visible at start
             toolbar.SetActive(true);
             darkBackground.SetActive(false);
@@ -25,15 +26,12 @@ namespace BobaStop.Inventory
             shopInventory.SetActive(false);
         }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ToggleInventory();
-            }
+        private void OnDestroy() {
+            Player.Instance.OnOpenInventory -= ToggleInventory;
+            Debug.Log("destroyed");
         }
-        
-        private void ToggleInventory()
+
+        private void ToggleInventory(object sender, EventArgs e)
         {
             isInventoryVisible = !isInventoryVisible;
             

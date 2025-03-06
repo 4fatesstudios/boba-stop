@@ -13,6 +13,8 @@ namespace BobaStop.Characters {
 
         public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;
         
+        public event EventHandler OnOpenInventory;
+        
         public class OnSelectedInteractableChangedEventArgs : EventArgs {
             public Interactions.IInteractable selectedInteractable;
         }
@@ -44,6 +46,13 @@ namespace BobaStop.Characters {
 
             gameInput.OnInteractAction += GameInput_OnInteractAction;
             gameInput.OnAttackAction += GameInput_OnAttackAction;
+            gameInput.OnInventoryAction += GameInput_OnInventoryAction;
+        }
+
+        protected void OnDestroy() {
+            gameInput.OnInteractAction -= GameInput_OnInteractAction;
+            gameInput.OnInventoryAction -= GameInput_OnInventoryAction;
+            gameInput.OnInventoryAction -= GameInput_OnInventoryAction;
         }
 
         private void Update() {
@@ -104,6 +113,10 @@ namespace BobaStop.Characters {
 
         private void GameInput_OnAttackAction(object sender, EventArgs e) {
             HandleCombat();
+        }
+
+        private void GameInput_OnInventoryAction(object sender, EventArgs e) {
+            OnOpenInventory?.Invoke(this, EventArgs.Empty);
         }
 
         private void HandleCombat() {

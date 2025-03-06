@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BobaStop.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ namespace BobaStop.Systems {
 
         public event EventHandler OnInteractAction;
         public event EventHandler OnAttackAction;
+        public event EventHandler OnInventoryAction;
 
         private PlayerInputActions playerInputActions;
 
@@ -18,6 +20,7 @@ namespace BobaStop.Systems {
 
             playerInputActions.Player.Interact.performed += Interact_performed;
             playerInputActions.Player.Attack.performed += Attack_performed;
+            playerInputActions.Player.Inventory.performed += InventoryAction_performed;
         }
 
         private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
@@ -26,6 +29,10 @@ namespace BobaStop.Systems {
 
         private void Attack_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
             OnAttackAction?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void InventoryAction_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+            OnInventoryAction?.Invoke(this, EventArgs.Empty);
         }
 
         public Vector2 GetMovementVectorNormalized() {

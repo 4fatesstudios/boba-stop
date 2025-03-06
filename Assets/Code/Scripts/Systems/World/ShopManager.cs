@@ -44,9 +44,9 @@ namespace BobaStop.Systems.World
             // Initialize shopSelection with defaultShopSelection and fill remaining slots with null
             shopSelection = new List<Resource>(shopSelectionSize);
             shopSelection.AddRange(defaultShopSelection);
-            while (shopSelection.Count < shopSelectionSize) {
-                shopSelection.Add(null);
-            }
+            // while (shopSelection.Count < shopSelectionSize) {
+            //     shopSelection.Add(null);
+            // }
 
             // Initialize shopInventory with all nulls
             shopInventory = new List<Resource>(new Resource[shopInventorySize]);

@@ -13,7 +13,7 @@ namespace BobaStop.Systems {
         }
         public void LoadLevel(LevelProperties level, bool loadAdjacentLevels = true) {
             SceneManager.LoadScene(level.levelName);
-            if (loadAdjacentLevels) LoadAdjacentLevels(level);
+            // if (loadAdjacentLevels) LoadAdjacentLevels(level);
         }
 
         private void LoadAdjacentLevels(LevelProperties level) {

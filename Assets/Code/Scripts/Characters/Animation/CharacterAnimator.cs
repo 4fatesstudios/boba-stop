@@ -19,6 +19,10 @@ namespace BobaStop.Characters.Animation {
             character.OnAttackAction += Character_OnHandleAttackAction;
         }
 
+        protected void OnDestroy() {
+            character.OnAttackAction -= Character_OnHandleAttackAction;
+        }
+
         protected void Update() {
             SetWalkingAnimation();
         }
