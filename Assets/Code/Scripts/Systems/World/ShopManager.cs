@@ -23,8 +23,10 @@ namespace BobaStop.Systems.World
         // private ShopInventory shopInventory;
         private List<Resource> shopSelection;
         private List<Resource> defaultShopSelection;
-        private int maxShopSelectionSize;
+        private List<Resource> shopInventory;
+        private int shopSelectionSize;
         private int shopSelectionScore;
+        private int shopInventorySize;
         private int ordersGeneratedPotential;
         private bool shopIsRunning;
         
@@ -35,13 +37,23 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
-            
-            shopSelection = new List<Resource>();
 
-            maxShopSelectionSize = 10; // something to be loaded in later
-            
+            shopSelectionSize = 10; // something to be loaded in later
+            shopInventorySize = 30;
+
+            // Initialize shopSelection with defaultShopSelection and fill remaining slots with null
+            shopSelection = new List<Resource>(shopSelectionSize);
+            shopSelection.AddRange(defaultShopSelection);
+            while (shopSelection.Count < shopSelectionSize) {
+                shopSelection.Add(null);
+            }
+
+            // Initialize shopInventory with all nulls
+            shopInventory = new List<Resource>(new Resource[shopInventorySize]);
+
             ValidateShopSelection();
         }
+
 
         public override void Update() {
             if (shopIsRunning) {
@@ -66,7 +78,7 @@ namespace BobaStop.Systems.World
         }
 
         public int GetMaxShopSelectionSize() {
-            return maxShopSelectionSize;
+            return shopSelectionSize;
         }
 
         public List<Resource> GetShopSelection() {
@@ -88,7 +100,7 @@ namespace BobaStop.Systems.World
                 if (!shopSelection.Exists(r => r.resourceType == type)) {
                     Resource defaultResource = defaultShopSelection.Find(r => r.resourceType == type);
                     if (defaultResource != null) {
-                        if (shopSelection.Count >= maxShopSelectionSize) {
+                        if (shopSelection.Count >= shopSelectionSize) {
                             shopSelection.RemoveAt(shopSelection.Count - 1); // Remove last added
                         }
                         shopSelection.Add(defaultResource);
@@ -111,7 +123,7 @@ namespace BobaStop.Systems.World
         /// <returns>true if resource was successfully added to selection, false otherwise</returns>
         public bool AddToShopSelection(Resource resource) {
             if (shopIsRunning) return false;
-            if (shopSelection.Count >= maxShopSelectionSize) return false;
+            if (shopSelection.Count >= shopSelectionSize) return false;
             if (shopSelection.Contains(resource)) return false;
                 
             shopSelection.Add(resource);
