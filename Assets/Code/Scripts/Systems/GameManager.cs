@@ -16,6 +16,8 @@ namespace BobaStop.Systems {
         public WorldDataManager worldDataManager;
         private WorldData worldData;
         
+        public CompanionManager companionManager;
+        
         public DayCycleManager dayCycleManager;
         public LevelManagerHelper levelManagerHelper;
         public ShopManager shopManager;
@@ -40,9 +42,10 @@ namespace BobaStop.Systems {
             worldDataManager = new WorldDataManager(worldData);
             worldData = ScriptableObject.CreateInstance<WorldData>();
             
-            levelManagerHelper = new LevelManagerHelper();
+            companionManager = new CompanionManager();
             
             dayCycleManager = new DayCycleManager();
+            levelManagerHelper = new LevelManagerHelper();
             shopManager = new ShopManager();
         }
 
