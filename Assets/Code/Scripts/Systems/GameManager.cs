@@ -63,5 +63,9 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
         }
         #endregion
+
+        public void ResetDay() {
+            // dayCycleManager.
+        }
     }
 }

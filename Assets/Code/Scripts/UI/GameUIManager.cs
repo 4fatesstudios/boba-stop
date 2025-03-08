@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BobaStop.Systems;
+using TMPro;
 using UnityEngine;
 
 namespace BobaStop.UI
@@ -9,6 +11,8 @@ namespace BobaStop.UI
         public static GameUIManager Instance { get; private set; }
         
         public InventoryUIManager inventoryUIManager;
+
+        [SerializeField] private TextMeshProUGUI time;
 
         private void Awake() {
             if (Instance == null) {
@@ -26,7 +30,7 @@ namespace BobaStop.UI
         }
 
         private void Update() {
-            
+            time.text = GameManager.Instance.dayCycleManager.GetStandardTime();
         }
     }
 }
