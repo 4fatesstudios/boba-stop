@@ -66,9 +66,11 @@ namespace BobaStop.Characters {
 
             if (Input.GetKeyDown(KeyCode.O)) {
                 Debug.Log(GameManager.Instance.dayCycleManager.GetStandardTime());
+                Debug.Log(GameManager.Instance.dayCycleManager.GetCurrentDayPhase());
             }
             if (Input.GetKeyDown(KeyCode.P)) {
                 Debug.Log(GameManager.Instance.dayCycleManager.GetMilitaryTime());
+                Debug.Log(GameManager.Instance.dayCycleManager.GetCurrentDayPhase());
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
