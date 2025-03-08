@@ -5,7 +5,10 @@ using UnityEngine;
 namespace BobaStop.Systems.DataManagement
 {
     public class CompanionDataManager {
-        private CompanionData companionData { get; set; }
+        private CompanionData companionData { get; }
+
+        private int rapportLevelStatusMax = 100;
+        private int rapportLevelStatusMin = 100;
 
         public CompanionDataManager() {
             companionData = ScriptableObject.CreateInstance<CompanionData>();
@@ -13,6 +16,10 @@ namespace BobaStop.Systems.DataManagement
 
         public CompanionDataManager(CompanionData companionData) {
             this.companionData = companionData;
+        }
+
+        public void SetCompanionData(CompanionData companionData) {
+            this.companionData.SetData(companionData);
         }
 
         public String GetCompanionName() {
@@ -23,14 +30,39 @@ namespace BobaStop.Systems.DataManagement
             companionData.companionName = companionName;
         }
 
-        public void IncreaseRapportLevel() {
+        public RapportLevel GetCompanionRapportLevel() {
+            return companionData.rapportLevel;
+        }
+
+        public int GetCompanionRapportLevelProgress() {
+            return companionData.rapportLevelProgress;
+        }
+
+        private void IncreaseRapportLevel() {
             ++companionData.rapportLevel;
             ClampRapportLevel();
         }
 
-        public void DecreaseRapportLevel() {
+        private void DecreaseRapportLevel() {
             --companionData.rapportLevel;
             ClampRapportLevel();
+        }
+
+        public void AddRapportLevelProgress(int progress) {
+            companionData.rapportLevelProgress += progress;
+            ClampRapportLevelProgress();
+            UpdateRapportLevel();
+        }
+
+        private void ClampRapportLevelProgress() {
+            companionData.rapportLevelProgress = Mathf.Clamp(companionData.rapportLevelProgress, rapportLevelStatusMin, rapportLevelStatusMax);
+        }
+
+        private void UpdateRapportLevel() {
+            if (companionData.rapportLevelProgress >= rapportLevelStatusMax)
+                IncreaseRapportLevel();
+            else if (companionData.rapportLevelProgress <= rapportLevelStatusMin)
+                DecreaseRapportLevel();
         }
 
         private void ClampRapportLevel() {

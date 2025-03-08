@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BobaStop.NPCs
@@ -19,8 +17,14 @@ namespace BobaStop.NPCs
     
     [CreateAssetMenu(menuName = "Data/NPCs/Rapport", fileName = "Rapport")]
     public class CompanionData : ScriptableObject {
-        public String companionName;
+        public string companionName;
         public RapportLevel rapportLevel;
+        public int rapportLevelProgress;
         
+        public void SetData(CompanionData companionData) {
+            companionName = companionData.companionName;
+            rapportLevel = companionData.rapportLevel;
+            rapportLevelProgress = companionData.rapportLevelProgress;
+        }
     }
 }
