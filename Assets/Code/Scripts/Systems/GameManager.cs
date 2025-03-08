@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using BobaStop.Data.Level;
-using BobaStop.Items;
-using BobaStop.Systems.World;
 using BobaStop.Data.Saved;
-using BobaStop.Inventory;
+using BobaStop.Systems.World;
+using BobaStop.Systems.DataManagement;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -20,9 +16,15 @@ namespace BobaStop.Systems {
         public WorldDataManager worldDataManager;
         private WorldData worldData;
         
+        public CompanionManager companionManager;
+        
         public DayCycleManager dayCycleManager;
         public LevelManagerHelper levelManagerHelper;
         public ShopManager shopManager;
+        
+        // monobehavior classes
+        [SerializeField] public SunlightManager sunlightManager;
+        
         // public InventoryManager inventoryManager; to be uncommented later when inventory is worked on
         #endregion
         
@@ -44,14 +46,16 @@ namespace BobaStop.Systems {
             worldDataManager = new WorldDataManager(worldData);
             worldData = ScriptableObject.CreateInstance<WorldData>();
             
-            levelManagerHelper = new LevelManagerHelper();
+            companionManager = new CompanionManager();
             
             dayCycleManager = new DayCycleManager();
+            levelManagerHelper = new LevelManagerHelper();
             shopManager = new ShopManager();
         }
 
         private void Start() {
             dayCycleManager.Start();
+            dayCycleManager.Unpause();
             shopManager.Start();
         }
 
@@ -59,5 +63,9 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
         }
         #endregion
+
+        public void ResetDay() {
+            // dayCycleManager.
+        }
     }
 }

@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Data.Saved;
-using UnityEngine;
 
-namespace BobaStop.Systems {
+namespace BobaStop.Systems.DataManagement {
     public class WorldDataManager {
         private WorldData worldData;
 

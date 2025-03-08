@@ -1,7 +1,7 @@
 using BobaStop.Data.Saved;
 using UnityEngine;
 
-namespace BobaStop.Systems {
+namespace BobaStop.Systems.DataManagement {
     public class PlayerDataManager {
         private PlayerData playerData;
         

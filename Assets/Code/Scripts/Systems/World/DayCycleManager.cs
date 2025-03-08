@@ -1,4 +1,5 @@
 using System;
+using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Systems.World
@@ -17,13 +18,15 @@ namespace BobaStop.Systems.World
 
         private const float PLAYER_TIME_OFFSET = 480;
 
-        private const float MORNING_THRESHOLD = 480; // 8 AM
-        private const float AFTERNOON_THRESHOLD = 720; // 12 PM
-        private const float EVENING_THRESHOLD = 1080; // 6 PM
-        private const float LATE_THRESHOLD = 0; // 12 AM
+        public readonly float MORNING_THRESHOLD = 480; // 8 AM
+        public readonly float AFTERNOON_THRESHOLD = 720; // 12 PM
+        public readonly float EVENING_THRESHOLD = 1080; // 6 PM
+        public readonly float LATE_THRESHOLD = 0; // 12 AM
+        
+        // debugging purposes only should always be 1.0
+        private float timeMultiplier = 50.0f;
 
         private float elapsedSeconds;
-        private bool timeIsMoving;
         private DayPhase currentDayPhase;
 
         public event EventHandler<OnDayPhaseChangeEventArgs> OnDayPhaseChanged; // event that is triggered whenever day phase changes
@@ -40,19 +43,23 @@ namespace BobaStop.Systems.World
         }
 
         public override void Start() {
-            timeIsMoving = false;
+            isPaused = true;
             elapsedSeconds = 0;
             UpdateDayPhase(); // initialize the correct day phase
         }
 
         public override void Update() {
-            if (timeIsMoving) {
-                elapsedSeconds += Time.deltaTime;
-                if (elapsedSeconds >= SECONDS_IN_DAY) {
-                    ResetTime();
+            if (!isPaused) {
+                elapsedSeconds += Time.deltaTime*timeMultiplier;
+                if (elapsedSeconds + PLAYER_TIME_OFFSET >= SECONDS_IN_DAY) {
+                    ResetDay();
                 }
                 UpdateDayPhase();
             }
+        }
+
+        public float GetAdjustedTime() {
+            return elapsedSeconds + PLAYER_TIME_OFFSET;
         }
         
         public float SecondsInMinute() {
@@ -63,21 +70,20 @@ namespace BobaStop.Systems.World
             return SECONDS_IN_HOUR;
         }
 
+        public float SecondsInDay() {
+            return SECONDS_IN_DAY;
+        }
+
         public bool GetIsTimeMoving() {
-            return timeIsMoving;
+            return isPaused;
         }
 
-        public void StartDay() {
-            timeIsMoving = true;
+        public DayPhase GetCurrentDayPhase() {
+            return currentDayPhase;
         }
 
-        public void PauseDay() {
-            timeIsMoving = false;
-        }
-
-        private void ResetTime() {
+        private void ResetDay() {
             elapsedSeconds = 0;
-            UpdateDayPhase();
         }
 
         private void UpdateDayPhase() {
@@ -88,7 +94,7 @@ namespace BobaStop.Systems.World
                 newPhase = DayPhase.Morning;
             } else if (currentTime >= AFTERNOON_THRESHOLD && currentTime < EVENING_THRESHOLD) {
                 newPhase = DayPhase.Afternoon;
-            } else if (currentTime >= EVENING_THRESHOLD || currentTime < LATE_THRESHOLD) {
+            } else if (currentTime >= EVENING_THRESHOLD) {
                 newPhase = DayPhase.Evening;
             } else {
                 newPhase = DayPhase.Late;
