@@ -51,7 +51,7 @@ namespace BobaStop.Systems.World
         public override void Update() {
             if (!isPaused) {
                 elapsedSeconds += Time.deltaTime*timeMultiplier;
-                if (elapsedSeconds >= SECONDS_IN_DAY) {
+                if (elapsedSeconds + PLAYER_TIME_OFFSET >= SECONDS_IN_DAY) {
                     ResetDay();
                 }
                 UpdateDayPhase();
