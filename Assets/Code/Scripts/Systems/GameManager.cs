@@ -1,3 +1,4 @@
+using System;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
 using BobaStop.Systems.DataManagement;
@@ -51,6 +52,9 @@ namespace BobaStop.Systems {
             dayCycleManager = new DayCycleManager();
             levelManagerHelper = new LevelManagerHelper();
             shopManager = new ShopManager();
+            
+            // Call EndDay when DayCycleManager hits 12:00 AM
+            dayCycleManager.OnDayEnd += EndDay;
         }
 
         private void Start() {
@@ -63,9 +67,15 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
         }
         #endregion
+        
+        private void EndDay(object sender, EventArgs eventArgs) {
+            // pause all World Systems
+            dayCycleManager.Pause();
+            shopManager.Pause();
+        }
 
-        public void ResetDay() {
-            // dayCycleManager.
+        private void ResetDay() {
+            
         }
     }
 }

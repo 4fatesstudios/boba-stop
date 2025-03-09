@@ -24,14 +24,13 @@ namespace BobaStop.Systems.World
         public readonly float LATE_THRESHOLD = 0; // 12 AM
         
         // debugging purposes only should always be 1.0
-        private float timeMultiplier = 50.0f;
+        private float timeMultiplier = 10.0f;
 
         private float elapsedSeconds;
         private DayPhase currentDayPhase;
 
         public event EventHandler<OnDayPhaseChangeEventArgs> OnDayPhaseChanged; // event that is triggered whenever day phase changes
         
-        // possibly deprecated
         public event EventHandler OnDayEnd; // event that is triggered whenever day ends (ends on LATE_THRESHOLD)
         
         public class OnDayPhaseChangeEventArgs : EventArgs {
@@ -51,9 +50,6 @@ namespace BobaStop.Systems.World
         public override void Update() {
             if (!isPaused) {
                 elapsedSeconds += Time.deltaTime*timeMultiplier;
-                if (elapsedSeconds + PLAYER_TIME_OFFSET >= SECONDS_IN_DAY) {
-                    ResetDay();
-                }
                 UpdateDayPhase();
             }
         }
@@ -104,7 +100,7 @@ namespace BobaStop.Systems.World
                 currentDayPhase = newPhase;
                 TriggerOnDayPhaseChange(newPhase);
                 
-                if (currentDayPhase == DayPhase.Evening)
+                if (currentDayPhase == DayPhase.Late)
                     TriggerOnDayEnd();
             }
         }
