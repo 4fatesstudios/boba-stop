@@ -24,7 +24,7 @@ namespace BobaStop.Systems.World
         public readonly float LATE_THRESHOLD = 0; // 12 AM
         
         // debugging purposes only should always be 1.0
-        private float timeMultiplier = 10.0f;
+        private float timeMultiplier = 50.0f;
 
         private float elapsedSeconds;
         private DayPhase currentDayPhase;

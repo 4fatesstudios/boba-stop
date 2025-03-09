@@ -18,13 +18,15 @@ namespace BobaStop
 
         private Quaternion morningRotation = Quaternion.Euler(0, 60f, 180);
         private Quaternion afternoonRotation = Quaternion.Euler(50f, 0, 180);
-        private Quaternion sunsetRotation = Quaternion.Euler(340, 300, 0);
+        private Quaternion sunsetRotation = Quaternion.Euler(380, 300, 0);
+        private Quaternion nightRotation = Quaternion.Euler(300, 360, 0); // Sun under horizon at night
         private Quaternion moonriseRotation = Quaternion.Euler(0, 60f, 180);
         private Quaternion moonPeakRotation = Quaternion.Euler(50f, 0, 180);
 
         private float morningTemp = 3000f;
         private float afternoonTemp = 6000f;
         private float sunsetTemp = 3000f;
+        private float nightTemp = 2000f; // Cooler color for nighttime sun
         private float moonriseTemp = 6000f;
         private float moonPeakTemp = 15000f;
 
@@ -35,8 +37,8 @@ namespace BobaStop
             midnightTime = GameManager.Instance.dayCycleManager.SecondsInDay();
 
             // Start moonrise slightly before sunset for smoother transition
-            moonriseTime = sunsetTime - 150f;
-            
+            moonriseTime = sunsetTime - GameManager.Instance.dayCycleManager.SecondsInHour();
+
             moonLight.enabled = false;
 
             GameManager.Instance.dayCycleManager.OnDayPhaseChanged += DayPhaseChange;
@@ -75,6 +77,13 @@ namespace BobaStop
                 sunLight.colorTemperature = Mathf.Lerp(afternoonTemp, sunsetTemp, t);
                 sunLight.enabled = true;
             }
+            else if (currentTime >= sunsetTime && currentTime < midnightTime) {
+                // New logic for sunset to midnight transition
+                float t = Mathf.InverseLerp(sunsetTime, midnightTime, currentTime);
+                sunLight.transform.rotation = Quaternion.Slerp(sunsetRotation, nightRotation, t);
+                sunLight.colorTemperature = Mathf.Lerp(sunsetTemp, nightTemp, t);
+                sunLight.enabled = true;
+            }
             else {
                 sunLight.enabled = false;
             }
@@ -90,7 +99,7 @@ namespace BobaStop
 
                 // Blend with sunlight during transition
                 moonLight.enabled = true;
-                if (currentTime < sunsetTime) {
+                if (currentTime < sunsetTime || currentTime > sunriseTime) {
                     sunLight.enabled = true;
                 }
             }
@@ -101,7 +110,7 @@ namespace BobaStop
                 moonLight.enabled = true;
             }
             else {
-                
+                moonLight.enabled = false;
             }
         }
 
