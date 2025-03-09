@@ -1897,15 +1897,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7759967633726207, guid: 79117901353932a48bcfbe038b3263b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -180
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7759967633726207, guid: 79117901353932a48bcfbe038b3263b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 7759967633726207, guid: 79117901353932a48bcfbe038b3263b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 633140486424534579, guid: 79117901353932a48bcfbe038b3263b3,
         type: 3}
@@ -1958,6 +1958,11 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5125961480668846124, guid: 79117901353932a48bcfbe038b3263b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317430450950375503, guid: 79117901353932a48bcfbe038b3263b3,
         type: 3}
       propertyPath: m_IsActive
       value: 1
