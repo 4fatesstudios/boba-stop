@@ -267,59 +267,57 @@ namespace BobaStop.Systems.World
             Debug.Log($"Generated Order: {generatedOrder.drinkBase.itemName}, {generatedOrder.drinkFoam.itemName}, {generatedOrder.drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
             return generatedOrder;
         }
-
         
-        public struct Order {
-            private Resource _drinkBase;
-            private Resource _drinkFoam;
-            private Resource _drinkSweetener;
-            private Resource[] _drinkToppings;
+    }
+    public struct Order {
+        private Resource _drinkBase;
+        private Resource _drinkFoam;
+        private Resource _drinkSweetener;
+        private Resource[] _drinkToppings;
 
-            public Resource drinkBase {
-                get => _drinkBase;
-                set {
-                    if (value.resourceType == ResourceType.Base) {
-                        _drinkBase = value;
-                    } else {
-                        Debug.LogError("Invalid Resource type for drinkBase. Must be of type Base.");
-                    }
-                }
-            }
-
-            public Resource drinkFoam {
-                get => _drinkFoam;
-                set {
-                    if (value.resourceType == ResourceType.Foam) {
-                        _drinkFoam = value;
-                    } else {
-                        Debug.LogError("Invalid Resource type for drinkFoam. Must be of type Foam.");
-                    }
-                }
-            }
-
-            public Resource drinkSweetener {
-                get => _drinkSweetener;
-                set {
-                    if (value.resourceType == ResourceType.Sweetener) {
-                        _drinkSweetener = value;
-                    } else {
-                        Debug.LogError("Invalid Resource type for drinkSweetener. Must be of type Sweetener.");
-                    }
-                }
-            }
-
-            public Resource[] drinkToppings {
-                get => _drinkToppings;
-                set {
-                    // Check if all resources in the array are of type Topping
-                    if (value.All(r => r.resourceType == ResourceType.Topping)) {
-                        _drinkToppings = value;
-                    } else {
-                        Debug.LogError("Invalid Resource type for drinkToppings. All must be of type Topping.");
-                    }
+        public Resource drinkBase {
+            get => _drinkBase;
+            set {
+                if (value.resourceType == ResourceType.Base) {
+                    _drinkBase = value;
+                } else {
+                    Debug.LogError("Invalid Resource type for drinkBase. Must be of type Base.");
                 }
             }
         }
-        
+
+        public Resource drinkFoam {
+            get => _drinkFoam;
+            set {
+                if (value.resourceType == ResourceType.Foam) {
+                    _drinkFoam = value;
+                } else {
+                    Debug.LogError("Invalid Resource type for drinkFoam. Must be of type Foam.");
+                }
+            }
+        }
+
+        public Resource drinkSweetener {
+            get => _drinkSweetener;
+            set {
+                if (value.resourceType == ResourceType.Sweetener) {
+                    _drinkSweetener = value;
+                } else {
+                    Debug.LogError("Invalid Resource type for drinkSweetener. Must be of type Sweetener.");
+                }
+            }
+        }
+
+        public Resource[] drinkToppings {
+            get => _drinkToppings;
+            set {
+                // Check if all resources in the array are of type Topping
+                if (value.All(r => r.resourceType == ResourceType.Topping)) {
+                    _drinkToppings = value;
+                } else {
+                    Debug.LogError("Invalid Resource type for drinkToppings. All must be of type Topping.");
+                }
+            }
+        }
     }
 }
