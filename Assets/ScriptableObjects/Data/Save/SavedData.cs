@@ -4,8 +4,15 @@ using UnityEngine;
 
 namespace BobaStop.Data.Saved
 {
-    public class SavedData : MonoBehaviour {
-        public PlayerData playerData = ScriptableObject.CreateInstance<PlayerData>();
-        public WorldData worldData = ScriptableObject.CreateInstance<WorldData>();
+    [CreateAssetMenu(menuName = "Data/Saved Data/Saved Data", fileName = "SavedData")]
+    [System.Serializable]
+    public class SavedData : ScriptableObject {
+        [SerializeField] public PlayerData playerData;
+        [SerializeField] public WorldData worldData;
+
+        public void OnEnable() {
+            playerData ??= CreateInstance<PlayerData>();
+            worldData ??= CreateInstance<WorldData>();
+        }
     }
 }

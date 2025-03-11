@@ -5,11 +5,11 @@ using BobaStop.Items;
 
 namespace BobaStop.Data.Saved
 {
-    public class ShopManagerData : ScriptableObject
-    {
-        public List<Resource> shopSelection = new();
-        public List<Resource> shopInventory = new();
-        public int shopReputationLevel = 1;
-        public int currentShopExp = 0;
+    [CreateAssetMenu(menuName = "Data/Saved Data/World/Shop Manager", fileName = "ShopManagerSavedData")]
+    public class ShopManagerData : ScriptableObject {
+        [SerializeField] public List<Resource> shopSelection = new();
+        [SerializeField] public List<Resource> shopInventory = new();
+        [SerializeField] public int shopReputationLevel = 1;
+        [SerializeField] public int currentShopExp = 0;
     }
 }

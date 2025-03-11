@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace BobaStop.Data.Saved
 {
-    [CreateAssetMenu(menuName = "Data/Saved/Player", fileName = "PlayerData")]
+    [CreateAssetMenu(menuName = "Data/Saved Data/Player", fileName = "PlayerSavedData")]
     public class PlayerData : ScriptableObject {
-        public string playerName = "Bruce";
-        public int playerPearls = 1000;
-        public int playerMaxEnergy = 100;
+        [SerializeField] public string playerName = "Bruce";
+        [SerializeField] public int playerPearls = 1000;
+        [SerializeField] public int playerMaxEnergy = 100;
     }
 }

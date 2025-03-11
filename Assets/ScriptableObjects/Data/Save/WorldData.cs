@@ -15,11 +15,15 @@ namespace BobaStop.Data.Saved
         Sunday = 7
     }
     
-    [CreateAssetMenu(menuName = "Data/Saved/World", fileName = "WorldData")]
+    [CreateAssetMenu(menuName = "Data/Saved Data/World", fileName = "WorldSavedData")]
     public class WorldData : ScriptableObject {
-        public (DayOfWeek dayOfWeek, int count) day = (DayOfWeek.Monday, 1);
+        [SerializeField] public (DayOfWeek dayOfWeek, int count) day = (DayOfWeek.Monday, 1);
         
         // Shop Manager Data
-        public ShopManagerData shopManagerData = ScriptableObject.CreateInstance<ShopManagerData>();
+        [SerializeField] public ShopManagerData shopManagerData;
+
+        public void OnEnable() {
+            shopManagerData ??= CreateInstance<ShopManagerData>();
+        }
     }
 }

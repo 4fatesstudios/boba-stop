@@ -8,9 +8,8 @@ namespace BobaStop.Systems {
         // TODO add an automatic backup save of the prior day, up to n days ago
         
         private int saveSlot;
-        
-        private string playerPath;
-        private string worldPath;
+        private string savedDataPath;
+        private string backupDataPath;
 
         public void SetSaveLoadSlot(int slot) {
             saveSlot = slot;
@@ -22,27 +21,23 @@ namespace BobaStop.Systems {
         }
 
         private void UpdatePaths() {
-            playerPath = Path.Combine(Application.persistentDataPath + $"/playerdata{saveSlot}.json");
-            worldPath = Path.Combine(Application.persistentDataPath + $"/worlddata{saveSlot}.json");
+            savedDataPath = Path.Combine(Application.persistentDataPath + $"/SaveData_{saveSlot}.json");
         }
 
-        public void SaveData(Data.Saved.PlayerData playerData, Data.Saved.WorldData worldData) {
-            File.WriteAllText(playerPath, JsonUtility.ToJson(playerData, true));
-            File.WriteAllText(worldPath, JsonUtility.ToJson(worldData, true));
+        public void SaveData(SavedData saveData) {
+            File.WriteAllText(savedDataPath, JsonUtility.ToJson(saveData, true));
         }
 
-        public void LoadData(Data.Saved.PlayerData playerData, Data.Saved.WorldData worldData) {
-            if (File.Exists(playerPath) && File.Exists(worldPath)) {
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(playerPath), playerData);
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(worldPath), worldData);
+        public void LoadData(SavedData saveData) {
+            if (File.Exists(savedDataPath)) {
+                JsonUtility.FromJsonOverwrite(File.ReadAllText(savedDataPath), saveData);
             } else {
-                Debug.LogError($"Player/World save file not found: {playerPath}");
+                Debug.LogError($"Save file not found: {savedDataPath}");
             }
         }
 
         public void DeleteData() {
-            File.Delete(playerPath);
-            File.Delete(worldPath);
+            File.Delete(savedDataPath);
         }
 
         public void LoadAllData() {

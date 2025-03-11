@@ -10,12 +10,10 @@ namespace BobaStop.Systems {
         
         #region Manager Instances & Related Vars
         public SaveSystem saveSystem;
+        public SavedData savedData;
         
         public PlayerDataManager playerDataManager;
-        private PlayerData playerData;
-        
         public WorldDataManager worldDataManager;
-        private WorldData worldData;
         
         public CompanionManager companionManager;
         
@@ -40,12 +38,10 @@ namespace BobaStop.Systems {
             }
             
             saveSystem = new SaveSystem();
+            savedData = ScriptableObject.CreateInstance<SavedData>();
             
-            playerDataManager = new PlayerDataManager(playerData);
-            playerData = ScriptableObject.CreateInstance<PlayerData>();
-            
-            worldDataManager = new WorldDataManager(worldData);
-            worldData = ScriptableObject.CreateInstance<WorldData>();
+            // playerDataManager = new PlayerDataManager(playerData);
+            // worldDataManager = new WorldDataManager(worldData);
             
             companionManager = new CompanionManager();
             
