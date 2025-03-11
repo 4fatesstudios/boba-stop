@@ -31,16 +31,14 @@ namespace BobaStop.Systems.DataManagement {
                 ++worldData.day.dayOfWeek;
             }
         }
-        
-        #region Shop Manager Info
-        public List<Items.Resource> GetShopSelection() {
-            return worldData.shopSelection;
+
+        public void SetShopManagerData(ShopManagerData shopManagerData) {
+            worldData.shopManagerData = shopManagerData;
         }
 
-        public void SetShopSelection(List<Items.Resource> shopSelection) {
-            worldData.shopSelection = shopSelection;
+        public ShopManagerData GetShopManagerData() {
+            return worldData.shopManagerData;
         }
 
-        #endregion
     }
 }

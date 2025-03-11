@@ -36,11 +36,15 @@ namespace BobaStop.Data
         public int level;
         public int expToLevel;
         public float generatedOrdersMultiplier;
+        public int shopInventorySize;
+        public int shopSelectionSize;
 
-        public ShopReputation(int level, int expToLevel, int generatedOrdersMultiplier) {
+        public ShopReputation(int level, int expToLevel, int generatedOrdersMultiplier, int shopInventorySize, int shopSelectionSize) {
             this.level = level;
             this.expToLevel = expToLevel;
             this.generatedOrdersMultiplier = generatedOrdersMultiplier;
+            this.shopInventorySize = shopInventorySize;
+            this.shopSelectionSize = shopSelectionSize;
         }
     }
 }

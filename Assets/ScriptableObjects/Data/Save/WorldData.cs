@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BobaStop.Systems.World;
 using UnityEngine;
 
 namespace BobaStop.Data.Saved
@@ -19,6 +20,6 @@ namespace BobaStop.Data.Saved
         public (DayOfWeek dayOfWeek, int count) day;
         
         // Shop Manager
-        public List<Items.Resource> shopSelection;
+        public ShopManagerData shopManagerData;
     }
 }
