@@ -30,7 +30,7 @@ namespace BobaStop.UI
         }
 
         private void Update() {
-            time.text = GameManager.Instance.dayCycleManager.GetStandardTime();
+            // time.text = GameManager.Instance.dayCycleManager.GetStandardTime();
         }
     }
 }
