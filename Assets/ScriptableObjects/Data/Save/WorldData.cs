@@ -21,8 +21,12 @@ namespace BobaStop.Data.Saved
         
         // Shop Manager Data
         [SerializeField] public ShopManagerData shopManagerData;
-
+        
         public void OnEnable() {
+            Instantiate();
+        }
+
+        private void Instantiate() {
             shopManagerData ??= CreateInstance<ShopManagerData>();
         }
     }

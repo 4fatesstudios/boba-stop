@@ -14,10 +14,14 @@ namespace BobaStop
         
         public void CreateNewSaveGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
+            saveSystem.SaveData(GameManager.Instance.savedData);
         }
         
         public void LoadGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
+            saveSystem.LoadData(GameManager.Instance.savedData);
+            saveSystem.LoadAllData();
+            GameManager.Instance.levelManagerHelper.LoadLevel(GameManager.Instance.levelManagerHelper.startingLevel, false);
         }
     }
 }

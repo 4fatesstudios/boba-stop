@@ -49,11 +49,11 @@ namespace BobaStop.Systems {
         }
 
         private void SaveShopManagerData() {
-            // GameManager.Instance.worldDataManager.SetShopManagerData(GameManager.Instance.shopManager.GetSaveData());
+            // GameManager.Instance.savedData.SetShopManagerData(GameManager.Instance.shopManager.GetSaveData());
         }
 
         private void LoadShopManagerData() {
-            // GameManager.Instance.shopManager.LoadData(GameManager.Instance.worldDataManager.GetShopManagerData());
+            GameManager.Instance.shopManager.LoadData(GameManager.Instance.savedData.worldData.shopManagerData);
         }
         
     }

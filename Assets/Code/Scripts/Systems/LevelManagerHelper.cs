@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 namespace BobaStop.Systems {
     public class LevelManagerHelper {
+        public readonly LevelProperties startingLevel = Resources.Load<LevelProperties>("Data/Level/DevScene1");
+        
         public void SwitchScene(LevelProperties level) {
             if (level.levelName == SceneManager.GetActiveScene().name) return;
             

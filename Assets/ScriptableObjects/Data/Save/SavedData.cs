@@ -9,8 +9,12 @@ namespace BobaStop.Data.Saved
     public class SavedData : ScriptableObject {
         [SerializeField] public PlayerData playerData;
         [SerializeField] public WorldData worldData;
-
+        
         public void OnEnable() {
+            Instantiate();
+        }
+
+        private void Instantiate() {
             playerData ??= CreateInstance<PlayerData>();
             worldData ??= CreateInstance<WorldData>();
         }
