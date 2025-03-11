@@ -7,9 +7,9 @@ namespace BobaStop.Data.Saved
 {
     public class ShopManagerData : ScriptableObject
     {
-        public List<Resource> shopSelection;
-        public List<Resource> shopInventory;
-        public int shopReputationLevel;
-        public int currentShopExp;
+        public List<Resource> shopSelection = new();
+        public List<Resource> shopInventory = new();
+        public int shopReputationLevel = 1;
+        public int currentShopExp = 0;
     }
 }

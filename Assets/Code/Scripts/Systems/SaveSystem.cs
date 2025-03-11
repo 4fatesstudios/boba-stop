@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace BobaStop.Systems {
     public class SaveSystem {
+        // TODO add an automatic backup save of the prior day, up to n days ago
+        
         private int saveSlot;
         
         private string playerPath;

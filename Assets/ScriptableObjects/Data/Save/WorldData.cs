@@ -17,9 +17,9 @@ namespace BobaStop.Data.Saved
     
     [CreateAssetMenu(menuName = "Data/Saved/World", fileName = "WorldData")]
     public class WorldData : ScriptableObject {
-        public (DayOfWeek dayOfWeek, int count) day;
+        public (DayOfWeek dayOfWeek, int count) day = (DayOfWeek.Monday, 1);
         
-        // Shop Manager
-        public ShopManagerData shopManagerData;
+        // Shop Manager Data
+        public ShopManagerData shopManagerData = ScriptableObject.CreateInstance<ShopManagerData>();
     }
 }

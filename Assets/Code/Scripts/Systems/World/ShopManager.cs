@@ -39,25 +39,6 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
-            
-            shopReputationLevel = 2;
-            var shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
-            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
-            
-            shopSelection = new List<Resource>();
-            while (shopSelection.Count < shopReputation.shopSelectionSize)
-                shopSelection.Add(null);
-            
-            shopInventory = new List<Resource>();
-            while (shopInventory.Count < shopReputation.shopInventorySize)
-                shopInventory.Add(null);
-            
-            // currentShopExp = shopManagerData.currentShopExp;
-
-            // Initialize shopInventory with all nulls
-            shopInventory = new List<Resource>(new Resource[shopReputation.shopInventorySize]);
-
-            ValidateShopSelection();
         }
 
 
@@ -66,14 +47,14 @@ namespace BobaStop.Systems.World
                 OnRunShop();
             }
         }
-
+        
         public void UpdateShopReputationLevel() {
             // check if exp exceeds shop reputation exp threshold
             // if yes, send level up notification and update shop reputation accordingly
         }
 
         /// <summary>
-        /// Used by SaveSystem to load data on first startup
+        /// Used by SaveSystem to load data on first load in
         /// </summary>
         public void LoadData(ShopManagerData shopManagerData) {
             shopReputationLevel = shopManagerData.shopReputationLevel;
@@ -89,7 +70,8 @@ namespace BobaStop.Systems.World
                     shopInventory.Add(null);
             
             currentShopExp = shopManagerData.currentShopExp;
-
+            
+            ValidateShopSelection();
         }
 
         /// <summary>
