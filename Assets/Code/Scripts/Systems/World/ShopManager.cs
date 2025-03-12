@@ -14,7 +14,7 @@ using Random = UnityEngine.Random;
 
 namespace BobaStop.Systems.World
 {
-    public class ShopManager : WorldSystemManager
+    public class ShopManager : WorldSystemManager, ISaveableData
     {
         /// <summary>
         /// TODO
@@ -32,6 +32,7 @@ namespace BobaStop.Systems.World
         private int shopReputationLevel;
         private ShopReputation shopReputation;
         
+
         public override void Start() {
             defaultShopSelection = new List<Resource> {
                 Resources.Load<Resource>("Items/Resource/Bases/BlackTea"), // default Base
@@ -41,11 +42,37 @@ namespace BobaStop.Systems.World
             };
         }
 
-
         public override void Update() {
             if (shopIsRunning) {
                 OnRunShop();
             }
+        }
+        
+        public void LoadData(SaveData saveData) {
+            var shopManagerData = saveData as ShopManagerData;
+            if (shopManagerData == null) {
+                Debug.LogWarning("Shop Manager data is not a Shop Manager");
+                return;
+            }
+            Debug.Log("shop stuff");
+            
+            shopSelection = new List<Resource>(shopManagerData.shopSelection);
+            shopInventory = new List<Resource>(shopManagerData.shopInventory);
+            shopReputationLevel = shopManagerData.shopReputationLevel;
+            currentShopExp = shopManagerData.currentShopExp;
+        }
+
+        public void WriteSaveData(SaveData saveData) {
+            var shopManagerData = saveData as ShopManagerData;
+            if (shopManagerData == null) {
+                Debug.LogWarning("Shop Manager data is not a Shop Manager");
+                return;
+            }
+            
+            shopManagerData.shopSelection = new List<Resource>(shopSelection);
+            shopManagerData.shopInventory = new List<Resource>(shopInventory);
+            shopManagerData.shopReputationLevel = shopReputationLevel;
+            shopManagerData.currentShopExp = shopSelectionScore;
         }
         
         public void UpdateShopReputationLevel() {
@@ -72,19 +99,6 @@ namespace BobaStop.Systems.World
             currentShopExp = shopManagerData.currentShopExp;
             
             ValidateShopSelection();
-        }
-
-        /// <summary>
-        /// Used by SaveSystem to save data on day reset
-        /// </summary>
-        public ShopManagerData GetSaveData() {
-            ShopManagerData shopManagerData = ScriptableObject.CreateInstance<ShopManagerData>();
-            shopManagerData.shopSelection = shopSelection;
-            shopManagerData.shopInventory = shopInventory;
-            shopManagerData.shopReputationLevel = shopReputationLevel;
-            shopManagerData.currentShopExp = currentShopExp;
-            
-            return shopManagerData;
         }
 
         public void StartShopDay() {
@@ -323,7 +337,6 @@ namespace BobaStop.Systems.World
             Debug.Log($"Generated Order: {generatedOrder.drinkBase.itemName}, {generatedOrder.drinkFoam.itemName}, {generatedOrder.drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
             return generatedOrder;
         }
-        
     }
     public struct Order {
         private Resource _drinkBase;

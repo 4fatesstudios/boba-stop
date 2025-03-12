@@ -8,7 +8,7 @@ using SimpleCombat.Components;
 using UnityEngine;
 
 namespace BobaStop.Characters {
-    public class Player : Character {
+    public class Player : Character, ISaveableData {
         public static Player Instance { get; private set; }
 
         public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;
@@ -31,8 +31,12 @@ namespace BobaStop.Characters {
         private Interactions.IInteractable selectedInteractable;
 
         private void Awake() {
-            if (Instance != null) {
-                Debug.LogError($"{nameof(Player)} already exists.");
+            if (Instance == null) {
+                Instance = this;
+                DontDestroyOnLoad(gameObject); // make persistent across scenes
+            }
+            else {
+                Destroy(gameObject); // delete duplicates
             }
 
             Instance = this;
@@ -100,6 +104,13 @@ namespace BobaStop.Characters {
             if (Input.GetKeyDown(KeyCode.Alpha6)) {
                 GameManager.Instance.shopManager.GetShopSelectionScore();
             }
+        }
+        
+        public void LoadData(SaveData saveData) {
+            
+        }
+        public void WriteSaveData(SaveData saveData) {
+            
         }
 
         private void Quit() {
@@ -190,7 +201,5 @@ namespace BobaStop.Characters {
                 attackGameObject.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
         }
-
-
     }
 }

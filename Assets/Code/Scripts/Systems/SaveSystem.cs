@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
+using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Systems {
@@ -24,11 +27,11 @@ namespace BobaStop.Systems {
             savedDataPath = Path.Combine(Application.persistentDataPath + $"/SaveData_{saveSlot}.json");
         }
 
-        public void SaveData(SavedData saveData) {
+        public void SaveDataToDisk(AllSavedData saveData) {
             File.WriteAllText(savedDataPath, JsonUtility.ToJson(saveData, true));
         }
 
-        public void LoadData(SavedData saveData) {
+        public void LoadDataFromDisk(AllSavedData saveData) {
             if (File.Exists(savedDataPath)) {
                 JsonUtility.FromJsonOverwrite(File.ReadAllText(savedDataPath), saveData);
             } else {
@@ -40,21 +43,25 @@ namespace BobaStop.Systems {
             File.Delete(savedDataPath);
         }
 
-        public void LoadAllData() {
-            LoadShopManagerData();
+        public void LoadAllDataToGame() {
+            foreach (var saveDataPair in GameManager.Instance.saveDataAssociations) {
+                Debug.Log($"Loading data for {saveDataPair.Item2.GetType().Name} with SaveData type {saveDataPair.Item1.GetType().Name}");
+                saveDataPair.Item2.LoadData(saveDataPair.Item1);
+            }
         }
 
-        public void SaveAllData() {
-            SaveShopManagerData();
+        public void SaveAllDataFromGame() {
+            foreach (var saveDataPair in GameManager.Instance.saveDataAssociations) {
+                saveDataPair.Item2.WriteSaveData(saveDataPair.Item1);
+            }
         }
 
-        private void SaveShopManagerData() {
-            // GameManager.Instance.savedData.SetShopManagerData(GameManager.Instance.shopManager.GetSaveData());
-        }
-
-        private void LoadShopManagerData() {
-            GameManager.Instance.shopManager.LoadData(GameManager.Instance.savedData.worldData.shopManagerData);
+        private void LoadPlayerData() {
+            
         }
         
+        private void SavePlayerData() {
+            
+        }
     }
 }

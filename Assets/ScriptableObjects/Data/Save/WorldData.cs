@@ -16,18 +16,19 @@ namespace BobaStop.Data.Saved
     }
     
     [CreateAssetMenu(menuName = "Data/Saved Data/World", fileName = "WorldSavedData")]
-    public class WorldData : ScriptableObject {
+    public class WorldData : SaveData {
         [SerializeField] public (DayOfWeek dayOfWeek, int count) day = (DayOfWeek.Monday, 1);
         
-        // Shop Manager Data
-        [SerializeField] public ShopManagerData shopManagerData;
+        public void Awake() {
+            Instantiate();
+        }
         
         public void OnEnable() {
             Instantiate();
         }
 
         private void Instantiate() {
-            shopManagerData ??= CreateInstance<ShopManagerData>();
+            
         }
     }
 }

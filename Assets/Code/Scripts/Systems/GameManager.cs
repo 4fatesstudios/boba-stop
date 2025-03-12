@@ -1,16 +1,23 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
 using BobaStop.Systems.DataManagement;
+using BobaStop.Characters;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace BobaStop.Systems {
     public class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
+        [SerializeField] GameObject playerPrefab;
+        
         #region Manager Instances & Related Vars
         public SaveSystem saveSystem;
-        public SavedData savedData;
+        private AllSavedData allSavedData;
         
         public PlayerDataManager playerDataManager;
         public WorldDataManager worldDataManager;
@@ -20,6 +27,8 @@ namespace BobaStop.Systems {
         public DayCycleManager dayCycleManager;
         public LevelManagerHelper levelManagerHelper;
         public ShopManager shopManager;
+
+        public List<(SaveData, ISaveableData)> saveDataAssociations;
         
         // monobehavior classes
         [SerializeField] public SunlightManager sunlightManager;
@@ -38,7 +47,7 @@ namespace BobaStop.Systems {
             }
             
             saveSystem = new SaveSystem();
-            savedData = ScriptableObject.CreateInstance<SavedData>();
+            allSavedData = ScriptableObject.CreateInstance<AllSavedData>();
             
             // playerDataManager = new PlayerDataManager(playerData);
             // worldDataManager = new WorldDataManager(worldData);
@@ -48,6 +57,8 @@ namespace BobaStop.Systems {
             dayCycleManager = new DayCycleManager();
             levelManagerHelper = new LevelManagerHelper();
             shopManager = new ShopManager();
+            
+            UpdateSaveAssociations();
             
             // Call EndDay when DayCycleManager hits 12:00 AM
             dayCycleManager.OnDayEnd += EndDay;
@@ -68,10 +79,51 @@ namespace BobaStop.Systems {
             // pause all World Systems
             dayCycleManager.Pause();
             shopManager.Pause();
+            saveSystem.SaveAllDataFromGame();
         }
 
-        private void ResetDay() {
+        public AllSavedData GetAllSavedData() {
+            return allSavedData;
+        }
+
+        private void StartNewDay() {
+            saveSystem.SaveDataToDisk(allSavedData);
+            Player.Instance.enabled = true;
+            Player.Instance.transform.position = new Vector3(-2.68300009f,0.157000005f,0f); // DEFINE A DEFAULT START POSITION AT BED
+        }
+
+        public void CreateNewSaveGame(int slot) {
+            saveSystem.SetSaveLoadSlot(slot);
+            saveSystem.DeleteData();
+            StartCoroutine(LoadIntoGame(slot));
+        }
+
+        public IEnumerator LoadIntoGame(int slot) {
+            saveSystem.SetSaveLoadSlot(slot);
             
+            yield return StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+            
+            if (allSavedData.firstLoad) {
+                allSavedData.firstLoad = false;
+                UpdateSaveAssociations();
+                saveSystem.SaveDataToDisk(allSavedData);
+                Debug.Log("first load");
+                if (allSavedData.playerData == null) {
+                    Debug.Log("playerData is null");
+                }
+            }
+            saveSystem.LoadDataFromDisk(allSavedData);
+            // UpdateSaveAssociations();
+            saveSystem.LoadAllDataToGame();
+            StartNewDay();
+        }
+
+        private void UpdateSaveAssociations() {
+            saveDataAssociations?.Clear();
+            saveDataAssociations = new List<(SaveData, ISaveableData)> {
+                (allSavedData.playerData, Player.Instance),
+                (allSavedData.shopManagerData, shopManager)
+            };
         }
     }
 }
