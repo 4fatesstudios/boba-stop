@@ -88,9 +88,10 @@ namespace BobaStop.Systems {
         /// </summary>
         private void StartNewDay() {
             Player.Instance.transform.position = new Vector3(-2.68300009f,0.157000005f,0f); // DEFINE A DEFAULT START POSITION AT BED
+            dayCycleManager.Reset();
             dayCycleManager.Unpause();
             shopManager.Unpause();
-            
+
             Player.Instance.gameObject.SetActive(true);
         }
         
@@ -120,6 +121,9 @@ namespace BobaStop.Systems {
             
             // while end report is running, change scene back to starting shop
             StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+            
+            // temporary
+            StartNewDay();
         }
         
         /// <summary>
@@ -141,13 +145,13 @@ namespace BobaStop.Systems {
         /// <returns></returns>
         public void LoadIntoGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
+            // if no save data found and not first load, do not continue
+            if (!saveSystem.LoadDataFromDisk(allSavedData)) {
+                return;
+            }
             if (allSavedData.firstLoad) {
                 Debug.Log("first load");
                 // do other first load things (ie cutscenes and stuff like that)
-            }
-            // if no save data found and not first load, do not continue
-            if (!saveSystem.LoadDataFromDisk(allSavedData) && !allSavedData.firstLoad) {
-                return;
             }
             StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
             
