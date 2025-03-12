@@ -13,7 +13,7 @@ namespace BobaStop.Systems {
     public class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
         
-        [SerializeField] GameObject playerPrefab;
+        [SerializeField] private Player player;
         
         #region Manager Instances & Related Vars
         public SaveSystem saveSystem;
@@ -46,6 +46,8 @@ namespace BobaStop.Systems {
                 Destroy(gameObject); // delete duplicates
             }
             
+            player.InstantiateSingleton();
+
             saveSystem = new SaveSystem();
             allSavedData = ScriptableObject.CreateInstance<AllSavedData>();
             
@@ -74,47 +76,84 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
         }
         #endregion
-        
-        private void EndDay(object sender, EventArgs eventArgs) {
-            // pause all World Systems
-            dayCycleManager.Pause();
-            shopManager.Pause();
-            saveSystem.SaveAllDataFromGame();
-        }
 
         public AllSavedData GetAllSavedData() {
             return allSavedData;
         }
-
+        
+        /// <summary>
+        /// Starts new day and unpauses necessary World systems
+        /// Teleports player to be next to their bed
+        /// TODO: if player was not at home, punishment ie loss of currency
+        /// </summary>
         private void StartNewDay() {
-            saveSystem.SaveDataToDisk(allSavedData);
-            Player.Instance.enabled = true;
             Player.Instance.transform.position = new Vector3(-2.68300009f,0.157000005f,0f); // DEFINE A DEFAULT START POSITION AT BED
+            dayCycleManager.Unpause();
+            shopManager.Unpause();
+            
+            Player.Instance.gameObject.SetActive(true);
         }
-
+        
+        /// <summary>
+        /// Call to start end of day operations
+        /// Currently called whenever DayCycleManager hits end of day
+        /// Runs and end-of-day report
+        /// TODO: implement end-of-day report
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void EndDay(object sender, EventArgs eventArgs) {
+            Player.Instance.gameObject.SetActive(false);
+            
+            // pause all World Systems
+            dayCycleManager.Pause();
+            shopManager.Pause();
+            
+            // ensure that after first save (after first day) it is no longer considered a first load
+            if (allSavedData.firstLoad) allSavedData.firstLoad = false;
+            
+            // get data from managers and save to disk
+            saveSystem.SaveAllDataFromGame();
+            saveSystem.SaveDataToDisk(allSavedData);
+            
+            // run end report
+            
+            // while end report is running, change scene back to starting shop
+            StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+        }
+        
+        /// <summary>
+        /// Replace save slot with a new save
+        /// </summary>
+        /// <param name="slot"></param>
         public void CreateNewSaveGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
             saveSystem.DeleteData();
-            StartCoroutine(LoadIntoGame(slot));
+            LoadIntoGame(slot);
         }
-
-        public IEnumerator LoadIntoGame(int slot) {
+        
+        /// <summary>
+        /// Load data from indicated save slot
+        /// Calls saveSystem to load data to their necessary systems
+        /// Changes scene to starting shop area
+        /// </summary>
+        /// <param name="slot">Relevant save slot</param>
+        /// <returns></returns>
+        public void LoadIntoGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
-            
-            yield return StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
-            
             if (allSavedData.firstLoad) {
-                allSavedData.firstLoad = false;
-                UpdateSaveAssociations();
-                saveSystem.SaveDataToDisk(allSavedData);
                 Debug.Log("first load");
-                if (allSavedData.playerData == null) {
-                    Debug.Log("playerData is null");
-                }
+                // do other first load things (ie cutscenes and stuff like that)
             }
-            saveSystem.LoadDataFromDisk(allSavedData);
-            // UpdateSaveAssociations();
+            // if no save data found and not first load, do not continue
+            if (!saveSystem.LoadDataFromDisk(allSavedData) && !allSavedData.firstLoad) {
+                return;
+            }
+            StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+            
+            UpdateSaveAssociations();
             saveSystem.LoadAllDataToGame();
+            
             StartNewDay();
         }
 

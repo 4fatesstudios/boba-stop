@@ -31,6 +31,15 @@ namespace BobaStop.Characters {
         private Interactions.IInteractable selectedInteractable;
 
         private void Awake() {
+            InstantiateSingleton();
+
+            Instance = this;
+
+            attack = attackGameObject.GetComponent<Attack>();
+            controller = GetComponent<CharacterController>();
+        }
+
+        public void InstantiateSingleton() {
             if (Instance == null) {
                 Instance = this;
                 DontDestroyOnLoad(gameObject); // make persistent across scenes
@@ -38,11 +47,6 @@ namespace BobaStop.Characters {
             else {
                 Destroy(gameObject); // delete duplicates
             }
-
-            Instance = this;
-
-            attack = attackGameObject.GetComponent<Attack>();
-            controller = GetComponent<CharacterController>();
         }
 
         protected override void Start() {
@@ -103,6 +107,10 @@ namespace BobaStop.Characters {
 
             if (Input.GetKeyDown(KeyCode.Alpha6)) {
                 GameManager.Instance.shopManager.GetShopSelectionScore();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha7)) {
+                GameManager.Instance.shopManager.IncreaseShopReputationLevel();
             }
         }
         

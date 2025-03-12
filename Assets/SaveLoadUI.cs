@@ -11,7 +11,7 @@ namespace BobaStop
         }
         
         public void LoadGame(int slot) {
-            StartCoroutine(GameManager.Instance.LoadIntoGame(slot));
+            GameManager.Instance.LoadIntoGame(slot);
         }
     }
 }

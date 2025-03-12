@@ -31,12 +31,13 @@ namespace BobaStop.Systems {
             File.WriteAllText(savedDataPath, JsonUtility.ToJson(saveData, true));
         }
 
-        public void LoadDataFromDisk(AllSavedData saveData) {
+        public bool LoadDataFromDisk(AllSavedData saveData) {
             if (File.Exists(savedDataPath)) {
                 JsonUtility.FromJsonOverwrite(File.ReadAllText(savedDataPath), saveData);
-            } else {
-                Debug.LogError($"Save file not found: {savedDataPath}");
+                return true;
             }
+            Debug.LogError($"Save file not found: {savedDataPath}");
+            return false;
         }
 
         public void DeleteData() {

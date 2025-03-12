@@ -31,6 +31,7 @@ namespace BobaStop.Systems.World
         private int currentShopExp;
         private int shopReputationLevel;
         private ShopReputation shopReputation;
+        private ShopReputationData shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
         
 
         public override void Start() {
@@ -58,8 +59,12 @@ namespace BobaStop.Systems.World
             
             shopSelection = new List<Resource>(shopManagerData.shopSelection);
             shopInventory = new List<Resource>(shopManagerData.shopInventory);
-            shopReputationLevel = shopManagerData.shopReputationLevel;
             currentShopExp = shopManagerData.currentShopExp;
+            
+            shopReputationLevel = shopManagerData.shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+            
+            ValidateShopSelection();
         }
 
         public void WriteSaveData(SaveData saveData) {
@@ -74,31 +79,25 @@ namespace BobaStop.Systems.World
             shopManagerData.shopReputationLevel = shopReputationLevel;
             shopManagerData.currentShopExp = shopSelectionScore;
         }
-        
-        public void UpdateShopReputationLevel() {
-            // check if exp exceeds shop reputation exp threshold
-            // if yes, send level up notification and update shop reputation accordingly
-        }
 
-        /// <summary>
-        /// Used by SaveSystem to load data on first load in
-        /// </summary>
-        public void LoadData(ShopManagerData shopManagerData) {
-            shopReputationLevel = shopManagerData.shopReputationLevel;
-            var shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
+        public void IncreaseShopReputationLevel() {
+            ++shopReputationLevel;
             shopReputation = shopReputationData.GetReputation(shopReputationLevel);
-            
-            shopSelection = new List<Resource>(shopManagerData.shopSelection);
             while (shopSelection.Count < shopReputation.shopSelectionSize)
-                    shopSelection.Add(null);
-            
-            shopInventory = new List<Resource>(shopManagerData.shopInventory);
+                shopSelection.Add(null);
             while (shopInventory.Count < shopReputation.shopInventorySize)
-                    shopInventory.Add(null);
+                shopInventory.Add(null);
+        }
+        
+        private void UpdateShopReputationLevel() {
+            if (currentShopExp < shopReputation.expToLevel) return;
             
-            currentShopExp = shopManagerData.currentShopExp;
-            
-            ValidateShopSelection();
+            ++shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+            while (shopSelection.Count < shopReputation.shopSelectionSize)
+                shopSelection.Add(null);
+            while (shopInventory.Count < shopReputation.shopInventorySize)
+                shopInventory.Add(null);
         }
 
         public void StartShopDay() {
