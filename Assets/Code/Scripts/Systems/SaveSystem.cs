@@ -27,17 +27,16 @@ namespace BobaStop.Systems {
             savedDataPath = Path.Combine(Application.persistentDataPath + $"/SaveData_{saveSlot}.json");
         }
 
-        public void SaveDataToDisk(AllSavedData saveData) {
-            File.WriteAllText(savedDataPath, JsonUtility.ToJson(saveData, true));
+        public void SaveDataToDisk(GameData gameData) {
+            File.WriteAllText(savedDataPath, JsonUtility.ToJson(gameData, true));
         }
 
-        public bool LoadDataFromDisk(AllSavedData saveData) {
-            if (File.Exists(savedDataPath)) {
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(savedDataPath), saveData);
-                return true;
-            }
-            Debug.LogError($"Save file not found: {savedDataPath}");
-            return false;
+        public void LoadDataFromDisk(GameData gameData) {
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(savedDataPath), gameData);
+        }
+        
+        public bool SaveFileExists() {
+            return File.Exists(savedDataPath);
         }
 
         public void DeleteData() {

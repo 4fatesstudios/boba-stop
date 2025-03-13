@@ -17,7 +17,7 @@ namespace BobaStop.Systems {
         
         #region Manager Instances & Related Vars
         public SaveSystem saveSystem;
-        private AllSavedData allSavedData;
+        private GameData gameData;
         
         public PlayerDataManager playerDataManager;
         public WorldDataManager worldDataManager;
@@ -49,7 +49,7 @@ namespace BobaStop.Systems {
             player.InstantiateSingleton();
 
             saveSystem = new SaveSystem();
-            allSavedData = ScriptableObject.CreateInstance<AllSavedData>();
+            gameData = new GameData();
             
             // playerDataManager = new PlayerDataManager(playerData);
             // worldDataManager = new WorldDataManager(worldData);
@@ -77,8 +77,8 @@ namespace BobaStop.Systems {
         }
         #endregion
 
-        public AllSavedData GetAllSavedData() {
-            return allSavedData;
+        public GameData GetGameData() {
+            return gameData;
         }
         
         /// <summary>
@@ -111,11 +111,11 @@ namespace BobaStop.Systems {
             shopManager.Pause();
             
             // ensure that after first save (after first day) it is no longer considered a first load
-            if (allSavedData.firstLoad) allSavedData.firstLoad = false;
+            if (gameData.firstLoad) gameData.firstLoad = false;
             
             // get data from managers and save to disk
             saveSystem.SaveAllDataFromGame();
-            saveSystem.SaveDataToDisk(allSavedData);
+            saveSystem.SaveDataToDisk(gameData);
             
             // run end report
             
@@ -146,10 +146,10 @@ namespace BobaStop.Systems {
         public void LoadIntoGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
             // if no save data found and not first load, do not continue
-            if (!saveSystem.LoadDataFromDisk(allSavedData)) {
-                return;
+            if (saveSystem.SaveFileExists()) {
+                saveSystem.LoadDataFromDisk(gameData);
             }
-            if (allSavedData.firstLoad) {
+            if (gameData.firstLoad) {
                 Debug.Log("first load");
                 // do other first load things (ie cutscenes and stuff like that)
             }
@@ -164,8 +164,8 @@ namespace BobaStop.Systems {
         private void UpdateSaveAssociations() {
             saveDataAssociations?.Clear();
             saveDataAssociations = new List<(SaveData, ISaveableData)> {
-                (allSavedData.playerData, Player.Instance),
-                (allSavedData.shopManagerData, shopManager)
+                (gameData.playerData, Player.Instance),
+                (gameData.shopManagerData, shopManager)
             };
         }
     }
