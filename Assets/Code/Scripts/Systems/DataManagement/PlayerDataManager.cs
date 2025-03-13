@@ -3,20 +3,33 @@ using UnityEngine;
 
 namespace BobaStop.Systems.DataManagement {
     public class PlayerDataManager : IPersistenceData {
-        private PlayerData playerData;
+        // possibly convert to have ScriptableObjects mirrored to exist on PersistenceData classes
+        private PlayerData playerData = new(); 
         
         private int playerMaxPearls = 100000;
 
-        public PlayerDataManager(PlayerData playerData) {
-            this.playerData = playerData;
+        public PlayerData GetPlayerData() => playerData;
+        
+        public void LoadData(SaveData saveData) {
+            if (saveData is not PlayerData playerData) {
+                Debug.LogWarning("Save data is not a PlayerData");
+                return;
+            }
+            
+            this.playerData.playerName = playerData.playerName;
+            this.playerData.playerPearls = playerData.playerPearls;
+            this.playerData.playerMaxEnergy = playerData.playerMaxEnergy;
         }
         
-        public void SetPlayerData(PlayerData data) {
-            playerData = data;
-        }
-
-        public PlayerData GetPlayerData() {
-            return playerData;
+        public void SaveData(SaveData saveData) {
+            if (saveData is not PlayerData playerData) {
+                Debug.LogWarning("Save data is not a PlayerData");
+                return;
+            }
+            
+            playerData.playerName = this.playerData.playerName;
+            playerData.playerPearls = this.playerData.playerPearls;
+            playerData.playerMaxEnergy = this.playerData.playerMaxEnergy;
         }
         
         public bool SetPlayerName(string playerName) {
@@ -37,11 +50,5 @@ namespace BobaStop.Systems.DataManagement {
             playerData.playerPearls = Mathf.Clamp(playerData.playerPearls + playerPearls, 0, playerMaxPearls);
         }
 
-        public void LoadData(SaveData saveData) {
-            throw new System.NotImplementedException();
-        }
-        public void SaveData(SaveData saveData) {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using BobaStop.Data.Saved;
 using BobaStop.Systems;
+using BobaStop.Systems.DataManagement;
 using SimpleCombat.Components;
 using UnityEngine;
 
 namespace BobaStop.Characters {
-    public class Player : Character, IPersistenceData {
+    public class Player : Character {
         public static Player Instance { get; private set; }
 
         public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;
@@ -29,17 +29,15 @@ namespace BobaStop.Characters {
         private Interactions.IInteractable selectedInteractable;
         private GameInput gameInput;
 
+        private PlayerDataManager playerDataManager;
+
         private void Awake() {
-            InstantiateSingleton();
-
-            Instance = this;
-
             attack = attackGameObject.GetComponent<Attack>();
             controller = GetComponent<CharacterController>();
             gameInput = gameInputObject.GetComponent<GameInput>();
         }
 
-        public void InstantiateSingleton() {
+        public void Instantiate() {
             if (Instance == null) {
                 Instance = this;
                 DontDestroyOnLoad(gameObject); // make persistent across scenes
@@ -47,6 +45,8 @@ namespace BobaStop.Characters {
             else {
                 Destroy(gameObject); // delete duplicates
             }
+            
+            playerDataManager = new PlayerDataManager();
         }
 
         protected override void Start() {
@@ -113,13 +113,6 @@ namespace BobaStop.Characters {
                 GameManager.Instance.shopManager.IncreaseShopReputationLevel();
             }
         }
-        
-        public void LoadData(SaveData saveData) {
-            
-        }
-        public void SaveData(SaveData saveData) {
-            
-        }
 
         private void Quit() {
 #if UNITY_STANDALONE
@@ -129,6 +122,8 @@ namespace BobaStop.Characters {
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
+        
+        public PlayerDataManager GetPlayerDataManager() => playerDataManager;
 
         private void GameInput_OnInteractAction(object sender, EventArgs e) {
             selectedInteractable?.Interact();

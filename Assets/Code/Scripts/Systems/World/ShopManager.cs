@@ -45,12 +45,10 @@ namespace BobaStop.Systems.World
         }
         
         public void LoadData(SaveData saveData) {
-            var shopManagerData = saveData as ShopManagerData;
-            if (shopManagerData == null) {
-                Debug.LogWarning("Shop Manager data is not a Shop Manager");
+            if (saveData is not ShopManagerData shopManagerData) {
+                Debug.LogWarning("Save data is not a ShopManagerData");
                 return;
             }
-            Debug.Log("shop stuff");
             
             shopSelection = new List<Resource>(shopManagerData.shopSelection);
             shopInventory = new List<Resource>(shopManagerData.shopInventory);
@@ -63,9 +61,8 @@ namespace BobaStop.Systems.World
         }
 
         public void SaveData(SaveData saveData) {
-            var shopManagerData = saveData as ShopManagerData;
-            if (shopManagerData == null) {
-                Debug.LogWarning("Shop Manager data is not a Shop Manager");
+            if (saveData is not ShopManagerData shopManagerData) {
+                Debug.LogWarning("Save data is not a ShopManagerData");
                 return;
             }
             

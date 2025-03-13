@@ -43,7 +43,7 @@ namespace BobaStop.Systems {
                 Destroy(gameObject); // delete duplicates
             }
             
-            player.InstantiateSingleton();
+            player.Instantiate();
 
             saveSystem = new SaveSystem();
             gameData = new GameData();
@@ -140,6 +140,7 @@ namespace BobaStop.Systems {
         public void LoadIntoGame(int slot) {
             saveSystem.SetSaveLoadSlot(slot);
             // if no save data found and not first load, do not continue
+            Debug.Log(saveSystem.SaveFileExists());
             if (saveSystem.SaveFileExists()) {
                 saveSystem.LoadDataFromDisk(gameData);
             }
@@ -158,7 +159,7 @@ namespace BobaStop.Systems {
         private void UpdateSaveAssociations() {
             saveDataAssociations?.Clear();
             saveDataAssociations = new List<(SaveData, IPersistenceData)> {
-                (gameData.playerData, Player.Instance),
+                (gameData.playerData, Player.Instance.GetPlayerDataManager()),
                 (gameData.shopManagerData, shopManager)
             };
         }
