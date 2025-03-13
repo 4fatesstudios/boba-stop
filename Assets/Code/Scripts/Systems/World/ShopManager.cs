@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace BobaStop.Systems.World
 {
-    public class ShopManager : WorldSystemManager, ISaveableData
+    public class ShopManager : WorldSystemManager, IPersistenceData
     {
         /// <summary>
         /// TODO

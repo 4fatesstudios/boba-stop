@@ -6,7 +6,7 @@ using SimpleCombat.Components;
 using UnityEngine;
 
 namespace BobaStop.Characters {
-    public class Player : Character, ISaveableData {
+    public class Player : Character, IPersistenceData {
         public static Player Instance { get; private set; }
 
         public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;

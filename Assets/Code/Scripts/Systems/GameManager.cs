@@ -25,7 +25,7 @@ namespace BobaStop.Systems {
         public LevelManagerHelper levelManagerHelper;
         public ShopManager shopManager;
 
-        public List<(SaveData, ISaveableData)> saveDataAssociations;
+        public List<(SaveData, IPersistenceData)> saveDataAssociations;
         
         // monobehavior classes
         [SerializeField] public SunlightManager sunlightManager;
@@ -157,7 +157,7 @@ namespace BobaStop.Systems {
 
         private void UpdateSaveAssociations() {
             saveDataAssociations?.Clear();
-            saveDataAssociations = new List<(SaveData, ISaveableData)> {
+            saveDataAssociations = new List<(SaveData, IPersistenceData)> {
                 (gameData.playerData, Player.Instance),
                 (gameData.shopManagerData, shopManager)
             };

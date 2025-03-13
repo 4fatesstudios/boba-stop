@@ -5,7 +5,7 @@ using BobaStop.Data.Saved;
 
 namespace BobaStop.Systems
 {
-    public interface ISaveableData {
+    public interface IPersistenceData {
         public abstract void LoadData(SaveData saveData);
         
         public abstract void WriteSaveData(SaveData saveData);
