@@ -10,7 +10,7 @@ namespace BobaStop.Systems.World
         Late
     }
     
-    public class DayCycleManager : WorldSystemManager {
+    public class DayCycleManager : RealtimeSystemManager {
         private const float SECONDS_IN_MINUTE = 1.0f;
         private const float SECONDS_IN_HOUR = 60.0f;
         private const float SECONDS_IN_DAY = 1440.0f;

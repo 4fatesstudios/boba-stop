@@ -1,6 +1,6 @@
 namespace BobaStop.Systems.World
 {
-    public abstract class WorldSystemManager {
+    public abstract class RealtimeSystemManager {
         protected bool isPaused;
         
         public abstract void Start();

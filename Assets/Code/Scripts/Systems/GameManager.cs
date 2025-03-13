@@ -16,15 +16,14 @@ namespace BobaStop.Systems {
         public SaveSystem saveSystem;
         private GameData gameData;
         
-        public PlayerDataManager playerDataManager;
-        public WorldDataManager worldDataManager;
-        
         public CompanionManager companionManager;
         
         public DayCycleManager dayCycleManager;
-        public LevelManagerHelper levelManagerHelper;
         public ShopManager shopManager;
+        public WorldManager worldManager;
 
+        public LevelManagerHelper levelManagerHelper;
+        
         public List<(SaveData, IPersistenceData)> saveDataAssociations;
         
         // monobehavior classes
@@ -51,8 +50,10 @@ namespace BobaStop.Systems {
             companionManager = new CompanionManager();
             
             dayCycleManager = new DayCycleManager();
-            levelManagerHelper = new LevelManagerHelper();
             shopManager = new ShopManager();
+            worldManager = new WorldManager();
+            
+            levelManagerHelper = new LevelManagerHelper();
             
             UpdateSaveAssociations();
             
@@ -82,8 +83,12 @@ namespace BobaStop.Systems {
         /// </summary>
         private void StartNewDay() {
             Player.Instance.transform.position = new Vector3(-2.68300009f,0.157000005f,0f); // DEFINE A DEFAULT START POSITION AT BED
+            
             dayCycleManager.Reset();
             dayCycleManager.Unpause();
+            
+            worldManager.Reset();
+            
             shopManager.Unpause();
 
             Player.Instance.gameObject.SetActive(true);
@@ -160,7 +165,8 @@ namespace BobaStop.Systems {
             saveDataAssociations?.Clear();
             saveDataAssociations = new List<(SaveData, IPersistenceData)> {
                 (gameData.playerData, Player.Instance.GetPlayerDataManager()),
-                (gameData.shopManagerData, shopManager)
+                (gameData.shopManagerData, shopManager),
+                (gameData.worldData, worldManager.GetWorldDataManager())
             };
         }
     }

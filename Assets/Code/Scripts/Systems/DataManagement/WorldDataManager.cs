@@ -1,21 +1,34 @@
 using System;
 using System.Collections.Generic;
 using BobaStop.Data.Saved;
+using UnityEngine;
 
 namespace BobaStop.Systems.DataManagement {
-    public class WorldDataManager {
-        private WorldData worldData;
+    public class WorldDataManager : IPersistenceData {
+        private WorldData worldData = new();
+        
+        public WorldData GetWorldData() => worldData;
+        
+        public void LoadData(SaveData saveData) {
+            if (saveData is not WorldData worldData) {
+                Debug.LogWarning("Save data is not a WorldData");
+                return;
+            }
 
-        public WorldDataManager(WorldData worldData) {
-            this.worldData = worldData;
+            this.worldData.day = worldData.day;
+        }
+        
+        public void SaveData(SaveData saveData) {
+            if (saveData is not WorldData worldData) {
+                Debug.LogWarning("Save data is not a WorldData");
+                return;
+            }
+            
+            worldData.day = this.worldData.day;
         }
         
         public void SetWorldData(WorldData data) {
             worldData = data;
-        }
-
-        public WorldData GetWorldData() {
-            return worldData;
         }
 
         public (Data.Saved.DayOfWeek dayOfWeek, int count) GetDay() {
@@ -31,14 +44,5 @@ namespace BobaStop.Systems.DataManagement {
                 ++worldData.day.dayOfWeek;
             }
         }
-
-        // public void SetShopManagerData(ShopManagerData shopManagerData) {
-        //     worldData.shopManagerData = shopManagerData;
-        // }
-        //
-        // public ShopManagerData GetShopManagerData() {
-        //     return worldData.shopManagerData;
-        // }
-
     }
 }
