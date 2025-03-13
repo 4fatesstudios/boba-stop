@@ -1,5 +1,4 @@
 using System;
-using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Systems.World

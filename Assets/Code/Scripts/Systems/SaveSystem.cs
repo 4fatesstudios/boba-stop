@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using BobaStop.Data.Saved;
-using BobaStop.Systems.World;
-using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Systems {

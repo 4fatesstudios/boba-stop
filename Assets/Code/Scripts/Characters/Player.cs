@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Data.Saved;
 using BobaStop.Systems;
-using SimpleCombat;
 using SimpleCombat.Components;
 using UnityEngine;
 

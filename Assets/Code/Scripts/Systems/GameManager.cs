@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
 using BobaStop.Systems.DataManagement;
 using BobaStop.Characters;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace BobaStop.Systems {
     public class GameManager : MonoBehaviour {
@@ -50,9 +47,6 @@ namespace BobaStop.Systems {
 
             saveSystem = new SaveSystem();
             gameData = new GameData();
-            
-            // playerDataManager = new PlayerDataManager(playerData);
-            // worldDataManager = new WorldDataManager(worldData);
             
             companionManager = new CompanionManager();
             

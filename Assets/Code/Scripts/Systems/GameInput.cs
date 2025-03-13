@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using BobaStop.Characters;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace BobaStop.Systems {
     public class GameInput : MonoBehaviour {
