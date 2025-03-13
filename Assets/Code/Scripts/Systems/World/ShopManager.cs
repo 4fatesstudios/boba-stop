@@ -14,7 +14,7 @@ using Random = UnityEngine.Random;
 
 namespace BobaStop.Systems.World
 {
-    public class ShopManager : WorldSystemManager
+    public class ShopManager : WorldSystemManager, ISaveableData
     {
         /// <summary>
         /// TODO
@@ -31,7 +31,9 @@ namespace BobaStop.Systems.World
         private int currentShopExp;
         private int shopReputationLevel;
         private ShopReputation shopReputation;
+        private ShopReputationData shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
         
+
         public override void Start() {
             defaultShopSelection = new List<Resource> {
                 Resources.Load<Resource>("Items/Resource/Bases/BlackTea"), // default Base
@@ -39,70 +41,63 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
-            
-            shopReputationLevel = 2;
-            var shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
-            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
-            
-            shopSelection = new List<Resource>();
-            while (shopSelection.Count < shopReputation.shopSelectionSize)
-                shopSelection.Add(null);
-            
-            shopInventory = new List<Resource>();
-            while (shopInventory.Count < shopReputation.shopInventorySize)
-                shopInventory.Add(null);
-            
-            // currentShopExp = shopManagerData.currentShopExp;
-
-            // Initialize shopInventory with all nulls
-            shopInventory = new List<Resource>(new Resource[shopReputation.shopInventorySize]);
-
-            ValidateShopSelection();
         }
-
 
         public override void Update() {
             if (shopIsRunning) {
                 OnRunShop();
             }
         }
-
-        public void UpdateShopReputationLevel() {
-            // check if exp exceeds shop reputation exp threshold
-            // if yes, send level up notification and update shop reputation accordingly
-        }
-
-        /// <summary>
-        /// Used by SaveSystem to load data on first startup
-        /// </summary>
-        public void LoadData(ShopManagerData shopManagerData) {
-            shopReputationLevel = shopManagerData.shopReputationLevel;
-            var shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
-            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+        
+        public void LoadData(SaveData saveData) {
+            var shopManagerData = saveData as ShopManagerData;
+            if (shopManagerData == null) {
+                Debug.LogWarning("Shop Manager data is not a Shop Manager");
+                return;
+            }
+            Debug.Log("shop stuff");
             
             shopSelection = new List<Resource>(shopManagerData.shopSelection);
-            while (shopSelection.Count < shopReputation.shopSelectionSize)
-                    shopSelection.Add(null);
-            
             shopInventory = new List<Resource>(shopManagerData.shopInventory);
-            while (shopInventory.Count < shopReputation.shopInventorySize)
-                    shopInventory.Add(null);
-            
             currentShopExp = shopManagerData.currentShopExp;
-
+            
+            shopReputationLevel = shopManagerData.shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+            
+            ValidateShopSelection();
         }
 
-        /// <summary>
-        /// Used by SaveSystem to save data on day reset
-        /// </summary>
-        public ShopManagerData GetSaveData() {
-            ShopManagerData shopManagerData = ScriptableObject.CreateInstance<ShopManagerData>();
-            shopManagerData.shopSelection = shopSelection;
-            shopManagerData.shopInventory = shopInventory;
-            shopManagerData.shopReputationLevel = shopReputationLevel;
-            shopManagerData.currentShopExp = currentShopExp;
+        public void WriteSaveData(SaveData saveData) {
+            var shopManagerData = saveData as ShopManagerData;
+            if (shopManagerData == null) {
+                Debug.LogWarning("Shop Manager data is not a Shop Manager");
+                return;
+            }
             
-            return shopManagerData;
+            shopManagerData.shopSelection = new List<Resource>(shopSelection);
+            shopManagerData.shopInventory = new List<Resource>(shopInventory);
+            shopManagerData.shopReputationLevel = shopReputationLevel;
+            shopManagerData.currentShopExp = shopSelectionScore;
+        }
+
+        public void IncreaseShopReputationLevel() {
+            ++shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+            while (shopSelection.Count < shopReputation.shopSelectionSize)
+                shopSelection.Add(null);
+            while (shopInventory.Count < shopReputation.shopInventorySize)
+                shopInventory.Add(null);
+        }
+        
+        private void UpdateShopReputationLevel() {
+            if (currentShopExp < shopReputation.expToLevel) return;
+            
+            ++shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+            while (shopSelection.Count < shopReputation.shopSelectionSize)
+                shopSelection.Add(null);
+            while (shopInventory.Count < shopReputation.shopInventorySize)
+                shopInventory.Add(null);
         }
 
         public void StartShopDay() {
@@ -341,7 +336,6 @@ namespace BobaStop.Systems.World
             Debug.Log($"Generated Order: {generatedOrder.drinkBase.itemName}, {generatedOrder.drinkFoam.itemName}, {generatedOrder.drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
             return generatedOrder;
         }
-        
     }
     public struct Order {
         private Resource _drinkBase;

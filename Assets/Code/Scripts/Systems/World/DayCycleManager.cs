@@ -53,6 +53,10 @@ namespace BobaStop.Systems.World
                 UpdateDayPhase();
             }
         }
+        
+        public override void Reset() {
+            elapsedSeconds = 0;
+        }
 
         public float GetAdjustedTime() {
             return elapsedSeconds + PLAYER_TIME_OFFSET;
@@ -76,10 +80,6 @@ namespace BobaStop.Systems.World
 
         public DayPhase GetCurrentDayPhase() {
             return currentDayPhase;
-        }
-
-        private void ResetDay() {
-            elapsedSeconds = 0;
         }
 
         private void UpdateDayPhase() {

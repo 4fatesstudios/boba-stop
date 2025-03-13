@@ -32,13 +32,13 @@ namespace BobaStop.Systems.DataManagement {
             }
         }
 
-        public void SetShopManagerData(ShopManagerData shopManagerData) {
-            worldData.shopManagerData = shopManagerData;
-        }
-
-        public ShopManagerData GetShopManagerData() {
-            return worldData.shopManagerData;
-        }
+        // public void SetShopManagerData(ShopManagerData shopManagerData) {
+        //     worldData.shopManagerData = shopManagerData;
+        // }
+        //
+        // public ShopManagerData GetShopManagerData() {
+        //     return worldData.shopManagerData;
+        // }
 
     }
 }

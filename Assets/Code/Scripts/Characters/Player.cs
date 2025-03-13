@@ -8,7 +8,7 @@ using SimpleCombat.Components;
 using UnityEngine;
 
 namespace BobaStop.Characters {
-    public class Player : Character {
+    public class Player : Character, ISaveableData {
         public static Player Instance { get; private set; }
 
         public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;
@@ -20,7 +20,7 @@ namespace BobaStop.Characters {
         }
 
         [SerializeField] private float moveSpeed = 1.2f;
-        [SerializeField] private Systems.GameInput gameInput;
+        [SerializeField] private GameObject gameInputObject;
         [SerializeField] private GameObject attackGameObject;
         private Attack attack; // TESTING ONLY, DELETE LATER
 
@@ -29,16 +29,26 @@ namespace BobaStop.Characters {
         private readonly float interactDistance = 0.5f;
         private Vector3 lastInteractDir;
         private Interactions.IInteractable selectedInteractable;
+        private GameInput gameInput;
 
         private void Awake() {
-            if (Instance != null) {
-                Debug.LogError($"{nameof(Player)} already exists.");
-            }
+            InstantiateSingleton();
 
             Instance = this;
 
             attack = attackGameObject.GetComponent<Attack>();
             controller = GetComponent<CharacterController>();
+            gameInput = gameInputObject.GetComponent<GameInput>();
+        }
+
+        public void InstantiateSingleton() {
+            if (Instance == null) {
+                Instance = this;
+                DontDestroyOnLoad(gameObject); // make persistent across scenes
+            }
+            else {
+                Destroy(gameObject); // delete duplicates
+            }
         }
 
         protected override void Start() {
@@ -100,6 +110,17 @@ namespace BobaStop.Characters {
             if (Input.GetKeyDown(KeyCode.Alpha6)) {
                 GameManager.Instance.shopManager.GetShopSelectionScore();
             }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha7)) {
+                GameManager.Instance.shopManager.IncreaseShopReputationLevel();
+            }
+        }
+        
+        public void LoadData(SaveData saveData) {
+            
+        }
+        public void WriteSaveData(SaveData saveData) {
+            
         }
 
         private void Quit() {
@@ -190,7 +211,5 @@ namespace BobaStop.Characters {
                 attackGameObject.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
         }
-
-
     }
 }

@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Systems.World;
 using UnityEngine;
@@ -15,11 +15,8 @@ namespace BobaStop.Data.Saved
         Sunday = 7
     }
     
-    [CreateAssetMenu(menuName = "Data/Saved/World", fileName = "WorldData")]
-    public class WorldData : ScriptableObject {
-        public (DayOfWeek dayOfWeek, int count) day;
-        
-        // Shop Manager
-        public ShopManagerData shopManagerData;
+    [System.Serializable]
+    public class WorldData : SaveData {
+        [SerializeField] public (DayOfWeek dayOfWeek, int count) day = (DayOfWeek.Monday, 1);
     }
 }
