@@ -62,7 +62,7 @@ namespace BobaStop.Systems.World
             ValidateShopSelection();
         }
 
-        public void WriteSaveData(SaveData saveData) {
+        public void SaveData(SaveData saveData) {
             var shopManagerData = saveData as ShopManagerData;
             if (shopManagerData == null) {
                 Debug.LogWarning("Shop Manager data is not a Shop Manager");

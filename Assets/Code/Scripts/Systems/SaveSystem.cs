@@ -49,7 +49,7 @@ namespace BobaStop.Systems {
 
         public void SaveAllDataFromGame() {
             foreach (var saveDataPair in GameManager.Instance.saveDataAssociations) {
-                saveDataPair.Item2.WriteSaveData(saveDataPair.Item1);
+                saveDataPair.Item2.SaveData(saveDataPair.Item1);
             }
         }
 

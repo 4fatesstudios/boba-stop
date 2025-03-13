@@ -2,7 +2,7 @@ using BobaStop.Data.Saved;
 using UnityEngine;
 
 namespace BobaStop.Systems.DataManagement {
-    public class PlayerDataManager {
+    public class PlayerDataManager : IPersistenceData {
         private PlayerData playerData;
         
         private int playerMaxPearls = 100000;
@@ -35,6 +35,13 @@ namespace BobaStop.Systems.DataManagement {
 
         public void AddPlayerPearls(int playerPearls) {
             playerData.playerPearls = Mathf.Clamp(playerData.playerPearls + playerPearls, 0, playerMaxPearls);
+        }
+
+        public void LoadData(SaveData saveData) {
+            throw new System.NotImplementedException();
+        }
+        public void SaveData(SaveData saveData) {
+            throw new System.NotImplementedException();
         }
     }
 }

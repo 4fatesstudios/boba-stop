@@ -117,7 +117,7 @@ namespace BobaStop.Characters {
         public void LoadData(SaveData saveData) {
             
         }
-        public void WriteSaveData(SaveData saveData) {
+        public void SaveData(SaveData saveData) {
             
         }
 

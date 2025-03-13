@@ -8,6 +8,6 @@ namespace BobaStop.Systems
     public interface IPersistenceData {
         public abstract void LoadData(SaveData saveData);
         
-        public abstract void WriteSaveData(SaveData saveData);
+        public abstract void SaveData(SaveData saveData);
     }
 }
