@@ -15,7 +15,7 @@ namespace BobaStop.Systems.DataManagement {
                 return;
             }
 
-            this.worldData.day = worldData.day;
+            this.worldData.dayData = worldData.dayData;
         }
         
         public void SaveData(SaveData saveData) {
@@ -24,24 +24,24 @@ namespace BobaStop.Systems.DataManagement {
                 return;
             }
             
-            worldData.day = this.worldData.day;
+            worldData.dayData = this.worldData.dayData;
         }
         
         public void SetWorldData(WorldData data) {
             worldData = data;
         }
 
-        public (Data.Saved.DayOfWeek dayOfWeek, int count) GetDay() {
-            return worldData.day;
+        public DayData GetDay() {
+            return worldData.dayData;
         }
 
         public void AddDay() {
-            ++worldData.day.count;
-            if (worldData.day.dayOfWeek + 1 > Data.Saved.DayOfWeek.Sunday) {
-                worldData.day.dayOfWeek = Data.Saved.DayOfWeek.Monday;
+            ++worldData.dayData.count;
+            if (worldData.dayData.day + 1 > Data.Saved.DayOfWeek.Sunday) {
+                worldData.dayData.day = Data.Saved.DayOfWeek.Monday;
             }
             else {
-                ++worldData.day.dayOfWeek;
+                ++worldData.dayData.day;
             }
         }
     }

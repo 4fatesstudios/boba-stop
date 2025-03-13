@@ -11,9 +11,15 @@ namespace BobaStop.Data.Saved
         Saturday = 6,
         Sunday = 7
     }
+
+    [System.Serializable]
+    public struct DayData {
+        public DayOfWeek day;
+        public int count;
+    }
     
     [System.Serializable]
     public class WorldData : SaveData {
-        [SerializeField] public (DayOfWeek dayOfWeek, int count) day = (DayOfWeek.Monday, 1);
+        [SerializeField] public DayData dayData = new() {day = DayOfWeek.Monday, count = 1};
     }
 }
