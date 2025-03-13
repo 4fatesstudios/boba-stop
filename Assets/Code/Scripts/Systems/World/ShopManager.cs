@@ -13,11 +13,11 @@ namespace BobaStop.Systems.World
     {
         /// <summary>
         /// TODO
+        /// - Delegate ShopManagerData data management to a separate "ShopManagerDataManager"
         /// - A shop "promotion" UI that allows player to increase/decrease weight of specific shop score categories
-        /// - Make a variable for max toppings (currently 3, could be okay?) 
+        /// - Make a variable for max toppings (currently 3, could be okay?)
         /// </summary>
         
-        // private ShopInventory shopInventory;
         private List<Resource> shopSelection;
         private List<Resource> defaultShopSelection;
         private List<Resource> shopInventory;
