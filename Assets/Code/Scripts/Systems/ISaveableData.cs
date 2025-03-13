@@ -1,0 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using BobaStop.Data.Saved;
+
+namespace BobaStop.Systems
+{
+    public interface ISaveableData {
+        public abstract void LoadData(SaveData saveData);
+        
+        public abstract void WriteSaveData(SaveData saveData);
+    }
+}

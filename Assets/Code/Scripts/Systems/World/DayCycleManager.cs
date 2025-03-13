@@ -31,7 +31,6 @@ namespace BobaStop.Systems.World
 
         public event EventHandler<OnDayPhaseChangeEventArgs> OnDayPhaseChanged; // event that is triggered whenever day phase changes
         
-        // possibly deprecated
         public event EventHandler OnDayEnd; // event that is triggered whenever day ends (ends on LATE_THRESHOLD)
         
         public class OnDayPhaseChangeEventArgs : EventArgs {
@@ -51,11 +50,12 @@ namespace BobaStop.Systems.World
         public override void Update() {
             if (!isPaused) {
                 elapsedSeconds += Time.deltaTime*timeMultiplier;
-                if (elapsedSeconds + PLAYER_TIME_OFFSET >= SECONDS_IN_DAY) {
-                    ResetDay();
-                }
                 UpdateDayPhase();
             }
+        }
+        
+        public override void Reset() {
+            elapsedSeconds = 0;
         }
 
         public float GetAdjustedTime() {
@@ -82,10 +82,6 @@ namespace BobaStop.Systems.World
             return currentDayPhase;
         }
 
-        private void ResetDay() {
-            elapsedSeconds = 0;
-        }
-
         private void UpdateDayPhase() {
             float currentTime = (elapsedSeconds + PLAYER_TIME_OFFSET) % SECONDS_IN_DAY;
 
@@ -104,7 +100,7 @@ namespace BobaStop.Systems.World
                 currentDayPhase = newPhase;
                 TriggerOnDayPhaseChange(newPhase);
                 
-                if (currentDayPhase == DayPhase.Evening)
+                if (currentDayPhase == DayPhase.Late)
                     TriggerOnDayEnd();
             }
         }

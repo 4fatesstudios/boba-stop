@@ -1,14 +1,18 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
+using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Systems {
     public class SaveSystem {
-        private int saveSlot;
+        // TODO add an automatic backup save of the prior day, up to n days ago
         
-        private string playerPath;
-        private string worldPath;
+        private int saveSlot;
+        private string savedDataPath;
+        private string backupDataPath;
 
         public void SetSaveLoadSlot(int slot) {
             saveSlot = slot;
@@ -20,44 +24,44 @@ namespace BobaStop.Systems {
         }
 
         private void UpdatePaths() {
-            playerPath = Path.Combine(Application.persistentDataPath + $"/playerdata{saveSlot}.json");
-            worldPath = Path.Combine(Application.persistentDataPath + $"/worlddata{saveSlot}.json");
+            savedDataPath = Path.Combine(Application.persistentDataPath + $"/SaveData_{saveSlot}.json");
         }
 
-        public void SaveData(Data.Saved.PlayerData playerData, Data.Saved.WorldData worldData) {
-            File.WriteAllText(playerPath, JsonUtility.ToJson(playerData, true));
-            File.WriteAllText(worldPath, JsonUtility.ToJson(worldData, true));
+        public void SaveDataToDisk(GameData gameData) {
+            File.WriteAllText(savedDataPath, JsonUtility.ToJson(gameData, true));
         }
 
-        public void LoadData(Data.Saved.PlayerData playerData, Data.Saved.WorldData worldData) {
-            if (File.Exists(playerPath) && File.Exists(worldPath)) {
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(playerPath), playerData);
-                JsonUtility.FromJsonOverwrite(File.ReadAllText(worldPath), worldData);
-            } else {
-                Debug.LogError($"Player/World save file not found: {playerPath}");
-            }
+        public void LoadDataFromDisk(GameData gameData) {
+            JsonUtility.FromJsonOverwrite(File.ReadAllText(savedDataPath), gameData);
+        }
+        
+        public bool SaveFileExists() {
+            return File.Exists(savedDataPath);
         }
 
         public void DeleteData() {
-            File.Delete(playerPath);
-            File.Delete(worldPath);
+            File.Delete(savedDataPath);
         }
 
-        public void LoadAllData() {
-            LoadShopManagerData();
+        public void LoadAllDataToGame() {
+            foreach (var saveDataPair in GameManager.Instance.saveDataAssociations) {
+                Debug.Log($"Loading data for {saveDataPair.Item2.GetType().Name} with SaveData type {saveDataPair.Item1.GetType().Name}");
+                saveDataPair.Item2.LoadData(saveDataPair.Item1);
+            }
         }
 
-        public void SaveAllData() {
-            SaveShopManagerData();
+        public void SaveAllDataFromGame() {
+            foreach (var saveDataPair in GameManager.Instance.saveDataAssociations) {
+                saveDataPair.Item2.WriteSaveData(saveDataPair.Item1);
+            }
         }
 
-        private void SaveShopManagerData() {
-            GameManager.Instance.worldDataManager.SetShopSelection(GameManager.Instance.shopManager.GetShopSelection());
-        }
-
-        private void LoadShopManagerData() {
-            GameManager.Instance.shopManager.SetShopSelection(GameManager.Instance.worldDataManager.GetShopSelection());
+        private void LoadPlayerData() {
+            
         }
         
+        private void SavePlayerData() {
+            
+        }
     }
 }

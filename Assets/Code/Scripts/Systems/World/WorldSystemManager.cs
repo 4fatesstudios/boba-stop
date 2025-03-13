@@ -18,6 +18,9 @@ namespace BobaStop.Systems.World
         public virtual void Unpause() {
             isPaused = false;
         }
-        
+
+        public virtual void Reset() {
+            
+        }
     }
 }

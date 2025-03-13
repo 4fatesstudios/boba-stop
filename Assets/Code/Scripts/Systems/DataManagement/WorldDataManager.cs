@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BobaStop.Data.Saved;
 
@@ -17,23 +18,27 @@ namespace BobaStop.Systems.DataManagement {
             return worldData;
         }
 
-        public int GetDay() {
+        public (Data.Saved.DayOfWeek dayOfWeek, int count) GetDay() {
             return worldData.day;
         }
 
         public void AddDay() {
-            ++worldData.day;
-        }
-        
-        #region Shop Manager Info
-        public List<Items.Resource> GetShopSelection() {
-            return worldData.shopSelection;
-        }
-
-        public void SetShopSelection(List<Items.Resource> shopSelection) {
-            worldData.shopSelection = shopSelection;
+            ++worldData.day.count;
+            if (worldData.day.dayOfWeek + 1 > Data.Saved.DayOfWeek.Sunday) {
+                worldData.day.dayOfWeek = Data.Saved.DayOfWeek.Monday;
+            }
+            else {
+                ++worldData.day.dayOfWeek;
+            }
         }
 
-        #endregion
+        // public void SetShopManagerData(ShopManagerData shopManagerData) {
+        //     worldData.shopManagerData = shopManagerData;
+        // }
+        //
+        // public ShopManagerData GetShopManagerData() {
+        //     return worldData.shopManagerData;
+        // }
+
     }
 }
