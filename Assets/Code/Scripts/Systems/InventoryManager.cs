@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Items;
+using BobaStop.UI;
 using UnityEngine;
 
 namespace BobaStop.Inventory
@@ -9,20 +10,20 @@ namespace BobaStop.Inventory
     public class InventoryManager : MonoBehaviour
     {
         public int maxStackedItems = 10;
-        public ItemSlot[] inventorySlots;
+        public ItemSlotUI[] inventorySlots;
         public GameObject inventoryItemPrefab; // Prefab for the inventory item
         public List<Item> items;
 
-        public ItemSlot[] toolbar1Slots;
-        public ItemSlot[] toolbar2Slots;
+        public ItemSlotUI[] toolbar1Slots;
+        public ItemSlotUI[] toolbar2Slots;
 
         public bool AddItem(Item item)
         {
             // check if any slot has the same item with count lower than max
             for (int i = 0; i < inventorySlots.Length; i++)
             {
-                ItemSlot slot = inventorySlots[i];
-                ItemUI itemUIInSlot = slot.GetComponentInChildren<ItemUI>();
+                ItemSlotUI slotUI = inventorySlots[i];
+                ItemUI itemUIInSlot = slotUI.GetComponentInChildren<ItemUI>();
                 if (itemUIInSlot != null && itemUIInSlot.item == item && itemUIInSlot.count < maxStackedItems && itemUIInSlot.item.itemStackable)
                 {
                     itemUIInSlot.count++;
@@ -35,11 +36,11 @@ namespace BobaStop.Inventory
             // Find the first empty slot
             for (int i = 0; i < inventorySlots.Length; i++)
             {
-                ItemSlot slot = inventorySlots[i];
-                ItemUI itemUIInSlot = slot.GetComponentInChildren<ItemUI>();
+                ItemSlotUI slotUI = inventorySlots[i];
+                ItemUI itemUIInSlot = slotUI.GetComponentInChildren<ItemUI>();
                 if (itemUIInSlot == null)
                 {
-                    SpawnNewItem(item, slot);
+                    SpawnNewItem(item, slotUI);
                     items.Add(item);
                     SyncToolbars();
                     return true;
@@ -50,15 +51,15 @@ namespace BobaStop.Inventory
             return false;
         }
 
-        private void SpawnNewItem(Item item, ItemSlot slot)
+        private void SpawnNewItem(Item item, ItemSlotUI slotUI)
         {
             // Instantiate the new item prefab
-            GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
+            GameObject newItemGo = Instantiate(inventoryItemPrefab, slotUI.transform);
             ItemUI itemUI = newItemGo.GetComponent<ItemUI>();
             itemUI.InitializeItem(item);
 
             // Set the current item in the slot
-            slot.currentItemUI = itemUI;
+            slotUI.currentItemUI = itemUI;
         }
         
         private void SyncToolbars()
@@ -67,8 +68,8 @@ namespace BobaStop.Inventory
             {
                 if (i < toolbar1Slots.Length)
                 {
-                    ItemSlot slot1 = toolbar1Slots[i];
-                    ItemSlot slot2 = toolbar2Slots[i];
+                    ItemSlotUI slot1 = toolbar1Slots[i];
+                    ItemSlotUI slot2 = toolbar2Slots[i];
 
                     if (slot1.currentItemUI != null)
                     {

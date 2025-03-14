@@ -1,12 +1,13 @@
 using System;
 using BobaStop.Items;
+using BobaStop.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-namespace BobaStop.Inventory
+namespace BobaStop.UI
 {
-    public class ItemSlot : MonoBehaviour, IDropHandler
+    public class ItemSlotUI : MonoBehaviour, IDropHandler
     {
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private float slotSize = 50.0f;
@@ -16,10 +17,19 @@ namespace BobaStop.Inventory
         public bool allowPacks = true;    // Allow Pack items
         public bool allowGear = true;     // Allow Gear items
 
-        [FormerlySerializedAs("currentItem")] public ItemUI currentItemUI; // The item currently in the slot
+        public ItemUI currentItemUI; // The item currently in the slot
 
         public void Awake() {
             if (rectTransform != null) {
+                rectTransform.sizeDelta = new Vector2(slotSize, slotSize);
+            }
+        }
+
+        public void Initialize(float slotSize)
+        {
+            this.slotSize = slotSize;
+            if (rectTransform != null)
+            {
                 rectTransform.sizeDelta = new Vector2(slotSize, slotSize);
             }
         }
