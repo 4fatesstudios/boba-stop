@@ -3,7 +3,6 @@ using BobaStop.Items;
 using BobaStop.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace BobaStop.UI
 {
@@ -19,10 +18,13 @@ namespace BobaStop.UI
 
         public ItemUI currentItemUI; // The item currently in the slot
 
+        private IManagerUI managerUI;
+
         public void Awake() {
             if (rectTransform != null) {
                 rectTransform.sizeDelta = new Vector2(slotSize, slotSize);
             }
+            managerUI = FindObjectOfType<InventoryUIManager>();
         }
 
         public void Initialize(float slotSize)
@@ -48,6 +50,8 @@ namespace BobaStop.UI
                     // Set the current item in the slot
                     currentItemUI = itemUI;
                     itemUI.parentAfterDrag = transform;
+                    
+                    managerUI.CheckIfSlotValid(this);
                 }
                 else
                 {
@@ -66,10 +70,10 @@ namespace BobaStop.UI
             return false;
         }
 
-        // Remove the item from this slot
-        public void RemoveItem()
-        {
-            currentItemUI = null;
-        }
+        // // Remove the item from this slot
+        // public void RemoveItem()
+        // {
+        //     currentItemUI = null;
+        // }
     }
 }

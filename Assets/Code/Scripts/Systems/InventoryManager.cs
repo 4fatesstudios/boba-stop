@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Items;
 using BobaStop.UI;
@@ -11,86 +9,39 @@ namespace BobaStop.Inventory
     {
         public int maxStackedItems = 10;
         public ItemSlotUI[] inventorySlots;
-        public GameObject inventoryItemPrefab; // Prefab for the inventory item
+        public GameObject inventoryItemPrefab;
         public List<Item> items;
 
         public ItemSlotUI[] toolbar1Slots;
         public ItemSlotUI[] toolbar2Slots;
 
-        public bool AddItem(Item item)
-        {
-            // check if any slot has the same item with count lower than max
-            for (int i = 0; i < inventorySlots.Length; i++)
-            {
-                ItemSlotUI slotUI = inventorySlots[i];
-                ItemUI itemUIInSlot = slotUI.GetComponentInChildren<ItemUI>();
-                if (itemUIInSlot != null && itemUIInSlot.item == item && itemUIInSlot.count < maxStackedItems && itemUIInSlot.item.itemStackable)
-                {
-                    itemUIInSlot.count++;
-                    itemUIInSlot.RefreshCount();
-                    SyncToolbars();
-                    return true;
-                }
-            }
-            
-            // Find the first empty slot
-            for (int i = 0; i < inventorySlots.Length; i++)
-            {
-                ItemSlotUI slotUI = inventorySlots[i];
-                ItemUI itemUIInSlot = slotUI.GetComponentInChildren<ItemUI>();
-                if (itemUIInSlot == null)
-                {
-                    SpawnNewItem(item, slotUI);
-                    items.Add(item);
-                    SyncToolbars();
-                    return true;
-                }
-            }
+        private Dictionary<ItemSlotUI, Item> itemSlotDictionary;
 
-            // No empty slots available
-            return false;
+        private void Awake()
+        {
+            itemSlotDictionary = new Dictionary<ItemSlotUI, Item>();
+            InitializeSlots(inventorySlots.Length, inventoryItemPrefab, transform, 50.0f);
         }
 
-        private void SpawnNewItem(Item item, ItemSlotUI slotUI)
+        public void InitializeSlots(int slotCount, GameObject itemSlotPrefab, Transform itemSlotContainer, float slotSize)
         {
-            // Instantiate the new item prefab
-            GameObject newItemGo = Instantiate(inventoryItemPrefab, slotUI.transform);
-            ItemUI itemUI = newItemGo.GetComponent<ItemUI>();
-            itemUI.InitializeItem(item);
-
-            // Set the current item in the slot
-            slotUI.currentItemUI = itemUI;
-        }
-        
-        private void SyncToolbars()
-        {
-            for (int i = 0; i < toolbar2Slots.Length; i++)
+            for (int i = 0; i < slotCount; i++)
             {
-                if (i < toolbar1Slots.Length)
-                {
-                    ItemSlotUI slot1 = toolbar1Slots[i];
-                    ItemSlotUI slot2 = toolbar2Slots[i];
-
-                    if (slot1.currentItemUI != null)
-                    {
-                        if (slot2.currentItemUI == null)
-                        {
-                            SpawnNewItem(slot1.currentItemUI.item, slot2);
-                        }
-                        else
-                        {
-                            slot2.currentItemUI.item = slot1.currentItemUI.item;
-                            slot2.currentItemUI.count = slot1.currentItemUI.count;
-                            slot2.currentItemUI.RefreshCount();
-                        }
-                    }
-                    else
-                    {
-                        slot2.RemoveItem();
-                    }
-                }
+                GameObject slotObject = Instantiate(itemSlotPrefab, itemSlotContainer);
+                ItemSlotUI itemSlotUI = slotObject.GetComponent<ItemSlotUI>();
+                itemSlotUI.Initialize(slotSize);
+                itemSlotDictionary.Add(itemSlotUI, null);
             }
         }
-        
+
+        public bool IsSlotValid(ItemSlotUI itemSlotUI)
+        {
+            return itemSlotDictionary.ContainsKey(itemSlotUI);
+        }
+
+        public bool IsSlotEmpty(ItemSlotUI itemSlotUI)
+        {
+            return itemSlotDictionary[itemSlotUI] == null;
+        }
     }
 }
