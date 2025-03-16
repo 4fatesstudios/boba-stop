@@ -70,10 +70,10 @@ namespace BobaStop.UI
             return false;
         }
 
-        // // Remove the item from this slot
-        // public void RemoveItem()
-        // {
-        //     currentItemUI = null;
-        // }
+        // Remove the item from this slot
+        public void RemoveItem()
+        {
+            currentItemUI = null;
+        }
     }
 }

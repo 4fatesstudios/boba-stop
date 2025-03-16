@@ -34,5 +34,10 @@ namespace BobaStop.UI
                 }
             }
         }
+
+        public void AddNewSlot()
+        {
+            inventoryManager.AddSlot(itemSlotPrefab, itemSlotContainer, slotSize);
+        }
     }
 }
