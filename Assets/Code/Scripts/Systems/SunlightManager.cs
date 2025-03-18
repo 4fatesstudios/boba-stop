@@ -31,9 +31,9 @@ namespace BobaStop
         private float moonPeakTemp = 15000f;
 
         private void Start() {
-            sunriseTime = GameManager.Instance.dayCycleManager.MORNING_THRESHOLD;
-            afternoonTime = GameManager.Instance.dayCycleManager.AFTERNOON_THRESHOLD;
-            sunsetTime = GameManager.Instance.dayCycleManager.EVENING_THRESHOLD;
+            sunriseTime = DayCycleManager.MORNING_THRESHOLD;
+            afternoonTime = DayCycleManager.AFTERNOON_THRESHOLD;
+            sunsetTime = DayCycleManager.EVENING_THRESHOLD;
             midnightTime = GameManager.Instance.dayCycleManager.SecondsInDay();
 
             // Start moonrise slightly before sunset for smoother transition

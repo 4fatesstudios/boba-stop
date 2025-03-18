@@ -17,10 +17,10 @@ namespace BobaStop.Systems.World
 
         private const float PLAYER_TIME_OFFSET = 480;
 
-        public readonly float MORNING_THRESHOLD = 480; // 8 AM
-        public readonly float AFTERNOON_THRESHOLD = 720; // 12 PM
-        public readonly float EVENING_THRESHOLD = 1080; // 6 PM
-        public readonly float LATE_THRESHOLD = 0; // 12 AM
+        public static readonly float MORNING_THRESHOLD = 480; // 8 AM
+        public static readonly float AFTERNOON_THRESHOLD = 720; // 12 PM
+        public static readonly float EVENING_THRESHOLD = 1080; // 6 PM
+        public static readonly float LATE_THRESHOLD = 0; // 12 AM
         
         // debugging purposes only should always be 1.0
         private float timeMultiplier = 50.0f;
@@ -41,16 +41,17 @@ namespace BobaStop.Systems.World
         }
 
         public override void Start() {
-            isPaused = true;
+            base.Start();
+            
             elapsedSeconds = 0;
             UpdateDayPhase(); // initialize the correct day phase
         }
 
         public override void Update() {
-            if (!isPaused) {
-                elapsedSeconds += Time.deltaTime*timeMultiplier;
-                UpdateDayPhase();
-            }
+            if (isPaused) return;
+            
+            elapsedSeconds += Time.deltaTime*timeMultiplier;
+            UpdateDayPhase();
         }
         
         public override void Reset() {

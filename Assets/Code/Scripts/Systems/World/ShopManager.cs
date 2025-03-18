@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace BobaStop.Systems.World
 {
-    public class ShopManager : RealtimeSystemManager, IPersistenceData
+    public class ShopManager : RealtimeSystemManager, IPersistenceData, IScheduledObject
     {
         /// <summary>
         /// TODO
@@ -26,6 +26,8 @@ namespace BobaStop.Systems.World
         private int currentShopExp;
         private int shopReputationLevel;
         private ShopReputation shopReputation;
+        private Schedule schedule;
+        private bool isScheduledTime;
         private ShopReputationData shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
         
 
@@ -36,14 +38,22 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
+            
+            // add to schedule manager
+            GameManager.Instance.scheduleManager.AddToSchedule(this);
         }
 
         public override void Update() {
             if (shopIsRunning) {
                 OnRunShop();
             }
+
+            if (isScheduledTime) {
+                Debug.Log("TIME FOR BOBA");
+            }
         }
         
+        #region IPersistenceData
         public void LoadData(SaveData saveData) {
             if (saveData is not ShopManagerData shopManagerData) {
                 Debug.LogWarning("Save data is not a ShopManagerData");
@@ -56,6 +66,8 @@ namespace BobaStop.Systems.World
             
             shopReputationLevel = shopManagerData.shopReputationLevel;
             shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+
+            schedule = new Schedule(shopManagerData.schedule);
             
             ValidateShopSelection();
         }
@@ -68,9 +80,27 @@ namespace BobaStop.Systems.World
             
             shopManagerData.shopSelection = new List<Resource>(shopSelection);
             shopManagerData.shopInventory = new List<Resource>(shopInventory);
-            shopManagerData.shopReputationLevel = shopReputationLevel;
             shopManagerData.currentShopExp = shopSelectionScore;
+            shopManagerData.shopReputationLevel = shopReputationLevel;
+            shopManagerData.schedule = new Schedule(schedule);
         }
+        #endregion
+        
+        #region IScheduledObject
+
+        public Schedule GetSchedule() {
+            return schedule;
+        }
+
+        public void SetIsScheduledTime(bool isScheduledTime) {
+            this.isScheduledTime = isScheduledTime;
+        }
+
+        public bool GetIsScheduledTime() {
+            return isScheduledTime;
+        }
+        
+        #endregion
 
         public void IncreaseShopReputationLevel() {
             ++shopReputationLevel;
