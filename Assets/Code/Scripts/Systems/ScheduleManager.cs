@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace BobaStop.Systems
 {
@@ -61,6 +62,12 @@ namespace BobaStop.Systems
     
     // struct that takes timeofdays list and set times
     public class Schedule {
+        public Schedule() {}
+        
+        public Schedule(Schedule schedule) {
+            operations = new Dictionary<DayOfWeek, ScheduledTime>(schedule.operations);
+        }
+        
         private Dictionary<DayOfWeek, ScheduledTime> operations = new() {
             { DayOfWeek.Sunday, new ScheduledTime() },
             { DayOfWeek.Monday, new ScheduledTime() },
@@ -81,23 +88,13 @@ namespace BobaStop.Systems
     }
 
     public interface IScheduledObject {
-        public ScheduledTime GetScheduledTime();
+        public Schedule GetSchedule();
         public void SetIsScheduledTime(bool isScheduledTime);
         public bool GetIsScheduledTime();
     }
-
-    public struct ScheduleData {
-        public IScheduledObject scheduledObject;
-        public Schedule schedule;
-
-        public ScheduleData(IScheduledObject scheduledObject, Schedule schedule) {
-            this.scheduledObject = scheduledObject;
-            this.schedule = schedule;
-        }
-    }
     
     public class ScheduleManager : RealtimeSystemManager {
-        List<ScheduleData> scheduledObjects = new();
+        List<IScheduledObject> scheduledObjects = new();
         private float currentTime;
         private DayOfWeek currentDayOfWeek;
         
@@ -111,8 +108,8 @@ namespace BobaStop.Systems
             CheckScheduledObjects();
         }
 
-        public void AddToSchedule(IScheduledObject scheduledObject, Schedule schedule) {
-            scheduledObjects.Add(new ScheduleData(scheduledObject, schedule));
+        public void AddToSchedule(IScheduledObject scheduledObject) {
+            scheduledObjects.Add(scheduledObject);
         }
 
         private void CheckScheduledObjects() {
@@ -121,9 +118,8 @@ namespace BobaStop.Systems
             }
         }
 
-        private void HandleScheduledData(ScheduleData scheduleData) {
-            var schedule = scheduleData.schedule;
-            var scheduledObject = scheduleData.scheduledObject;
+        private void HandleScheduledData(IScheduledObject scheduledObject) {
+            var schedule = scheduledObject.GetSchedule();
 
             // return early if not scheduled
             if (scheduledObject.GetIsScheduledTime() == false &&
