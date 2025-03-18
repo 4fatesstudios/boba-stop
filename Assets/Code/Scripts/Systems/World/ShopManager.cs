@@ -47,6 +47,10 @@ namespace BobaStop.Systems.World
             if (shopIsRunning) {
                 OnRunShop();
             }
+
+            if (isScheduledTime) {
+                Debug.Log("TIME FOR BOBA");
+            }
         }
         
         #region IPersistenceData

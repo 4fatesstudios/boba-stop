@@ -41,16 +41,17 @@ namespace BobaStop.Systems.World
         }
 
         public override void Start() {
-            isPaused = true;
+            base.Start();
+            
             elapsedSeconds = 0;
             UpdateDayPhase(); // initialize the correct day phase
         }
 
         public override void Update() {
-            if (!isPaused) {
-                elapsedSeconds += Time.deltaTime*timeMultiplier;
-                UpdateDayPhase();
-            }
+            if (isPaused) return;
+            
+            elapsedSeconds += Time.deltaTime*timeMultiplier;
+            UpdateDayPhase();
         }
         
         public override void Reset() {
