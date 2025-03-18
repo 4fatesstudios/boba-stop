@@ -26,6 +26,7 @@ namespace BobaStop.Systems.World
         private int currentShopExp;
         private int shopReputationLevel;
         private ShopReputation shopReputation;
+        private ScheduledTime defaultScheduledTime;
         private ShopReputationData shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
         
 
@@ -36,6 +37,8 @@ namespace BobaStop.Systems.World
                 Resources.Load<Resource>("Items/Resource/Sweeteners/SimpleSyrup"), // default Sweetener
                 Resources.Load<Resource>("Items/Resource/Toppings/Boba") // default Topping
             };
+            
+            
         }
 
         public override void Update() {

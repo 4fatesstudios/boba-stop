@@ -13,7 +13,8 @@ namespace BobaStop.Data.Saved
         [SerializeField] public int shopReputationLevel = 1;
         [SerializeField] public int currentShopExp = 0;
         public Schedule schedule = new();
-        public ScheduledTime defaultScheduledTime = new(DayCycleManager.AFTERNOON_THRESHOLD, DayCycleManager.EVENING_THRESHOLD);
+        
+        private ScheduledTime defaultScheduledTime = new(DayCycleManager.AFTERNOON_THRESHOLD, DayCycleManager.EVENING_THRESHOLD);
 
         public ShopManagerData() {
             schedule.AddOperationTime(DayOfWeek.Monday, new ScheduledTime(defaultScheduledTime));

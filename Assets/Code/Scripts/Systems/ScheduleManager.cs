@@ -88,17 +88,18 @@ namespace BobaStop.Systems
 
     public struct ScheduleData {
         public IScheduledObject scheduledObject;
-        public ScheduledTime scheduledTime;
+        public Schedule schedule;
 
-        public ScheduleData(IScheduledObject scheduledObject, ScheduledTime scheduledTime) {
+        public ScheduleData(IScheduledObject scheduledObject, Schedule schedule) {
             this.scheduledObject = scheduledObject;
-            this.scheduledTime = scheduledTime;
+            this.schedule = schedule;
         }
     }
     
     public class ScheduleManager : RealtimeSystemManager {
         List<ScheduleData> scheduledObjects = new();
         private float currentTime;
+        private DayOfWeek currentDayOfWeek;
         
         public override void Start() {
             
@@ -106,11 +107,12 @@ namespace BobaStop.Systems
         
         public override void Update() {
             currentTime = GameManager.Instance.dayCycleManager.GetAdjustedTime();
+            currentDayOfWeek = GameManager.Instance.worldManager.GetWorldDataManager().GetDay().day;
             CheckScheduledObjects();
         }
 
-        public void AddToSchedule(IScheduledObject scheduledObject, ScheduledTime scheduledTime) {
-            scheduledObjects.Add(new ScheduleData(scheduledObject, scheduledTime));
+        public void AddToSchedule(IScheduledObject scheduledObject, Schedule schedule) {
+            scheduledObjects.Add(new ScheduleData(scheduledObject, schedule));
         }
 
         private void CheckScheduledObjects() {
@@ -120,15 +122,17 @@ namespace BobaStop.Systems
         }
 
         private void HandleScheduledData(ScheduleData scheduleData) {
-            var scheduledTime = scheduleData.scheduledTime;
+            var schedule = scheduleData.schedule;
             var scheduledObject = scheduleData.scheduledObject;
 
             // return early if not scheduled
             if (scheduledObject.GetIsScheduledTime() == false &&
-                !IsFloatInbetween(scheduledTime.GetStartTime(), scheduledTime.GetEndTime(), currentTime)) return;
+                !IsFloatInbetween(schedule.GetOperationTime(currentDayOfWeek).GetStartTime(), 
+                    schedule.GetOperationTime(currentDayOfWeek).GetEndTime(), currentTime)) return;
 
             // return early if the scheduled time is not valid for setting it to true
-            if (scheduledTime.GetStartTime() > currentTime || scheduledTime.GetEndTime() < currentTime) {
+            if (schedule.GetOperationTime(currentDayOfWeek).GetStartTime() > currentTime || 
+                schedule.GetOperationTime(currentDayOfWeek).GetEndTime() < currentTime) {
                 scheduledObject.SetIsScheduledTime(false);
                 return;
             }
