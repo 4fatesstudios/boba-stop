@@ -40,7 +40,7 @@ namespace BobaStop.Systems.World
             };
             
             // add to schedule manager
-            
+            GameManager.Instance.scheduleManager.AddToSchedule(this);
         }
 
         public override void Update() {

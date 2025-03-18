@@ -21,6 +21,7 @@ namespace BobaStop.Systems {
         public DayCycleManager dayCycleManager;
         public ShopManager shopManager;
         public WorldManager worldManager;
+        public ScheduleManager scheduleManager;
 
         public LevelManagerHelper levelManagerHelper;
         
@@ -52,6 +53,7 @@ namespace BobaStop.Systems {
             dayCycleManager = new DayCycleManager();
             shopManager = new ShopManager();
             worldManager = new WorldManager();
+            scheduleManager = new ScheduleManager();
             
             levelManagerHelper = new LevelManagerHelper();
             
@@ -69,6 +71,7 @@ namespace BobaStop.Systems {
 
         private void Update() {
             dayCycleManager.Update();
+            scheduleManager.Update();
         }
         #endregion
 
