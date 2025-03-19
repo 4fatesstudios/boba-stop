@@ -366,13 +366,54 @@ namespace BobaStop.Systems.World
 
 
         /// <summary>
-        /// Removes the given Order ingredients from inventory if all ingredients are present then returns true,
-        /// returns false if not all ingredients available and does not remove any in this case
+        /// Removes the given Order ingredients from inventory if all ingredients are present
         /// </summary>
         /// <param name="order">Order containing ingredients to remove from inventory</param>
-        /// <returns></returns>
+        /// <returns>false if not all ingredients for order found in shopInventory, true otherwise</returns>
         private bool RemoveFromShopInventory(Order order) {
-            return false;
+            // check if inventory contains all ingredients in order, return false early if any not found
+            if (!shopManagerData.shopInventory.Contains(order.drinkBase)) return false;
+            if (!shopManagerData.shopInventory.Contains(order.drinkFoam)) return false;
+            if (!shopManagerData.shopInventory.Contains(order.drinkSweetener)) return false;
+            if (order.drinkToppings.Any(topping => !shopManagerData.shopInventory.Contains(topping))) return false;
+            
+            // remove ingredients from shopInventory
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkBase)].RemoveFromStack(1);
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkFoam)].RemoveFromStack(1);
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkSweetener)].RemoveFromStack(1);
+            foreach (var topping in order.drinkToppings)
+                shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(topping)].RemoveFromStack(1);
+            return true;
+        }
+
+        /// <summary>
+        /// Gets total "Shop Sell Value" of the given order
+        /// </summary>
+        /// <param name="order">Order containing ingredients to get value of</param>
+        /// <returns>Shop Sell Value of order</returns>
+        private int GetValueOfOrder(Order order) {
+            int value = 0;
+
+            value += order.drinkBase.resourceShopSellValue;
+            value += order.drinkFoam.resourceShopSellValue;
+            value += order.drinkSweetener.resourceShopSellValue;
+            value += order.drinkToppings.Sum(topping => topping.resourceShopSellValue);
+            
+            // shopSelectionScore influence on value
+            value = Mathf.CeilToInt(value * (shopSelectionScore / 100f + 1));
+
+            return value;
+        }
+        
+        public void HandleOrderGeneration() {
+            Order order = GenerateOrder();
+            int value = GetValueOfOrder(order);
+            if (RemoveFromShopInventory(order)) {
+                Debug.Log($"Order sold successfully for {value}");
+                // add profits to profitsForTheDay
+                return;
+            }
+            Debug.Log("Lacking ingredients to fulfill order");
         }
     }
     public struct Order {

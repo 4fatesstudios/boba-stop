@@ -77,9 +77,9 @@ namespace BobaStop
         /// Increases quantity of item slot
         /// </summary>
         /// <param name="quantity">amount to add to item slot</param>
-        /// <returns>remainder of quantity after adding, -1 if slot is empty</returns>
+        /// <returns>remainder of quantity after adding, -1 if slot is empty or parameter is 0/negative</returns>
         public int AddToStack(int quantity) {
-            if (IsEmpty()) return -1;
+            if (IsEmpty() || quantity <= 0) return -1;
 
             this.quantity += quantity;
             
@@ -88,6 +88,21 @@ namespace BobaStop
             this.quantity = maxQuantity;
             var remainder = quantity - maxQuantity;
             return remainder;
+        }
+
+        /// <summary>
+        /// Decreases quantity of item slot
+        /// </summary>
+        /// <param name="quantity">amount to remove from item slot</param>
+        /// <returns>remaining of quantity after subtracting, -1 if underflow</returns>
+        public int RemoveFromStack(int quantity) {
+            if (IsEmpty() || quantity <= 0 || this.quantity - quantity < 0) return -1;
+            
+            this.quantity -= quantity;
+            
+            if (this.quantity == 0) ClearSlot();
+            
+            return this.quantity;
         }
         
         /// <summary>
