@@ -5,10 +5,11 @@ using BobaStop.Items;
 
 namespace BobaStop
 {
+    [System.Serializable]
     public class ItemSlot<T> where T : Item {
-        private T item;
-        private int quantity;
-        private int maxQuantity;
+        [SerializeField] private T item;
+        [SerializeField] private int quantity;
+        [SerializeField] private int maxQuantity;
         private static int MAX_STACKABLE_QUANTITY = 64;
 
         public ItemSlot() {
@@ -143,10 +144,11 @@ namespace BobaStop
             quantity = 0;
         }
     }
-
+    
+    [System.Serializable]
     public class ItemSlotContainer<T> : IEnumerable<ItemSlot<T>> where T : Item {
-        private List<ItemSlot<T>> itemSlots;
-        private int slots;
+        [SerializeField] private List<ItemSlot<T>> itemSlots;
+        [SerializeField] private int slots;
         
         // indexing
         public ItemSlot<T> this[int index] {
