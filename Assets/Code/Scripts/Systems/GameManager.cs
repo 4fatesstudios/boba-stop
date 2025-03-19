@@ -21,6 +21,7 @@ namespace BobaStop.Systems {
         public DayCycleManager dayCycleManager;
         public ShopManager shopManager;
         public WorldManager worldManager;
+        public ScheduleManager scheduleManager;
 
         public LevelManagerHelper levelManagerHelper;
         
@@ -52,6 +53,7 @@ namespace BobaStop.Systems {
             dayCycleManager = new DayCycleManager();
             shopManager = new ShopManager();
             worldManager = new WorldManager();
+            scheduleManager = new ScheduleManager();
             
             levelManagerHelper = new LevelManagerHelper();
             
@@ -63,12 +65,14 @@ namespace BobaStop.Systems {
 
         private void Start() {
             dayCycleManager.Start();
-            dayCycleManager.Unpause();
             shopManager.Start();
+            scheduleManager.Start();
         }
 
         private void Update() {
             dayCycleManager.Update();
+            shopManager.Update();
+            scheduleManager.Update();
         }
         #endregion
 
@@ -90,6 +94,7 @@ namespace BobaStop.Systems {
             worldManager.Reset();
             
             shopManager.Unpause();
+            scheduleManager.Unpause();
 
             Player.Instance.gameObject.SetActive(true);
         }
@@ -108,6 +113,7 @@ namespace BobaStop.Systems {
             // pause all World Systems
             dayCycleManager.Pause();
             shopManager.Pause();
+            scheduleManager.Pause();
             
             // ensure that after first save (after first day) it is no longer considered a first load
             if (gameData.firstLoad) gameData.firstLoad = false;
