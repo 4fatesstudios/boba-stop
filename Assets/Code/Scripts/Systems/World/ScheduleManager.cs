@@ -120,28 +120,17 @@ namespace BobaStop.Systems
         private void HandleSchedule(IScheduledObject scheduledObject) {
             var startTime = scheduledObject.GetSchedule().GetOperationTime(currentDayOfWeek).GetStartTime();
             var endTime = scheduledObject.GetSchedule().GetOperationTime(currentDayOfWeek).GetEndTime();
-            
-            // Debug.Log(currentTime);
-            // Debug.Log(startTime);
-            // Debug.Log(endTime);
-            // Debug.Log(scheduledObject.GetIsScheduledTime());
+            bool isInScheduledTime = IsFloatInbetween(startTime, endTime, currentTime);
 
-            // return early if not scheduled
-            if (scheduledObject.GetIsScheduledTime() == false && !IsFloatInbetween(startTime, endTime, currentTime)) 
-                return;
-
-            // return early if the scheduled time is not valid for setting it to true
-            if (!IsFloatInbetween(startTime, endTime, currentTime)) {
-                scheduledObject.SetIsScheduledTime(false);
-                return;
+            // Only update if the value is changing
+            if (scheduledObject.GetIsScheduledTime() != isInScheduledTime) {
+                scheduledObject.SetIsScheduledTime(isInScheduledTime);
             }
-
-            // if between the times, set it to true
-            scheduledObject.SetIsScheduledTime(true);
         }
 
         private bool IsFloatInbetween(float a, float b, float t) {
             return t >= a && t <= b;
         }
+
     }
 }
