@@ -236,7 +236,7 @@ namespace BobaStop.Systems.World
             // 1. Base score: +1 per resource
             int baseScore = Mathf.RoundToInt(shopManagerData.shopSelection.Count(slot => !slot.IsEmpty()) * weightCount);
             score += baseScore;
-            Debug.Log($"Base Score (Count): {baseScore}");
+            // Debug.Log($"Base Score (Count): {baseScore}");
 
             // 2. Rarity Bonus
             Dictionary<Rarity, int> rarityPoints = new Dictionary<Rarity, int> {
@@ -255,7 +255,7 @@ namespace BobaStop.Systems.World
                 }
             }
             score += rarityBonusScore;
-            Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
+            // Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
 
             // 3. Resource Type Balance (0-10 points)
             var typeCounts = shopManagerData.shopSelection
@@ -267,7 +267,7 @@ namespace BobaStop.Systems.World
 
             float typeBalanceScore = CalculateBalanceScore(typeCounts);
             score += Mathf.RoundToInt(typeBalanceScore * weightTypeBalance);
-            Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
+            // Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
 
             // 4. Rarity Spread Balance (0-10 points)
             var consideredRarities = new List<Rarity> { Rarity.Classic, Rarity.Special, Rarity.Premium, Rarity.Exquisite };
@@ -277,7 +277,7 @@ namespace BobaStop.Systems.World
 
             float rarityBalanceScore = CalculateBalanceScore(rarityCounts);
             score += Mathf.RoundToInt(rarityBalanceScore * weightRarityBalance);
-            Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
+            // Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
 
             // Store the final score
             shopSelectionScore = score;
@@ -301,7 +301,7 @@ namespace BobaStop.Systems.World
             // Normalize to a 0-10 scale (higher variance = lower score)
             float balanceScore = Mathf.Clamp(10 - (variance * 2), 0, 10);
 
-            Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
+            // Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
             return balanceScore;
         }
         
@@ -393,15 +393,12 @@ namespace BobaStop.Systems.World
         /// <returns>Shop Sell Value of order</returns>
         private int GetValueOfOrder(Order order) {
             int value = 0;
-
             value += order.drinkBase.resourceShopSellValue;
             value += order.drinkFoam.resourceShopSellValue;
             value += order.drinkSweetener.resourceShopSellValue;
             value += order.drinkToppings.Sum(topping => topping.resourceShopSellValue);
-            
             // shopSelectionScore influence on value
             value = Mathf.CeilToInt(value * (shopSelectionScore / 100f + 1));
-
             return value;
         }
         

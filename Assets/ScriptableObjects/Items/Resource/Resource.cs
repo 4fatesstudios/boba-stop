@@ -22,7 +22,7 @@ namespace BobaStop.Items
         private const float SHOP_SELL_VALUE_MULTIPLIER = 1.6f;
 
         public void OnEnable() {
-            resourceShopSellValue *= Mathf.CeilToInt(resourceSellValue * SHOP_SELL_VALUE_MULTIPLIER);
+            resourceShopSellValue = Mathf.CeilToInt(resourceSellValue * SHOP_SELL_VALUE_MULTIPLIER);
         }
     }
 }
