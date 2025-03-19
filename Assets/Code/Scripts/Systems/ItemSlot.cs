@@ -20,12 +20,30 @@ namespace BobaStop
             SetItem(item, quantity);
         }
 
+        public ItemSlot(int maxQuantity) {
+            this.maxQuantity = maxQuantity;
+        }
+
         public Item GetItem() {
             return item;
         }
 
         public int GetQuantity() {
             return quantity;
+        }
+        
+        /// <summary>
+        /// clones a single copy of Item into Slot
+        /// </summary>
+        /// <param name="item">Item to be cloned into Slot</param>
+        /// <param name="replace">replace any Item that may exist in Slot already</param>
+        /// <returns>true if successfully cloned into Slot, false otherwise</returns>
+        public bool CloneItem(T item, bool replace) {
+            if (!IsEmpty() && !replace) return false;
+
+            this.item = item;
+            quantity = 1;
+            return true;
         }
 
         public bool SetItem(T item, int quantity) {
@@ -126,6 +144,11 @@ namespace BobaStop
             for (int i = 0; i < slots; i++) {
                 itemSlots.Add(new ItemSlot<T>());
             }
+        }
+
+        public ItemSlotContainer(ItemSlotContainer<T> container) {
+            itemSlots = new(container.itemSlots);
+            slots = container.slots;
         }
 
         public List<ItemSlot<T>> GetItemSlots() {

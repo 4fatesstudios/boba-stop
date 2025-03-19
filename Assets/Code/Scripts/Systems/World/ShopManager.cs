@@ -25,6 +25,9 @@ namespace BobaStop.Systems.World
         private bool isScheduledTime;
         private ShopReputationData shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
         private ShopManagerData shopManagerData = new();
+
+        private ItemSlotContainer<Resource> shopInventory_new;
+        private ItemSlotContainer<Resource> shopSelection_new;
         
 
         public override void Start() {
