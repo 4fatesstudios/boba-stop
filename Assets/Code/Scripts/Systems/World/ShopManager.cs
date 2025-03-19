@@ -354,6 +354,16 @@ namespace BobaStop.Systems.World
             Debug.Log($"Generated Order: {generatedOrder.drinkBase.itemName}, {generatedOrder.drinkFoam.itemName}, {generatedOrder.drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
             return generatedOrder;
         }
+
+        /// <summary>
+        /// Removes the given Order ingredients from inventory if all ingredients are present then returns true,
+        /// returns false if not all ingredients available and does not remove any in this case
+        /// </summary>
+        /// <param name="order">Order containing ingredients to remove from inventory</param>
+        /// <returns></returns>
+        private bool RemoveFromShopInventory(Order order) {
+            return false;
+        }
     }
     public struct Order {
         private Resource _drinkBase;
