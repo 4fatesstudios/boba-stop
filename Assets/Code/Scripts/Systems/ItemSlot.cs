@@ -129,9 +129,15 @@ namespace BobaStop
         }
     }
 
-    public class ItemSlotContainer<T> where T : Item {
+    public class ItemSlotContainer<T> : IEnumerable<ItemSlot<T>> where T : Item {
         private List<ItemSlot<T>> itemSlots;
         private int slots;
+        
+        // indexing
+        public ItemSlot<T> this[int index] {
+            get => itemSlots[index];
+            set => itemSlots[index] = value;
+        }
         
         public ItemSlotContainer() {
             itemSlots = new();
@@ -171,6 +177,32 @@ namespace BobaStop
             for (int i = itemSlots.Count - 1; i >= slots; i--) {
                 itemSlots.RemoveAt(i);
             }
+        }
+        
+        public bool Contains(T item) {
+            foreach (var slot in itemSlots) {
+                if (!slot.IsEmpty() && slot.GetItem().Equals(item)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        public int IndexOf(T item) {
+            for (int i = 0; i < itemSlots.Count; i++) {
+                if (!itemSlots[i].IsEmpty() && itemSlots[i].GetItem().Equals(item)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        
+        public IEnumerator<ItemSlot<T>> GetEnumerator() {
+            return itemSlots.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }
