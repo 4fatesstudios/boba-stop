@@ -27,24 +27,35 @@ namespace BobaStop
         public void Start() {
             dialogueManager = GameManager.Instance.dialogueManager;
             
-            dialogueManager.OnInitiateDialogue += InitiateDialogue;
+            dialogueManager.OnDoDialogue += DoDialogue;
             
             GameInput.Instance.OnSkipAction += SkipForward;
-            // GameInput.Instance.OnEnterInputAction += Input;
+            GameInput.Instance.OnEnterInputAction += InputPlayerDialogue;
         }
 
-        public void InitiateDialogue(object sender, DialogueManager.OnInitiateDialogueEventArgs e) {
-            StartCoroutine(TypeLine(dialogueManager.GetLines()[index]));
-            
+        public void DoDialogue(object sender, DialogueManager.OnInitiateDialogueEventArgs e) {
             textInput.gameObject.SetActive(false);
+            
+            if (e.isInitiatingDialogue) dialogueUI.SetActive(true);
+            
+            StartCoroutine(TypeLine(dialogueManager.GetLines()[index], e.isInitiatingDialogue));
         }
         
-        private IEnumerator TypeLine(string line) {
+        private IEnumerator TypeLine(string line, bool isEndingDialogue = false) {
             ClearTextComponent();
             foreach (char c in line) {
                 textComponent.text += c;
                 yield return new WaitForSeconds(textSpeed);
             }
+            if (isEndingDialogue) EndDialogue();
+        }
+
+        private void EndDialogue() {
+            dialogueUI.SetActive(false);
+        }
+
+        private void InputPlayerDialogue(object sender, EventArgs e) {
+            OnDialogueInput?.Invoke(this, new OnDialogueInputEventArgs { dialogueInput = textInput.text });
         }
 
         private void NextLine() {
