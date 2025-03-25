@@ -22,6 +22,7 @@ namespace BobaStop.Systems {
         public ShopManager shopManager;
         public WorldManager worldManager;
         public ScheduleManager scheduleManager;
+        public DialogueManager dialogueManager;
 
         public LevelManagerHelper levelManagerHelper;
         
@@ -54,6 +55,7 @@ namespace BobaStop.Systems {
             shopManager = new ShopManager();
             worldManager = new WorldManager();
             scheduleManager = new ScheduleManager();
+            dialogueManager = new DialogueManager();
             
             levelManagerHelper = new LevelManagerHelper();
             

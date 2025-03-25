@@ -11,6 +11,7 @@ namespace BobaStop.UI
         public static GameUIManager Instance { get; private set; }
         
         public InventoryUIManager inventoryUIManager;
+        public DialogueUIManager dialogueUIManager;
 
         [SerializeField] private TextMeshProUGUI time;
 
@@ -24,6 +25,7 @@ namespace BobaStop.UI
             }
             
             inventoryUIManager = new InventoryUIManager();
+            dialogueUIManager = new DialogueUIManager();
         }
         private void Start() {
             
