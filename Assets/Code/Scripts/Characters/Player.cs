@@ -148,7 +148,7 @@ namespace BobaStop.Characters {
         }
 
         public override void OnAttackFinish() {
-            gameInput.EnableAllInputs();
+            gameInput.EnableInputMapOnly(ActionMap.Default);
         }
 
         private void HandleInteractions() {

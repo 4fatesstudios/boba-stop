@@ -187,6 +187,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerDialogue",
+            "id": "d5147bc8-9a83-4544-9049-47ed347b95fb",
+            "actions": [
+                {
+                    "name": "Skip",
+                    "type": "Button",
+                    "id": "20a6da55-4373-4f01-8fa0-87b8a4e9feb8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EnterInput",
+                    "type": "Button",
+                    "id": "2a560531-0b8c-4890-b4b8-3a325f9856a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c417e2dd-7028-48df-99f8-960f0ce3a227",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7c585fc-d310-49c6-af93-0f318fab02be",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

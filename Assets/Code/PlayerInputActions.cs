@@ -209,6 +209,54 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerDialogue"",
+            ""id"": ""d5147bc8-9a83-4544-9049-47ed347b95fb"",
+            ""actions"": [
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""20a6da55-4373-4f01-8fa0-87b8a4e9feb8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EnterInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a560531-0b8c-4890-b4b8-3a325f9856a4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c417e2dd-7028-48df-99f8-960f0ce3a227"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7c585fc-d310-49c6-af93-0f318fab02be"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -219,11 +267,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        // PlayerDialogue
+        m_PlayerDialogue = asset.FindActionMap("PlayerDialogue", throwIfNotFound: true);
+        m_PlayerDialogue_Skip = m_PlayerDialogue.FindAction("Skip", throwIfNotFound: true);
+        m_PlayerDialogue_EnterInput = m_PlayerDialogue.FindAction("EnterInput", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputActions.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_PlayerDialogue.enabled, "This will cause a leak and performance issues, PlayerInputActions.PlayerDialogue.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -351,11 +404,70 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // PlayerDialogue
+    private readonly InputActionMap m_PlayerDialogue;
+    private List<IPlayerDialogueActions> m_PlayerDialogueActionsCallbackInterfaces = new List<IPlayerDialogueActions>();
+    private readonly InputAction m_PlayerDialogue_Skip;
+    private readonly InputAction m_PlayerDialogue_EnterInput;
+    public struct PlayerDialogueActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public PlayerDialogueActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Skip => m_Wrapper.m_PlayerDialogue_Skip;
+        public InputAction @EnterInput => m_Wrapper.m_PlayerDialogue_EnterInput;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerDialogue; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerDialogueActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerDialogueActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerDialogueActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerDialogueActionsCallbackInterfaces.Add(instance);
+            @Skip.started += instance.OnSkip;
+            @Skip.performed += instance.OnSkip;
+            @Skip.canceled += instance.OnSkip;
+            @EnterInput.started += instance.OnEnterInput;
+            @EnterInput.performed += instance.OnEnterInput;
+            @EnterInput.canceled += instance.OnEnterInput;
+        }
+
+        private void UnregisterCallbacks(IPlayerDialogueActions instance)
+        {
+            @Skip.started -= instance.OnSkip;
+            @Skip.performed -= instance.OnSkip;
+            @Skip.canceled -= instance.OnSkip;
+            @EnterInput.started -= instance.OnEnterInput;
+            @EnterInput.performed -= instance.OnEnterInput;
+            @EnterInput.canceled -= instance.OnEnterInput;
+        }
+
+        public void RemoveCallbacks(IPlayerDialogueActions instance)
+        {
+            if (m_Wrapper.m_PlayerDialogueActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerDialogueActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerDialogueActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerDialogueActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerDialogueActions @PlayerDialogue => new PlayerDialogueActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+    }
+    public interface IPlayerDialogueActions
+    {
+        void OnSkip(InputAction.CallbackContext context);
+        void OnEnterInput(InputAction.CallbackContext context);
     }
 }

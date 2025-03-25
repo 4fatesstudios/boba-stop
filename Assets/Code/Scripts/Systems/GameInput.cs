@@ -1,7 +1,15 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace BobaStop.Systems {
+
+    public enum ActionMap {
+        Default,
+        Dialogue
+    }
+    
     public class GameInput : MonoBehaviour {
 
         public event EventHandler OnInteractAction;
@@ -9,14 +17,39 @@ namespace BobaStop.Systems {
         public event EventHandler OnInventoryAction;
 
         private PlayerInputActions playerInputActions;
+        private Dictionary<ActionMap, InputActionMap> mapDict;
 
         private void Awake() {
             playerInputActions = new PlayerInputActions();
+            
+            mapDict = new() {
+                {ActionMap.Default, playerInputActions.Player},
+                {ActionMap.Dialogue, playerInputActions.PlayerDialogue}
+            };
+            
+            
             playerInputActions.Player.Enable();
 
             playerInputActions.Player.Interact.performed += Interact_performed;
             playerInputActions.Player.Attack.performed += Attack_performed;
             playerInputActions.Player.Inventory.performed += InventoryAction_performed;
+
+            playerInputActions.PlayerDialogue.Skip.performed += Skip_performed;
+            playerInputActions.PlayerDialogue.EnterInput.performed += EnterInput_performed;
+        }
+
+        private void OnDestroy() {
+            playerInputActions.Player.Interact.performed -= Interact_performed;
+            playerInputActions.Player.Attack.performed -= Attack_performed;
+            playerInputActions.Player.Inventory.performed -= InventoryAction_performed;
+
+            playerInputActions.PlayerDialogue.Skip.performed -= Skip_performed;
+            playerInputActions.PlayerDialogue.EnterInput.performed -= EnterInput_performed;
+        }
+
+        public void EnableInputMapOnly(ActionMap actionMap) {
+            playerInputActions.Disable();
+            mapDict.GetValueOrDefault(actionMap).Enable();
         }
 
         private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
@@ -37,6 +70,14 @@ namespace BobaStop.Systems {
             inputVector = inputVector.normalized;
 
             return inputVector;
+        }
+
+        private void Skip_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+            OnInteractAction?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void EnterInput_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+            OnInteractAction?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

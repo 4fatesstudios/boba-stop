@@ -25,7 +25,6 @@ namespace BobaStop.UI
             }
             
             inventoryUIManager = new InventoryUIManager();
-            dialogueUIManager = new DialogueUIManager();
         }
         private void Start() {
             
