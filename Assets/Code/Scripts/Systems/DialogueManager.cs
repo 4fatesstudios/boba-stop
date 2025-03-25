@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BobaStop.NPCs;
@@ -8,10 +9,14 @@ namespace BobaStop.Systems
     public class DialogueManager {
         private NPCDialogueData dialogueData;
         private string[] lines;
-        private int index;
+        
+        public event EventHandler<OnInitiateDialogueEventArgs> OnInitiateDialogue;
+
+        public class OnInitiateDialogueEventArgs : EventArgs {
+            public NPCDialogueData dialogueData;
+        }
 
         public void Start() {
-            index = 0;
             lines = new[] {
                 "hey there partner!",
                 "i dont like you!!!!",
@@ -37,6 +42,13 @@ namespace BobaStop.Systems
 
         public void SetLines(string[] lines) {
             this.lines = lines;
+        }
+
+        public void InitiateDialogue(NPCDialogueData dialogueData) {
+            this.dialogueData = dialogueData;
+            OnInitiateDialogue?.Invoke(this, new OnInitiateDialogueEventArgs {
+                dialogueData = this.dialogueData
+            });
         }
     }
 }

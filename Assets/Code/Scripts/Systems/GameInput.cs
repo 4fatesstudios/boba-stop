@@ -11,15 +11,27 @@ namespace BobaStop.Systems {
     }
     
     public class GameInput : MonoBehaviour {
+        public static GameInput Instance { get; private set; }
 
         public event EventHandler OnInteractAction;
         public event EventHandler OnAttackAction;
         public event EventHandler OnInventoryAction;
 
+        public event EventHandler OnSkipAction;
+        public event EventHandler OnEnterInputAction;
+
         private PlayerInputActions playerInputActions;
         private Dictionary<ActionMap, InputActionMap> mapDict;
 
         private void Awake() {
+            if (Instance == null) {
+                Instance = this;
+                DontDestroyOnLoad(gameObject); // make persistent across scenes
+            }
+            else {
+                Destroy(gameObject); // delete duplicates
+            }
+            
             playerInputActions = new PlayerInputActions();
             
             mapDict = new() {
@@ -73,11 +85,11 @@ namespace BobaStop.Systems {
         }
 
         private void Skip_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
-            OnInteractAction?.Invoke(this, EventArgs.Empty);
+            OnSkipAction?.Invoke(this, EventArgs.Empty);
         }
 
         private void EnterInput_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
-            OnInteractAction?.Invoke(this, EventArgs.Empty);
+            OnEnterInputAction?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

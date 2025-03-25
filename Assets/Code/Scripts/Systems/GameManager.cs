@@ -55,6 +55,7 @@ namespace BobaStop.Systems {
             shopManager = new ShopManager();
             worldManager = new WorldManager();
             scheduleManager = new ScheduleManager();
+            
             dialogueManager = new DialogueManager();
             
             levelManagerHelper = new LevelManagerHelper();
@@ -69,6 +70,10 @@ namespace BobaStop.Systems {
             dayCycleManager.Start();
             shopManager.Start();
             scheduleManager.Start();
+            
+            dialogueManager.Start();
+            dialogueManager.InitiateDialogue(null);
+            GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
         }
 
         private void Update() {

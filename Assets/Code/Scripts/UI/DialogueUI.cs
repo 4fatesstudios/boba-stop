@@ -16,6 +16,7 @@ namespace BobaStop
         [SerializeField] private TMP_InputField textInput;
         [SerializeField] private float textSpeed;
         private DialogueManager dialogueManager;
+        private int index;
 
         public event EventHandler<OnDialogueInputEventArgs> OnDialogueInput;
 
@@ -23,12 +24,17 @@ namespace BobaStop
             public string dialogueInput;
         }
 
-        public void Init() {
+        public void Start() {
             dialogueManager = GameManager.Instance.dialogueManager;
             
+            dialogueManager.OnInitiateDialogue += InitiateDialogue;
+            
+            GameInput.Instance.OnSkipAction += SkipForward;
+            // GameInput.Instance.OnEnterInputAction += Input;
         }
 
-        public void InitiateDialogue() {
+        public void InitiateDialogue(object sender, DialogueManager.OnInitiateDialogueEventArgs e) {
+            StartCoroutine(TypeLine(dialogueManager.GetLines()[index]));
             
             textInput.gameObject.SetActive(false);
         }
@@ -42,16 +48,27 @@ namespace BobaStop
         }
 
         private void NextLine() {
-            
+            if (index < dialogueManager.GetLines().Length - 1) {
+                index++;
+                ClearTextComponent();
+                StartCoroutine(TypeLine(dialogueManager.GetLines()[index]));
+            }
+            else {
+                AllowInput();
+            }
         }
 
-        private void SkipForward() {
-            if (textComponent.text == null) {
+        private void AllowInput() {
+            textInput.gameObject.SetActive(true);
+        }
+
+        private void SkipForward(object sender, EventArgs e) {
+            if (textComponent.text == dialogueManager.GetLines()[index]) {
                 NextLine();
             }
             else {
                 StopAllCoroutines();
-                
+                textComponent.text = dialogueManager.GetLines()[index];
             }
         }
 

@@ -18,7 +18,6 @@ namespace BobaStop.Characters {
         }
 
         [SerializeField] private float moveSpeed = 1.2f;
-        [SerializeField] private GameObject gameInputObject;
         [SerializeField] private GameObject attackGameObject;
         private Attack attack; // TESTING ONLY, DELETE LATER
 
@@ -34,7 +33,6 @@ namespace BobaStop.Characters {
         private void Awake() {
             attack = attackGameObject.GetComponent<Attack>();
             controller = GetComponent<CharacterController>();
-            gameInput = gameInputObject.GetComponent<GameInput>();
         }
 
         public void Instantiate() {
@@ -51,6 +49,8 @@ namespace BobaStop.Characters {
 
         protected override void Start() {
             base.Start();
+            
+            gameInput = GameInput.Instance;
 
             gameInput.OnInteractAction += GameInput_OnInteractAction;
             gameInput.OnAttackAction += GameInput_OnAttackAction;
