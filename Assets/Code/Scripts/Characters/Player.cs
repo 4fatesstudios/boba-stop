@@ -103,7 +103,7 @@ namespace BobaStop.Characters {
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                GameManager.Instance.shopManager.GenerateOrder();
+                GameManager.Instance.shopManager.HandleOrderGeneration();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha6)) {

@@ -18,18 +18,13 @@ namespace BobaStop.Systems.World
         /// - Make a variable for max toppings (currently 3, could be okay?)
         /// </summary>
         
-        private List<Resource> shopSelection;
         private List<Resource> defaultShopSelection;
-        private List<Resource> shopInventory;
         private int shopSelectionScore;
         private bool shopIsRunning;
-        private int currentShopExp;
-        private int shopReputationLevel;
         private ShopReputation shopReputation;
-        private Schedule schedule;
         private bool isScheduledTime;
         private ShopReputationData shopReputationData = Resources.Load<ShopReputationData>("Data/ShopReputationData");
-        
+        private ShopManagerData shopManagerData = new();
 
         public override void Start() {
             defaultShopSelection = new List<Resource> {
@@ -44,12 +39,12 @@ namespace BobaStop.Systems.World
         }
 
         public override void Update() {
-            if (shopIsRunning) {
-                OnRunShop();
-            }
+            // if (shopIsRunning) {
+            //     OnRunShop();
+            // }
 
             if (isScheduledTime) {
-                Debug.Log("TIME FOR BOBA");
+                OnRunShop();
             }
         }
         
@@ -60,14 +55,14 @@ namespace BobaStop.Systems.World
                 return;
             }
             
-            shopSelection = new List<Resource>(shopManagerData.shopSelection);
-            shopInventory = new List<Resource>(shopManagerData.shopInventory);
-            currentShopExp = shopManagerData.currentShopExp;
+            this.shopManagerData.shopSelection = new (shopManagerData.shopSelection);
+            this.shopManagerData.shopInventory = new(shopManagerData.shopInventory);
+            this.shopManagerData.currentShopExp = shopManagerData.currentShopExp;
             
-            shopReputationLevel = shopManagerData.shopReputationLevel;
-            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
+            this.shopManagerData.shopReputationLevel = shopManagerData.shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(this.shopManagerData.shopReputationLevel);
 
-            schedule = new Schedule(shopManagerData.schedule);
+            this.shopManagerData.schedule = new Schedule(shopManagerData.schedule);
             
             ValidateShopSelection();
         }
@@ -78,18 +73,18 @@ namespace BobaStop.Systems.World
                 return;
             }
             
-            shopManagerData.shopSelection = new List<Resource>(shopSelection);
-            shopManagerData.shopInventory = new List<Resource>(shopInventory);
-            shopManagerData.currentShopExp = shopSelectionScore;
-            shopManagerData.shopReputationLevel = shopReputationLevel;
-            shopManagerData.schedule = new Schedule(schedule);
+            shopManagerData.shopSelection = new(this.shopManagerData.shopSelection);
+            shopManagerData.shopInventory = new(this.shopManagerData.shopInventory);
+            shopManagerData.currentShopExp = this.shopManagerData.currentShopExp;
+            shopManagerData.shopReputationLevel = this.shopManagerData.shopReputationLevel;
+            shopManagerData.schedule = new Schedule(this.shopManagerData.schedule);
         }
         #endregion
         
         #region IScheduledObject
 
         public Schedule GetSchedule() {
-            return schedule;
+            return shopManagerData.schedule;
         }
 
         public void SetIsScheduledTime(bool isScheduledTime) {
@@ -103,23 +98,23 @@ namespace BobaStop.Systems.World
         #endregion
 
         public void IncreaseShopReputationLevel() {
-            ++shopReputationLevel;
-            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
-            while (shopSelection.Count < shopReputation.shopSelectionSize)
-                shopSelection.Add(null);
-            while (shopInventory.Count < shopReputation.shopInventorySize)
-                shopInventory.Add(null);
+            ++shopManagerData.shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopManagerData.shopReputationLevel);
+            while (shopManagerData.shopSelection.GetSlots() < shopReputation.shopSelectionSize)
+                shopManagerData.shopSelection.AddSlots(1);
+            while (shopManagerData.shopInventory.GetSlots() < shopReputation.shopInventorySize)
+                shopManagerData.shopInventory.AddSlots(1);
         }
         
         private void UpdateShopReputationLevel() {
-            if (currentShopExp < shopReputation.expToLevel) return;
+            if (shopManagerData.currentShopExp < shopReputation.expToLevel) return;
             
-            ++shopReputationLevel;
-            shopReputation = shopReputationData.GetReputation(shopReputationLevel);
-            while (shopSelection.Count < shopReputation.shopSelectionSize)
-                shopSelection.Add(null);
-            while (shopInventory.Count < shopReputation.shopInventorySize)
-                shopInventory.Add(null);
+            ++shopManagerData.shopReputationLevel;
+            shopReputation = shopReputationData.GetReputation(shopManagerData.shopReputationLevel);
+            while (shopManagerData.shopSelection.GetSlots() < shopReputation.shopSelectionSize)
+                shopManagerData.shopSelection.AddSlots(1);
+            while (shopManagerData.shopInventory.GetSlots() < shopReputation.shopInventorySize)
+                shopManagerData.shopInventory.AddSlots(1);
         }
 
         public void StartShopDay() {
@@ -142,30 +137,30 @@ namespace BobaStop.Systems.World
             return shopReputation.shopSelectionSize;
         }
 
-        public List<Resource> GetShopSelection() {
-            return shopSelection;
+        public ItemSlotContainer<Resource> GetShopSelection() {
+            return shopManagerData.shopSelection;
         }
 
-        public void SetShopSelection(List<Resource> shopSelection) {
-            this.shopSelection = shopSelection;
+        public void SetShopSelection(ItemSlotContainer<Resource> shopSelection) {
+            shopManagerData.shopSelection = shopSelection;
         }
         
         public void PrintShopSelection() {
-            foreach (var resource in shopSelection) {
-                Debug.Log(resource);
+            foreach (var resource in shopManagerData.shopSelection) {
+                Debug.Log(resource.GetItem().itemName);
             }
         }
 
         private void ValidateShopSelection() {
             // Ensure there is still at least 1 of each resource type after potential null addition
             void EnsureResource(ResourceType type) {
-                if (shopSelection.All(r => r == null || r.resourceType != type)) {
+                if (shopManagerData.shopSelection.All(slot => slot.IsEmpty() || ((Resource)slot.GetItem()).resourceType != type)) {
                     Resource defaultResource = defaultShopSelection.Find(r => r.resourceType == type);
                     if (defaultResource != null) {
-                        // Add the default resource to the first available empty slot (null)
-                        for (int i = 0; i < shopSelection.Count; i++) {
-                            if (shopSelection[i] == null) {
-                                shopSelection[i] = defaultResource;
+                        // Add the default resource to the first available empty slot
+                        foreach (var slot in shopManagerData.shopSelection) {
+                            if (slot.IsEmpty()) {
+                                slot.SetItem(defaultResource, 1);
                                 return;
                             }
                         }
@@ -178,17 +173,18 @@ namespace BobaStop.Systems.World
             EnsureResource(ResourceType.Base);
             EnsureResource(ResourceType.Foam);
             EnsureResource(ResourceType.Sweetener);
-            
+
             UpdateShopSelectionScore();
         }
+
         
         public bool AddToShopSelection(Resource resource) {
             if (shopIsRunning) return false;
-            if (shopSelection.Contains(resource)) return false;
-
-            for (int i = 0; i < shopSelection.Count; ++i) {
-                if (shopSelection[i] == null) {
-                    shopSelection[i] = resource;
+            if (shopManagerData.shopSelection.Contains(resource)) return false;
+            
+            foreach (var slot in shopManagerData.shopSelection) {
+                if (slot.IsEmpty()) {
+                    slot.CloneItem(resource, true);
                     ValidateShopSelection();
                     return true;
                 }
@@ -201,29 +197,28 @@ namespace BobaStop.Systems.World
         
         public bool AddToShopSelection(Resource resource, int index) {
             if (shopIsRunning) return false;
-            if (shopSelection.Contains(resource)) return false;
-            if (index < 0 || index >= shopSelection.Count) return false;
+            if (shopManagerData.shopSelection.Contains(resource)) return false;
+            if (index < 0 || index >= shopManagerData.shopSelection.GetSlots()) return false;
 
-            shopSelection[index] = resource;
-            
+            shopManagerData.shopSelection[index].CloneItem(resource, true);
             ValidateShopSelection();
             return true;
         }
 
         public bool RemoveFromShopSelection(Resource resource) {
             if (shopIsRunning) return false; 
-            if (!shopSelection.Contains(resource)) return false;
+            if (!shopManagerData.shopSelection.Contains(resource)) return false;
             
-            shopSelection[shopSelection.IndexOf(resource)] = null;
+            shopManagerData.shopSelection[shopManagerData.shopSelection.IndexOf(resource)].ClearSlot();
             ValidateShopSelection();
             return true;
         }
 
         public bool RemoveFromShopSelection(int index) {
             if (shopIsRunning) return false;
-            if (index < 0 || index >= shopSelection.Count) return false;
+            if (index < 0 || index >= shopManagerData.shopSelection.GetSlots()) return false;
 
-            shopSelection[index] = null;
+            shopManagerData.shopSelection[index].ClearSlot();
             ValidateShopSelection();
             return true;
         }
@@ -239,9 +234,9 @@ namespace BobaStop.Systems.World
             int score = 0;
 
             // 1. Base score: +1 per resource
-            int baseScore = Mathf.RoundToInt(shopSelection.Count(resource => resource != null) * weightCount);
+            int baseScore = Mathf.RoundToInt(shopManagerData.shopSelection.Count(slot => !slot.IsEmpty()) * weightCount);
             score += baseScore;
-            Debug.Log($"Base Score (Count): {baseScore}");
+            // Debug.Log($"Base Score (Count): {baseScore}");
 
             // 2. Rarity Bonus
             Dictionary<Rarity, int> rarityPoints = new Dictionary<Rarity, int> {
@@ -251,40 +246,44 @@ namespace BobaStop.Systems.World
             };
 
             int rarityBonusScore = 0;
-            foreach (var resource in shopSelection) {
-                if (resource != null) {
+            foreach (var slot in shopManagerData.shopSelection) {
+                if (!slot.IsEmpty()) {
+                    var resource = (Resource)slot.GetItem(); // Cast to Resource
                     if (rarityPoints.TryGetValue(resource.itemRarity, out int rarityBonus)) {
                         rarityBonusScore += Mathf.RoundToInt(rarityBonus * weightRarity);
                     }
                 }
             }
             score += rarityBonusScore;
-            Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
+            // Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
 
             // 3. Resource Type Balance (0-10 points)
-            var typeCounts = shopSelection
-                .Where(r => r != null) // Filter out nulls
-                .GroupBy(r => r.resourceType)
-                .Select(g => g.Count())
+            var typeCounts = shopManagerData.shopSelection
+                .Where(slot => !slot.IsEmpty())
+                .Select(slot => ((Resource)slot.GetItem()).resourceType)
+                .GroupBy(type => type)
+                .Select(group => group.Count())
                 .ToList();
 
             float typeBalanceScore = CalculateBalanceScore(typeCounts);
             score += Mathf.RoundToInt(typeBalanceScore * weightTypeBalance);
-            Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
+            // Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
 
             // 4. Rarity Spread Balance (0-10 points)
             var consideredRarities = new List<Rarity> { Rarity.Classic, Rarity.Special, Rarity.Premium, Rarity.Exquisite };
-            var rarityCounts = consideredRarities.Select(rarity => shopSelection.Count(resource => resource != null && resource.itemRarity == rarity)).ToList();
-            Debug.Log(rarityCounts.ToString());
+            var rarityCounts = consideredRarities
+                .Select(rarity => shopManagerData.shopSelection.Count(slot => !slot.IsEmpty() && ((Resource)slot.GetItem()).itemRarity == rarity))
+                .ToList();
 
             float rarityBalanceScore = CalculateBalanceScore(rarityCounts);
             score += Mathf.RoundToInt(rarityBalanceScore * weightRarityBalance);
-            Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
+            // Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
 
             // Store the final score
             shopSelectionScore = score;
             Debug.Log($"Total Shop Selection Score: {shopSelectionScore}");
         }
+
 
         // AI generated - REQUIRES REVIEW
         // Helper function to compute balance score (0-10)
@@ -302,25 +301,37 @@ namespace BobaStop.Systems.World
             // Normalize to a 0-10 scale (higher variance = lower score)
             float balanceScore = Mathf.Clamp(10 - (variance * 2), 0, 10);
 
-            Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
+            // Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
             return balanceScore;
         }
-
-
-
+        
         // AI generated - REQUIRES REVIEW
         public Order GenerateOrder() {
             ValidateShopSelection();
 
-            // filter resources by type, excluding nulls
-            var baseResources = shopSelection.Where(r => r != null && r.resourceType == ResourceType.Base).ToList();
-            var foamResources = shopSelection.Where(r => r != null && r.resourceType == ResourceType.Foam).ToList();
-            var sweetenerResources = shopSelection.Where(r => r != null && r.resourceType == ResourceType.Sweetener).ToList();
-            var toppingResources = shopSelection.Where(r => r != null && r.resourceType == ResourceType.Topping).ToList();
-             
-            if (baseResources.Count == 0 || foamResources.Count == 0 || sweetenerResources.Count == 0 || toppingResources.Count == 0)
-            {
-                Debug.LogError("Not enough resources to generate an order. There needs to be at least one of each type");
+            // Filter resources by type, excluding empty slots
+            var baseResources = shopManagerData.shopSelection
+                .Where(slot => !slot.IsEmpty() && ((Resource)slot.GetItem()).resourceType == ResourceType.Base)
+                .Select(slot => (Resource)slot.GetItem())
+                .ToList();
+
+            var foamResources = shopManagerData.shopSelection
+                .Where(slot => !slot.IsEmpty() && ((Resource)slot.GetItem()).resourceType == ResourceType.Foam)
+                .Select(slot => (Resource)slot.GetItem())
+                .ToList();
+
+            var sweetenerResources = shopManagerData.shopSelection
+                .Where(slot => !slot.IsEmpty() && ((Resource)slot.GetItem()).resourceType == ResourceType.Sweetener)
+                .Select(slot => (Resource)slot.GetItem())
+                .ToList();
+
+            var toppingResources = shopManagerData.shopSelection
+                .Where(slot => !slot.IsEmpty() && ((Resource)slot.GetItem()).resourceType == ResourceType.Topping)
+                .Select(slot => (Resource)slot.GetItem())
+                .ToList();
+
+            if (baseResources.Count == 0 || foamResources.Count == 0 || sweetenerResources.Count == 0 || toppingResources.Count == 0) {
+                Debug.LogError("Not enough resources to generate an order. There needs to be at least one of each type.");
                 return default;
             }
 
@@ -329,22 +340,15 @@ namespace BobaStop.Systems.World
             Resource drinkFoam = foamResources[Random.Range(0, foamResources.Count)];
             Resource drinkSweetener = sweetenerResources[Random.Range(0, sweetenerResources.Count)];
 
-            // Calculate the number of toppings as a random number between 1 and 3
-            int maxNumToppings = Math.Min(toppingResources.Count, 3);
-            int numToppings = Random.Range(1, maxNumToppings); // Randomly generate number of toppings (at least the available toppings)
+            // Ensure numToppings is between 1 and maxNumToppings
+            int maxNumToppings = Mathf.Min(toppingResources.Count, 3);
+            int numToppings = Random.Range(1, maxNumToppings + 1); // Include maxNumToppings
 
-            List<Resource> selectedToppings = new List<Resource>();
-
-            // Ensure unique toppings by using a HashSet
-            HashSet<Resource> uniqueToppings = new HashSet<Resource>();
-
-            while (uniqueToppings.Count < numToppings) {
-                Resource randomTopping = toppingResources[Random.Range(0, toppingResources.Count)];
-                uniqueToppings.Add(randomTopping);  // HashSet ensures uniqueness
+            // Ensure unique toppings using HashSet
+            var selectedToppings = new HashSet<Resource>();
+            while (selectedToppings.Count < numToppings) {
+                selectedToppings.Add(toppingResources[Random.Range(0, toppingResources.Count)]);
             }
-
-            // Convert the HashSet to a list for the order
-            selectedToppings = uniqueToppings.ToList();
 
             // Create the order
             Order generatedOrder = new Order {
@@ -354,9 +358,59 @@ namespace BobaStop.Systems.World
                 drinkToppings = selectedToppings.ToArray()
             };
 
-            // Log the generated order for debugging
-            Debug.Log($"Generated Order: {generatedOrder.drinkBase.itemName}, {generatedOrder.drinkFoam.itemName}, {generatedOrder.drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
+            // Log the generated order
+            Debug.Log($"Generated Order: {drinkBase.itemName}, {drinkFoam.itemName}, {drinkSweetener.itemName}, Toppings: {string.Join(", ", generatedOrder.drinkToppings.Select(t => t.itemName))}");
+
             return generatedOrder;
+        }
+
+
+        /// <summary>
+        /// Removes the given Order ingredients from inventory if all ingredients are present
+        /// </summary>
+        /// <param name="order">Order containing ingredients to remove from inventory</param>
+        /// <returns>false if not all ingredients for order found in shopInventory, true otherwise</returns>
+        private bool RemoveFromShopInventory(Order order) {
+            // check if inventory contains all ingredients in order, return false early if any not found
+            if (!shopManagerData.shopInventory.Contains(order.drinkBase)) return false;
+            if (!shopManagerData.shopInventory.Contains(order.drinkFoam)) return false;
+            if (!shopManagerData.shopInventory.Contains(order.drinkSweetener)) return false;
+            if (order.drinkToppings.Any(topping => !shopManagerData.shopInventory.Contains(topping))) return false;
+            
+            // remove ingredients from shopInventory
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkBase)].RemoveFromStack(1);
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkFoam)].RemoveFromStack(1);
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkSweetener)].RemoveFromStack(1);
+            foreach (var topping in order.drinkToppings)
+                shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(topping)].RemoveFromStack(1);
+            return true;
+        }
+
+        /// <summary>
+        /// Gets total "Shop Sell Value" of the given order
+        /// </summary>
+        /// <param name="order">Order containing ingredients to get value of</param>
+        /// <returns>Shop Sell Value of order</returns>
+        private int GetValueOfOrder(Order order) {
+            int value = 0;
+            value += order.drinkBase.resourceShopSellValue;
+            value += order.drinkFoam.resourceShopSellValue;
+            value += order.drinkSweetener.resourceShopSellValue;
+            value += order.drinkToppings.Sum(topping => topping.resourceShopSellValue);
+            // shopSelectionScore influence on value
+            value = Mathf.CeilToInt(value * (shopSelectionScore / 100f + 1));
+            return value;
+        }
+        
+        public void HandleOrderGeneration() {
+            Order order = GenerateOrder();
+            int value = GetValueOfOrder(order);
+            if (RemoveFromShopInventory(order)) {
+                Debug.Log($"Order sold successfully for {value}");
+                // add profits to profitsForTheDay
+                return;
+            }
+            Debug.Log("Lacking ingredients to fulfill order");
         }
     }
     public struct Order {
