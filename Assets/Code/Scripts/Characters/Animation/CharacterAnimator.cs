@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BobaStop.Characters.Animation {
     public abstract class CharacterAnimator : MonoBehaviour {
         protected const string IS_WALKING = "IsWalking";
         protected const string ON_ATTACK = "OnAttack";
 
-        [SerializeField] protected Character character;
+        [FormerlySerializedAs("character")] [SerializeField] protected CombatCharacter combatCharacter;
         protected Animator animator;
 
         protected void Awake() {
@@ -16,11 +17,11 @@ namespace BobaStop.Characters.Animation {
         }
 
         protected void Start() {
-            character.OnAttackAction += Character_OnHandleAttackAction;
+            combatCharacter.OnAttackAction += CombatCharacterOnHandleAttackAction;
         }
 
         protected void OnDestroy() {
-            character.OnAttackAction -= Character_OnHandleAttackAction;
+            combatCharacter.OnAttackAction -= CombatCharacterOnHandleAttackAction;
         }
 
         protected void Update() {
@@ -28,21 +29,21 @@ namespace BobaStop.Characters.Animation {
         }
 
         protected virtual void SetWalkingAnimation() {
-            animator.SetBool(IS_WALKING, character.IsWalking());
+            animator.SetBool(IS_WALKING, combatCharacter.IsWalking());
         }
 
-        protected virtual void Character_OnHandleAttackAction(object sender, EventArgs e) {
+        protected virtual void CombatCharacterOnHandleAttackAction(object sender, EventArgs e) {
             animator.SetTrigger(ON_ATTACK);
         }
 
         // call from specific associated animation frame event
         public virtual void OnAttackAnimation_Attack() {
-            character.OnAttack();
+            combatCharacter.OnAttack();
         }
 
         // call from specific associated animation frame event
         public virtual void OnAttackAnimation_Finish() {
-            character.OnAttackFinish();
+            combatCharacter.OnAttackFinish();
         }
     }
 }

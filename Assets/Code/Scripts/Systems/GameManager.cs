@@ -22,6 +22,7 @@ namespace BobaStop.Systems {
         public ShopManager shopManager;
         public WorldManager worldManager;
         public ScheduleManager scheduleManager;
+        public DialogueManager dialogueManager;
 
         public LevelManagerHelper levelManagerHelper;
         
@@ -55,6 +56,8 @@ namespace BobaStop.Systems {
             worldManager = new WorldManager();
             scheduleManager = new ScheduleManager();
             
+            dialogueManager = new DialogueManager();
+            
             levelManagerHelper = new LevelManagerHelper();
             
             UpdateSaveAssociations();
@@ -67,6 +70,8 @@ namespace BobaStop.Systems {
             dayCycleManager.Start();
             shopManager.Start();
             scheduleManager.Start();
+            
+            dialogueManager.Start();
         }
 
         private void Update() {
@@ -97,6 +102,7 @@ namespace BobaStop.Systems {
             scheduleManager.Unpause();
 
             Player.Instance.gameObject.SetActive(true);
+            GameInput.Instance.EnableInputMapOnly(ActionMap.Default);
         }
         
         /// <summary>
@@ -109,6 +115,7 @@ namespace BobaStop.Systems {
         /// <param name="eventArgs"></param>
         private void EndDay(object sender, EventArgs eventArgs) {
             Player.Instance.gameObject.SetActive(false);
+            GameInput.Instance.DisableAllInputs();
             
             // pause all World Systems
             dayCycleManager.Pause();
