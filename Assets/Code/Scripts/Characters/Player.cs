@@ -6,7 +6,7 @@ using SimpleCombat.Components;
 using UnityEngine;
 
 namespace BobaStop.Characters {
-    public class Player : Character {
+    public class Player : CombatCharacter {
         public static Player Instance { get; private set; }
 
         public event EventHandler<OnSelectedInteractableChangedEventArgs> OnSelectedInteractableChanged;
@@ -18,7 +18,6 @@ namespace BobaStop.Characters {
         }
 
         [SerializeField] private float moveSpeed = 1.2f;
-        [SerializeField] private GameObject gameInputObject;
         [SerializeField] private GameObject attackGameObject;
         private Attack attack; // TESTING ONLY, DELETE LATER
 
@@ -34,7 +33,6 @@ namespace BobaStop.Characters {
         private void Awake() {
             attack = attackGameObject.GetComponent<Attack>();
             controller = GetComponent<CharacterController>();
-            gameInput = gameInputObject.GetComponent<GameInput>();
         }
 
         public void Instantiate() {
@@ -51,6 +49,8 @@ namespace BobaStop.Characters {
 
         protected override void Start() {
             base.Start();
+            
+            gameInput = GameInput.Instance;
 
             gameInput.OnInteractAction += GameInput_OnInteractAction;
             gameInput.OnAttackAction += GameInput_OnAttackAction;
@@ -103,7 +103,7 @@ namespace BobaStop.Characters {
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                GameManager.Instance.shopManager.GenerateOrder();
+                GameManager.Instance.shopManager.HandleOrderGeneration();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha6)) {
@@ -148,7 +148,7 @@ namespace BobaStop.Characters {
         }
 
         public override void OnAttackFinish() {
-            gameInput.EnableAllInputs();
+            gameInput.EnableInputMapOnly(ActionMap.Default);
         }
 
         private void HandleInteractions() {

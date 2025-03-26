@@ -236,7 +236,7 @@ namespace BobaStop.Systems.World
             // 1. Base score: +1 per resource
             int baseScore = Mathf.RoundToInt(shopManagerData.shopSelection.Count(slot => !slot.IsEmpty()) * weightCount);
             score += baseScore;
-            Debug.Log($"Base Score (Count): {baseScore}");
+            // Debug.Log($"Base Score (Count): {baseScore}");
 
             // 2. Rarity Bonus
             Dictionary<Rarity, int> rarityPoints = new Dictionary<Rarity, int> {
@@ -255,7 +255,7 @@ namespace BobaStop.Systems.World
                 }
             }
             score += rarityBonusScore;
-            Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
+            // Debug.Log($"Rarity Bonus Score: {rarityBonusScore}");
 
             // 3. Resource Type Balance (0-10 points)
             var typeCounts = shopManagerData.shopSelection
@@ -267,7 +267,7 @@ namespace BobaStop.Systems.World
 
             float typeBalanceScore = CalculateBalanceScore(typeCounts);
             score += Mathf.RoundToInt(typeBalanceScore * weightTypeBalance);
-            Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
+            // Debug.Log($"Resource Type Balance Score: {typeBalanceScore}");
 
             // 4. Rarity Spread Balance (0-10 points)
             var consideredRarities = new List<Rarity> { Rarity.Classic, Rarity.Special, Rarity.Premium, Rarity.Exquisite };
@@ -277,7 +277,7 @@ namespace BobaStop.Systems.World
 
             float rarityBalanceScore = CalculateBalanceScore(rarityCounts);
             score += Mathf.RoundToInt(rarityBalanceScore * weightRarityBalance);
-            Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
+            // Debug.Log($"Rarity Spread Balance Score: {rarityBalanceScore}");
 
             // Store the final score
             shopSelectionScore = score;
@@ -301,7 +301,7 @@ namespace BobaStop.Systems.World
             // Normalize to a 0-10 scale (higher variance = lower score)
             float balanceScore = Mathf.Clamp(10 - (variance * 2), 0, 10);
 
-            Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
+            // Debug.Log($"Balance Score Calculation: Avg = {avg}, Variance = {variance}, Balance Score = {balanceScore}");
             return balanceScore;
         }
         
@@ -366,13 +366,51 @@ namespace BobaStop.Systems.World
 
 
         /// <summary>
-        /// Removes the given Order ingredients from inventory if all ingredients are present then returns true,
-        /// returns false if not all ingredients available and does not remove any in this case
+        /// Removes the given Order ingredients from inventory if all ingredients are present
         /// </summary>
         /// <param name="order">Order containing ingredients to remove from inventory</param>
-        /// <returns></returns>
+        /// <returns>false if not all ingredients for order found in shopInventory, true otherwise</returns>
         private bool RemoveFromShopInventory(Order order) {
-            return false;
+            // check if inventory contains all ingredients in order, return false early if any not found
+            if (!shopManagerData.shopInventory.Contains(order.drinkBase)) return false;
+            if (!shopManagerData.shopInventory.Contains(order.drinkFoam)) return false;
+            if (!shopManagerData.shopInventory.Contains(order.drinkSweetener)) return false;
+            if (order.drinkToppings.Any(topping => !shopManagerData.shopInventory.Contains(topping))) return false;
+            
+            // remove ingredients from shopInventory
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkBase)].RemoveFromStack(1);
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkFoam)].RemoveFromStack(1);
+            shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(order.drinkSweetener)].RemoveFromStack(1);
+            foreach (var topping in order.drinkToppings)
+                shopManagerData.shopInventory[shopManagerData.shopInventory.IndexOf(topping)].RemoveFromStack(1);
+            return true;
+        }
+
+        /// <summary>
+        /// Gets total "Shop Sell Value" of the given order
+        /// </summary>
+        /// <param name="order">Order containing ingredients to get value of</param>
+        /// <returns>Shop Sell Value of order</returns>
+        private int GetValueOfOrder(Order order) {
+            int value = 0;
+            value += order.drinkBase.resourceShopSellValue;
+            value += order.drinkFoam.resourceShopSellValue;
+            value += order.drinkSweetener.resourceShopSellValue;
+            value += order.drinkToppings.Sum(topping => topping.resourceShopSellValue);
+            // shopSelectionScore influence on value
+            value = Mathf.CeilToInt(value * (shopSelectionScore / 100f + 1));
+            return value;
+        }
+        
+        public void HandleOrderGeneration() {
+            Order order = GenerateOrder();
+            int value = GetValueOfOrder(order);
+            if (RemoveFromShopInventory(order)) {
+                Debug.Log($"Order sold successfully for {value}");
+                // add profits to profitsForTheDay
+                return;
+            }
+            Debug.Log("Lacking ingredients to fulfill order");
         }
     }
     public struct Order {

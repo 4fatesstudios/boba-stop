@@ -5,10 +5,11 @@ using BobaStop.Items;
 
 namespace BobaStop
 {
+    [System.Serializable]
     public class ItemSlot<T> where T : Item {
-        private T item;
-        private int quantity;
-        private int maxQuantity;
+        [SerializeField] private T item;
+        [SerializeField] private int quantity;
+        [SerializeField] private int maxQuantity;
         private static int MAX_STACKABLE_QUANTITY = 64;
 
         public ItemSlot() {
@@ -77,9 +78,9 @@ namespace BobaStop
         /// Increases quantity of item slot
         /// </summary>
         /// <param name="quantity">amount to add to item slot</param>
-        /// <returns>remainder of quantity after adding, -1 if slot is empty</returns>
+        /// <returns>remainder of quantity after adding, -1 if slot is empty or parameter is 0/negative</returns>
         public int AddToStack(int quantity) {
-            if (IsEmpty()) return -1;
+            if (IsEmpty() || quantity <= 0) return -1;
 
             this.quantity += quantity;
             
@@ -88,6 +89,21 @@ namespace BobaStop
             this.quantity = maxQuantity;
             var remainder = quantity - maxQuantity;
             return remainder;
+        }
+
+        /// <summary>
+        /// Decreases quantity of item slot
+        /// </summary>
+        /// <param name="quantity">amount to remove from item slot</param>
+        /// <returns>remaining of quantity after subtracting, -1 if underflow</returns>
+        public int RemoveFromStack(int quantity) {
+            if (IsEmpty() || quantity <= 0 || this.quantity - quantity < 0) return -1;
+            
+            this.quantity -= quantity;
+            
+            if (this.quantity == 0) ClearSlot();
+            
+            return this.quantity;
         }
         
         /// <summary>
@@ -128,10 +144,11 @@ namespace BobaStop
             quantity = 0;
         }
     }
-
+    
+    [System.Serializable]
     public class ItemSlotContainer<T> : IEnumerable<ItemSlot<T>> where T : Item {
-        private List<ItemSlot<T>> itemSlots;
-        private int slots;
+        [SerializeField] private List<ItemSlot<T>> itemSlots;
+        [SerializeField] private int slots;
         
         // indexing
         public ItemSlot<T> this[int index] {

@@ -1,86 +1,86 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using BobaStop.Interactions;
 using BobaStop.NPCs;
-using System.Threading.Tasks;
+using BobaStop.UI;
+using UnityEngine;
 
 namespace BobaStop.Systems
 {
-    public class DialogueManager : MonoBehaviour
-    {
-        public int maxMessages = 25;
-        public GameObject chatPanel, textObject;
-        public TMP_InputField chatBox;
-        // Start is called before the first frame update
-        [SerializeField] private CompanionData companionData;
-        [SerializeField] private OllamaGenerator generator;
+    public class DialogueManager {
+        private NPCDialogueData dialogueData;
+        private string[] lines;
+        
+        public event EventHandler<OnDoDialogueEventArgs> OnDoDialogue;
 
-        [SerializeField] List<Message> messages = new List<Message>();
-        void Start() {
-            companionData = ScriptableObject.CreateInstance<CompanionData>();
-            companionData.companionName = "Karen";
-            companionData.rapportLevel = RapportLevel.Neutral;
-            companionData.rapportLevelProgress = 0;
-            generator = new OllamaGenerator(companionData);
-            generator.Start();
+        public class OnDoDialogueEventArgs : EventArgs {
+            public NPCDialogueData dialogueData = null;
+            public bool isInitiatingDialogue = false;
+            public bool isEndingDialogue = false;
         }
 
-        // Update is called once per frame
-       void Update() {
-            if (chatBox.text != "") {
-                if (Input.GetKeyDown(KeyCode.Return)) {
-                    SendMessageToGenerator(chatBox.text);
-                    chatBox.text = "";
-                }
-                
-            }
-            if (!chatBox.isFocused) {
-                if (Input.GetKeyDown(KeyCode.Space)) {
-                    SendMessageToChat("You pressed the space bar.");
-                    Debug.Log("Space");
-                }
-            }  
+        public void Start() {
+            GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
+            GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
         }
 
-        public void SendMessageToChat(string text) {
-            if (messages.Count >= maxMessages) {
-                Destroy(messages[0].textObject);
-                messages.RemoveAt(0);
-            }
-
-            Message newMessage = new Message();
-            newMessage.text = text;
-
-            GameObject newText = Instantiate(textObject, chatPanel.transform);
-            newMessage.textObject = newText; 
-
-            TextMeshProUGUI messageText = newText.GetComponentInChildren<TextMeshProUGUI>(); 
-            if (messageText != null) {
-                messageText.text = text; 
-                messageText.color = Color.white;
-                Debug.Log("Text successfully updated: " + text); // ✅ Debugging
-            } else {
-                Debug.LogError("TextMeshProUGUI component not found in instantiated object!");
-            }  
-
-            messages.Add(newMessage);
+        private void OnInputPlayerDialogue(object sender, DialogueUIManager.OnDialogueInputEventArgs e) {
+            // interpret player dialogue with AI
+            // access string input with "e.dialogueInput"
+            // somehow determine if end dialogue...
+            // either call ContinueDialogue() or EndDialogue()
         }
 
-        public async Task SendMessageToGenerator(string text) {
-            SendMessageToChat(text);
-            string responseText = await generator.Chat(text);
-            SendMessageToChat(responseText);
+        public void SetDialogueData(NPCDialogueData dialogueData) {
+            this.dialogueData = dialogueData;
         }
 
-        [System.Serializable]
-        public class Message {
-            public string text;
-            public GameObject textObject;
+        public NPCDialogueData GetDialogueData() {
+            return dialogueData;
+        }
+
+        private void PopulateLines() {
+            
+        }
+
+        public string[] GetLines() {
+            return lines;
+        }
+
+        public void SetLines(string[] lines) {
+            this.lines = lines;
+        }
+
+        public void InitiateDialogue(NPCDialogueData dialogueData) {
+            GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
+            lines = new[] {
+                "Hey there friend!",
+                "How's it going this fine afternoon? This dialogue is pregenerated so don't expect anything cool!",
+                "Don't worry, soon we will have actual AI generated stuff!"
+            };
+            this.dialogueData = dialogueData;
+            OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
+                dialogueData = this.dialogueData,
+                isInitiatingDialogue = true
+            });
+        }
+
+        public void ContinueDialogue() {
+            OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs());
+        }
+
+        private void OnPlayerEndDialogue(object sender, EventArgs e) {
+            EndDialogue();
+        }
+
+        public void EndDialogue() {
+            lines = new[] {
+                "Leaving so soon?",
+                "No problem, okay bye!"
+            };
+            OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
+                isEndingDialogue = true
+            });
         }
     }
 }
