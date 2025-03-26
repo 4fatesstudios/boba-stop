@@ -237,12 +237,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &180869973 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5089839469562793868, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 574822312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,31 +535,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3029914238918060198, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: dialogueUIManager
-      value: 
-      objectReference: {fileID: 1857003720}
-    - target: {fileID: 3029914238918060198, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: dialogueUIManager.lines
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029914238918060198, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: dialogueUIManager.textInput
-      value: 
-      objectReference: {fileID: 1521303151}
-    - target: {fileID: 3029914238918060198, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: dialogueUIManager.textSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3029914238918060198, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: dialogueUIManager.textComponent
-      value: 
-      objectReference: {fileID: 646646624}
     - target: {fileID: 5766237517785645347, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -629,24 +598,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6542260546814182489, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1857003720}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11cc8bd554ee2f439084b169cb4ac6d, type: 3}
---- !u!114 &646646624 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 540631963839954918, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 574822312}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &734446869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,18 +1189,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1521303151 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6272093157041627594, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 574822312}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1552575176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1557,28 +1498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447d97fd848fdee4eaf1dec76bb1f24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1857003717 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6542260546814182489, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 574822312}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1857003720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857003717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b851154576be784685abd38e5770bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueUI: {fileID: 180869973}
-  textComponent: {fileID: 646646624}
-  textInput: {fileID: 1521303151}
-  textSpeed: 0.1
 --- !u!1 &1883544809
 GameObject:
   m_ObjectHideFlags: 0

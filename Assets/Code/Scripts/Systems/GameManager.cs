@@ -102,6 +102,7 @@ namespace BobaStop.Systems {
             scheduleManager.Unpause();
 
             Player.Instance.gameObject.SetActive(true);
+            GameInput.Instance.EnableInputMapOnly(ActionMap.Default);
         }
         
         /// <summary>
@@ -114,6 +115,7 @@ namespace BobaStop.Systems {
         /// <param name="eventArgs"></param>
         private void EndDay(object sender, EventArgs eventArgs) {
             Player.Instance.gameObject.SetActive(false);
+            GameInput.Instance.DisableAllInputs();
             
             // pause all World Systems
             dayCycleManager.Pause();

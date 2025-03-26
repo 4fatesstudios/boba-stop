@@ -41,7 +41,7 @@ namespace BobaStop.Systems {
             };
             
             
-            playerInputActions.Player.Enable();
+            // playerInputActions.Player.Enable();
 
             playerInputActions.Player.Interact.performed += Interact_performed;
             playerInputActions.Player.Attack.performed += Attack_performed;

@@ -1044,6 +1044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9147929568998341061}
   - component: {fileID: 3029914238918060198}
+  - component: {fileID: 5648621053738209168}
   m_Layer: 0
   m_Name: GameUIManager
   m_TagString: Untagged
@@ -1079,8 +1080,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d623f1e2d8a864ef4bfdb03b84fed17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueUIManager: {fileID: 0}
+  dialogueUIManager: {fileID: 5648621053738209168}
   time: {fileID: 0}
+--- !u!114 &5648621053738209168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6542260546814182489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b851154576be784685abd38e5770bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueUI: {fileID: 5089839469562793868}
+  textComponent: {fileID: 540631963839954918}
+  textInput: {fileID: 6272093157041627594}
+  textSpeed: 0.1
 --- !u!1 &7058846386886099146
 GameObject:
   m_ObjectHideFlags: 0
