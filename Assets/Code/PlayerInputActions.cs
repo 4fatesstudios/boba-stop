@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenCompanionMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""9938d3c1-0b54-4abd-b293-43f48f09c494"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -207,6 +216,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee616000-91d3-412b-b82c-14104bfea618"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenCompanionMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -287,6 +307,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_OpenCompanionMenu = m_Player.FindAction("OpenCompanionMenu", throwIfNotFound: true);
         // PlayerDialogue
         m_PlayerDialogue = asset.FindActionMap("PlayerDialogue", throwIfNotFound: true);
         m_PlayerDialogue_Skip = m_PlayerDialogue.FindAction("Skip", throwIfNotFound: true);
@@ -363,6 +384,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_OpenCompanionMenu;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -371,6 +393,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @OpenCompanionMenu => m_Wrapper.m_Player_OpenCompanionMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -392,6 +415,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @OpenCompanionMenu.started += instance.OnOpenCompanionMenu;
+            @OpenCompanionMenu.performed += instance.OnOpenCompanionMenu;
+            @OpenCompanionMenu.canceled += instance.OnOpenCompanionMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -408,6 +434,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @OpenCompanionMenu.started -= instance.OnOpenCompanionMenu;
+            @OpenCompanionMenu.performed -= instance.OnOpenCompanionMenu;
+            @OpenCompanionMenu.canceled -= instance.OnOpenCompanionMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -493,6 +522,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnOpenCompanionMenu(InputAction.CallbackContext context);
     }
     public interface IPlayerDialogueActions
     {

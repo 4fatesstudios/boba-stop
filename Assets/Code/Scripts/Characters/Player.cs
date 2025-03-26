@@ -4,6 +4,7 @@ using BobaStop.Systems;
 using BobaStop.Systems.DataManagement;
 using SimpleCombat.Components;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace BobaStop.Characters {
     public class Player : CombatCharacter {
@@ -55,6 +56,15 @@ namespace BobaStop.Characters {
             gameInput.OnInteractAction += GameInput_OnInteractAction;
             gameInput.OnAttackAction += GameInput_OnAttackAction;
             gameInput.OnInventoryAction += GameInput_OnInventoryAction;
+            gameInput.OnOpenCompanionMenuAction += GameInput_OnOpenCompanionMenuAction;
+        }
+        
+        private void GameInput_OnOpenCompanionMenuAction(object sender, EventArgs e) {
+            UIDocument companionMenu = FindObjectOfType<UIDocument>();
+            if (companionMenu != null)
+            {
+                companionMenu.rootVisualElement.style.display = DisplayStyle.Flex;
+            }
         }
 
         protected void OnDestroy() {
