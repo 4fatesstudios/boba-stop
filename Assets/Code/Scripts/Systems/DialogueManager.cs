@@ -11,9 +11,9 @@ namespace BobaStop.Systems
         private NPCDialogueData dialogueData;
         private string[] lines;
         
-        public event EventHandler<OnInitiateDialogueEventArgs> OnDoDialogue;
+        public event EventHandler<OnDoDialogueEventArgs> OnDoDialogue;
 
-        public class OnInitiateDialogueEventArgs : EventArgs {
+        public class OnDoDialogueEventArgs : EventArgs {
             public NPCDialogueData dialogueData = null;
             public bool isInitiatingDialogue = false;
             public bool isEndingDialogue = false;
@@ -21,12 +21,7 @@ namespace BobaStop.Systems
 
         public void Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
-            
-            lines = new[] {
-                "hey there partner!",
-                "i dont like you!!!!",
-                "just kidding lmao"
-            };
+            GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
         }
 
         private void OnInputPlayerDialogue(object sender, DialogueUIManager.OnDialogueInputEventArgs e) {
@@ -57,19 +52,33 @@ namespace BobaStop.Systems
         }
 
         public void InitiateDialogue(NPCDialogueData dialogueData) {
+            GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
+            lines = new[] {
+                "Hey there friend!",
+                "How's it going this fine afternoon? This dialogue is pregenerated so don't expect anything cool!",
+                "Don't worry, soon we will have actual AI generated stuff!"
+            };
             this.dialogueData = dialogueData;
-            OnDoDialogue?.Invoke(this, new OnInitiateDialogueEventArgs {
+            OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
                 dialogueData = this.dialogueData,
                 isInitiatingDialogue = true
             });
         }
 
         public void ContinueDialogue() {
-            OnDoDialogue?.Invoke(this, new OnInitiateDialogueEventArgs());
+            OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs());
+        }
+
+        private void OnPlayerEndDialogue(object sender, EventArgs e) {
+            EndDialogue();
         }
 
         public void EndDialogue() {
-            OnDoDialogue?.Invoke(this, new OnInitiateDialogueEventArgs {
+            lines = new[] {
+                "Leaving so soon?",
+                "No problem, okay bye!"
+            };
+            OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
                 isEndingDialogue = true
             });
         }

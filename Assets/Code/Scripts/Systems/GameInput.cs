@@ -19,6 +19,7 @@ namespace BobaStop.Systems {
 
         public event EventHandler OnSkipAction;
         public event EventHandler OnEnterInputAction;
+        public event EventHandler OnEndDialogueAction;
 
         private PlayerInputActions playerInputActions;
         private Dictionary<ActionMap, InputActionMap> mapDict;
@@ -48,6 +49,7 @@ namespace BobaStop.Systems {
 
             playerInputActions.PlayerDialogue.Skip.performed += Skip_performed;
             playerInputActions.PlayerDialogue.EnterInput.performed += EnterInput_performed;
+            playerInputActions.PlayerDialogue.EndDialogue.performed += EndDialogue_performed;
         }
 
         private void OnDestroy() {
@@ -57,6 +59,7 @@ namespace BobaStop.Systems {
 
             playerInputActions.PlayerDialogue.Skip.performed -= Skip_performed;
             playerInputActions.PlayerDialogue.EnterInput.performed -= EnterInput_performed;
+            playerInputActions.PlayerDialogue.EndDialogue.performed -= EndDialogue_performed;
         }
 
         public void EnableInputMapOnly(ActionMap actionMap) {
@@ -90,6 +93,10 @@ namespace BobaStop.Systems {
 
         private void EnterInput_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
             OnEnterInputAction?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void EndDialogue_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+            OnEndDialogueAction?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

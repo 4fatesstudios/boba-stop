@@ -231,6 +231,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EndDialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""164001e8-647f-423d-a120-a6d747a62d74"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -255,6 +264,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""EnterInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ac22024-3c65-41c9-ad68-0ffa2ddfa234"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +291,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerDialogue = asset.FindActionMap("PlayerDialogue", throwIfNotFound: true);
         m_PlayerDialogue_Skip = m_PlayerDialogue.FindAction("Skip", throwIfNotFound: true);
         m_PlayerDialogue_EnterInput = m_PlayerDialogue.FindAction("EnterInput", throwIfNotFound: true);
+        m_PlayerDialogue_EndDialogue = m_PlayerDialogue.FindAction("EndDialogue", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -410,12 +431,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerDialogueActions> m_PlayerDialogueActionsCallbackInterfaces = new List<IPlayerDialogueActions>();
     private readonly InputAction m_PlayerDialogue_Skip;
     private readonly InputAction m_PlayerDialogue_EnterInput;
+    private readonly InputAction m_PlayerDialogue_EndDialogue;
     public struct PlayerDialogueActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerDialogueActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Skip => m_Wrapper.m_PlayerDialogue_Skip;
         public InputAction @EnterInput => m_Wrapper.m_PlayerDialogue_EnterInput;
+        public InputAction @EndDialogue => m_Wrapper.m_PlayerDialogue_EndDialogue;
         public InputActionMap Get() { return m_Wrapper.m_PlayerDialogue; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -431,6 +454,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @EnterInput.started += instance.OnEnterInput;
             @EnterInput.performed += instance.OnEnterInput;
             @EnterInput.canceled += instance.OnEnterInput;
+            @EndDialogue.started += instance.OnEndDialogue;
+            @EndDialogue.performed += instance.OnEndDialogue;
+            @EndDialogue.canceled += instance.OnEndDialogue;
         }
 
         private void UnregisterCallbacks(IPlayerDialogueActions instance)
@@ -441,6 +467,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @EnterInput.started -= instance.OnEnterInput;
             @EnterInput.performed -= instance.OnEnterInput;
             @EnterInput.canceled -= instance.OnEnterInput;
+            @EndDialogue.started -= instance.OnEndDialogue;
+            @EndDialogue.performed -= instance.OnEndDialogue;
+            @EndDialogue.canceled -= instance.OnEndDialogue;
         }
 
         public void RemoveCallbacks(IPlayerDialogueActions instance)
@@ -469,5 +498,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnSkip(InputAction.CallbackContext context);
         void OnEnterInput(InputAction.CallbackContext context);
+        void OnEndDialogue(InputAction.CallbackContext context);
     }
 }

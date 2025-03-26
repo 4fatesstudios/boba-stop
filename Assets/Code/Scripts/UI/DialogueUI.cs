@@ -17,6 +17,7 @@ namespace BobaStop
         [SerializeField] private float textSpeed;
         private DialogueManager dialogueManager;
         private int index;
+        private bool isEndingDialogue = false;
 
         public event EventHandler<OnDialogueInputEventArgs> OnDialogueInput;
 
@@ -25,6 +26,7 @@ namespace BobaStop
         }
 
         public void Start() {
+            dialogueUI.SetActive(false);
             dialogueManager = GameManager.Instance.dialogueManager;
             
             dialogueManager.OnDoDialogue += DoDialogue;
@@ -33,25 +35,32 @@ namespace BobaStop
             GameInput.Instance.OnEnterInputAction += InputPlayerDialogue;
         }
 
-        public void DoDialogue(object sender, DialogueManager.OnInitiateDialogueEventArgs e) {
+        public void DoDialogue(object sender, DialogueManager.OnDoDialogueEventArgs e) {
+            if (isEndingDialogue) return;
+            
+            index = 0;
+            
             textInput.gameObject.SetActive(false);
             
             if (e.isInitiatingDialogue) dialogueUI.SetActive(true);
+            isEndingDialogue = e.isEndingDialogue;
             
-            StartCoroutine(TypeLine(dialogueManager.GetLines()[index], e.isInitiatingDialogue));
+            StartCoroutine(TypeLine(dialogueManager.GetLines()[index]));
         }
         
-        private IEnumerator TypeLine(string line, bool isEndingDialogue = false) {
+        private IEnumerator TypeLine(string line) {
             ClearTextComponent();
             foreach (char c in line) {
                 textComponent.text += c;
                 yield return new WaitForSeconds(textSpeed);
             }
-            if (isEndingDialogue) EndDialogue();
         }
 
         private void EndDialogue() {
+            StopAllCoroutines();
             dialogueUI.SetActive(false);
+            isEndingDialogue = false;
+            GameInput.Instance.EnableInputMapOnly(ActionMap.Default);
         }
 
         private void InputPlayerDialogue(object sender, EventArgs e) {
@@ -65,7 +74,8 @@ namespace BobaStop
                 StartCoroutine(TypeLine(dialogueManager.GetLines()[index]));
             }
             else {
-                AllowInput();
+                if (isEndingDialogue) EndDialogue();
+                else AllowInput();
             }
         }
 

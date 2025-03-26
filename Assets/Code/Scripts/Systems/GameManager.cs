@@ -72,8 +72,6 @@ namespace BobaStop.Systems {
             scheduleManager.Start();
             
             dialogueManager.Start();
-            dialogueManager.InitiateDialogue(null);
-            GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
         }
 
         private void Update() {
