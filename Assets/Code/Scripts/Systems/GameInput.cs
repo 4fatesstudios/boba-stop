@@ -16,6 +16,7 @@ namespace BobaStop.Systems {
         public event EventHandler OnInteractAction;
         public event EventHandler OnAttackAction;
         public event EventHandler OnInventoryAction;
+        public event EventHandler OnOpenCompanionMenuAction;
 
         public event EventHandler OnSkipAction;
         public event EventHandler OnEnterInputAction;
@@ -46,6 +47,7 @@ namespace BobaStop.Systems {
             playerInputActions.Player.Interact.performed += Interact_performed;
             playerInputActions.Player.Attack.performed += Attack_performed;
             playerInputActions.Player.Inventory.performed += InventoryAction_performed;
+            playerInputActions.Player.OpenCompanionMenu.performed += OpenCompanionMenu_performed;
 
             playerInputActions.PlayerDialogue.Skip.performed += Skip_performed;
             playerInputActions.PlayerDialogue.EnterInput.performed += EnterInput_performed;
@@ -56,6 +58,7 @@ namespace BobaStop.Systems {
             playerInputActions.Player.Interact.performed -= Interact_performed;
             playerInputActions.Player.Attack.performed -= Attack_performed;
             playerInputActions.Player.Inventory.performed -= InventoryAction_performed;
+            playerInputActions.Player.OpenCompanionMenu.performed -= OpenCompanionMenu_performed;
 
             playerInputActions.PlayerDialogue.Skip.performed -= Skip_performed;
             playerInputActions.PlayerDialogue.EnterInput.performed -= EnterInput_performed;
@@ -77,6 +80,10 @@ namespace BobaStop.Systems {
 
         private void InventoryAction_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
             OnInventoryAction?.Invoke(this, EventArgs.Empty);
+        }
+        
+        private void OpenCompanionMenu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+            OnOpenCompanionMenuAction?.Invoke(this, EventArgs.Empty);
         }
 
         public Vector2 GetMovementVectorNormalized() {
