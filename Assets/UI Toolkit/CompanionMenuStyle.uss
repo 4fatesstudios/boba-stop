@@ -1,4 +1,12 @@
 .header {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/Visuals/Fonts/neatpixels-standard.ttf?fileID=12800000&guid=d86f4caf09ed74511b807478ddbb54a6&type=3#neatpixels-standard");
+    -unity-text-align: upper-left;
+    justify-content: flex-start;
+    align-self: auto;
+    flex-direction: column;
+    font-size: 28px;
+    color: rgb(255, 255, 255);
 }
 
 .button {
@@ -10,10 +18,10 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     margin-top: 42px;
     visibility: visible;
     background-image: url("project://database/Assets/Visuals/Placeholder/UI/InventorySlot.png?fileID=21300000&guid=59b9ffaff015c430b8bd282fe433b1cc&type=3#InventorySlot");
@@ -43,8 +51,41 @@
 }
 
 .button:hover {
-    scale: 1.1 1;
+    scale: 1.1 1.1;
     transition-property: scale;
     transition-duration: 0.25s;
     transition-timing-function: ease-in-out;
+}
+
+.ui-container {
+}
+
+.likes-dislikes {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/Visuals/Fonts/neatpixels-standard.ttf?fileID=12800000&guid=d86f4caf09ed74511b807478ddbb54a6&type=3#neatpixels-standard");
+    color: rgb(255, 255, 255);
+    transition-duration: 0.25s;
+    font-size: 20px;
+}
+
+.button.active {
+    color: rgb(192, 181, 32);
+}
+
+.progress-bar {
+}
+
+.relationship-level {
+    background-image: url("project://database/Assets/Visuals/Placeholder/UI/Hearts_Yellow_5.png?fileID=21300000&guid=924a839c636e44282b3c6afc26edde49&type=3#Hearts_Yellow_5");
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    align-self: center;
+    justify-content: flex-start;
+    align-items: stretch;
 }

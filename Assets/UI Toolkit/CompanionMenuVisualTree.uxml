@@ -1,14 +1,58 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/CompanionMenuStyle.uss?fileID=7433441132597879392&amp;guid=afb30e8e9cf56478f9540a376823151b&amp;type=3#CompanionMenuStyle" />
-    <ui:VisualElement name="Container" class="background-box">
-        <ui:VisualElement name="MenuBackground" class="menu-background" style="flex-grow: 1; width: 487px; align-items: stretch; align-self: center; padding-bottom: 0; background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventoryBackground.png?fileID=21300000&amp;guid=0da2a21d4c1c54e67bcf82b1835aa87f&amp;type=3#InventoryBackground&quot;); height: 0; min-width: 600px; min-height: 500px; max-width: 200px; max-height: 400px; justify-content: flex-start; flex-direction: column; margin-top: 269px;">
+    <ui:VisualElement name="Container" class="background-box" style="flex-grow: 1; align-items: center; justify-content: center; flex-shrink: 0;">
+        <ui:VisualElement name="MenuBackground" class="menu-background" style="flex-grow: 1; width: 50%; align-items: stretch; align-self: center; padding-bottom: 10px; background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventoryBackground.png?fileID=21300000&amp;guid=0da2a21d4c1c54e67bcf82b1835aa87f&amp;type=3#InventoryBackground&quot;); height: 75%; min-width: 600px; min-height: 500px; max-width: 200px; max-height: 400px; justify-content: flex-start; flex-direction: column; margin-top: 0; flex-shrink: 0; padding-top: 10px; padding-right: 10px; padding-left: 10px;">
             <ui:Label tabindex="-1" text="Companions" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" style="-unity-text-align: upper-center; font-size: 100px; height: 56px; color: rgb(255, 255, 255); top: -14px; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=54868cb2b6793499e858360fd84827dd&amp;type=3#ThaleahFat_TTF&quot;); -unity-font-definition: initial;" />
             <ui:GroupBox name="ButtonContainer" style="justify-content: space-between; align-self: center; opacity: 1; align-items: stretch; flex-direction: row; margin-top: -27px; width: 551px;">
-                <ui:Button text="Karen" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KarenButton" class="button" />
-                <ui:Button text="Aster" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AsterButton" class="button" />
-                <ui:Button text="Kaden" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KadenButton" class="button" />
-                <ui:Button text="Jade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="JadeButton" class="button" />
+                <ui:Button text="Karen" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KarenButton" class="button highlighted-button" />
+                <ui:Button text="Aster" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AsterButton" class="button highlighted-button" />
+                <ui:Button text="Kaden" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KadenButton" class="button highlighted-button" />
+                <ui:Button text="Jade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="JadeButton" class="button highlighted-button" />
             </ui:GroupBox>
+            <ui:VisualElement name="KarenUI" class="ui-container" style="flex-grow: 1; display: flex; flex-direction: column; -unity-text-align: upper-left; align-self: auto; margin-top: 0; height: 326px;">
+                <ui:GroupBox text="Likes:&#10;Being right&#10;Organization&#10;Order" name="KarenLikes" class="likes-dislikes" style="height: 118px;" />
+                <ui:GroupBox name="KarenDislikes" text="Dislikes:&#10;Being proven wrong&#10;Messiness&#10;Poor customer service" class="likes-dislikes" style="height: 115px;" />
+                <ui:VisualElement name="KarenProgressBar" class="progress-bar" style="flex-grow: 1; flex-direction: row; align-items: center; align-self: auto; justify-content: center;">
+                    <ui:VisualElement name="KarenLevel1" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel2" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel3" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel4" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel5" class="relationship-level" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="AsterUI" class="ui-container" style="flex-grow: 1; display: none;">
+                <ui:GroupBox text="Likes:&#10;Witty banter&#10;Nightlife&#10;Fashion" name="AsterLikes" class="likes-dislikes" style="height: 118px;" />
+                <ui:GroupBox name="AsterDislikes" text="Dislikes:&#10;Boring conversations&#10;Too serious people&#10;Early mornings" class="likes-dislikes" style="height: 115px;" />
+                <ui:VisualElement name="AsterProgressBar" class="progress-bar" style="flex-grow: 1; flex-direction: row; align-items: center; align-self: auto; justify-content: center;">
+                    <ui:VisualElement name="KarenLevel1" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel2" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel3" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel4" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel5" class="relationship-level" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="KadenUI" class="ui-container" style="flex-grow: 1; display: none;">
+                <ui:GroupBox text="Likes:&#10;Spontaneous adventures&#10;Group hangouts&#10;Joking around" name="KadenLikes" class="likes-dislikes" style="height: 118px;" />
+                <ui:GroupBox name="KadenDislikes" text="Dislikes:&#10;Boredom&#10;Strict people&#10;Rainy days" class="likes-dislikes" style="height: 115px;" />
+                <ui:VisualElement name="KadenProgressBar" class="progress-bar" style="flex-grow: 1; flex-direction: row; align-items: center; align-self: auto; justify-content: center;">
+                    <ui:VisualElement name="KarenLevel1" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel2" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel3" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel4" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel5" class="relationship-level" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="JadeUI" class="ui-container" style="flex-grow: 1; display: none;">
+                <ui:GroupBox text="Likes:&#10;Cozy places&#10;Animals (especially strays)&#10;Handmade gifts" name="JadeLikes" class="likes-dislikes" style="height: 118px;" />
+                <ui:GroupBox name="JadeDislikes" text="Dislikes:&#10;Bullies&#10;Crowded places&#10;Loud or aggressive people" class="likes-dislikes" style="height: 115px;" />
+                <ui:VisualElement name="JadeProgressBar" class="progress-bar" style="flex-grow: 1; flex-direction: row; align-items: center; align-self: auto; justify-content: center;">
+                    <ui:VisualElement name="KarenLevel1" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel2" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel3" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel4" class="relationship-level" />
+                    <ui:VisualElement name="KarenLevel5" class="relationship-level" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
