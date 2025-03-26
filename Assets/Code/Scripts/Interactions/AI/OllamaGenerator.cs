@@ -6,9 +6,11 @@ using ChromaDB.Client;
 using Microsoft.Extensions.AI;
 using System.Net.Http;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.IO;
 using BobaStop.NPCs;
 
-public class OllamaGenerator : MonoBehaviour
+public class OllamaGenerator
 {
     private ChromaClient client;
     private HttpClient httpClient;
@@ -25,7 +27,7 @@ public class OllamaGenerator : MonoBehaviour
 
     public async void Start()
     {
-        StartChromaDBServer();
+        // StartChromaDBServer();
         await InitializeChromaClient();
         await StartChat();
     }
@@ -90,33 +92,50 @@ public class OllamaGenerator : MonoBehaviour
         return response;
     }
 
-        static void StartChromaDBServer()
+    static void StartChromaDBServer()
     {
         try
         {
+            // 1. Use the correct executable name and path
+            string chromaPath = "/Library/Frameworks/Python.framework/Versions/3.12/bin/chroma"; // From 'which chroma' result
+            
+            // 2. Set up paths
+            string projectRoot = Path.GetDirectoryName(Application.dataPath);
+            string chromaStoragePath = Path.Combine(projectRoot, "chroma_db");
+            
+            // 3. Create directory if needed
+            if (!Directory.Exists(chromaStoragePath))
+                Directory.CreateDirectory(chromaStoragePath);
+
+            // 4. Configure process
             ProcessStartInfo psi = new ProcessStartInfo
             {
-                FileName = "chromadb", // If using Windows, replace with "python"
-                Arguments = "run --path ../chroma_db",
+                FileName = chromaPath,
+                Arguments = $"run --path \"{chromaStoragePath}\"",
+                WorkingDirectory = projectRoot,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
 
-            Process process = new Process { StartInfo = psi };
-            process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-            process.ErrorDataReceived += (sender, e) => Console.WriteLine("ERROR: " + e.Data);
+            // 5. Debug output
+            UnityEngine.Debug.Log($"Starting Chroma: {chromaPath} {psi.Arguments}");
 
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            Console.WriteLine("ChromaDB server started...");
+            // 6. Start process
+            using (Process process = new Process { StartInfo = psi })
+            {
+                process.OutputDataReceived += (sender, e) => UnityEngine.Debug.Log(e.Data);
+                process.ErrorDataReceived += (sender, e) => UnityEngine.Debug.LogError(e.Data);
+                
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+            }
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Error starting ChromaDB: " + ex.Message);
+            UnityEngine.Debug.LogError($"Chroma start failed: {ex.Message}");
         }
     }
 }
