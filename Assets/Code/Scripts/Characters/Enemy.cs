@@ -6,7 +6,7 @@ using SimpleCombat.Components;
 using UnityEngine;
 
 namespace BobaStop.Characters {
-    public class Enemy : Character {
+    public class Enemy : CombatCharacter {
         [Header("Loot Settings")]
         [SerializeField] protected LootTable lootTable;
         [SerializeField] protected GameObject pickupPrefab;
