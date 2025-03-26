@@ -6,7 +6,7 @@ using BobaStop.Systems;
 using TMPro;
 using UnityEngine;
 
-namespace BobaStop
+namespace BobaStop.UI
 {
     [System.Serializable]
     public class DialogueUIManager : MonoBehaviour
