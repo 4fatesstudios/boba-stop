@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.VersionControl;
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using BobaStop.Interactions;
 using BobaStop.NPCs;
+using System.Threading.Tasks;
 
 namespace BobaStop.Systems
 {
@@ -30,7 +31,7 @@ namespace BobaStop.Systems
         }
 
         // Update is called once per frame
-        void Update() {
+       void Update() {
             if (chatBox.text != "") {
                 if (Input.GetKeyDown(KeyCode.Return)) {
                     SendMessageToGenerator(chatBox.text);
@@ -70,9 +71,9 @@ namespace BobaStop.Systems
             messages.Add(newMessage);
         }
 
-        public void SendMessageToGenerator(string text) {
+        public async Task SendMessageToGenerator(string text) {
             SendMessageToChat(text);
-            string responseText = generator.Chat(text).Result;
+            string responseText = await generator.Chat(text);
             SendMessageToChat(responseText);
         }
 

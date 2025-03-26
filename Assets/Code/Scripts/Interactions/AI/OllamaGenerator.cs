@@ -28,8 +28,10 @@ public class OllamaGenerator
     public async void Start()
     {
         // StartChromaDBServer();
-        await InitializeChromaClient();
+        // await InitializeChromaClient();
+        // string first = await StartChat();
         await StartChat();
+        // UnityEngine.Debug.Log(first);
     }
 
     async Task InitializeChromaClient()
@@ -55,7 +57,8 @@ public class OllamaGenerator
 
         string current_conext = "First interaction with " + companionData.companionName;
 
-        var retrieved_context = await retriever.RetrieveData(chromaDBClient, current_conext);
+        // var retrieved_context = await retriever.RetrieveData(chromaDBClient, current_conext);
+        var retrieved_context = "No previous interactions";
 
         var prompt = $"You are {companionData.companionName}, an NPC in a game with relationships from Rival (-3) to lover (3). Your rapport level with the player is {companionData.rapportLevel} out of 5. Your current situation is {current_conext}. Your previous interactions: {retrieved_context}. I want you to generate one line of {companionData.companionName}’s response to this situation in a natural, engaging way.";
 
@@ -67,10 +70,11 @@ public class OllamaGenerator
         await foreach (var item in
             chatClient.GetStreamingResponseAsync(chatHistory))
         {
-            UnityEngine.Debug.Log(item.Text);
+            // UnityEngine.Debug.Log(item.Text);
             response += item.Text;
         }
         chatHistory.Add(new ChatMessage(ChatRole.Assistant, response));
+        UnityEngine.Debug.Log(response);
 
         return response;
     }
@@ -80,15 +84,17 @@ public class OllamaGenerator
         chatHistory.Add(new ChatMessage(ChatRole.User, userPrompt));
 
         // Stream the AI response and add to chat history
-        UnityEngine.Debug.Log("AI Response:");
-        string response = "";
+        UnityEngine.Debug.Log("AI Response: ");
+        var response = "";
         await foreach (var item in
             chatClient.GetStreamingResponseAsync(chatHistory))
         {
-            UnityEngine.Debug.Log(item.Text);
+            // UnityEngine.Debug.Log(item.Text);
             response += item.Text;
         }
         chatHistory.Add(new ChatMessage(ChatRole.Assistant, response));
+        UnityEngine.Debug.Log(response);
+
         return response;
     }
 
