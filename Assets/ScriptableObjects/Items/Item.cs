@@ -6,7 +6,7 @@ namespace BobaStop.Items {
     
     public enum Rarity {
         None,
-        Seasonal,
+        // Seasonal,
         Classic,
         Special,
         Premium,
