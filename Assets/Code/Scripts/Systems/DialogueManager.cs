@@ -52,6 +52,7 @@ namespace BobaStop.Systems
         }
 
         public void InitiateDialogue(NPCDialogueData dialogueData) {
+            GameManager.Instance.PauseDay();
             GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
             lines = new[] {
                 "Hey there friend!",

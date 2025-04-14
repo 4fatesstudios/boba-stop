@@ -61,6 +61,7 @@ namespace BobaStop.UI
             dialogueUI.SetActive(false);
             isEndingDialogue = false;
             GameInput.Instance.EnableInputMapOnly(ActionMap.Default);
+            GameManager.Instance.UnpauseDay();
         }
 
         private void InputPlayerDialogue(object sender, EventArgs e) {

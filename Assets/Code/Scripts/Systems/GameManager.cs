@@ -94,12 +94,9 @@ namespace BobaStop.Systems {
             Player.Instance.transform.position = new Vector3(-2.68300009f,0.157000005f,0f); // DEFINE A DEFAULT START POSITION AT BED
             
             dayCycleManager.Reset();
-            dayCycleManager.Unpause();
-            
             worldManager.Reset();
             
-            shopManager.Unpause();
-            scheduleManager.Unpause();
+            UnpauseDay();
 
             Player.Instance.gameObject.SetActive(true);
             GameInput.Instance.EnableInputMapOnly(ActionMap.Default);
@@ -117,10 +114,7 @@ namespace BobaStop.Systems {
             Player.Instance.gameObject.SetActive(false);
             GameInput.Instance.DisableAllInputs();
             
-            // pause all World Systems
-            dayCycleManager.Pause();
-            shopManager.Pause();
-            scheduleManager.Pause();
+            PauseDay();
             
             // ensure that after first save (after first day) it is no longer considered a first load
             if (gameData.firstLoad) gameData.firstLoad = false;
@@ -136,6 +130,18 @@ namespace BobaStop.Systems {
             
             // temporary
             StartNewDay();
+        }
+
+        public void PauseDay() {
+            dayCycleManager.Pause();
+            shopManager.Pause();
+            scheduleManager.Pause();
+        }
+
+        public void UnpauseDay() {
+            dayCycleManager.Unpause();
+            shopManager.Unpause();
+            scheduleManager.Unpause();
         }
         
         /// <summary>
