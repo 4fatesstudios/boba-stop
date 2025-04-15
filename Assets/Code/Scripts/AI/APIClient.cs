@@ -42,7 +42,13 @@ namespace BobaStop.AI {
         }
 
         // GET: /first_meeting/character/{character_name}
-        public IEnumerator GetFirstMeeting(string characterName, Action<string> onComplete)
+
+        public void GetFirstMeeting(string characterName, Action<string> onComplete)
+        {
+            StartCoroutine(GetFirstMeetingIEnumerator(characterName, onComplete));
+        }
+
+        private IEnumerator GetFirstMeetingIEnumerator(string characterName, Action<string> onComplete)
         {
             string url = $"{baseUrl}/first_meeting/character/{characterName}";
 
@@ -57,7 +63,7 @@ namespace BobaStop.AI {
                     string jsonResponse = request.downloadHandler.text;
                     ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
                     Debug.Log("First meeting response: " + response.response);
-                    data = request.downloadHandler.text;
+                    data = response.response;
                 }
                 else
                 {
@@ -69,7 +75,12 @@ namespace BobaStop.AI {
         }
 
         // POST: /new_conversation/character/{character_name}
-        public IEnumerator SendNewConversation(string characterName, int rapportLevel, int rapportLevelProgress, string currentStory, Action<string> onComplete)
+
+        public void SendNewConversation(string characterName, int rapportLevel, int rapportLevelProgress, string currentStory, Action<string> onComplete)
+        {
+            StartCoroutine(SendNewConversationIEnumerator(characterName, rapportLevel, rapportLevelProgress, currentStory, onComplete));
+        }
+        private IEnumerator SendNewConversationIEnumerator(string characterName, int rapportLevel, int rapportLevelProgress, string currentStory, Action<string> onComplete)
         {
             string url = $"{baseUrl}/new_conversation/character/{characterName}";
 
@@ -96,7 +107,7 @@ namespace BobaStop.AI {
                     string jsonResponse = request.downloadHandler.text;
                     ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
                     Debug.Log("New conversation response: " + response.response);
-                    data = request.downloadHandler.text;
+                    data = response.response;
                 }
                 else
                 {
@@ -109,9 +120,15 @@ namespace BobaStop.AI {
         }
 
         // POST: /chat/character/{character_name}
-        public IEnumerator SendChatMessage(string characterName, string prompt, Action<string> onComplete)
+        public void SendChatMessage(string characterName, string prompt, Action<string> onComplete)
+        {
+            StartCoroutine(SendChatMessageIEnumerator(characterName, prompt, onComplete));
+        }
+        private IEnumerator SendChatMessageIEnumerator(string characterName, string prompt, Action<string> onComplete)
         {
             string url = $"{baseUrl}/chat/character/{characterName}";
+            Debug.Log("Sending chat message to: " + url);
+            Debug.Log("Chat message: " + prompt);
 
             ChatPrompt chatPrompt = new ChatPrompt
             {
@@ -134,7 +151,7 @@ namespace BobaStop.AI {
                     string jsonResponse = request.downloadHandler.text;
                     ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
                     Debug.Log("Chat response: " + response.response);
-                    data = request.downloadHandler.text;
+                    data = response.response;
                 }
                 else
                 {
