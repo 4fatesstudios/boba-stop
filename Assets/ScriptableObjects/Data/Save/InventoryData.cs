@@ -8,7 +8,7 @@ namespace BobaStop.Data.Saved
     [System.Serializable]
     public class InventoryData : SaveData
     {
-        [SerializeField] public ItemSlotContainer<Item> inventory;
+        [SerializeField] public ItemSlotContainer<Item> inventory = new(12);
         [SerializeField] public ItemSlotContainer<Gear> gear = new(1);
         [SerializeField] public ItemSlotContainer<Weapon> weapon = new(1);
 

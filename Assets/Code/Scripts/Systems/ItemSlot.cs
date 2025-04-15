@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using BobaStop.Items;
 
@@ -197,21 +198,27 @@ namespace BobaStop
         }
         
         public bool Contains(T item) {
-            foreach (var slot in itemSlots) {
-                if (!slot.IsEmpty() && slot.GetItem().Equals(item)) {
-                    return true;
-                }
-            }
-            return false;
+            return itemSlots.Any(slot => !slot.IsEmpty() && slot.GetItem().Equals(item));
         }
         
-        public int IndexOf(T item) {
-            for (int i = 0; i < itemSlots.Count; i++) {
-                if (!itemSlots[i].IsEmpty() && itemSlots[i].GetItem().Equals(item)) {
-                    return i;
-                }
+        public int IndexOf(T item, bool includeFullSlots = true) {
+            for (var i = 0; i < itemSlots.Count; i++) {
+                if (itemSlots[i].IsEmpty() || !itemSlots[i].GetItem().Equals(item)) continue;
+                if (!includeFullSlots && itemSlots[i].IsFull()) continue;
+                return i;
             }
             return -1;
+        }
+
+        public int AddItem(T item, int quantity) {
+            while (quantity > 0) {
+                var index = IndexOf(item, false);
+                if (index == -1) index = IndexOf(null);
+                if (index == -1) return quantity;
+                if (itemSlots[index] == null) itemSlots[index]?.SetItem(item, 0);
+                quantity -= itemSlots[index].AddToStack(quantity);
+            }
+            return 0;
         }
         
         public IEnumerator<ItemSlot<T>> GetEnumerator() {
