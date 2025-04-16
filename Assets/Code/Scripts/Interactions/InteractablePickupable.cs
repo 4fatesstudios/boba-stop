@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Interactions;
 using BobaStop.Inventory;
+using BobaStop.Systems;
 using UnityEngine;
 
 namespace BobaStop.Interactions
@@ -27,22 +28,16 @@ namespace BobaStop.Interactions
 
         public override void Interact()
         {
-            // if (InventoryToggle.isInventoryVisible)
-            // {
-            //     Debug.Log("Cannot pick up item while inventory is open");
-            //     return;
-            // }
-            //
-            // InventoryManager inventoryManager = FindObjectOfType<InventoryManager>();
-            // if (inventoryManager != null && inventoryManager.AddItem(item))
-            // {
-            //     Debug.Log("Picked up " + item.itemName);
-            //     Destroy(gameObject);
-            // }
-            // else
-            // {
-            //     Debug.Log("Inventory full");
-            // }
+            if (InventoryToggle.isInventoryVisible)
+            {
+                Debug.Log("Cannot pick up item while inventory is open");
+                return;
+            }
+
+            var result = GameManager.Instance.inventoryManager.AddItemToInventory(item, 1);
+            Debug.Log(result);
+            if (result == 0) Destroy(gameObject);
+            else Debug.Log("Cannot pick up item, inventory full");
         }
 
         public void SetItem(Items.Item newItem) {

@@ -51,6 +51,10 @@ namespace BobaStop.Systems
             ++inventoryData.inventoryLevel;
         }
 
+        public ItemSlotContainer<Item> GetInventory() {
+            return inventoryData.inventory;
+        }
+
         public string ToReadableString() {
             return inventoryData.inventory.ToReadableString();
         }

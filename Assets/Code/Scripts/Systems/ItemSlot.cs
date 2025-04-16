@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using BobaStop.Items;
 
@@ -72,6 +73,7 @@ namespace BobaStop
         }
 
         public bool IsFull() {
+            if (IsEmpty()) return false;
             return quantity >= maxQuantity;
         }
         
@@ -163,7 +165,7 @@ namespace BobaStop
         }
 
         public ItemSlotContainer(int slots) {
-            itemSlots = new();
+            itemSlots = new List<ItemSlot<T>>();
             this.slots = slots;
             for (int i = 0; i < slots; i++) {
                 itemSlots.Add(new ItemSlot<T>());
@@ -203,31 +205,65 @@ namespace BobaStop
         
         public int IndexOf(T item, bool includeFullSlots = true) {
             for (var i = 0; i < itemSlots.Count; i++) {
-                if (itemSlots[i].IsEmpty() || !itemSlots[i].GetItem().Equals(item)) continue;
-                if (!includeFullSlots && itemSlots[i].IsFull()) continue;
+                var slot = itemSlots[i];
+
+                // If we're searching for a null item, return the first empty slot
+                if (item == null) {
+                    if (slot.IsEmpty()) return i;
+                    continue;
+                }
+
+                // Skip empty slots when item is not null
+                if (slot.IsEmpty()) continue;
+
+                if (!slot.GetItem().Equals(item)) continue;
+                if (!includeFullSlots && slot.IsFull()) continue;
+
                 return i;
             }
             return -1;
         }
 
+
         public int AddItem(T item, int quantity) {
             while (quantity > 0) {
+                // Try to find a non-full matching stack
                 var index = IndexOf(item, false);
+
+                // If no stack found, find the first empty slot
                 if (index == -1) index = IndexOf(null);
+
+                // If no valid slot at all, return remainder
                 if (index == -1) return quantity;
-                if (itemSlots[index] == null) itemSlots[index]?.SetItem(item, 0);
-                quantity -= itemSlots[index].AddToStack(quantity);
+
+                // If the slot is empty, set it up first
+                if (itemSlots[index].IsEmpty()) {
+                    itemSlots[index].SetItem(item, 0);
+                }
+
+                // Add to stack and get leftover
+                int remainder = itemSlots[index].AddToStack(quantity);
+
+                // If something went wrong (e.g. AddToStack returned -1), abort
+                if (remainder == -1) return quantity;
+
+                quantity = remainder;
             }
-            return 0;
+
+            return 0; // All added successfully
         }
 
+
         public string ToReadableString() {
-            string result = "";
+            StringBuilder result = new StringBuilder();
             foreach (var itemSlot in itemSlots) {
-                result += itemSlot.GetItem().itemName + " " + itemSlot.GetQuantity() + "\n";
+                result.AppendLine(itemSlot.IsEmpty()
+                    ? "Empty"
+                    : $"{itemSlot.GetItem().itemName} {itemSlot.GetQuantity()}");
             }
-            return result;
+            return result.ToString();
         }
+
 
         public static bool SwapItemSlots(ItemSlot<T> a, ItemSlot<T> b) {
             return a.SwapItemSlots(b);

@@ -84,6 +84,7 @@ namespace BobaStop.Characters {
             }
 
             if (Input.GetKeyDown(KeyCode.M)) {
+                Debug.Log(GameManager.Instance.inventoryManager.GetInventory().GetItemSlots().ToString());
                 Debug.Log(GameManager.Instance.inventoryManager.ToReadableString());
             }
 
