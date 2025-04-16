@@ -11,7 +11,7 @@ namespace BobaStop.Systems.DataManagement
         private int rapportLevelStatusMin = 100;
 
         public CompanionDataManager() {
-            companionData = ScriptableObject.CreateInstance<CompanionData>();
+            companionData = new CompanionData();
         }
 
         public CompanionDataManager(CompanionData companionData) {

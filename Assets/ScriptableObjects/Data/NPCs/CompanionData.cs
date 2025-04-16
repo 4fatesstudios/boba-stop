@@ -15,11 +15,11 @@ namespace BobaStop.NPCs
         Lover = 5
     }
     
-    [CreateAssetMenu(menuName = "Data/NPCs/Rapport", fileName = "Rapport")]
-    public class CompanionData : ScriptableObject {
-        public string companionName;
-        public RapportLevel rapportLevel;
-        public int rapportLevelProgress;
+    [System.Serializable]
+    public class CompanionData {
+        [SerializeField] public string companionName = "NoNameGiven";
+        [SerializeField] public RapportLevel rapportLevel = RapportLevel.Neutral;
+        [SerializeField] public int rapportLevelProgress = 0;
         
         public void SetData(CompanionData companionData) {
             companionName = companionData.companionName;

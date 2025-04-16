@@ -8,13 +8,17 @@ using UnityEngine;
 namespace BobaStop.Characters
 {
     public class NPC : Character, IInteractable {
-        [SerializeField] private NPCDialogueData npcDialogueData;
-        
-        public void Interact() {
+        [SerializeField] protected NPCDialogueData npcDialogueData;
+
+        protected override void Start() {
+            base.Start(); 
+        }
+
+        public virtual void Interact() {
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData);
         }
         
-        public string GetInteractText() {
+        public virtual string GetInteractText() {
             throw new System.NotImplementedException();
         }
         
