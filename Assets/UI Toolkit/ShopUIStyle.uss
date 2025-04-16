@@ -1,0 +1,30 @@
+.shop-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.top-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.bottom-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.slot {
+    width: 80px;
+    height: 80px;
+    background-color: #cccccc;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
