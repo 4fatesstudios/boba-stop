@@ -220,6 +220,18 @@ namespace BobaStop
             }
             return 0;
         }
+
+        public string ToReadableString() {
+            string result = "";
+            foreach (var itemSlot in itemSlots) {
+                result += itemSlot.GetItem().itemName + " " + itemSlot.GetQuantity() + "\n";
+            }
+            return result;
+        }
+
+        public static bool SwapItemSlots(ItemSlot<T> a, ItemSlot<T> b) {
+            return a.SwapItemSlots(b);
+        }
         
         public IEnumerator<ItemSlot<T>> GetEnumerator() {
             return itemSlots.GetEnumerator();

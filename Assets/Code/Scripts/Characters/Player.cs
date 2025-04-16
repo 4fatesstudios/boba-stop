@@ -83,6 +83,10 @@ namespace BobaStop.Characters {
                 Quit();
             }
 
+            if (Input.GetKeyDown(KeyCode.M)) {
+                Debug.Log(GameManager.Instance.inventoryManager.ToReadableString());
+            }
+
             if (Input.GetKeyDown(KeyCode.O)) {
                 Debug.Log(GameManager.Instance.dayCycleManager.GetStandardTime());
                 Debug.Log(GameManager.Instance.dayCycleManager.GetCurrentDayPhase());

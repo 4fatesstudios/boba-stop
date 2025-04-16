@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
-using BobaStop.Systems.DataManagement;
 using BobaStop.Characters;
 using UnityEngine;
 
@@ -23,6 +22,7 @@ namespace BobaStop.Systems {
         public WorldManager worldManager;
         public ScheduleManager scheduleManager;
         public DialogueManager dialogueManager;
+        public InventoryManager inventoryManager;
 
         public LevelManagerHelper levelManagerHelper;
         
@@ -57,6 +57,7 @@ namespace BobaStop.Systems {
             scheduleManager = new ScheduleManager();
             
             dialogueManager = new DialogueManager();
+            inventoryManager = new InventoryManager();
             
             levelManagerHelper = new LevelManagerHelper();
             
@@ -185,7 +186,8 @@ namespace BobaStop.Systems {
             saveDataAssociations = new List<(SaveData, IPersistenceData)> {
                 (gameData.playerData, Player.Instance.GetPlayerDataManager()),
                 (gameData.shopManagerData, shopManager),
-                (gameData.worldData, worldManager.GetWorldDataManager())
+                (gameData.worldData, worldManager.GetWorldDataManager()),
+                (gameData.inventoryData, inventoryManager)
             };
         }
     }

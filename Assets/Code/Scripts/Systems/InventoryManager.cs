@@ -6,9 +6,9 @@ using BobaStop.Items;
 using BobaStop.Systems;
 using UnityEngine;
 
-namespace BobaStop.Inventory
+namespace BobaStop.Systems
 {
-    public class InventoryManager : MonoBehaviour, IPersistenceData
+    public class InventoryManager : IPersistenceData
     {
         private InventoryData inventoryData = new();
         
@@ -24,9 +24,9 @@ namespace BobaStop.Inventory
                 return;
             }
             
-            this.inventoryData.inventory = new(inventoryData.inventory);
-            this.inventoryData.gear = new(inventoryData.gear);
-            this.inventoryData.weapon = new(inventoryData.weapon);
+            this.inventoryData.inventory = new ItemSlotContainer<Item>(inventoryData.inventory);
+            this.inventoryData.gear = new ItemSlotContainer<Gear>(inventoryData.gear);
+            this.inventoryData.weapon = new ItemSlotContainer<Weapon>(inventoryData.weapon);
             this.inventoryData.inventoryLevel = inventoryData.inventoryLevel;
         }
         
@@ -36,9 +36,9 @@ namespace BobaStop.Inventory
                 return;
             }
             
-            inventoryData.inventory = new(this.inventoryData.inventory);
-            inventoryData.gear = new(this.inventoryData.gear);
-            inventoryData.weapon = new(this.inventoryData.weapon);
+            inventoryData.inventory = new ItemSlotContainer<Item>(this.inventoryData.inventory);
+            inventoryData.gear = new ItemSlotContainer<Gear>(this.inventoryData.gear);
+            inventoryData.weapon = new ItemSlotContainer<Weapon>(this.inventoryData.weapon);
             inventoryData.inventoryLevel = this.inventoryData.inventoryLevel;
         }
 
@@ -47,8 +47,22 @@ namespace BobaStop.Inventory
             inventoryData.inventory.AddSlots(slots - inventoryData.inventory.GetSlots());
         }
 
-        public void AddItemToInventory(Item item) {
-            // inventoryData.inventory.AddItem(item);
+        public void IncreaseInventoryLevel() {
+            ++inventoryData.inventoryLevel;
+        }
+
+        public string ToReadableString() {
+            return inventoryData.inventory.ToReadableString();
+        }
+
+        /// <summary>
+        /// Adds item and quantity to inventory
+        /// </summary>
+        /// <param name="item">item to add to inventory</param>
+        /// <param name="quantity">quantity of item to add to inventory</param>
+        /// <returns>remainder of items that couldn't be added, 0 if all added</returns>
+        public int AddItemToInventory(Item item, int quantity) {
+            return inventoryData.inventory.AddItem(item, quantity);
         }
     }
 }
