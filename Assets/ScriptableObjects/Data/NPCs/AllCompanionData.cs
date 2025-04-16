@@ -8,21 +8,21 @@ namespace BobaStop.Data.Saved
     [System.Serializable]
     public class AllCompanionData : SaveData
     {
-        [SerializeField] public CompanionData karenData = new();
-        [SerializeField] public CompanionData jadeData = new();
-        [SerializeField] public CompanionData kadenData = new();
-        [SerializeField] public CompanionData asterData = new();
+        [SerializeField] public CompanionData karenCompanionData = new();
+        [SerializeField] public CompanionData jadeCompanionData = new();
+        [SerializeField] public CompanionData kadenCompanionData = new();
+        [SerializeField] public CompanionData asterCompanionData = new();
 
         public AllCompanionData() {
-            karenData.companionName = "Karen";
-            karenData.rapportLevel = RapportLevel.Unfriendly;
+            karenCompanionData.companionName = "Karen";
+            karenCompanionData.rapportLevel = RapportLevel.Unfriendly;
             
-            jadeData.companionName = "Jade";
+            jadeCompanionData.companionName = "Jade";
             
-            kadenData.companionName = "Kaden";
-            kadenData.rapportLevel = RapportLevel.Friendly;
+            kadenCompanionData.companionName = "Kaden";
+            kadenCompanionData.rapportLevel = RapportLevel.Friendly;
             
-            asterData.companionName = "Aster";
+            asterCompanionData.companionName = "Aster";
         }
     }
 }
