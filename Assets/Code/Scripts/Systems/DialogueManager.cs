@@ -42,7 +42,7 @@ namespace BobaStop.Systems
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
 
             companionData = ScriptableObject.CreateInstance<CompanionData>();
-            companionData.companionName = "karen";
+            companionData.companionName = "Karen";
             companionData.rapportLevel = RapportLevel.Neutral;
             companionData.rapportLevelProgress = 0;
 
