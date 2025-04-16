@@ -187,7 +187,8 @@ namespace BobaStop.Systems {
                 (gameData.playerData, Player.Instance.GetPlayerDataManager()),
                 (gameData.shopManagerData, shopManager),
                 (gameData.worldData, worldManager.GetWorldDataManager()),
-                (gameData.inventoryData, inventoryManager)
+                (gameData.inventoryData, inventoryManager),
+                (gameData.allCompanionData, companionManager)
             };
         }
     }
