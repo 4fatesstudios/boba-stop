@@ -4,3 +4,12 @@
     -unity-font: url("project://database/Assets/Visuals/Fonts/ThaleahFat_TTF.ttf?fileID=12800000&guid=54868cb2b6793499e858360fd84827dd&type=3#ThaleahFat_TTF");
     color: rgb(255, 255, 255);
 }
+
+.btn-main {
+    background-image: url("project://database/Assets/Visuals/Placeholder/UI/InventorySlot.png?fileID=21300000&guid=59b9ffaff015c430b8bd282fe433b1cc&type=3#InventorySlot");
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/Visuals/Fonts/ThaleahFat_TTF.ttf?fileID=12800000&guid=54868cb2b6793499e858360fd84827dd&type=3#ThaleahFat_TTF");
+    flex-grow: 1;
+    height: 52px;
+    font-size: 24px;
+}

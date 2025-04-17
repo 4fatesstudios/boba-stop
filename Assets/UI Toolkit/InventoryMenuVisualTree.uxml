@@ -8,6 +8,14 @@
                 <ui:Label tabindex="-1" text="420" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Value" class="header_main" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Body" style="flex-grow: 1; flex-direction: row-reverse; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventoryBackground.png?fileID=21300000&amp;guid=0da2a21d4c1c54e67bcf82b1835aa87f&amp;type=3#InventoryBackground&quot;);" />
+        <ui:VisualElement name="Body" style="flex-grow: 1; flex-direction: row-reverse; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventoryBackground.png?fileID=21300000&amp;guid=0da2a21d4c1c54e67bcf82b1835aa87f&amp;type=3#InventoryBackground&quot;); border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="ItemDetails" style="flex-grow: 0; width: 25%; margin-right: 15px; margin-bottom: 50px; margin-left: 50px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; border-left-color: rgba(255, 128, 0, 0); border-right-color: rgba(255, 128, 0, 0); border-top-color: rgba(255, 128, 0, 0); border-bottom-color: rgba(255, 128, 0, 0); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px;">
+                <ui:Label tabindex="-1" text="Item Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemName" style="font-size: 36px; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=54868cb2b6793499e858360fd84827dd&amp;type=3#ThaleahFat_TTF&quot;); color: rgb(255, 255, 255);" />
+                <ui:Label tabindex="-1" text="This is the item description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Description" style="flex-grow: 1; padding-top: 1px; padding-right: 2px; padding-bottom: 10px; padding-left: 0; font-size: 13px; white-space: normal; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/NeatpixelsMinimal.ttf?fileID=12800000&amp;guid=1d4c5fb3b32574c879b90f25c75167e6&amp;type=3#NeatpixelsMinimal&quot;); color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="Container_Buttons" style="flex-grow: 0; flex-direction: row; padding-top: 1px; padding-right: 2px; padding-bottom: 10px; padding-left: 0;">
+                    <ui:Button text="Equip" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn_Equip" class="btn-main" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
