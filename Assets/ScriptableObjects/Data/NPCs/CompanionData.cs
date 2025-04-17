@@ -21,6 +21,7 @@ namespace BobaStop.NPCs
         [SerializeField] public Texture2D companionIcon = null;
         [SerializeField] public RapportLevel rapportLevel = RapportLevel.Neutral;
         [SerializeField] public int rapportLevelProgress = 0;
+        [SerializeField] public NPCDialogueData companionDialogueData = new();
         
         public void SetData(CompanionData companionData) {
             companionName = companionData.companionName;

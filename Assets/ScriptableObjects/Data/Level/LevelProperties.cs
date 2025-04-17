@@ -8,5 +8,6 @@ namespace BobaStop.Data.Level
     public class LevelProperties : ScriptableObject {
         public string levelName;
         public LevelProperties[] adjacentLevels; // for loading purposes ONLY
+        public string[] levelContext;
     }
 }
