@@ -11,5 +11,6 @@ namespace BobaStop.Data.Saved
         [SerializeField] public InventoryData inventoryData = new();
         [SerializeField] public WorldData worldData = new();
         [SerializeField] public ShopManagerData shopManagerData = new();
+        [SerializeField] public AllCompanionData allCompanionData = new();
     }
 }

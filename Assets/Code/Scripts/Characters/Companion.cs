@@ -8,11 +8,12 @@ namespace BobaStop.Characters
 {
     public class Companion : NPC
     {
+        [SerializeField] private string companionName; // gets necessary data
         private CompanionDataManager companionDataManager;
         
         protected override void Start() {
-            base.Start(); 
-            companionDataManager = new CompanionDataManager();
+            base.Start();
+            companionDataManager = GameManager.Instance.companionManager.GetCompanionDataManager(companionName);
         }
 
         public CompanionDataManager GetCompanionDataManager() {
