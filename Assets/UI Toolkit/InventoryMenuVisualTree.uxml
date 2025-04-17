@@ -14,10 +14,15 @@
                 <ui:Label tabindex="-1" text="This is the item description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Description" style="flex-grow: 1; padding-top: 1px; padding-right: 2px; padding-bottom: 10px; padding-left: 0; font-size: 13px; white-space: normal; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/NeatpixelsMinimal.ttf?fileID=12800000&amp;guid=1d4c5fb3b32574c879b90f25c75167e6&amp;type=3#NeatpixelsMinimal&quot;); color: rgb(255, 255, 255);" />
                 <ui:VisualElement name="Container_Buttons" style="flex-grow: 0; flex-direction: row; padding-top: 1px; padding-right: 2px; padding-bottom: 10px; padding-left: 0;">
                     <ui:Button text="Equip" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn_Equip" class="btn-main" />
+                    <ui:Button text="Drop" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn_Drop" class="btn-main" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Inventory" style="flex-grow: 1; align-items: center; justify-content: center; margin-right: 10px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; flex-shrink: 1;">
-                <ui:VisualElement name="Grid" style="flex-grow: 0; flex-direction: row; flex-wrap: wrap; height: 894px;">
+                <ui:VisualElement name="Grid" style="flex-grow: 0; flex-direction: row; flex-wrap: wrap; height: 600px; width: 500px;">
+                    <ui:VisualElement name="SlotIcon" class="slot-icon" />
+                    <ui:VisualElement name="SlotIcon" class="slot-icon" />
+                    <ui:VisualElement name="SlotIcon" class="slot-icon" />
+                    <ui:VisualElement name="SlotIcon" class="slot-icon" />
                     <ui:VisualElement name="SlotIcon" class="slot-icon" />
                     <ui:VisualElement name="SlotIcon" class="slot-icon" />
                     <ui:VisualElement name="SlotIcon" class="slot-icon" />
