@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BobaStop.NPCs;
+using BobaStop.Systems.DataManagement;
 using BobaStop.UI;
 using UnityEngine;
 
 namespace BobaStop.Systems
 {
     public class DialogueManager {
+        private CompanionDataManager companionDataManager;
         private NPCDialogueData dialogueData;
         private string[] lines;
         
         public event EventHandler<OnDoDialogueEventArgs> OnDoDialogue;
 
         public class OnDoDialogueEventArgs : EventArgs {
+            public CompanionDataManager companionDataManager = null;
             public NPCDialogueData dialogueData = null;
             public bool isInitiatingDialogue = false;
             public bool isEndingDialogue = false;
@@ -51,7 +54,7 @@ namespace BobaStop.Systems
             this.lines = lines;
         }
 
-        public void InitiateDialogue(NPCDialogueData dialogueData, bool useEnvironmentContext=false) {
+        public void InitiateDialogue(NPCDialogueData dialogueData, CompanionDataManager companionDataManager=null, bool useEnvironmentContext=false) {
             GameManager.Instance.PauseDay();
             GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
             string[] environmentContext = GameManager.Instance.levelManagerHelper.GetCurrentLevelProperties().levelContext;
@@ -60,8 +63,10 @@ namespace BobaStop.Systems
                 "How's it going this fine afternoon? This dialogue is pregenerated so don't expect anything cool!",
                 "Don't worry, soon we will have actual AI generated stuff!"
             };
+            this.companionDataManager = companionDataManager;
             this.dialogueData = dialogueData;
             OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
+                companionDataManager = this.companionDataManager,
                 dialogueData = this.dialogueData,
                 isInitiatingDialogue = true
             });

@@ -5,6 +5,7 @@ using System.ComponentModel.Design.Serialization;
 using BobaStop.Systems;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BobaStop.UI
 {
@@ -14,6 +15,7 @@ namespace BobaStop.UI
         [SerializeField] private GameObject dialogueUI;
         [SerializeField] private TextMeshProUGUI textComponent;
         [SerializeField] private TMP_InputField textInput;
+        [SerializeField] private RawImage characterPortrait;
         [SerializeField] private float textSpeed;
         private DialogueManager dialogueManager;
         private int index;
@@ -41,8 +43,11 @@ namespace BobaStop.UI
             index = 0;
             
             textInput.gameObject.SetActive(false);
-            
-            if (e.isInitiatingDialogue) dialogueUI.SetActive(true);
+
+            if (e.isInitiatingDialogue) {
+                characterPortrait.texture = e.companionDataManager?.GetCompanionPortrait();
+                dialogueUI.SetActive(true);
+            }
             isEndingDialogue = e.isEndingDialogue;
             
             StartCoroutine(TypeLine(dialogueManager.GetLines()[index]));

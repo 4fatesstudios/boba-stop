@@ -30,6 +30,10 @@ namespace BobaStop.Systems.DataManagement
             companionData.companionName = companionName;
         }
 
+        public Texture2D GetCompanionPortrait() {
+            return companionData.companionPortrait;
+        }
+
         public RapportLevel GetCompanionRapportLevel() {
             return companionData.rapportLevel;
         }

@@ -1085,15 +1085,52 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 540631963839954918, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: m_text
+      value: Yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap
+        yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap
+        yap yap yap yap yap yap yap yap yap yap yap yap yap yap
+      objectReference: {fileID: 0}
+    - target: {fileID: 540631963839954918, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: m_margin.x
+      value: 361.13892
+      objectReference: {fileID: 0}
+    - target: {fileID: 540631963839954918, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3551380217524361562, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5089839469562793868, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648621053738209168, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: characterPortrait
+      value: 
+      objectReference: {fileID: 1227208326}
     - target: {fileID: 5766237517785645347, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6272093157041627594, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: m_Colors.m_NormalColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6272093157041627594, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.a
+      value: 0.24705882
       objectReference: {fileID: 0}
     - target: {fileID: 6542260546814182489, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
@@ -3032,6 +3069,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214338501}
   m_CullTransparentMesh: 1
+--- !u!114 &1227208326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2773697694257621043, guid: d11cc8bd554ee2f439084b169cb4ac6d,
+    type: 3}
+  m_PrefabInstance: {fileID: 617217478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1227273074
 GameObject:
   m_ObjectHideFlags: 0

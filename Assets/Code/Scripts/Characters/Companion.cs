@@ -21,7 +21,7 @@ namespace BobaStop.Characters
         }
         
         public override void Interact() {
-            GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData);
+            GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData, companionDataManager, true);
         }
 
         public override string GetInteractText() {
