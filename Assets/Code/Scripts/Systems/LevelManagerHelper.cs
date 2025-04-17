@@ -22,8 +22,9 @@ namespace BobaStop.Systems {
             return currentLevel;
         }
         
-        public IEnumerator LoadLevelAsync(LevelProperties level, bool loadAdjacentLevels = true)
-        {
+        public IEnumerator LoadLevelAsync(LevelProperties level, bool loadAdjacentLevels = true) {
+            currentLevel = level;
+            
             // Start loading the scene asynchronously
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level.levelName);
 

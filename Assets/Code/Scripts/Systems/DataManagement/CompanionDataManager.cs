@@ -31,7 +31,7 @@ namespace BobaStop.Systems.DataManagement
         }
 
         public Texture2D GetCompanionPortrait() {
-            return companionData.companionPortrait;
+            return companionData.GetPortrait();
         }
 
         public RapportLevel GetCompanionRapportLevel() {

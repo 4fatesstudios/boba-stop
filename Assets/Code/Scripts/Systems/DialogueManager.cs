@@ -55,6 +55,11 @@ namespace BobaStop.Systems
         }
 
         public void InitiateDialogue(NPCDialogueData dialogueData, CompanionDataManager companionDataManager=null, bool useEnvironmentContext=false) {
+            if (dialogueData == null) {
+                Debug.LogError("Dialogue Data is null");
+                return;
+            }
+            
             GameManager.Instance.PauseDay();
             GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
             string[] environmentContext = GameManager.Instance.levelManagerHelper.GetCurrentLevelProperties().levelContext;

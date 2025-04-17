@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BobaStop.NPCs
 {
     [System.Serializable]
-    public class NPCDialogueData : ScriptableObject {
+    public class NPCDialogueData {
         
     }
 }

@@ -15,18 +15,14 @@ namespace BobaStop.Data.Saved
 
         public AllCompanionData() {
             karenCompanionData.companionName = "Karen";
-            karenCompanionData.companionPortrait = Resources.Load<Texture2D>("Portraits/KarenPortrait");
             karenCompanionData.rapportLevel = RapportLevel.Unfriendly;
             
             jadeCompanionData.companionName = "Jade";
-            jadeCompanionData.companionPortrait = Resources.Load<Texture2D>("Portraits/JadePortrait");
             
             kadenCompanionData.companionName = "Kaden";
-            kadenCompanionData.companionPortrait = Resources.Load<Texture2D>("Portraits/KadenPortrait");
             kadenCompanionData.rapportLevel = RapportLevel.Friendly;
             
             asterCompanionData.companionName = "Aster";
-            asterCompanionData.companionPortrait = Resources.Load<Texture2D>("Portraits/AsterPortrait");
         }
     }
 }
