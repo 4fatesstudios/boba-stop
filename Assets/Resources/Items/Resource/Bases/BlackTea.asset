@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71242421c1092444830b0e0ccbb59cd, type: 3}
   m_Name: BlackTea
   m_EditorClassIdentifier: 
-  id: 0
+  ID: 6dabc7d3-02fb-4fc5-af71-b44f4ab62387
   itemName: Black Tea
-  itemDescription: 
+  itemDescription: Bold and earthy. An acquired taste.
   itemSprite: {fileID: 21300000, guid: 5f3f9d01bc2284110b4009ec37fb8a84, type: 3}
   itemStackable: 1
   itemRarity: 2
+  slotDimension:
+    height: 1
+    width: 1
   resourceType: 1
   resourceSellValue: 15
   resourceBuyValue: 0

@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1247781949}
   - component: {fileID: 1247781948}
+  - component: {fileID: 1247781950}
   m_Layer: 5
   m_Name: InventoryMenu
   m_TagString: Untagged
@@ -381,6 +382,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1247781950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247781947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa22b46d38814f92b7b418d0551d90df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storedItems:
+  - details: {fileID: 11400000, guid: efac6768b52cf214ca431c5082dca252, type: 2}
+  - details: {fileID: 11400000, guid: b1b823acbb3175d45af4aa952416b253, type: 2}
+  - details: {fileID: 11400000, guid: f7e7daef35dca9e4388360f0af763055, type: 2}
+  - details: {fileID: 11400000, guid: 82b065b645c52e54d91a0a4fa7605760, type: 2}
+  inventoryDimensions:
+    height: 4
+    width: 6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

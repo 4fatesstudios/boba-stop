@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7e9eb55be645e4b93bee238cfde22a, type: 3}
   m_Name: LeatherGear
   m_EditorClassIdentifier: 
-  id: 0
+  ID: f04c0e7a-83e2-47c7-969f-345bf771a840
   itemName: Leather Gear
   itemDescription: Typical gear for typical adventures.
   itemSprite: {fileID: 21300000, guid: 4870d1e373be1439399ed3b124252271, type: 3}
   itemStackable: 0
   itemRarity: 2
+  slotDimension:
+    height: 1
+    width: 1
   defenseScore: 5
   itemPrefab: {fileID: 3318601434806061475, guid: 5483a6b2524164b5b992a0a4bd2033f0,
     type: 3}

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using BobaStop.Inventory;
 using UnityEngine;
 
 namespace BobaStop.Items {
@@ -15,12 +17,14 @@ namespace BobaStop.Items {
     
     public abstract class Item : ScriptableObject
     {
-        public int id;
+        // public int id;
+        public string ID = Guid.NewGuid().ToString();
         public string itemName;
         public string itemDescription;
         public Sprite itemSprite;
         public bool itemStackable = true;
         public Rarity itemRarity;
+        public ItemUI.Dimensions slotDimension;
 
         public static bool operator==(Item a, Item b) {
             return a?.itemName == b?.itemName;
