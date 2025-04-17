@@ -6,15 +6,20 @@ using UnityEngine.SceneManagement;
 namespace BobaStop.Systems {
     public class LevelManagerHelper {
         public readonly LevelProperties startingLevel = Resources.Load<LevelProperties>("Data/Level/DevScene1");
+        private LevelProperties currentLevel;
         
         public void SwitchScene(LevelProperties level) {
             if (level.levelName == SceneManager.GetActiveScene().name) return;
             
             LoadLevel(level);
         }
-        public void LoadLevel(LevelProperties level, bool loadAdjacentLevels = true) {
+        private void LoadLevel(LevelProperties level, bool loadAdjacentLevels = true) {
             SceneManager.LoadScene(level.levelName);
-            // if (loadAdjacentLevels) LoadAdjacentLevels(level);
+            currentLevel = level;
+        }
+
+        public LevelProperties GetCurrentLevelProperties() {
+            return currentLevel;
         }
         
         public IEnumerator LoadLevelAsync(LevelProperties level, bool loadAdjacentLevels = true)

@@ -51,9 +51,10 @@ namespace BobaStop.Systems
             this.lines = lines;
         }
 
-        public void InitiateDialogue(NPCDialogueData dialogueData) {
+        public void InitiateDialogue(NPCDialogueData dialogueData, bool useEnvironmentContext=false) {
             GameManager.Instance.PauseDay();
             GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);
+            string[] environmentContext = GameManager.Instance.levelManagerHelper.GetCurrentLevelProperties().levelContext;
             lines = new[] {
                 "Hey there friend!",
                 "How's it going this fine afternoon? This dialogue is pregenerated so don't expect anything cool!",
