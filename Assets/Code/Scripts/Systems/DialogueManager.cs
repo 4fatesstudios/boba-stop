@@ -13,7 +13,6 @@ namespace BobaStop.Systems
         private CompanionDataManager companionDataManager;
         private NPCDialogueData dialogueData;
         private string[] lines;
-        private InputFilter inputFilter;
 
         private int maxCharPerLine = 100;
 
@@ -43,8 +42,6 @@ namespace BobaStop.Systems
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
             
-            inputFilter = new InputFilter();
-
             companionData = new CompanionData {
                 companionName = "Karen",
                 rapportLevel = RapportLevel.Neutral,
