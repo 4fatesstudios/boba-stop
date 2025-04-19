@@ -1,28 +1,27 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using BobaStop.AI;
 using BobaStop.NPCs;
 using BobaStop.Systems.DataManagement;
 using BobaStop.UI;
-using UnityEditor.Compilation;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 
 namespace BobaStop.Systems
 {
     public class DialogueManager {
-        public static DialogueManager Instance { get; private set; }
         private CompanionDataManager companionDataManager;
         private NPCDialogueData dialogueData;
         private string[] lines;
+        private InputFilter inputFilter;
 
         private int maxCharPerLine = 100;
 
         private CompanionData companionData;
         
         public event EventHandler<OnDoDialogueEventArgs> OnDoDialogue;
+        public event EventHandler OnInappropriateInput;
+        
         [SerializeField] private GameObject apiClientComponent;
         private APIClient apiClient;
 
@@ -43,6 +42,8 @@ namespace BobaStop.Systems
 
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
+            
+            inputFilter = new InputFilter();
 
             companionData = new CompanionData {
                 companionName = "Karen",
@@ -66,6 +67,13 @@ namespace BobaStop.Systems
                 EndDialogue();
                 return;
             }
+
+            if (!InputFilter.IsInputAllowed(e.dialogueInput)) {
+                OnInappropriateInput?.Invoke(this, e);
+                Debug.Log("Inappropriate input detected");
+                return;
+            }
+            
             apiClient.SendChatMessage(companionData.companionName, e.dialogueInput, ReturnData);
             Debug.Log("Received player input in DialogueManager: " + e.dialogueInput);
         }
@@ -163,4 +171,34 @@ namespace BobaStop.Systems
             });
         }
     }
+    
+    public class InputFilter {
+        private static readonly List<string> bannedWords = new List<string>
+        {
+            // AI/OOC breaking
+            "you are an ai", "you are not real", "chatgpt", "language model", "ollama",
+            "stay in character", "break character", "ignore previous", "jailbreak", "system prompt",
+
+            // Worldbreaking
+            "what year is it", "summarize", "describe yourself", "make a list", "switch personality",
+            "who created you", "act like another character", "training data",
+
+            // NSFW
+            "sex", "sexual", "nude", "naked", "fetish", "erotic", "orgasm", "cum", "moan",
+            "wet", "explicit", "onlyfans", "porn", "blowjob", "fuck", "pussy", "cock",
+            "anal", "threesome", "rape", "incest", "slave",
+
+            // Dangerous/Illegal
+            "how to make a bomb", "how to kill", "how to hack", "school shooting",
+            "murder", "torture", "self harm", "suicide", "i want to die"
+        };
+
+        public static bool IsInputAllowed(string input)
+        {
+            string lowerInput = input.ToLower();
+
+            return !bannedWords.Any(banned => lowerInput.Contains(banned));
+        }
+    }
 }
+
