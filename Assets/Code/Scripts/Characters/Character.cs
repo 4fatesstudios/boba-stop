@@ -16,6 +16,10 @@ namespace BobaStop.Characters
         protected void FlipSpriteToForwardVector(Vector3 normalizedVector) {
             spriteRenderer.flipX = normalizedVector.x == 0 ? spriteRenderer.flipX : normalizedVector.x < 0;
         }
+
+        public bool GetIsFacingRight() {
+            return !spriteRenderer.flipX;
+        }
         
         public bool IsWalking() {
             return isWalking;

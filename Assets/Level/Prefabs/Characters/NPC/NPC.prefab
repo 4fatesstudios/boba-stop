@@ -94,8 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2284900510325453552}
   - component: {fileID: 5871373764838881552}
-  - component: {fileID: 9152803974173748890}
   - component: {fileID: 63632366794794041}
+  - component: {fileID: 3724650956960761892}
+  - component: {fileID: 8354457505725218669}
   m_Layer: 3
   m_Name: Visual
   m_TagString: Untagged
@@ -172,27 +173,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &9152803974173748890
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5306120851695154933}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &63632366794794041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +188,40 @@ MonoBehaviour:
   topLevelGameObject: {fileID: 9210305717764076488}
   selectedVisualGameObject: {fileID: 4467750512234632719}
   unselectedVisualGameObject: {fileID: 5331984791872749113}
+--- !u!114 &3724650956960761892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306120851695154933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568251fb4eac4a445962be08b5b36260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc: {fileID: 4400794382035459298}
+--- !u!95 &8354457505725218669
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306120851695154933}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5e015faa25afdf844b659d381c258673, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5331984791872749113
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,4 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d185a2e7c6162442826b54b15faa27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDialogueData: {fileID: 0}
+  npcDialogueData:
+    worldContext: 
+    npcLifeContext: 
+    memoriesContext: 
+    personality: 
