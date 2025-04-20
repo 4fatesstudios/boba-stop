@@ -25,36 +25,38 @@ namespace BobaStop.Inventory
             }
         }
         
-        private VisualElement m_Root;
-        private VisualElement m_InventoryGrid;
+        private VisualElement mRoot;
+        private VisualElement mInventoryGrid;
 
-        private static Label m_ItemDetailHeader;
-        private static Label m_ItemDetailBody;
-        private static Label m_ItemDetailPrice;
-        private bool m_IsInventoryReady;
+        private static Label _mItemDetailHeader;
+        private static Label _mItemDetailBody;
+        private static Label _mItemDetailPrice;
+        private bool mIsInventoryReady;
         public static ItemUI.Dimensions slotDimension { get; private set; }
 
         private async void Configure()
         {
-            m_Root = GetComponentInChildren<UIDocument>().rootVisualElement;
-            m_InventoryGrid = m_Root.Q<VisualElement>("Grid");
+            mRoot = GetComponentInChildren<UIDocument>().rootVisualElement;
+            mInventoryGrid = mRoot.Q<VisualElement>("Grid");
 
-            VisualElement itemDetails = m_Root.Q<VisualElement>("ItemDetails");
+            var itemDetails = mRoot.Q<VisualElement>("ItemDetails");
 
-            m_ItemDetailHeader = itemDetails.Q<Label>("Header");
-            m_ItemDetailBody = itemDetails.Q<Label>("Body");
-            m_ItemDetailPrice = itemDetails.Q<Label>("SellPrice");
+            _mItemDetailHeader = itemDetails.Q<Label>("Header");
+            _mItemDetailBody = itemDetails.Q<Label>("Body");
+            _mItemDetailPrice = itemDetails.Q<Label>("SellPrice");
+
+            ConfigureInventoryTelegraph();
 
             await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
 
             ConfigureSlotDimensions();
 
-            m_IsInventoryReady = true;
+            mIsInventoryReady = true;
         }
 
         private void ConfigureSlotDimensions()
         {
-            VisualElement firstSlot = m_InventoryGrid.Children().First();
+            var firstSlot = mInventoryGrid.Children().First();
 
             slotDimension = new ItemUI.Dimensions
             {
@@ -62,33 +64,29 @@ namespace BobaStop.Inventory
                 height = Mathf.RoundToInt(firstSlot.worldBound.height)
             };
         }
-        
-        public List<ItemSlotUI.StoredItem> storedItems = new List<ItemSlotUI.StoredItem>();
+
+        public List<ItemSlotUI.StoredItem> storedItems = new();
         public ItemUI.Dimensions inventoryDimensions;
 
         private async Task<bool> GetPositionForItem(VisualElement newItem)
         {
-            for (int y = 0; y < inventoryDimensions.height; y++)
+            for (var y = 0; y < inventoryDimensions.height; y++)
+            for (var x = 0; x < inventoryDimensions.width; x++)
             {
-                for (int x = 0; x < inventoryDimensions.width; x++)
-                {
-                    // try position
-                    SetItemPosition(newItem, new Vector2(slotDimension.width * x, 
-                        slotDimension.height * y));
+                // try position
+                SetItemPosition(newItem, new Vector2(slotDimension.width * x,
+                    slotDimension.height * y));
 
-                    await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
+                await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
 
-                    ItemSlotUI.StoredItem overlappingItem = storedItems.FirstOrDefault(s => 
-                        s.RootVisual != null && 
-                        s.RootVisual.layout.Overlaps(newItem.layout));
+                var overlappingItem = storedItems.FirstOrDefault(s =>
+                    s.RootVisual != null &&
+                    s.RootVisual.layout.Overlaps(newItem.layout));
 
-                    // nothing here, place item
-                    if (overlappingItem == null)
-                    {
-                        return true;
-                    }
-                }
+                // nothing here, place item
+                if (overlappingItem == null) return true;
             }
+
             return false;
         }
 
@@ -97,14 +95,17 @@ namespace BobaStop.Inventory
             element.style.left = vector.x;
             element.style.top = vector.y;
         }
-        
-        private void Start() => LoadInventory();
+
+        private void Start()
+        {
+            LoadInventory();
+        }
 
         private async void LoadInventory()
         {
-            await UniTask.WaitUntil(() => m_IsInventoryReady);
+            await UniTask.WaitUntil(() => mIsInventoryReady);
 
-            foreach (ItemSlotUI.StoredItem loadedItem in storedItems)
+            foreach (var loadedItem in storedItems)
             {
                 ItemSlotUI inventoryItemVisual = new ItemSlotUI(loadedItem.details);
                 
@@ -123,13 +124,66 @@ namespace BobaStop.Inventory
             }
         }
 
-        private void AddItemToInventoryGrid(VisualElement item) => m_InventoryGrid.Add(item);
-        private void RemoveItemFromInventoryGrid(VisualElement item) => m_InventoryGrid.Remove(item);
+        private void AddItemToInventoryGrid(VisualElement item) => mInventoryGrid.Add(item);
+        private void RemoveItemFromInventoryGrid(VisualElement item) => mInventoryGrid.Remove(item);
 
         private static void ConfigureInventoryItem(ItemSlotUI.StoredItem item, ItemSlotUI visual)
         {
             item.RootVisual = visual;
             visual.style.visibility = Visibility.Visible;
+        }
+        
+        private VisualElement mTelegraph;
+
+        private void ConfigureInventoryTelegraph()
+        {
+            mTelegraph = new VisualElement
+            {
+                name = "Telegraph",
+                style =
+                {
+                    position = Position.Absolute,
+                    visibility = Visibility.Hidden
+                }
+            };
+
+            mTelegraph.AddToClassList("slot-icon-highlighted");
+            AddItemToInventoryGrid(mTelegraph);
+        }
+        
+        public (bool canPlace, Vector2 position) ShowPlacementTarget(ItemSlotUI draggedItem)
+        {
+            if (!mInventoryGrid.layout.Contains(new Vector2(draggedItem.localBound.xMax,
+                    draggedItem.localBound.yMax)))
+            {
+                mTelegraph.style.visibility = Visibility.Hidden;
+                return (canPlace: false, position: Vector2.zero);
+            }
+
+            VisualElement targetSlot = mInventoryGrid.Children().Where(x => 
+                x.layout.Overlaps(draggedItem.layout) && x != draggedItem).OrderBy(x => 
+                Vector2.Distance(x.worldBound.position, 
+                    draggedItem.worldBound.position)).First();
+
+            mTelegraph.style.width = draggedItem.style.width;
+            mTelegraph.style.height = draggedItem.style.height;
+
+            SetItemPosition(mTelegraph, new Vector2(targetSlot.layout.position.x,
+                targetSlot.layout.position.y));
+
+            mTelegraph.style.visibility = Visibility.Visible;
+
+            var overlappingItems = storedItems.Where(x => x.RootVisual != null && 
+                                                          x.RootVisual.layout.Overlaps(mTelegraph.layout)).ToArray();
+
+            if (overlappingItems.Length > 1)
+            {
+                mTelegraph.style.visibility = Visibility.Hidden;
+                return (canPlace: false, position: Vector2.zero);
+            }
+
+            return (canPlace: true, targetSlot.worldBound.position);
+
         }
     }
 }

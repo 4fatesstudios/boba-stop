@@ -47,3 +47,11 @@
     width: 100%;
     -unity-background-scale-mode: scale-to-fit;
 }
+
+.slot-icon-highlighted {
+    border-width: 1px;
+    border-color: rgb(202, 158, 0);
+    transform-origin: center;
+    position: absolute;
+    visibility: hidden;
+}

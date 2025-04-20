@@ -15,7 +15,7 @@ namespace BobaStop.Items {
         Exquisite
     }
     
-    public abstract class Item : ScriptableObject
+    public class Item : ScriptableObject
     {
         // public int id;
         public string ID = Guid.NewGuid().ToString();
