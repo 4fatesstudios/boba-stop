@@ -102,59 +102,5 @@ namespace BobaStop.Inventory
             new Vector2(mousePosition.x - (layout.width / 2) - 
                         parent.worldBound.position.x, mousePosition.y - (layout.height / 2) - 
                                                       parent.worldBound.position.y);
-        
-        // [SerializeField] private RectTransform rectTransform;
-        // [SerializeField] private float slotSize = 50.0f;
-        
-        // public bool allowResources = true; // Allow Resource items
-        // public bool allowWeapons = true;   // Allow Weapon items
-        // public bool allowPacks = true;    // Allow Pack items
-        // public bool allowGear = true;     // Allow Gear items
-
-        // [FormerlySerializedAs("currentItem")] public ItemUI currentItemUI; // The item currently in the slot
-
-        // public void Awake() {
-        //     if (rectTransform != null) {
-        //         rectTransform.sizeDelta = new Vector2(slotSize, slotSize);
-        //     }
-        // }
-        //
-        // public void OnDrop(PointerEventData eventData)
-        // {
-        //     if (!InventoryToggle.isInventoryVisible) return;
-        //     if (transform.childCount == 0) // Check if the slot is empty
-        //     {
-        //         GameObject dropped = eventData.pointerDrag;
-        //         ItemUI itemUI = dropped.GetComponent<ItemUI>();
-        //
-        //         // Check if the item is allowed in this slot
-        //         if (IsItemAllowed(itemUI.item))
-        //         {
-        //             // Set the current item in the slot
-        //             currentItemUI = itemUI;
-        //             itemUI.parentAfterDrag = transform;
-        //         }
-        //         else
-        //         {
-        //             Debug.Log("This item is not allowed in this slot.");
-        //         }
-        //     }
-        // }
-        //
-        // // Helper method to check if the item is allowed
-        // private bool IsItemAllowed(Item item)
-        // {
-        //     if (item is Resource && allowResources) return true;
-        //     if (item is Weapon && allowWeapons) return true;
-        //     if (item is Pack && allowPacks) return true;
-        //     if (item is Gear && allowGear) return true;
-        //     return false;
-        // }
-        //
-        // // Remove the item from this slot
-        // public void RemoveItem()
-        // {
-        //     currentItemUI = null;
-        // }
     }
 }
