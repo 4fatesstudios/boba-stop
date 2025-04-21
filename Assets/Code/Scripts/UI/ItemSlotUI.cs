@@ -63,6 +63,7 @@ namespace BobaStop.Inventory
 
             SetPosition(GetMousePosition(mouseEvent.mousePosition));
             mPlacementResults = PlayerInventory.instance.ShowPlacementTarget(this);
+            PlayerInventory.UpdateItemDetails(m_Item);
         }
         
         private void OnMouseUpEvent(MouseUpEvent mouseEvent)

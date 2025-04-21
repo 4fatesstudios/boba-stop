@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BobaStop.Items;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -30,7 +31,6 @@ namespace BobaStop.Inventory
 
         private static Label _mItemDetailHeader;
         private static Label _mItemDetailBody;
-        private static Label _mItemDetailPrice;
         private bool mIsInventoryReady;
         public static ItemUI.Dimensions slotDimension { get; private set; }
 
@@ -41,9 +41,8 @@ namespace BobaStop.Inventory
 
             var itemDetails = mRoot.Q<VisualElement>("ItemDetails");
 
-            _mItemDetailHeader = itemDetails.Q<Label>("Header");
-            _mItemDetailBody = itemDetails.Q<Label>("Body");
-            _mItemDetailPrice = itemDetails.Q<Label>("SellPrice");
+            _mItemDetailHeader = itemDetails.Q<Label>("ItemName");
+            _mItemDetailBody = itemDetails.Q<Label>("ItemDescription");
 
             ConfigureInventoryTelegraph();
 
@@ -184,6 +183,18 @@ namespace BobaStop.Inventory
 
             return (canPlace: true, targetSlot.worldBound.position);
 
+        }
+        
+        public static async void UpdateItemDetails(Item item)
+        {
+            await UniTask.WaitUntil(() => 
+                instance != null && 
+                instance.mIsInventoryReady && 
+                _mItemDetailHeader != null && 
+                _mItemDetailBody != null);
+    
+            _mItemDetailHeader.text = item.itemName;
+            _mItemDetailBody.text = item.itemDescription;
         }
     }
 }
