@@ -1,9 +1,6 @@
 using System;
 using BobaStop.Items;
-using BobaStop.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace BobaStop.Inventory
