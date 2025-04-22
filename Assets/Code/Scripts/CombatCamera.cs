@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BobaStop.Characters;
+using BobaStop.Systems;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BobaStop {
     public class Camera : MonoBehaviour {
@@ -15,13 +18,22 @@ namespace BobaStop {
         private float targetFollowOffsetZ;
         private float lerpSpeed = 2f;
 
+        private void Awake() {
+            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(virtualCamera);
+        }
+        
         private void Start() {
             transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
             targetFollowOffsetX = defaultFollowOffsetX;
             targetFollowOffsetZ = defaultFollowOffsetZ;
+
         }
 
         private void Update() {
+            if (virtualCamera.Follow == null || virtualCamera.LookAt == null)
+                AssignCameraTarget();
+            
             if (Input.GetKey(KeyCode.S)) {
                 targetFollowOffsetZ = -2f;
             }
@@ -46,6 +58,15 @@ namespace BobaStop {
                 currentOffset.y,
                 Mathf.Lerp(currentOffset.z, targetFollowOffsetZ, Time.deltaTime * lerpSpeed)
             );
+        }
+        
+        private void AssignCameraTarget() {
+            if (Player.Instance != null) {
+                virtualCamera.Follow = Player.Instance.transform;
+                virtualCamera.LookAt = Player.Instance.transform;
+            } else {
+                Debug.LogWarning("Player.Instance is null after scene load.");
+            }
         }
     }
 }
