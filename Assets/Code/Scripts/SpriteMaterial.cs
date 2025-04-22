@@ -62,5 +62,25 @@ namespace BobaStop {
                 _materials[i].SetFloat("_FlashAmount", amount);
             }
         }
+        
+        public void TurnOutlineOn() {
+            for (int i = 0; i < _materials.Length; i++) {
+                _materials[i].SetFloat("_OutlineThickness", 1f);
+            }
+            Debug.Log("Turn outline on");
+        }
+
+        public void TurnOutlineOff() {
+            for (int i = 0; i < _materials.Length; i++) {
+                _materials[i].SetFloat("_OutlineThickness", 0f);
+            }
+            Debug.Log("Turn outline off");
+        }
+
+        public void SetOutlineColor(Color color) {
+            for (int i = 0; i < _materials.Length; i++) {
+                _materials[i].SetColor("_OutlineColor", color);
+            }
+        }
     }
 }
