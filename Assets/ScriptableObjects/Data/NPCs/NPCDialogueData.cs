@@ -5,11 +5,17 @@ using UnityEngine;
 namespace BobaStop.NPCs
 {
     [System.Serializable]
-    public class NPCDialogueData {
-        [SerializeField] public string worldContext; // context for the island itself and its history
-        [SerializeField] public string npcLifeContext; // context for the life of this specific NPC
-        [SerializeField] public string memoriesContext; // context for new memories created with the player
-        [SerializeField] public string personality; // personality of the npc
-        // [SerializeField] public string 
+    public class NPCDialogueData
+    {
+        [SerializeField] public string name;
+        [SerializeField] public string age;
+        [SerializeField] public string role;
+        [SerializeField] public string livingCondition;
+        [SerializeField] public string personality;
+        [SerializeField] public string beliefs;
+        [SerializeField] public string speakingStyle;
+        [SerializeField] public string knowledgeScope;
+        [SerializeField] public string backstory;
+        [SerializeField] public string memory;
     }
 }

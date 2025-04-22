@@ -6,10 +6,11 @@ namespace BobaStop.Characters.Animation
         private static readonly int IsWalkingHash = Animator.StringToHash("IsWalking");
         private static readonly int IsFacingRightHash = Animator.StringToHash("IsFacingRight");
         
-        [SerializeField] private NPC npc;
+        private NPC npc;
         private Animator animator;
 
         void Start() {
+            npc = GetComponentInParent<NPC>();
             animator = GetComponent<Animator>();
         }
 
