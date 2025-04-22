@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BobaStop.Systems;
 using UnityEngine;
 
-namespace BobaStop
+namespace BobaStop.UI
 {
     public class SaveLoadUI : MonoBehaviour {
         public void CreateNewSaveGame(int slot) {
