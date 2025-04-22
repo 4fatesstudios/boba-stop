@@ -9,17 +9,17 @@ namespace BobaStop.Characters {
     public abstract class CombatCharacter : Character, IDamageable {
         public event EventHandler OnAttackAction;
 
-        private DamageFlash damageFlash;
+        private SpriteMaterial _spriteMaterial;
         protected CombatController combatController;
 
         protected override void Start() {
             base.Start();
-            damageFlash = GetComponent<DamageFlash>();
+            _spriteMaterial = GetComponent<SpriteMaterial>();
             combatController = GetComponent<CombatController>();
         }
 
         public virtual void OnDamageTaken(Attack attackComponent, CombatController source) {
-            damageFlash.CallDamageFlash();
+            _spriteMaterial.CallDamageFlash();
         }
 
         public virtual void OnDeath(Attack attackComponent, CombatController source) {

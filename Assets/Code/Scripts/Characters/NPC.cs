@@ -9,7 +9,7 @@ namespace BobaStop.Characters
 {
     public class NPC : Character, IInteractable {
         [SerializeField] protected NPCDialogueData npcDialogueData;
-
+        
         protected override void Start() {
             base.Start(); 
         }

@@ -5,7 +5,12 @@ using SimpleCombat;
 using UnityEngine;
 
 namespace BobaStop {
-    public class DamageFlash : MonoBehaviour {
+    public class SpriteMaterial : MonoBehaviour {
+        private static readonly int FlashColor = Shader.PropertyToID("_FlashColor");
+        private static readonly int FlashAmount = Shader.PropertyToID("_FlashAmount");
+        private static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
+        private static readonly int OutlineColor = Shader.PropertyToID("_OutlineColor");
+
         [ColorUsage(true, true)] [SerializeField]
         private Color _flashColor = Color.white;
 
@@ -52,34 +57,32 @@ namespace BobaStop {
         }
 
         private void SetFlashColor() {
-            for (int i = 0; i < _materials.Length; i++) {
-                _materials[i].SetColor("_FlashColor", _flashColor);
+            foreach (var t in _materials) {
+                t.SetColor(FlashColor, _flashColor);
             }
         }
 
         private void SetFlashAmount(float amount) {
-            for (int i = 0; i < _materials.Length; i++) {
-                _materials[i].SetFloat("_FlashAmount", amount);
+            foreach (var t in _materials) {
+                t.SetFloat(FlashAmount, amount);
             }
         }
         
         public void TurnOutlineOn() {
-            for (int i = 0; i < _materials.Length; i++) {
-                _materials[i].SetFloat("_OutlineThickness", 1f);
+            foreach (var t in _materials) {
+                t.SetFloat(OutlineThickness, 1f);
             }
-            Debug.Log("Turn outline on");
         }
 
         public void TurnOutlineOff() {
-            for (int i = 0; i < _materials.Length; i++) {
-                _materials[i].SetFloat("_OutlineThickness", 0f);
+            foreach (var t in _materials) {
+                t.SetFloat(OutlineThickness, 0f);
             }
-            Debug.Log("Turn outline off");
         }
 
         public void SetOutlineColor(Color color) {
-            for (int i = 0; i < _materials.Length; i++) {
-                _materials[i].SetColor("_OutlineColor", color);
+            foreach (var t in _materials) {
+                t.SetColor(OutlineColor, color);
             }
         }
     }
