@@ -60,10 +60,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _FlashAmount: 0
-    - _OutlineThickness: 0
+    - _OutlineActive: 0
+    - _OutlineThickness: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _FlashColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 0}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

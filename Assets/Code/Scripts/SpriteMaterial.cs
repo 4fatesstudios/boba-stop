@@ -10,6 +10,7 @@ namespace BobaStop {
         private static readonly int FlashAmount = Shader.PropertyToID("_FlashAmount");
         private static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
         private static readonly int OutlineColor = Shader.PropertyToID("_OutlineColor");
+        private static readonly int OutlineActive = Shader.PropertyToID("_OutlineActive");
 
         [ColorUsage(true, true)] [SerializeField]
         private Color _flashColor = Color.white;
@@ -68,21 +69,27 @@ namespace BobaStop {
             }
         }
         
-        public void TurnOutlineOn() {
+        public void SetOutlineThickness(float outlineThickness) {
             foreach (var t in _materials) {
-                t.SetFloat(OutlineThickness, 1f);
-            }
-        }
-
-        public void TurnOutlineOff() {
-            foreach (var t in _materials) {
-                t.SetFloat(OutlineThickness, 0f);
+                t.SetFloat(OutlineThickness, outlineThickness);
             }
         }
 
         public void SetOutlineColor(Color color) {
             foreach (var t in _materials) {
                 t.SetColor(OutlineColor, color);
+            }
+        }
+        
+        public void TurnOutlineOn() {
+            foreach (var t in _materials) {
+                t.SetFloat(OutlineActive, 1f);
+            }
+        }
+        
+        public void TurnOutlineOff() {
+            foreach (var t in _materials) {
+                t.SetFloat(OutlineActive, 0f);
             }
         }
     }
