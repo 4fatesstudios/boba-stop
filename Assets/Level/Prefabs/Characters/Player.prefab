@@ -184,12 +184,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4771773293510551593}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7317227998906627997 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2861116859430428596, guid: 1fa90541bb8b0d14fbe2f2a30b72e584,
-    type: 3}
-  m_PrefabInstance: {fileID: 4771773293510551593}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6623048525408878100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -272,6 +266,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718228382492485605, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718228382492485605, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 3718228382492485605, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
@@ -392,7 +396,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.2
-  gameInputObject: {fileID: 7317227998906627997}
   attackGameObject: {fileID: 8091952532321897365}
 --- !u!143 &1670999901581763595
 CharacterController:
@@ -444,4 +447,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f35f4776b7ac34ea4ef1b9414cb2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 2117329721287885076}
+  combatCharacter: {fileID: 2117329721287885076}
