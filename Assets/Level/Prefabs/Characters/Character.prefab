@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1396909732984725650}
   - component: {fileID: 7033360656881259363}
   - component: {fileID: 2223826627498616294}
-  - component: {fileID: -7087650860176915016}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -64,53 +63,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
---- !u!114 &-7087650860176915016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1741763931515413843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07851fc4dd2b9e7428f9eb0a432f8963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _flashColor: {r: 1, g: 1, b: 1, a: 1}
-  _flashTime: 0.25
-  _flashSpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -9.409747
-      outSlope: -9.409747
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.07740414
-      value: 0.27164662
-      inSlope: -3.4016325
-      outSlope: -3.4016325
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.10780213
-    - serializedVersion: 3
-      time: 0.25
-      value: 0
-      inSlope: -1.5738884
-      outSlope: -1.5738884
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &3159689981241414268
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +74,7 @@ GameObject:
   - component: {fileID: 7293596607773911478}
   - component: {fileID: 3718228382492485605}
   - component: {fileID: 5230554768640266974}
+  - component: {fileID: 2821618743873255861}
   m_Layer: 3
   m_Name: Visual
   m_TagString: Untagged
@@ -217,6 +170,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2821618743873255861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159689981241414268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07851fc4dd2b9e7428f9eb0a432f8963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashTime: 0.25
+  _flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8974075098166087979
 GameObject:
   m_ObjectHideFlags: 0

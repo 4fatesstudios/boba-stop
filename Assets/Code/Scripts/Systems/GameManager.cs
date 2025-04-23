@@ -4,6 +4,7 @@ using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
 using BobaStop.Characters;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BobaStop.Systems {
     public class GameManager : MonoBehaviour {
@@ -92,8 +93,6 @@ namespace BobaStop.Systems {
         /// TODO: if player was not at home, punishment ie loss of currency
         /// </summary>
         private void StartNewDay() {
-            Player.Instance.transform.position = new Vector3(-2.68300009f,0.157000005f,0f); // DEFINE A DEFAULT START POSITION AT BED
-            
             dayCycleManager.Reset();
             worldManager.Reset();
             
@@ -173,12 +172,36 @@ namespace BobaStop.Systems {
                 Debug.Log("first load");
                 // do other first load things (ie cutscenes and stuff like that)
             }
+            SceneManager.sceneLoaded += OnSceneLoaded;
             StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
             
             UpdateSaveAssociations();
             saveSystem.LoadAllDataToGame();
             
             StartNewDay();
+        }
+        
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+            PositionPlayerAfterSceneLoad();
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+        
+        private void PositionPlayerAfterSceneLoad() {
+            GameObject spawnGO = FindObjectOfType<PlayerSpawnPoint>()?.gameObject;
+            if (spawnGO != null) {
+                CharacterController cc = Player.Instance.GetComponent<CharacterController>();
+                if (cc != null)
+                {
+                    cc.enabled = false;
+                }
+                Player.Instance.transform.position = spawnGO.transform.position;
+                if (cc != null) {
+                    cc.enabled = true;
+                }
+            }
+            else {
+                Debug.LogWarning("No PlayerSpawnPoint found in the scene!");
+            }
         }
 
         private void UpdateSaveAssociations() {

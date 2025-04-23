@@ -9,12 +9,9 @@ namespace BobaStop.Interactions
 {
     public class InteractablePickupable : Interactable {
         [SerializeField] private Items.Item item;
-        [SerializeField] private GameObject selectedVisualGameObject;
-        [SerializeField] private GameObject unselectedVisualGameObject;
         
         private void Start() {
-            selectedVisualGameObject.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
-            unselectedVisualGameObject.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
+            GetComponentInChildren<SpriteRenderer>().sprite = item.itemSprite;
         }
         
         // public override void Interact() {
