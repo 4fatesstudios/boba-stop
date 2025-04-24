@@ -15,6 +15,7 @@ namespace BobaStop.Characters
 
         private Direction currentFacingDirection;
         private Action currentAction;
+        private bool isActionLocked = false;
 
         protected virtual void Start() {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -37,7 +38,18 @@ namespace BobaStop.Characters
         }
 
         protected void UpdateCurrentAction(Action action) {
+            if (isActionLocked) return;
+            
             currentAction = action;
+        }
+
+        protected void LockAction(Action action) {
+            UpdateCurrentAction(action);
+            isActionLocked = true;
+        }
+
+        protected void UnlockAction() {
+            isActionLocked = false;
         }
 
         public Direction GetCurrentFacingDirection() {

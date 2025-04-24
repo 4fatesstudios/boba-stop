@@ -13,7 +13,7 @@ namespace BobaStop {
         private CinemachineTransposer transposer;
 
         private float defaultFollowOffsetX = 0f;
-        private float defaultFollowOffsetZ = -1.5f;
+        private float defaultFollowOffsetZ = -4f;
         private float targetFollowOffsetX;
         private float targetFollowOffsetZ;
         private float lerpSpeed = 2f;

@@ -276,7 +276,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 0ebd2a4669f0e7d42ba7bc93ed30161a, type: 2}
+      objectReference: {fileID: 9100000, guid: bfa72d244afc54975be9480dbcce81b2, type: 2}
     - target: {fileID: 6300717071843774843, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       propertyPath: m_Size.x
@@ -332,8 +332,14 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3159689981241414268, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6684049513362186867}
+      addedObject: {fileID: 461946092149159859}
   m_SourcePrefab: {fileID: 100100000, guid: a365969b644fec645b2436138e6bf567, type: 3}
+--- !u!95 &1404949714904607946 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5230554768640266974, guid: a365969b644fec645b2436138e6bf567,
+    type: 3}
+  m_PrefabInstance: {fileID: 6623048525408878100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4211516338427276663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7033360656881259363, guid: a365969b644fec645b2436138e6bf567,
@@ -364,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447d97fd848fdee4eaf1dec76bb1f24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.2
+  moveSpeed: 2.3
   attackGameObject: {fileID: 8091952532321897365}
 --- !u!143 &1670999901581763595
 CharacterController:
@@ -404,7 +410,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6623048525408878100}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6684049513362186867
+--- !u!114 &461946092149159859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,7 +419,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8084157899089833064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f35f4776b7ac34ea4ef1b9414cb2cb, type: 3}
+  m_Script: {fileID: 11500000, guid: b511717334b9c46e8956a8c0b2599cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatCharacter: {fileID: 2117329721287885076}
+  animator: {fileID: 1404949714904607946}
+  character: {fileID: 2117329721287885076}
+  animFileCharName: Player

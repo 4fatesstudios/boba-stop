@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_Sword_Right
+  m_Name: Player_Attack_Down
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -2029062809, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
+      value: {fileID: -1544961276, guid: 8221629621156514a96cc8a4f077416e, type: 3}
     - time: 0.083333336
-      value: {fileID: 405208697, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
+      value: {fileID: 719587007, guid: 8221629621156514a96cc8a4f077416e, type: 3}
     - time: 0.16666667
-      value: {fileID: 601917852, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
+      value: {fileID: -323852047, guid: 8221629621156514a96cc8a4f077416e, type: 3}
     - time: 0.25
-      value: {fileID: -1804424040, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
+      value: {fileID: -1340308308, guid: 8221629621156514a96cc8a4f077416e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -2029062809, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
-    - {fileID: 405208697, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
-    - {fileID: 601917852, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
-    - {fileID: -1804424040, guid: ac44e95a4968efb40912fcb9ce660e96, type: 3}
+    - {fileID: -1544961276, guid: 8221629621156514a96cc8a4f077416e, type: 3}
+    - {fileID: 719587007, guid: 8221629621156514a96cc8a4f077416e, type: 3}
+    - {fileID: -323852047, guid: 8221629621156514a96cc8a4f077416e, type: 3}
+    - {fileID: -1340308308, guid: 8221629621156514a96cc8a4f077416e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -78,4 +78,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.16666667
+    functionName: OnAttackAnimation_Attack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.25
+    functionName: OnAttackAnimation_Finish
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
