@@ -132,8 +132,6 @@ namespace BobaStop.Characters {
             if (Input.GetKeyDown(KeyCode.Alpha7)) {
                 GameManager.Instance.shopManager.IncreaseShopReputationLevel();
             }
-            
-            Debug.Log(GetCurrentAction());
         }
 
         private void Quit() {
