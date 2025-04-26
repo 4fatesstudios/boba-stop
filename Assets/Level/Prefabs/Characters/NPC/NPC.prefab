@@ -88,6 +88,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5329126404092965373}
+    - targetCorrespondingSourceObject: {fileID: 1741763931515413843, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7196406710022216160}
     - targetCorrespondingSourceObject: {fileID: 3159689981241414268, guid: a365969b644fec645b2436138e6bf567,
         type: 3}
       insertIndex: -1
@@ -139,7 +143,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.2
-  m_Radius: 0.4
+  m_Radius: 0.22
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -169,3 +173,17 @@ MonoBehaviour:
     backstory: 
     memory: 
   companionName: 
+--- !u!114 &7196406710022216160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8934818505459875391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb473d74a73e634ab531b8a2bb6a9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  moveSpeed: 1

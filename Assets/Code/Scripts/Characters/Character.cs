@@ -33,11 +33,11 @@ namespace BobaStop.Characters
             return isWalking;
         }
 
-        protected void UpdateFacedDirection(Direction direction) {
+        public void UpdateFacedDirection(Direction direction) {
             currentFacingDirection = direction;
         }
 
-        protected void UpdateCurrentAction(Action action) {
+        public void UpdateCurrentAction(Action action) {
             if (isActionLocked) return;
             
             currentAction = action;
