@@ -15,9 +15,11 @@ namespace BobaStop.Characters.Animation
             switch (Player.Instance.GetPlayerDataManager().GetPlayerCharacter()) {
                 case PlayerCharacter.Mira:
                     animator.runtimeAnimatorController = miraAnimatorController;
+                    Debug.Log("mira");
                     break;
                 case PlayerCharacter.Bruce:
                     animator.runtimeAnimatorController = bruceAnimatorController;
+                    Debug.Log("bruce");
                     break;
                 case PlayerCharacter.Unselected:
                 default:

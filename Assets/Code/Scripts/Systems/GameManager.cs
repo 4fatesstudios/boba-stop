@@ -153,7 +153,7 @@ namespace BobaStop.Systems {
         public void CreateNewSaveGame(int slot, string playerName, PlayerCharacter character) {
             saveSystem.SetSaveLoadSlot(slot);
             saveSystem.DeleteData();
-            LoadIntoGame(slot);
+            LoadIntoGame(slot, playerName, character);
         }
         
         /// <summary>
