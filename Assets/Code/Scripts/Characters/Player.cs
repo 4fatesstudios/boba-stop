@@ -20,6 +20,7 @@ namespace BobaStop.Characters {
 
         [SerializeField] private float moveSpeed = 2.3f;
         [SerializeField] private GameObject attackGameObject;
+        
         private Attack attack; // TESTING ONLY, DELETE LATER
 
         private CharacterController controller;

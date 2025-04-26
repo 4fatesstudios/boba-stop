@@ -319,6 +319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3034448290485047516, guid: a365969b644fec645b2436138e6bf567, type: 3}
+    - {fileID: 3909260176919428156, guid: a365969b644fec645b2436138e6bf567, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8974075098166087979, guid: a365969b644fec645b2436138e6bf567, type: 3}
     m_AddedGameObjects:
@@ -339,7 +340,17 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1670999901581763595}
+    - targetCorrespondingSourceObject: {fileID: 3159689981241414268, guid: a365969b644fec645b2436138e6bf567,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6505363898750314465}
   m_SourcePrefab: {fileID: 100100000, guid: a365969b644fec645b2436138e6bf567, type: 3}
+--- !u!95 &1404949714904607946 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5230554768640266974, guid: a365969b644fec645b2436138e6bf567,
+    type: 3}
+  m_PrefabInstance: {fileID: 6623048525408878100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4211516338427276663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7033360656881259363, guid: a365969b644fec645b2436138e6bf567,
@@ -404,3 +415,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6623048525408878100}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8084157899089833064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3159689981241414268, guid: a365969b644fec645b2436138e6bf567,
+    type: 3}
+  m_PrefabInstance: {fileID: 6623048525408878100}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6505363898750314465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8084157899089833064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ebab5be81e181f4c955ac4372b0d5d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1404949714904607946}
+  character: {fileID: 2117329721287885076}
+  animFileCharName: Player
+  miraAnimatorController: {fileID: 22100000, guid: aba596373e7eaaf4ba740b1a1b2c2526,
+    type: 2}
+  bruceAnimatorController: {fileID: 22100000, guid: 2a0e1a0368af6584c90779aaaeca8d8c,
+    type: 2}

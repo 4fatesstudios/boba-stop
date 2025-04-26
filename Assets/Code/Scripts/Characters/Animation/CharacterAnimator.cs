@@ -8,7 +8,7 @@ namespace BobaStop.Characters.Animation
 {
     public class CharacterAnimator : MonoBehaviour
     {
-        [SerializeField] private Animator animator;
+        [SerializeField] protected Animator animator;
         [SerializeField] private Character character;
         [SerializeField] private string animFileCharName;
 
