@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
 using BobaStop.Characters;
+using BobaStop.UI;
+using Action = BobaStop.Characters.Action;
 
 namespace BobaStop.SimpleAI {
     public enum WaypointFaceDirection { None, Down, Left, Right, Up }
@@ -17,7 +20,7 @@ namespace BobaStop.SimpleAI {
         [SerializeField] private float moveSpeed = 1f;
 
         private CharacterController controller;
-        private Character character; // Reference to base class
+        private NPC npc; // Reference to base class
         private int currentIndex = 0;
         private float waitTimer = 0f;
         private bool waiting = false;
@@ -25,7 +28,12 @@ namespace BobaStop.SimpleAI {
 
         private void Awake() {
             controller = GetComponent<CharacterController>();
-            character = GetComponent<Character>();
+            npc = GetComponent<NPC>();
+        }
+
+        private void Start() {
+            npc.OnInteract += PauseMovement;
+            DialogueUIManager.OnEndDialogue += ResumeMovement;
         }
 
         private void Update() {
@@ -33,7 +41,7 @@ namespace BobaStop.SimpleAI {
 
             if (waiting) {
                 waitTimer += Time.deltaTime;
-                character.UpdateCurrentAction(Action.Idle);
+                npc.UpdateCurrentAction(Action.Idle);
                 if (waitTimer >= waypoints[currentIndex].waitTime) {
                     waiting = false;
                     currentIndex = (currentIndex + 1) % waypoints.Length;
@@ -52,7 +60,7 @@ namespace BobaStop.SimpleAI {
 
             // Update facing direction
             UpdateDirection(moveDir);
-            character.UpdateCurrentAction(Action.Walk);
+            npc.UpdateCurrentAction(Action.Walk);
 
             controller.Move(moveDir * (moveSpeed * Time.deltaTime));
 
@@ -68,10 +76,10 @@ namespace BobaStop.SimpleAI {
             dir.y = 0;
 
             if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z)) {
-                character.UpdateFacedDirection(dir.x > 0 ? Direction.Right : Direction.Left);
+                npc.UpdateFacedDirection(dir.x > 0 ? Direction.Right : Direction.Left);
             }
             else {
-                character.UpdateFacedDirection(dir.z > 0 ? Direction.Up : Direction.Down);
+                npc.UpdateFacedDirection(dir.z > 0 ? Direction.Up : Direction.Down);
             }
         }
 
@@ -79,16 +87,16 @@ namespace BobaStop.SimpleAI {
             var faceDir = waypoints[currentIndex].faceDirection;
             switch (faceDir) {
                 case WaypointFaceDirection.Down:
-                    character.UpdateFacedDirection(Direction.Down);
+                    npc.UpdateFacedDirection(Direction.Down);
                     break;
                 case WaypointFaceDirection.Left:
-                    character.UpdateFacedDirection(Direction.Left);
+                    npc.UpdateFacedDirection(Direction.Left);
                     break;
                 case WaypointFaceDirection.Right:
-                    character.UpdateFacedDirection(Direction.Right);
+                    npc.UpdateFacedDirection(Direction.Right);
                     break;
                 case WaypointFaceDirection.Up:
-                    character.UpdateFacedDirection(Direction.Up);
+                    npc.UpdateFacedDirection(Direction.Up);
                     break;
                 case WaypointFaceDirection.None:
                 default:
@@ -97,13 +105,25 @@ namespace BobaStop.SimpleAI {
             }
         }
         
+        private void PauseMovement(object sender, EventArgs e) {
+            PauseMovement();
+        }
+        
         public void PauseMovement() {
             isPaused = true;
-            character.UpdateCurrentAction(Action.Idle);
+            npc.UpdateCurrentAction(Action.Idle);
+        }
+        
+        private void ResumeMovement(object sender, EventArgs e) {
+            ResumeMovement();
         }
 
         public void ResumeMovement() {
             isPaused = false;
+        }
+
+        private void OnDestroy() {
+            npc.OnInteract -= PauseMovement;
         }
     }
 }
