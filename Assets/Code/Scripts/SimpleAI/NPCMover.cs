@@ -32,7 +32,7 @@ namespace BobaStop.SimpleAI {
         }
 
         private void Start() {
-            npc.OnInteract += PauseMovement;
+            NPC.OnNPCInteract += PauseMovement;
             DialogueUIManager.OnEndDialogue += ResumeMovement;
         }
 
@@ -106,6 +106,7 @@ namespace BobaStop.SimpleAI {
         }
         
         private void PauseMovement(object sender, EventArgs e) {
+            Debug.Log("hdddd");
             PauseMovement();
         }
         
@@ -123,7 +124,7 @@ namespace BobaStop.SimpleAI {
         }
 
         private void OnDestroy() {
-            npc.OnInteract -= PauseMovement;
+            NPC.OnNPCInteract -= PauseMovement;
         }
     }
 }
