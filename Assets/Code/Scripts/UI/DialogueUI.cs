@@ -22,6 +22,7 @@ namespace BobaStop.UI
         private bool isEndingDialogue = false;
 
         public event EventHandler<OnDialogueInputEventArgs> OnDialogueInput;
+        public static event EventHandler OnEndDialogue;
 
         public class OnDialogueInputEventArgs : EventArgs {
             public string dialogueInput;
@@ -109,6 +110,9 @@ namespace BobaStop.UI
             StopAllCoroutines();
             dialogueUI.SetActive(false);
             isEndingDialogue = false;
+            
+            OnEndDialogue?.Invoke(this, EventArgs.Empty);
+            
             GameInput.Instance.EnableInputMapOnly(ActionMap.Default);
             GameManager.Instance.UnpauseDay();
         }

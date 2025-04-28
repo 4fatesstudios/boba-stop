@@ -38,6 +38,14 @@ namespace BobaStop.Systems.DataManagement {
             return true;
         }
 
+        public void SetPlayerCharacter(PlayerCharacter playerCharacter) {
+            playerData.playerCharacter = playerCharacter;
+        }
+
+        public PlayerCharacter GetPlayerCharacter() {
+            return playerData.playerCharacter;
+        }
+
         public string GetPlayerName() {
             return playerData.playerName;
         }

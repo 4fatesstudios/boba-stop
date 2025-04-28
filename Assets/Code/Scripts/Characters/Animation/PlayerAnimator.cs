@@ -1,26 +1,31 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using BobaStop.Characters;
+using BobaStop.Characters.Animation;
+using BobaStop.Data.Saved;
 using UnityEngine;
 
-namespace BobaStop.Characters.Animation {
+namespace BobaStop.Characters.Animation
+{
     public class PlayerAnimator : CharacterAnimator {
-        // call from specific associated animation frame event
-        protected const string ON_ATTACK2 = "OnAttack2";
-        private bool switchAttack;
-        
-        protected override void CombatCharacterOnHandleAttackAction(object sender, EventArgs e) {
-            animator.SetTrigger(switchAttack ? ON_ATTACK : ON_ATTACK2);
-            switchAttack = !switchAttack;
-        }
-        
-        public override void OnAttackAnimation_Attack() {
-            combatCharacter.OnAttack();
-        }
+        [SerializeField] private RuntimeAnimatorController miraAnimatorController;
+        [SerializeField] private RuntimeAnimatorController bruceAnimatorController;
 
-        // call from specific associated animation frame event
-        public override void OnAttackAnimation_Finish() {
-            combatCharacter.OnAttackFinish();
+        private void Start() {
+            switch (Player.Instance.GetPlayerDataManager().GetPlayerCharacter()) {
+                case PlayerCharacter.Mira:
+                    animator.runtimeAnimatorController = miraAnimatorController;
+                    Debug.Log("mira");
+                    break;
+                case PlayerCharacter.Bruce:
+                    animator.runtimeAnimatorController = bruceAnimatorController;
+                    Debug.Log("bruce");
+                    break;
+                case PlayerCharacter.Unselected:
+                default:
+                    Debug.LogError("Player has loaded in with no PlayerCharacter for animation controller");
+                    break;
+            }
         }
     }
 }

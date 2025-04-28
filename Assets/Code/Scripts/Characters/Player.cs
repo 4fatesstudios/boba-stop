@@ -18,15 +18,19 @@ namespace BobaStop.Characters {
             public Interactions.IInteractable selectedInteractable;
         }
 
-        [SerializeField] private float moveSpeed = 1.2f;
+        [SerializeField] private float moveSpeed = 2.3f;
         [SerializeField] private GameObject attackGameObject;
+        
         private Attack attack; // TESTING ONLY, DELETE LATER
 
         private CharacterController controller;
 
-        private readonly float interactDistance = 0.5f;
+        private readonly float interactDistance = 2f;
         private Vector3 lastInteractDir;
         private Interactions.IInteractable selectedInteractable;
+        
+        protected Vector3 lastMoveDirection = Vector3.zero;
+        
         private GameInput gameInput;
 
         private PlayerDataManager playerDataManager;
@@ -157,6 +161,7 @@ namespace BobaStop.Characters {
         private void HandleCombat() {
             base.OnAttack();
             gameInput.DisableAllInputs();
+            LockAction(Action.Attack);
         }
 
         public override void OnAttack() {
@@ -165,6 +170,7 @@ namespace BobaStop.Characters {
 
         public override void OnAttackFinish() {
             gameInput.EnableInputMapOnly(ActionMap.Default);
+            UnlockAction();
         }
 
         private void HandleInteractions() {
@@ -199,12 +205,28 @@ namespace BobaStop.Characters {
 
             controller.Move(moveDir * Time.deltaTime);
 
-            isWalking = moveDir.x != 0 || moveDir.z != 0;
+            isWalking = inputVector != Vector2.zero;
+            UpdateCurrentAction(isWalking ? Action.Walk : Action.Idle);
+
+            if (isWalking) UpdateFacedDirectionFromVector(moveDir);
 
             // Set sprite orientation to face direction moving towards
-            FlipSpriteToForwardVector(inputVector);
+            // FlipSpriteToForwardVector(inputVector);
             FlipRelevantPlayerAssets(inputVector);
         }
+
+        protected void UpdateFacedDirectionFromVector(Vector3 moveDir) {
+            if (moveDir == Vector3.zero) return;
+
+            lastMoveDirection = moveDir;
+
+            if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z)) {
+                UpdateFacedDirection(moveDir.x > 0 ? Direction.Right : Direction.Left);
+            } else {
+                UpdateFacedDirection(moveDir.z > 0 ? Direction.Up : Direction.Down);
+            }
+        }
+
 
         private void SetSelectedInteractable(Interactions.IInteractable interactable) {
             this.selectedInteractable = interactable;
@@ -221,5 +243,11 @@ namespace BobaStop.Characters {
                 attackGameObject.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
             }
         }
+        
+        private void OnDrawGizmosSelected() {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, interactDistance);
+        }
+
     }
 }

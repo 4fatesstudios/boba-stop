@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BobaStop.Interactions;
@@ -9,12 +10,15 @@ namespace BobaStop.Characters
 {
     public class NPC : Character, IInteractable {
         [SerializeField] protected NPCDialogueData npcDialogueData;
+
+        public event EventHandler OnInteract;
         
         protected override void Start() {
             base.Start(); 
         }
 
         public virtual void Interact() {
+            OnInteract?.Invoke(this, EventArgs.Empty);
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData);
         }
         
