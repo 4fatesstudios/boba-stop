@@ -1,0 +1,27 @@
+#DialogueContent {
+    flex-direction: row;
+    align-items: center;
+}
+
+#DialoguePortrait {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+#DialogueText {
+    flex-grow: 1;
+    font-size: 35px;
+}
+
+#PortraitContainer {
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+
+#SpeakerName {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
