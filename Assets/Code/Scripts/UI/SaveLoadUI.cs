@@ -7,11 +7,11 @@ namespace BobaStop.UI
 {
     public class SaveLoadUI : MonoBehaviour {
         public void CreateNewSaveGame(int slot) {
-            GameManager.Instance.CreateNewSaveGame(slot);
+            // GameManager.Instance.CreateNewSaveGame(slot);
         }
         
         public void LoadGame(int slot) {
-            GameManager.Instance.LoadIntoGame(slot);
+            // GameManager.Instance.LoadIntoGame(slot);
         }
     }
 }
