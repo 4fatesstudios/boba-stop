@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace BobaStop.Characters
     {
         [SerializeField] private string companionName; // gets necessary data
         private CompanionDataManager companionDataManager;
+
+        public static event EventHandler OnCompanionInteract;
         
         protected override void Start() {
             base.Start();
@@ -21,6 +24,8 @@ namespace BobaStop.Characters
         }
         
         public override void Interact() {
+            InvokeOnInteract();
+            OnCompanionInteract?.Invoke(this, EventArgs.Empty);
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData, companionDataManager, true);
         }
 

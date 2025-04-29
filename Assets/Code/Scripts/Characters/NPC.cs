@@ -11,15 +11,24 @@ namespace BobaStop.Characters
     public class NPC : Character, IInteractable {
         [SerializeField] protected NPCDialogueData npcDialogueData;
 
-        public event EventHandler OnInteract;
+        public static event EventHandler<OnNPCInteractArgs> OnNPCInteract;
+        public static event EventHandler OnNPCInteractEnd;
+
+        public class OnNPCInteractArgs : EventArgs {
+            public Transform transform;
+        }
         
         protected override void Start() {
-            base.Start(); 
+            base.Start();
         }
 
         public virtual void Interact() {
-            OnInteract?.Invoke(this, EventArgs.Empty);
+            InvokeOnInteract();
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData);
+        }
+
+        protected void InvokeOnInteract() {
+            OnNPCInteract?.Invoke(this, e: new OnNPCInteractArgs { transform = transform });
         }
         
         public virtual string GetInteractText() {

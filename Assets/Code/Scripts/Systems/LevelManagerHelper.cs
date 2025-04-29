@@ -9,13 +9,14 @@ namespace BobaStop.Systems {
         private LevelProperties currentLevel;
         
         public void SwitchScene(LevelProperties level) {
+            currentLevel = level;
+            
             if (level.levelName == SceneManager.GetActiveScene().name) return;
             
             LoadLevel(level);
         }
         private void LoadLevel(LevelProperties level, bool loadAdjacentLevels = true) {
             SceneManager.LoadScene(level.levelName);
-            currentLevel = level;
         }
 
         public LevelProperties GetCurrentLevelProperties() {
