@@ -27,15 +27,10 @@ namespace BobaStop.AI {
         [Header("FastAPI Settings")]
         public string baseUrl = "http://127.0.0.1:8000";
 
-        [Header("Test Options")]
-        public bool callFirstMeetingOnStart = true;
-        public bool callNewConversationOnStart = false;
-
         private string data;
 
         public bool IsReady { get; private set; } = false;
         public float startupTimeout = 60f; // configurable in Inspector
-        public string pingEndpoint = "/health"; // your FastAPI server should expose this
         
         private void Awake() {
             if (Instance == null) {
@@ -48,7 +43,6 @@ namespace BobaStop.AI {
         }
 
         private void Start() {
-            DontDestroyOnLoad(this);
             StartCoroutine(CheckServerReady());
         }
 

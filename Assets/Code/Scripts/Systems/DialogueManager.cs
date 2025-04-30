@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BobaStop.AI;
+using BobaStop.Characters;
 using BobaStop.NPCs;
 using BobaStop.Systems.DataManagement;
 using BobaStop.UI;
@@ -36,6 +37,7 @@ namespace BobaStop.Systems
         private IEnumerator Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
+            LevelManagerHelper.OnLevelLoadedForDialogue += GenerateFirstMeeting; 
 
             companionData = new CompanionData {
                 companionName = "Karen",
@@ -46,7 +48,13 @@ namespace BobaStop.Systems
             apiClient = APIClient.Instance;
             yield return new WaitUntil(() => apiClient.IsReady);
 
-            apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
+            // apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
+        }
+
+        private void GenerateFirstMeeting(object sender, LevelManagerHelper.OnLevelLoadedForDialogueArgs e) {
+            var companion = e.companion.GetComponent<Companion>();
+            
+            apiClient.GetFirstMeeting(companion.GetCompanionName(), ReturnData);
             Debug.Log("First meeting called in DialogueManager");
         }
 

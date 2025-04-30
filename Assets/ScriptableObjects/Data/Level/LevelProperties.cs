@@ -8,5 +8,7 @@ namespace BobaStop.Data.Level
         public string localAreaName;
         public LevelProperties[] adjacentLevels; // for loading purposes ONLY
         public string[] levelContext;
+        public bool companionPresent;
+        public string companionName;
     }
 }

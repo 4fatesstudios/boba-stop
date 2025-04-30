@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using BobaStop.Characters;
 using BobaStop.Data.Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +9,13 @@ namespace BobaStop.Systems {
     public class LevelManagerHelper {
         public readonly LevelProperties startingLevel = Resources.Load<LevelProperties>("Data/Level/DevScene1");
         private LevelProperties currentLevel;
+        
+        public static event EventHandler<OnLevelLoadedForDialogueArgs> OnLevelLoadedForDialogue;
+
+        public class OnLevelLoadedForDialogueArgs : EventArgs {
+            public LevelProperties levelProperties;
+            public GameObject companion;
+        }
         
         public void SwitchScene(LevelProperties level) {
             currentLevel = level;
@@ -17,6 +26,7 @@ namespace BobaStop.Systems {
         }
         private void LoadLevel(LevelProperties level, bool loadAdjacentLevels = true) {
             SceneManager.LoadScene(level.levelName);
+            SceneManager.sceneLoaded += SignalForCompanionDialogueGeneration;
         }
 
         public LevelProperties GetCurrentLevelProperties() {
@@ -47,6 +57,24 @@ namespace BobaStop.Systems {
 
             // Code here will execute after the scene is fully loaded and activated
             Debug.Log("Scene fully loaded.");
+            // SignalForCompanionDialogueGeneration();
+        }
+
+        private void SignalForCompanionDialogueGeneration(Scene arg0, LoadSceneMode arg1) {
+            SceneManager.sceneLoaded -= SignalForCompanionDialogueGeneration;
+            
+            if (!currentLevel.companionPresent) return;
+            
+            GameObject companionGO = GameObject.Find(currentLevel.companionName);
+            if (companionGO == null) {
+                Debug.LogWarning("Companion is set present but cannot be found for dialogue generation.");
+                return;
+            }
+            
+            OnLevelLoadedForDialogue?.Invoke(this, new OnLevelLoadedForDialogueArgs {
+                levelProperties = currentLevel,
+                companion = companionGO
+            });
         }
 
         private void LoadAdjacentLevels(LevelProperties level) {

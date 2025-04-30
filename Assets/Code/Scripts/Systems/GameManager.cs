@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BobaStop.Data.Saved;
 using BobaStop.Systems.World;
 using BobaStop.Characters;
+using BobaStop.Data.Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -173,7 +174,7 @@ namespace BobaStop.Systems {
                 // do other first load things (ie cutscenes and stuff like that)
             }
             SceneManager.sceneLoaded += OnSceneLoaded;
-            StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+            levelManagerHelper.SwitchScene(Resources.Load<LevelProperties>("Data/Level/DevScene1"));
             
             UpdateSaveAssociations();
             saveSystem.LoadAllDataToGame();
@@ -193,7 +194,7 @@ namespace BobaStop.Systems {
                 // do other first load things (ie cutscenes and stuff like that)
             }
             SceneManager.sceneLoaded += OnSceneLoaded;
-            StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+            levelManagerHelper.SwitchScene(Resources.Load<LevelProperties>("Data/Level/DevScene1"));
             
             UpdateSaveAssociations();
             saveSystem.LoadAllDataToGame();

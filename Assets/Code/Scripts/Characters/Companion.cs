@@ -27,6 +27,10 @@ namespace BobaStop.Characters
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData, companionDataManager, true);
         }
 
+        public string GetCompanionName() {
+            return companionName;
+        }
+
         public override string GetInteractText() {
             throw new System.NotImplementedException();
         }
