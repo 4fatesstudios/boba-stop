@@ -51,14 +51,25 @@ namespace BobaStop.UI
 
             submitButton.clicked += () =>
             {
-                OnDialogueInput?.Invoke(this, new OnDialogueInputEventArgs { dialogueInput = playerInputField.value });
-                ClearPlayerInputField();
+                if (!string.IsNullOrWhiteSpace(playerInputField.value))
+                {
+                    if (InputFilter.IsInputAllowed(playerInputField.value))
+                    {
+                        OnDialogueInput?.Invoke(this, new OnDialogueInputEventArgs { dialogueInput = playerInputField.value });
+                        ClearPlayerInputField();
+                        playerInputContainer.style.display = DisplayStyle.None; 
+                        dialogueUI.style.display = DisplayStyle.Flex; 
+                    }
+                    else
+                    {
+                        StartCoroutine(JiggleInputBox()); 
+                        ClearPlayerInputField(); 
+                    }
+                }
             };
             
-            // textInput.gameObject.SetActive(false);
             
             dialogueManager = GameManager.Instance.dialogueManager;
-            // textInput.onValidateInput += ValidateChar;
 
             dialogueManager.OnDoDialogue += DoDialogue;
             dialogueManager.OnInappropriateInput += DoInappropriateInput;
@@ -102,9 +113,6 @@ namespace BobaStop.UI
             dialogueUI.style.display = DisplayStyle.None;
             playerInputContainer.style.display = DisplayStyle.Flex;
             playerInputField.Focus();
-            // textInput.gameObject.SetActive(true);
-            // textInput.ActivateInputField();
-            // textInput.Select();
         }
 
         private void ClearInputBox() => textInput.text = "";
@@ -115,23 +123,23 @@ namespace BobaStop.UI
         private void InputPlayerDialogue(object sender, EventArgs e) {
             OnDialogueInput?.Invoke(this, new OnDialogueInputEventArgs { dialogueInput = textInput.text });
         }
-        public void DoInappropriateInput(object sender, EventArgs e) {
-            ClearInputBox();
+        private void DoInappropriateInput(object sender, EventArgs e) {
+            ClearPlayerInputField();
             StartCoroutine(JiggleInputBox());
+            playerInputContainer.style.display = DisplayStyle.Flex;
+            dialogueUI.style.display = DisplayStyle.None;
         }
         private IEnumerator JiggleInputBox(float duration = 0.3f, float magnitude = 10f) {
-            RectTransform rectTransform = textInput.GetComponent<RectTransform>();
-            Vector3 originalPos = rectTransform.anchoredPosition;
+            Vector3 originalPos = playerInputField.transform.position;
             float elapsed = 0f;
             while (elapsed < duration) {
                 float x = UnityEngine.Random.Range(-1f, 1f) * magnitude;
-                rectTransform.anchoredPosition = originalPos + new Vector3(x, 0, 0);
+                playerInputField.transform.position = originalPos + new Vector3(x, 0, 0);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            rectTransform.anchoredPosition = originalPos;
-            textInput.ActivateInputField();
-            textInput.Select();
+            playerInputField.transform.position = originalPos;
+            playerInputField.Focus();
         }
 
         private IEnumerator TypeLine(string line) {
