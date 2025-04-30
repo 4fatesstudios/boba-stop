@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using BobaStop.Characters;
 using UnityEngine;
 
 namespace BobaStop.Characters.Animation

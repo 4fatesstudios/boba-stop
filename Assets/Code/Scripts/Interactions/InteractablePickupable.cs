@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using BobaStop.Interactions;
 using BobaStop.Inventory;
 using BobaStop.Systems;
 using UnityEngine;

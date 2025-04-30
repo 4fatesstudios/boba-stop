@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using BobaStop.Systems;
 using BobaStop.Systems.DataManagement;

@@ -1,7 +1,5 @@
 using System.Collections;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using BobaStop.Systems;
 using TMPro;
 using UnityEngine;
