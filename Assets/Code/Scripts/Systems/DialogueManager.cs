@@ -50,8 +50,8 @@ namespace BobaStop.Systems
 
             apiClientComponent.AddComponent<APIClient>();
             apiClient = apiClientComponent.GetComponent<APIClient>();
-            
-            apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
+
+            apiClient.GetFirstMeeting(companionData, dialogueData, ReturnData);
             Debug.Log("First meeting called in DialogueManager");
         }
 

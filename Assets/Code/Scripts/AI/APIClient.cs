@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using BobaStop.NPCs;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,6 +15,24 @@ namespace BobaStop.AI {
         public int rapport_level;
         public int rapport_level_progress;
         public string current_story;
+    }
+
+    public class CombinedData {
+        public string name;
+        public string age;
+        public string role;
+        public string livingCondition;
+        public string personality;
+        public string beliefs;
+        public string speakingStyle;
+        public string knowledgeScope;
+        public string backstory;
+        public string memory;
+        public int rapportLevel;
+        public string locationKnowledge;
+        public string worldLocation;
+        public string worldTime;
+        public string worldWeather;
     }
 
     [System.Serializable]
@@ -35,15 +54,38 @@ namespace BobaStop.AI {
         }
 
         // GET: /first_meeting/character/{character_name}
-        public void GetFirstMeeting(string characterName, Action<string> onComplete) {
-            StartCoroutine(GetFirstMeetingIEnumerator(characterName, onComplete));
+        public void GetFirstMeeting(CompanionData characterData, NPCDialogueData npcData, Action<string> onComplete) {
+            StartCoroutine(GetFirstMeetingIEnumerator(characterData, npcData, onComplete));
         }
 
-        private IEnumerator GetFirstMeetingIEnumerator(string characterName, Action<string> onComplete) {
-            string url = $"{baseUrl}/first_meeting/character/{characterName}";
+        private IEnumerator GetFirstMeetingIEnumerator(CompanionData characterData, NPCDialogueData npcData, Action<string> onComplete) {
+            string url = $"{baseUrl}/first_meeting/character/{characterData.companionName}";
 
-            using (UnityWebRequest request = UnityWebRequest.Get(url)) {
+            CombinedData requestData = new CombinedData {
+                name = characterData.companionName,
+                age = npcData.age,
+                role = npcData.role,
+                livingCondition = npcData.livingCondition,
+                personality = npcData.personality,
+                beliefs = npcData.beliefs,
+                speakingStyle = npcData.speakingStyle,
+                knowledgeScope = npcData.knowledgeScope,
+                backstory = npcData.backstory,
+                memory = npcData.memory,
+                rapportLevel = (int)characterData.rapportLevel,
+                locationKnowledge = npcData.locationKnowledge["shop"], 
+                worldLocation = "boba shop",
+                worldTime = "day",
+                worldWeather = "sunny"
+            };
+
+            string json = JsonUtility.ToJson(requestData);
+
+            using (UnityWebRequest request = new UnityWebRequest(url, "POST")) {
+                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
 
                 yield return request.SendWebRequest();
 
@@ -54,7 +96,7 @@ namespace BobaStop.AI {
                     data = response.response;
                 } else {
                     Debug.LogError("GET error: " + request.error);
-                    data = $"{characterName} is asleep right now. Please come back later!";
+                    data = $"{characterData.companionName} is asleep right now. Please come back later!";
                 }
             }
             onComplete?.Invoke(data);

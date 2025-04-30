@@ -20,17 +20,37 @@ class ConversationData(BaseModel):
     rapport_level_progress: int
     current_story: str
 
+# Request body model for POST /start
+class CombinedData(BaseModel):
+    # character data
+    name: str
+    age: str
+    role: str
+    living_condition: str
+    personality: str
+    beliefs: str
+    speaking_style: str
+    knowledge_scope: str
+    backstory: str
+    memory: str
+    location_knowledge: str
+    rapport_level: int
+
+    # world context
+    world_location: str
+    world_time: str
+    world_weather: str
 
 @app.get("/")
 async def hello_world():
     return {"message": "Hello, World!"}
 
 
-@app.get("/first_meeting/character/{character}")
-async def first_meeting(character: str):
-    context = retriever(character, f'personaity of {character}')
-    prompt = start(character, context)
-    result = await chat(character, prompt)
+@app.post("/first_meeting/character/{character}")
+async def first_meeting(character: str, data: CombinedData):
+    # context = retriever(character, f'personaity of {character}')
+    intro = start(character, data)
+    result = await chat(character, intro, "")
     return {"response": result}
 
 
