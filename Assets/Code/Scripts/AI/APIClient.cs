@@ -35,6 +35,7 @@ namespace BobaStop.AI {
         public string worldLocation;
         public string worldTime;
         public string worldWeather;
+        public string currentLevel;
     }
 
     [System.Serializable]
@@ -78,10 +79,11 @@ namespace BobaStop.AI {
                 backstory = npcData.backstory,
                 memory = npcData.memory,
                 rapportLevel = (int)characterData.rapportLevel,
-                locationKnowledge = WorldContextManager.GetCurrentLevelContext()[0], 
+                locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
                 worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
                 worldTime = WorldContextManager.GetTime(),
-                worldWeather = WorldContextManager.GetWeather()
+                worldWeather = WorldContextManager.GetWeather(),
+                currentLevel = WorldContextManager.GetCurrentLevelContext()[0]
             };
 
             string json = JsonUtility.ToJson(requestData);
@@ -110,16 +112,29 @@ namespace BobaStop.AI {
 
         // POST: /new_conversation/character/{character_name}
 
-        public void SendNewConversation(string characterName, int rapportLevel, int rapportLevelProgress, string currentStory, Action<string, string> onComplete) {
-            StartCoroutine(SendNewConversationIEnumerator(characterName, rapportLevel, rapportLevelProgress, currentStory, onComplete));
+        public void SendNewConversation(CompanionData characterData, NPCDialogueData npcData, Action<string, string> onComplete) {
+            StartCoroutine(SendNewConversationIEnumerator(characterData, npcData, onComplete));
         }
-        private IEnumerator SendNewConversationIEnumerator(string characterName, int rapportLevel, int rapportLevelProgress, string currentStory, Action<string, string> onComplete) {
-            string url = $"{baseUrl}/new_conversation/character/{characterName}";
+        private IEnumerator SendNewConversationIEnumerator(CompanionData characterData, NPCDialogueData npcData, Action<string, string> onComplete) {
+            string url = $"{baseUrl}/new_conversation/character/{characterData.companionName}";
 
-            ConversationRequest requestData = new ConversationRequest {
-                rapport_level = rapportLevel,
-                rapport_level_progress = rapportLevelProgress,
-                current_story = currentStory
+            CombinedData requestData = new CombinedData {
+                name = characterData.companionName,
+                age = npcData.age,
+                role = npcData.role,
+                livingCondition = npcData.livingCondition,
+                personality = npcData.personality,
+                beliefs = npcData.beliefs,
+                speakingStyle = npcData.speakingStyle,
+                knowledgeScope = npcData.knowledgeScope,
+                backstory = npcData.backstory,
+                memory = npcData.memory,
+                rapportLevel = (int)characterData.rapportLevel,
+                locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
+                worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
+                worldTime = WorldContextManager.GetTime(),
+                worldWeather = WorldContextManager.GetWeather(),
+                currentLevel = WorldContextManager.GetCurrentLevelContext()[1]
             };
 
             string json = JsonUtility.ToJson(requestData);
@@ -140,7 +155,7 @@ namespace BobaStop.AI {
                     goodbye = response.goodbye;
                 } else {
                     Debug.LogError("POST error: " + request.error);
-                    data = $"{characterName} is asleep right now. Please come back later!";
+                    data = $"{characterData.companionName} is asleep right now. Please come back later!";
                 }
                 // Handle the response as needed
                 onComplete?.Invoke(data, goodbye);
@@ -187,11 +202,11 @@ namespace BobaStop.AI {
 
         // POST: /summarize_chat/character/{character}
         // Not tested yet
-        public void SendSummarizeChat(string characterName) {
-            StartCoroutine(SendSummarizeChatIEnumerator(characterName));
+        public void SendSummarizeChat(string characterName, Action<string> onComplete) {
+            StartCoroutine(SendSummarizeChatIEnumerator(characterName, onComplete));
         }
 
-        private IEnumerator SendSummarizeChatIEnumerator(string characterName) {
+        private IEnumerator SendSummarizeChatIEnumerator(string characterName, Action<string> onComplete) {
             string url = $"{baseUrl}/summarize_chat/character/{characterName}";
 
             Debug.Log("Sending chat message to: " + url);
@@ -211,6 +226,7 @@ namespace BobaStop.AI {
                     data = $"{characterName} is asleep right now. Please come back later!";
                 }
             }
+            onComplete?.Invoke(data);
         }
 
         public string GetData() {

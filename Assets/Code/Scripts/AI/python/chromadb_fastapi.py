@@ -40,6 +40,7 @@ class CombinedData(BaseModel):
     world_location: str
     world_time: str
     world_weather: str
+    level_context: str
 
 @app.get("/")
 async def hello_world():
@@ -55,14 +56,12 @@ async def first_meeting(character: str, data: CombinedData):
 
 
 @app.post("/new_conversation/character/{character}")
-async def new_conversation(character: str, data: ConversationData):
-    context = retriever(data.current_story)
+async def new_conversation(character: str, data: CombinedData):
+    context = retriever(data.memory)
     prompt = create_new_chat(
         character,
-        context,
-        data.current_story,
-        str(data.rapport_level_progress),
-        str(data.rapport_level)
+        data,
+        context
     )
     result = await chat(character, prompt)
     return result

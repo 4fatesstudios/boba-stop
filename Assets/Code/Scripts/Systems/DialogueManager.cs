@@ -93,6 +93,16 @@ namespace BobaStop.Systems
             PopulateLines(goodbye);
         }
 
+        private void AddMemory(string memory) {
+            if (memory == "error") {
+                Debug.LogError("Error in API response");
+                return;
+            }
+            dialogueData.memory += memory;
+            dialogueData.memory += ",\n";
+            // Handle memory here
+        }
+
         private void PopulateLines(string goodbye) {
             if (dialogueText == null) {
                 lines = new[] {
@@ -168,7 +178,7 @@ namespace BobaStop.Systems
         }
 
         public void EndDialogue() {
-            apiClient.SendSummarizeChat(companionData.companionName);
+            apiClient.SendSummarizeChat(companionData.companionName, AddMemory);
             OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
                 isEndingDialogue = true
             });
