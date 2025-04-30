@@ -42,39 +42,55 @@ public class LocalServerManager : MonoBehaviour
         serverExecutable = Path.Combine(backendPath, "dist", "chromadb_fastapi", "chromadb_fastapi.exe");
         ollamaExecutable = Path.Combine(backendPath, "ollama app.exe");
         modelPath = Path.Combine(Application.dataPath, "..", "PythonBackend", "common", "GGUF_Models");
-        
+
 #elif UNITY_EDITOR_OSX
         isWindows = false;
         backendPath = Path.Combine(Application.dataPath, "..", "PythonBackend", "macos");
         serverExecutable = Path.Combine(backendPath, "dist", "chromadb_fastapi", "chromadb_fastapi");
-        ollamaExecutable = Path.Combine(backendPath, "Ollama");
+        ollamaExecutable = Path.Combine(backendPath, "Ollama.app");
         modelPath = Path.Combine(Application.dataPath, "..", "PythonBackend", "common", "GGUF_Models");
-        
+
 #elif UNITY_STANDALONE_OSX
         isWindows = false;
-        // App root = MyApp.app/
-        string appRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", ".."));
+        string appRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "..")); // MyGame.app/
         backendPath = Path.Combine(appRoot, "PythonBackend", "macos");
         serverExecutable = Path.Combine(backendPath, "dist", "chromadb_fastapi", "chromadb_fastapi");
-        ollamaExecutable = Path.Combine(backendPath, "Ollama");
+        ollamaExecutable = Path.Combine(backendPath, "Ollama.app");
         modelPath = Path.Combine(appRoot, "PythonBackend", "common", "GGUF_Models");
 #endif
     }
+
 
     private void StartProcesses()
     {
         try
         {
-            var ollamaStartInfo = new ProcessStartInfo
-            {
-                FileName = ollamaExecutable,
-                WorkingDirectory = backendPath,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-            };
+            ProcessStartInfo ollamaStartInfo;
 
-            // Check if Ollama already running
-            if (!IsProcessRunning(Path.GetFileNameWithoutExtension(ollamaExecutable)))
+            if (isWindows)
+            {
+                ollamaStartInfo = new ProcessStartInfo
+                {
+                    FileName = ollamaExecutable,
+                    WorkingDirectory = backendPath,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                };
+            }
+            else
+            {
+                // Launch the macOS app bundle using `open -a Ollama.app --args serve`
+                ollamaStartInfo = new ProcessStartInfo
+                {
+                    FileName = "open",
+                    Arguments = $"-a \"{ollamaExecutable}\" --args serve",
+                    WorkingDirectory = backendPath,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                };
+            }
+
+            if (!IsProcessRunning("Ollama"))
             {
                 ollamaProcess = Process.Start(ollamaStartInfo);
                 Debug.Log("Ollama started.");
@@ -92,7 +108,6 @@ public class LocalServerManager : MonoBehaviour
                 CreateNoWindow = true,
             };
 
-            // Set OLLAMA_MODELS environment variable
             serverStartInfo.EnvironmentVariables["OLLAMA_MODELS"] = modelPath;
 
             serverProcess = Process.Start(serverStartInfo);
@@ -103,6 +118,7 @@ public class LocalServerManager : MonoBehaviour
             Debug.LogError($"Failed to start processes: {ex.Message}");
         }
     }
+
 
     private bool IsProcessRunning(string processName)
     {
