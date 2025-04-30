@@ -83,13 +83,17 @@ namespace BobaStop.Systems
             return dialogueData;
         }
 
-        private void ReturnData(string response){
+        private void ReturnData(string response, string goodbye){
+            if (goodbye == "error") {
+                Debug.LogError("Error in API response");
+                return;
+            }
             Debug.Log("Received first meeting in DialogueManager: " + response);
             dialogueText = response;
-            PopulateLines();
+            PopulateLines(goodbye);
         }
 
-        private void PopulateLines() {
+        private void PopulateLines(string goodbye) {
             if (dialogueText == null) {
                 lines = new[] {
                     "Hey there friend!",
@@ -99,7 +103,11 @@ namespace BobaStop.Systems
             } else {
                 // Split the dialogue text into lines based on the max character limit
                 Populate();
-                ContinueDialogue();
+                if (goodbye == "true") {
+                    EndDialogue();
+                } else {
+                    ContinueDialogue();
+                }   
             }
         }
 
@@ -160,9 +168,7 @@ namespace BobaStop.Systems
         }
 
         public void EndDialogue() {
-            lines = new[] {
-                "Goodbye"
-            };
+            apiClient.SendSummarizeChat(companionData.companionName);
             OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
                 isEndingDialogue = true
             });

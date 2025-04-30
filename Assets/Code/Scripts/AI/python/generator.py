@@ -2,14 +2,14 @@ import asyncio
 from ollama import AsyncClient
 from retriever import *
 
-__all__ = ['start', 'create_new_chat', 'chat', 'summarize_chat']
+__all__ = ['start', 'create_new_chat', 'chat', 'summarize_chat', 'create_text']
 
 rapport_level_progress = 0
 rapport_level = "Friend"
 retrieved_context = "Karen is being rude at a store. She takes it out on the store worker."
 messages = []
 
-def start(player_name, data):
+def start(player_name, data, retrieved_context):
     global messages
     messages = []
     prompt = f"""Background
@@ -29,12 +29,13 @@ Current Location: {data.world_location}
 Location Knowledge: {data.location_knowledge}
 Time: {data.world_time}
 Weather: {data.world_weather}
+Player Name: {player_name}
 
 Relation With {player_name}
 Level: {data.rapport_level}
 Past Conversations: None
 
-current_context = “You think ${player_name} got your order wrong by adding boba”
+current_context = {retrieved_context}
 
 Rules:
 Never break character
@@ -69,6 +70,8 @@ async def chat(player_name, intro, prompt):
 
     response_content = f"""{intro}
 ### Instructions:
+1. Respond only with dialogue in character.
+2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
 user: {prompt}
 ### Response:"""
 
@@ -82,7 +85,11 @@ user: {prompt}
 
     print(response_content)
 
-    return response_content
+    if "<GOODBYE>" in response_content:
+        # Optionally remove it before sending to Unity
+        clean_response = response_content.replace("<GOODBYE>", "").strip()
+        return { "response": clean_response, "goodbye": "true" }
+    return { "response": response_content, "goodbye": "false" }
 
 async def summarize_chat(character_name, chat_history):
     prompt = "Summarize the chat history in a single line"
@@ -102,3 +109,13 @@ async def summarize_chat(character_name, chat_history):
     print(response_content)
 
     return response_content
+
+def create_text(character_name, title):
+    global messages
+
+    text = title + "\n\n"
+    for message in messages:
+        message_content = message['role'] + message['content']
+        text += message_content + "\n"
+
+    return text
