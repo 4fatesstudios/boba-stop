@@ -80,6 +80,7 @@ namespace BobaStop.UI
         }
 
         private void AllowInput() {
+            dialogueUI.style.display = DisplayStyle.None;
             textInput.gameObject.SetActive(true);
             textInput.ActivateInputField();
             textInput.Select();
