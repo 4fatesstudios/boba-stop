@@ -15,5 +15,6 @@ namespace BobaStop.NPCs
         [SerializeField] public string knowledgeScope;
         [SerializeField] public string backstory;
         [SerializeField] public string memory;
+        [SerializeField] public Dictionary<string, string> locationKnowledge;
     }
 }
