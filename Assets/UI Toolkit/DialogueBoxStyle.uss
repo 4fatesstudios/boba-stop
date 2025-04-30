@@ -1,26 +1,29 @@
-#DialogueContent {
+/* Layout containers */
+.dialogue-content {
     flex-direction: row;
     align-items: center;
 }
 
-#DialoguePortrait {
-    width: 150px;
-    height: 150px;
-    margin-right: 20px;
-}
-
-#DialogueText {
-    flex-grow: 1;
-    font-size: 35px;
-}
-
-#PortraitContainer {
+.portrait-container {
     flex-direction: column;
     align-items: center;
     margin-right: 20px;
 }
 
-#SpeakerName {
+/* Portrait elements */
+.dialogue-portrait {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+/* Text elements */
+.dialogue-text {
+    flex-grow: 1;
+    font-size: 35px;
+}
+
+.speaker-name {
     font-size: 20px;
     margin-bottom: 10px;
     text-align: center;
