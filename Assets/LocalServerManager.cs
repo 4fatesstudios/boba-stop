@@ -43,7 +43,7 @@ public class LocalServerManager : MonoBehaviour
         ollamaExecutable = Path.Combine(backendPath, "ollama app.exe");
         modelPath = Path.Combine(Application.dataPath, "..", "PythonBackend", "common", "GGUF_Models");
 
-#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#elif UNITY_STANDALONE_OSX
         isWindows = false;
         // App root = MyApp.app/
         string appRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", ".."));
@@ -51,6 +51,13 @@ public class LocalServerManager : MonoBehaviour
         serverExecutable = Path.Combine(backendPath, "dist", "chromadb_fastapi", "chromadb_fastapi");
         ollamaExecutable = Path.Combine(backendPath, "Ollama");
         modelPath = Path.Combine(appRoot, "PythonBackend", "common", "GGUF_Models");
+        
+#elif UNITY_EDITOR_OSX
+        isWindows = false;
+        backendPath = Path.Combine(Application.dataPath, "..", "PythonBackend", "macos");
+        serverExecutable = Path.Combine(backendPath, "dist", "chromadb_fastapi", "chromadb_fastapi");
+        ollamaExecutable = Path.Combine(backendPath, "Ollama");
+        modelPath = Path.Combine(Application.dataPath, "..", "PythonBackend", "common", "GGUF_Models");
 #endif
     }
 
