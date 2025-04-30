@@ -22,7 +22,7 @@ namespace BobaStop.Systems
         public event EventHandler OnInappropriateInput;
         
         [SerializeField] private GameObject apiClientComponent;
-        public APIClient apiClient;
+        private APIClient apiClient;
 
         private string dialogueText;
 
@@ -68,7 +68,6 @@ namespace BobaStop.Systems
             lines = new[] {
                 "Hmm..."
             };
-            Populate();
             Debug.Log("Received player input in DialogueManager: " + e.dialogueInput);
         }
 
