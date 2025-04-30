@@ -65,6 +65,10 @@ namespace BobaStop.Systems
             }
             
             apiClient.SendChatMessage(companionData.companionName, e.dialogueInput, ReturnData);
+            lines = new[] {
+                "Hmm..."
+            };
+            Populate();
             Debug.Log("Received player input in DialogueManager: " + e.dialogueInput);
         }
 
