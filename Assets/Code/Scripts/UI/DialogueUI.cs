@@ -9,6 +9,11 @@ namespace BobaStop.UI
 {
     public class DialogueUIManager : MonoBehaviour
     {
+        [SerializeField] private UIDocument playerInputDocument;
+        private VisualElement playerInputContainer;
+        private TextField playerInputField;
+        private Button submitButton;
+        
         [SerializeField] private UIDocument dialogueDocument;
         [SerializeField] private TMP_InputField textInput;
         [SerializeField] private float textSpeed;
@@ -36,10 +41,24 @@ namespace BobaStop.UI
             speakerName = root.Q<Label>("speaker-name");
 
             dialogueUI.style.display = DisplayStyle.None;
-            textInput.gameObject.SetActive(false);
+            
+            var playerInputRoot = playerInputDocument.rootVisualElement;
+            playerInputContainer = playerInputRoot.Q<VisualElement>("player-input-container");
+            playerInputField = playerInputRoot.Q<TextField>("player-input-field");
+            submitButton = playerInputRoot.Q<Button>("submit-button");
+            
+            playerInputContainer.style.display = DisplayStyle.None;
+
+            submitButton.clicked += () =>
+            {
+                OnDialogueInput?.Invoke(this, new OnDialogueInputEventArgs { dialogueInput = playerInputField.value });
+                ClearPlayerInputField();
+            };
+            
+            // textInput.gameObject.SetActive(false);
             
             dialogueManager = GameManager.Instance.dialogueManager;
-            textInput.onValidateInput += ValidateChar;
+            // textInput.onValidateInput += ValidateChar;
 
             dialogueManager.OnDoDialogue += DoDialogue;
             dialogueManager.OnInappropriateInput += DoInappropriateInput;
@@ -81,9 +100,11 @@ namespace BobaStop.UI
 
         private void AllowInput() {
             dialogueUI.style.display = DisplayStyle.None;
-            textInput.gameObject.SetActive(true);
-            textInput.ActivateInputField();
-            textInput.Select();
+            playerInputContainer.style.display = DisplayStyle.Flex;
+            playerInputField.Focus();
+            // textInput.gameObject.SetActive(true);
+            // textInput.ActivateInputField();
+            // textInput.Select();
         }
 
         private void ClearInputBox() => textInput.text = "";
@@ -142,5 +163,6 @@ namespace BobaStop.UI
                 textComponent.text = dialogueManager.GetLines()[index];
             }
         }
+        private void ClearPlayerInputField() => playerInputField.value = "";
     }
 }
