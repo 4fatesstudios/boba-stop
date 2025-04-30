@@ -49,7 +49,7 @@ async def hello_world():
 
 @app.post("/first_meeting/character/{character}")
 async def first_meeting(character: str, data: CombinedData):
-    context = retriever(character, f'first meeting with {data.name}')
+    context = retriever(data.name, f'first meeting with {data.name}')
     intro = start(character, data, context)
     result = await chat(character, intro, "")
     return result
@@ -57,7 +57,7 @@ async def first_meeting(character: str, data: CombinedData):
 
 @app.post("/new_conversation/character/{character}")
 async def new_conversation(character: str, data: CombinedData):
-    context = retriever(data.memory)
+    context = retriever(data.name, data.memory)
     prompt = create_new_chat(
         character,
         data,

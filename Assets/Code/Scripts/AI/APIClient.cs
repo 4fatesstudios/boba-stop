@@ -131,6 +131,7 @@ namespace BobaStop.AI {
                 memory = npcData.memory,
                 rapportLevel = (int)characterData.rapportLevel,
                 locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
+                // locationKnowledge = "This is a new Boba Shop in town.",
                 worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
                 worldTime = WorldContextManager.GetTime(),
                 worldWeather = WorldContextManager.GetWeather(),
