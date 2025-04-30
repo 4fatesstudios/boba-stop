@@ -8,7 +8,7 @@ __all__ = ['retriever', 'insert_post']
 def get_common_path():
     if getattr(sys, 'frozen', False):
         # Running from PyInstaller EXE: go up from dist/chromadb_fastapi/ to common/
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(sys.executable), "..", "..", "common"))
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(sys.executable), "..", "..", "..", "common"))
     else:
         # Running from source: assume script is in common/
         base_dir = os.path.dirname(os.path.abspath(__file__))
