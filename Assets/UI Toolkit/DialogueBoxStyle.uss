@@ -1,4 +1,3 @@
-/* Layout containers */
 .dialogue-content {
     flex-direction: row;
     align-items: center;
@@ -10,17 +9,20 @@
     margin-right: 20px;
 }
 
-/* Portrait elements */
 .dialogue-portrait {
     width: 150px;
     height: 150px;
     margin-right: 20px;
 }
 
-/* Text elements */
 .dialogue-text {
     flex-grow: 1;
     font-size: 35px;
+    white-space: normal;
+    -unity-text-align: upper-left;
+    overflow: visible;
+    padding: 20px;
+    flex-wrap: wrap;
 }
 
 .speaker-name {
