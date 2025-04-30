@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using BobaStop.NPCs;
 using UnityEngine;
+using BobaStop.Context;
 using UnityEngine.Networking;
+
 
 namespace BobaStop.AI {
     [System.Serializable]

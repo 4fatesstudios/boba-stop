@@ -148,10 +148,12 @@ namespace BobaStop.Systems {
         /// Replace save slot with a new save
         /// </summary>
         /// <param name="slot"></param>
-        public void CreateNewSaveGame(int slot) {
+        /// <param name="playerName"></param>
+        /// <param name="character"></param>
+        public void CreateNewSaveGame(int slot, string playerName, PlayerCharacter character) {
             saveSystem.SetSaveLoadSlot(slot);
             saveSystem.DeleteData();
-            LoadIntoGame(slot);
+            LoadIntoGame(slot, playerName, character);
         }
         
         /// <summary>
@@ -177,6 +179,31 @@ namespace BobaStop.Systems {
             
             UpdateSaveAssociations();
             saveSystem.LoadAllDataToGame();
+            
+            StartNewDay();
+        }
+
+        public void LoadIntoGame(int slot, string playerName, PlayerCharacter character) {
+            saveSystem.SetSaveLoadSlot(slot);
+            // if no save data found and not first load, do not continue
+            Debug.Log(saveSystem.SaveFileExists());
+            if (saveSystem.SaveFileExists()) {
+                saveSystem.LoadDataFromDisk(gameData);
+            }
+            if (gameData.firstLoad) {
+                Debug.Log("first load");
+                // do other first load things (ie cutscenes and stuff like that)
+            }
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            StartCoroutine(levelManagerHelper.LoadLevelAsync(levelManagerHelper.startingLevel, false));
+            
+            UpdateSaveAssociations();
+            saveSystem.LoadAllDataToGame();
+            
+            if (gameData.firstLoad) {
+                Player.Instance.GetPlayerDataManager().SetPlayerCharacter(character);
+                Player.Instance.GetPlayerDataManager().SetPlayerName(playerName);
+            }
             
             StartNewDay();
         }
