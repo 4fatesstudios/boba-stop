@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using BobaStop.Data.Level;
 using BobaStop.Systems;
 using UnityEngine;

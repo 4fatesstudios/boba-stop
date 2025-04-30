@@ -22,16 +22,53 @@ namespace BobaStop.AI {
     }
 
     public class APIClient : MonoBehaviour {
+        public static APIClient Instance { get; private set; }
+        
         [Header("FastAPI Settings")]
         public string baseUrl = "http://127.0.0.1:8000";
 
-        [Header("Test Options")]
-        public bool callFirstMeetingOnStart = true;
-        public bool callNewConversationOnStart = false;
-
         private string data;
 
-        void Start() {    
+        public bool IsReady { get; private set; } = false;
+        public float startupTimeout = 60f; // configurable in Inspector
+        
+        private void Awake() {
+            if (Instance == null) {
+                Instance = this;
+                DontDestroyOnLoad(gameObject); // make persistent across scenes
+            }
+            else {
+                Destroy(gameObject); // delete duplicates
+            }
+        }
+
+        private void Start() {
+            StartCoroutine(CheckServerReady());
+        }
+
+        private IEnumerator CheckServerReady() {
+            float startTime = Time.time;
+            string url = $"{baseUrl}/";
+
+            while (Time.time - startTime < startupTimeout) {
+                using (UnityWebRequest request = UnityWebRequest.Get(url)) {
+                    yield return request.SendWebRequest();
+
+                    if (request.result == UnityWebRequest.Result.Success && request.responseCode == 200) {
+                        // Optional: check actual JSON body for "message": "Hello, World!"
+                        var json = request.downloadHandler.text;
+                        if (json.Contains("Hello, World")) {
+                            IsReady = true;
+                            Debug.Log("APIClient is ready.");
+                            yield break;
+                        }
+                    }
+                }
+
+                yield return new WaitForSeconds(1f); // retry after 1 second
+            }
+
+            Debug.LogError("APIClient server startup timed out.");
         }
 
         // GET: /first_meeting/character/{character_name}

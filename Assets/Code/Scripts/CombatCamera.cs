@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using BobaStop.Characters;
-using BobaStop.Systems;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace BobaStop {
     public class Camera : MonoBehaviour {

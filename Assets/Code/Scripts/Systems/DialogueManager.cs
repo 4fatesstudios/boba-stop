@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BobaStop.AI;
+using BobaStop.Characters;
 using BobaStop.NPCs;
 using BobaStop.Systems.DataManagement;
 using BobaStop.UI;
@@ -9,7 +11,7 @@ using UnityEngine;
 
 namespace BobaStop.Systems
 {
-    public class DialogueManager {
+    public class DialogueManager : MonoBehaviour {
         private CompanionDataManager companionDataManager;
         private NPCDialogueData dialogueData;
         private string[] lines;
@@ -21,7 +23,6 @@ namespace BobaStop.Systems
         public event EventHandler<OnDoDialogueEventArgs> OnDoDialogue;
         public event EventHandler OnInappropriateInput;
         
-        [SerializeField] private GameObject apiClientComponent;
         private APIClient apiClient;
 
         private string dialogueText;
@@ -33,26 +34,32 @@ namespace BobaStop.Systems
             public bool isEndingDialogue = false;
         }
 
-        public void Start() {
-            if (apiClientComponent == null) {
-                apiClientComponent = new GameObject("APIClientObject");
-            }
-            UnityEngine.Object.DontDestroyOnLoad(apiClientComponent); // 👈 this line is key!
-
+        private IEnumerator Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
-            
+            LevelManagerHelper.OnLevelLoadedForDialogue += GenerateFirstMeeting; 
+
             companionData = new CompanionData {
                 companionName = "Karen",
                 rapportLevel = RapportLevel.Neutral,
                 rapportLevelProgress = 0
             };
 
-            apiClientComponent.AddComponent<APIClient>();
-            apiClient = apiClientComponent.GetComponent<APIClient>();
+            apiClient = APIClient.Instance;
+            yield return new WaitUntil(() => apiClient.IsReady);
+
+            // apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
+        }
+
+        private void GenerateFirstMeeting(object sender, LevelManagerHelper.OnLevelLoadedForDialogueArgs e) {
+            var companion = e.companion.GetComponent<Companion>();
             
-            apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
+            apiClient.GetFirstMeeting(companion.GetCompanionName(), ReturnData);
             Debug.Log("First meeting called in DialogueManager");
+        }
+
+        private IEnumerator AwaitAPIServer() {
+            yield return new WaitUntil(() => apiClient.IsReady);
         }
 
         private void OnInputPlayerDialogue(object sender, DialogueUIManager.OnDialogueInputEventArgs e) {

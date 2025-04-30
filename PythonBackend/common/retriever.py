@@ -1,10 +1,25 @@
+import os
 import chromadb
 import uuid
 from sentence_transformers import SentenceTransformer
 
 __all__ = ['retriever', 'insert_post']
 
-chroma_client = chromadb.PersistentClient(path="./chroma_db")  
+def get_common_path():
+    if getattr(sys, 'frozen', False):
+        # Running from PyInstaller EXE: go up from dist/chromadb_fastapi/ to common/
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(sys.executable), "..", "..", "..", "common"))
+    else:
+        # Running from source: assume script is in common/
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+    return base_dir
+
+import sys  # must be imported before get_common_path()
+
+COMMON_DIR = get_common_path()
+CHROMA_PATH = os.path.join(COMMON_DIR, "chroma_db")
+
+chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 
 karen_collection = chroma_client.get_or_create_collection("karen_history")
 jade_collection = chroma_client.get_or_create_collection("jade_history")

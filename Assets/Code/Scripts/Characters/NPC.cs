@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using BobaStop.Interactions;
 using BobaStop.NPCs;
 using BobaStop.Systems;

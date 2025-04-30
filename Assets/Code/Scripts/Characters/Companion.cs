@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using BobaStop.Systems;
 using BobaStop.Systems.DataManagement;
@@ -27,6 +25,10 @@ namespace BobaStop.Characters
             InvokeOnInteract();
             OnCompanionInteract?.Invoke(this, EventArgs.Empty);
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData, companionDataManager, true);
+        }
+
+        public string GetCompanionName() {
+            return companionName;
         }
 
         public override string GetInteractText() {
