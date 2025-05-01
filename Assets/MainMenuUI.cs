@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Diagnostics.SymbolStore;
 using BobaStop.AI;
 using BobaStop.Data.Saved;
 using BobaStop.Systems;
@@ -8,13 +9,8 @@ using UnityEngine;
 
 namespace BobaStop.UI
 {
-    public enum Scenario {
-        Default, Karen, Aster, Kaden, Jade
-    }
-    
     public class MainMenu : MonoBehaviour {
         private int currentSaveSlot = 7;
-        private Scenario currentScenario = Scenario.Default;
         private PlayerCharacter playerCharacter = PlayerCharacter.Unselected;
         [SerializeField] private TMP_InputField playerNameText;
         
@@ -23,6 +19,9 @@ namespace BobaStop.UI
         private string ollamaLoadingMessage = "Waiting on Ollama response";
         [SerializeField] private GameObject startingMenuGO;
         [SerializeField] private GameObject loadingGO;
+
+        private bool isScenario = false;
+        private string scenario;
 
         private void Start() {
             StartCoroutine(AnimateLoading());
@@ -70,17 +69,30 @@ namespace BobaStop.UI
         public void PlayerCharacterSelect(int slot) {
             currentSaveSlot = slot;
         }
-
-        public void SetScenario(Scenario scenario=Scenario.Default) {
-            currentScenario = scenario;
-            Debug.Log("hi");
+        
+        public void SetScenario(string scenario) {
+            isScenario = true;
+            switch (scenario) {
+                case "Aster":
+                case "Jade":
+                case "Karen":
+                case "Kaden":
+                    this.scenario = scenario;
+                    break;
+                default:
+                    isScenario = false;
+                    break;
+            }
         }
 
         public void PlayerCharacterSelectStart() {
             if (playerCharacter == PlayerCharacter.Unselected) return;
             if (string.IsNullOrWhiteSpace(playerNameText.text)) return;
             
-            GameManager.Instance.CreateNewSaveGame(currentSaveSlot, playerNameText.text, playerCharacter);
+            if (isScenario)
+                GameManager.Instance.LoadIntoScenario(scenario);
+            else
+                GameManager.Instance.CreateNewSaveGame(currentSaveSlot, playerNameText.text, playerCharacter);
         }
 
         public void SelectBruce() {

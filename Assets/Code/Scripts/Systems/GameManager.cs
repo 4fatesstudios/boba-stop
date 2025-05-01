@@ -155,6 +155,24 @@ namespace BobaStop.Systems {
             saveSystem.DeleteData();
             LoadIntoGame(slot, playerName, character);
         }
+
+        public void LoadIntoScenario(string scenario) {
+            var scene = scenario switch {
+                "Aster" => "TownSquare",
+                "Jade" => "HomeOutside",
+                "Karen" => "HomeInside",
+                "Kaden" => "TownSquare",
+                _ => "DevScene1"
+            };
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            levelManagerHelper.SwitchScene(Resources.Load<LevelProperties>($"Data/Level/{scene}"));
+            
+            UpdateSaveAssociations();
+            saveSystem.LoadAllDataToGame();
+            
+            StartNewDay();
+        }
         
         /// <summary>
         /// Load data from indicated save slot
