@@ -124,10 +124,10 @@ async def chat(character_name, intro, prompt):
 
     print(response_content)
 
-    if "<GOODBYE>" in response_content:
-        # Optionally remove it before sending to Unity
-        clean_response = response_content.replace("<GOODBYE>", "").strip()
-        return { "response": clean_response, "goodbye": "true" }
+    # if "<GOODBYE>" in response_content:
+    #     # Optionally remove it before sending to Unity
+    #     clean_response = response_content.replace("<GOODBYE>", "").strip()
+    #     return { "response": clean_response, "goodbye": "true" }
     return { "response": response_content, "goodbye": "false" }
 
 async def summarize_chat(character_name, chat_history):
