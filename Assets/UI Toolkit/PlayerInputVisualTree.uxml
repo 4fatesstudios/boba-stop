@@ -1,9 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/PlayerInputStyle.uss?fileID=7433441132597879392&amp;guid=8ac93ec6f33b84472971160b12f5c9f0&amp;type=3#PlayerInputStyle" />
     <ui:VisualElement name="Container" style="flex-grow: 1;">
-        <ui:VisualElement name="player-input-container" class="player-input-container">
+        <ui:VisualElement name="player-input-container" class="player-input-container" style="height: 500px;">
             <ui:TextField name="player-input-field" placeholder-text="Enter your input here..." value="What will you say?" class="player-input-field" style="-unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/elv-pixels-06.ttf?fileID=12800000&amp;guid=428578b61c1dd4961892cb21fc0a4e7d&amp;type=3#elv-pixels-06&quot;);" />
-            <ui:Button name="submit-button" text="Submit" class="submit-button" style="-unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/elv-pixels-04.ttf?fileID=12800000&amp;guid=6a01ae7b0dcb64d9da4347a4ef19f2cd&amp;type=3#elv-pixels-04&quot;); background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventorySlot.png?fileID=21300000&amp;guid=59b9ffaff015c430b8bd282fe433b1cc&amp;type=3#InventorySlot&quot;);" />
+            <ui:Button name="submit-button" text="Submit" class="button" style="-unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/elv-pixels-04.ttf?fileID=12800000&amp;guid=6a01ae7b0dcb64d9da4347a4ef19f2cd&amp;type=3#elv-pixels-04&quot;); background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventorySlot.png?fileID=21300000&amp;guid=59b9ffaff015c430b8bd282fe433b1cc&amp;type=3#InventorySlot&quot;);" />
+            <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exit-button" class="button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -13,6 +13,7 @@ namespace BobaStop.UI
         private VisualElement playerInputContainer;
         private TextField playerInputField;
         private Button submitButton;
+        private Button exitButton;
         
         [SerializeField] private UIDocument dialogueDocument;
         [SerializeField] private TMP_InputField textInput;
@@ -46,6 +47,7 @@ namespace BobaStop.UI
             playerInputContainer = playerInputRoot.Q<VisualElement>("player-input-container");
             playerInputField = playerInputRoot.Q<TextField>("player-input-field");
             submitButton = playerInputRoot.Q<Button>("submit-button");
+            exitButton = playerInputRoot.Q<Button>("exit-button");
             
             playerInputContainer.style.display = DisplayStyle.None;
 
@@ -66,6 +68,16 @@ namespace BobaStop.UI
                         ClearPlayerInputField(); 
                     }
                 }
+            };
+            
+            exitButton.clicked += () =>
+            {
+                StopAllCoroutines(); 
+                dialogueUI.style.display = DisplayStyle.None; 
+                playerInputContainer.style.display = DisplayStyle.None; 
+                OnEndDialogue?.Invoke(this, EventArgs.Empty); 
+                GameInput.Instance.EnableInputMapOnly(ActionMap.Default); 
+                GameManager.Instance.UnpauseDay(); 
             };
             
             

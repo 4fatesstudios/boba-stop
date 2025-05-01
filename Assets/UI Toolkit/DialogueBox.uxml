@@ -4,25 +4,10 @@
         <ui:VisualElement name="main-content" style="flex-grow: 1; height: 70%;" />
         <ui:VisualElement name="dialogue-content" class="dialogue-content" style="flex-grow: 1; flex-direction: row; align-items: center; background-image: url(&quot;project://database/Assets/Visuals/Placeholder/UI/InventoryBackground.png?fileID=21300000&amp;guid=0da2a21d4c1c54e67bcf82b1835aa87f&amp;type=3#InventoryBackground&quot;);">
             <ui:VisualElement name="portrait-container" class="portrait-container" style="flex-direction: column; align-items: center; margin-right: 20px;">
-                <ui:Label name="speaker-name" text="Speaker" class="speaker-name" style="font-size: 20px; margin-bottom: 10px; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/NeatpixelsMinimal.ttf?fileID=12800000&amp;guid=1d4c5fb3b32574c879b90f25c75167e6&amp;type=3#NeatpixelsMinimal&quot;);" />
-                <ui:VisualElement name="dialogue-portrait" class="dialogue-portrait" style="width: 100px; height: 100px; background-color: rgb(0, 0, 0);" />
+                <ui:Label name="speaker-name" text="Speaker" class="speaker-name" style="font-size: 25px; margin-bottom: 10px; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/NeatpixelsMinimal.ttf?fileID=12800000&amp;guid=1d4c5fb3b32574c879b90f25c75167e6&amp;type=3#NeatpixelsMinimal&quot;);" />
+                <ui:VisualElement name="dialogue-portrait" class="dialogue-portrait" style="width: 150px; height: 150px; background-color: rgb(0, 0, 0);" />
             </ui:VisualElement>
-            <ui:Label tabindex="-1" 
-                      text="This is example text." 
-                      parse-escape-sequences="true" 
-                      display-tooltip-when-elided="true" 
-                      name="dialogue-text" 
-                      class="dialogue-text" 
-                      style="flex-grow: 1; 
-                font-size: 25px; 
-                height: 250px; 
-                -unity-font-definition: initial; 
-                -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/elv-pixels-06.ttf?fileID=12800000&amp;guid=428578b61c1dd4961892cb21fc0a4e7d&amp;type=3#elv-pixels-06&quot;); 
-                margin-top: 25px;
-                white-space: normal;
-                -unity-text-wrap: word;
-                width: 80%;
-                max-width: 80%;" />
+            <ui:Label tabindex="-1" text="This is example text." parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-text" class="dialogue-text" style="flex-grow: 1; font-size: 45px; height: 250px; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Visuals/Fonts/elv-pixels-06.ttf?fileID=12800000&amp;guid=428578b61c1dd4961892cb21fc0a4e7d&amp;type=3#elv-pixels-06&quot;); margin-top: 25px; white-space: normal; -unity-text-wrap: word; width: 80%; max-width: 80%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
