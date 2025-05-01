@@ -1685,3 +1685,8 @@
 [Server-ERR]     result = await summarize_chat(character)
 [Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
 [Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server-ERR] INFO:     Started server process [28332]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5429 - "GET / HTTP/1.1" 200 OK

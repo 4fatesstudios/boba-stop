@@ -651,13 +651,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6267279961754404495, guid: 01940aaf800b2684481447a27c6fcc92,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6267279961754404495, guid: 01940aaf800b2684481447a27c6fcc92,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6267279961754404495, guid: 01940aaf800b2684481447a27c6fcc92,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 115096124}
   m_SourcePrefab: {fileID: 100100000, guid: 01940aaf800b2684481447a27c6fcc92, type: 3}
 --- !u!4 &48137609 stripped
 Transform:
@@ -1712,6 +1721,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &115096121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6267279961754404495, guid: 01940aaf800b2684481447a27c6fcc92,
+    type: 3}
+  m_PrefabInstance: {fileID: 48137608}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &115096124
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115096121}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2676217125870792879, guid: 6f6cb70c692b9a249b94ac76ee5d9637, type: 3}
 --- !u!1 &124870502
 GameObject:
   m_ObjectHideFlags: 0
@@ -4352,6 +4389,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &470072741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4471104727379318051, guid: dc8dfcb283da71141800e854e7c80286,
+    type: 3}
+  m_PrefabInstance: {fileID: 1706015018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &475373823
 GameObject:
   m_ObjectHideFlags: 0
@@ -9699,6 +9742,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2259549719353666618, guid: 4bc931c0b9f058c45af787a30ccef666,
         type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259549719353666618, guid: 4bc931c0b9f058c45af787a30ccef666,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -9755,7 +9803,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2259549719353666618, guid: 4bc931c0b9f058c45af787a30ccef666,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2072917668}
   m_SourcePrefab: {fileID: 100100000, guid: 4bc931c0b9f058c45af787a30ccef666, type: 3}
 --- !u!4 &1035469962 stripped
 Transform:
@@ -26134,7 +26186,7 @@ GameObject:
   - component: {fileID: 1336704707}
   - component: {fileID: 1336704709}
   - component: {fileID: 1336704708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BobaStop Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30472,6 +30524,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pHouse_Wood_Sign_09
       objectReference: {fileID: 0}
+    - target: {fileID: 4471104727379318051, guid: dc8dfcb283da71141800e854e7c80286,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -30479,7 +30536,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1336704707}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4471104727379318051, guid: dc8dfcb283da71141800e854e7c80286,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1706015022}
   m_SourcePrefab: {fileID: 100100000, guid: dc8dfcb283da71141800e854e7c80286, type: 3}
 --- !u!4 &1706015019 stripped
 Transform:
@@ -30487,6 +30548,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1706015018}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &1706015022
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470072741}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7460201573863005013, guid: 0757ce518364a9740b69c537da823487, type: 3}
 --- !u!1 &1724619481
 GameObject:
   m_ObjectHideFlags: 0
@@ -34774,6 +34857,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2072917665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2259549719353666618, guid: 4bc931c0b9f058c45af787a30ccef666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1035469961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2072917668
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072917665}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 835241042432443440, guid: d5ccccf9e63be19419ac215c4f23d9bd, type: 3}
 --- !u!1 &2075560590
 GameObject:
   m_ObjectHideFlags: 0
