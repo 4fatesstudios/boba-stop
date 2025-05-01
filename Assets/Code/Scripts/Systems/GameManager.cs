@@ -162,7 +162,7 @@ namespace BobaStop.Systems {
 
         public void LoadIntoScenario(string scenario, string playerName, PlayerCharacter character) {
             var scene = scenario switch {
-                "Aster" => "TownSquare",
+                "Aster" => "HomeOutside2",
                 "Jade" => "HomeOutside",
                 "Karen" => "HomeInside",
                 "Kaden" => "TownSquare",
