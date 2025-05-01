@@ -1610,17 +1610,33 @@
 [Server-ERR]     result = await summarize_chat(character)
 [Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
 [Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
+[Server-ERR] INFO:     Started server process [42296]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:17076 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [32912]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:17138 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [38740]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:17350 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [41956]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:17378 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [37572]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:17646 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [41364]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:17779 - "GET / HTTP/1.1" 200 OK
