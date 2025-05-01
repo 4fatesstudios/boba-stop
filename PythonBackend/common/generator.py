@@ -41,10 +41,10 @@ Your knowledge of this location is {data.location_knowledge}
 The time is {data.world_time}
 The weather is {data.world_weather}
  
-Your relation with Mira is {data.rapport_level}
-Your past conversations with Mira are none
+Your relation with {player_name} is {data.rapport_level}
+Your past conversations with {player_name} are none
 
-The current situation is that you just got her drink at the Mira's boba shop. You think that Mira got your order wrong by adding boba and you are not happy about it
+The current situation is that {data.current_context}
 
 Respond as {data.name} to {player_name}
 """
@@ -85,10 +85,10 @@ Your knowledge of this location is {data.location_knowledge}
 The time is {data.world_time}
 The weather is {data.world_weather}
  
-Your relation with Mira is {data.rapport_level}
-Your past conversations with Mira are {retrieved_context}
+Your relation with {player_name} is {data.rapport_level}
+Your past conversations with {player_name} are {retrieved_context}
 
-The current situation is you ran into {player_name} at {data.world_location}.
+The current situation is that {data.current_context}
 
 Respond as {data.name} to {player_name}
 """
@@ -109,6 +109,7 @@ async def chat(character_name, intro, prompt):
 ### Instructions:
 {character_name} : {prompt}
 ### Response: """
+        print("prompt: " + new_prompt + "\n\n")
 
     messages.append({"role": "user", "content": new_prompt})
 
@@ -130,7 +131,7 @@ async def chat(character_name, intro, prompt):
     #     return { "response": clean_response, "goodbye": "true" }
     return { "response": response_content, "goodbye": "false" }
 
-async def summarize_chat(character_name, chat_history):
+async def summarize_chat(character_name):
     prompt = "Summarize the chat history in a single line"
     
     messages.append({"role": "user", "content": prompt})
@@ -153,8 +154,9 @@ def create_text(character_name, title):
     global messages
 
     text = title + "\n\n"
-    for message in messages:
+    for message in messages[1:]:
         message_content = message['role'] + message['content']
         text += message_content + "\n"
+    print("text: " + text + "\n\n")
 
     return text

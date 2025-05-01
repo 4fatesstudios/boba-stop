@@ -49,11 +49,11 @@ namespace BobaStop.Systems
             companionData = companion.GetCompanionDataManager().GetCompanionData();
             dialogueData = companion.GetNPCDialogueData();
             if (isFirstMeeting) {
-                apiClient.GetFirstMeeting(companionData, dialogueData, ReturnData);
+                apiClient.GetFirstMeeting(companionData, dialogueData, StartData);
                 Debug.Log("First meeting called in DialogueManager");
                 isFirstMeeting = false;
             } else {
-                apiClient.SendNewConversation(companionData, dialogueData, ReturnData);
+                apiClient.SendNewConversation(companionData, dialogueData, StartData);
                 Debug.Log("New conversation called in DialogueManager");
             }
         }
@@ -89,6 +89,11 @@ namespace BobaStop.Systems
             return dialogueData;
         }
 
+        private void StartData(string response, string goodbye) {
+            Debug.Log("Received first meeting in DialogueManager: " + response);
+            dialogueText = response;
+        }
+
         private void ReturnData(string response, string goodbye){
             if (goodbye == "error") {
                 Debug.LogError("Error in API response");
@@ -106,6 +111,7 @@ namespace BobaStop.Systems
             }
             dialogueData.memory += memory;
             dialogueData.memory += ",\n";
+            Debug.Log("Received memory in DialogueManager: " + memory);
         }
 
         private void PopulateLines(string goodbye) {
