@@ -80,6 +80,10 @@ namespace BobaStop.Systems {
             dayCycleManager.Update();
             shopManager.Update();
             scheduleManager.Update();
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                levelManagerHelper.SwitchScene(Resources.Load<LevelProperties>("Data/Level/StartupMenu"));
+            }
         }
         #endregion
 
