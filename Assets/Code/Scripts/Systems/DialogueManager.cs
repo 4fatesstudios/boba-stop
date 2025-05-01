@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace BobaStop.Systems
 {
-    public class DialogueManager : MonoBehaviour {
+    public class DialogueManager {
         private CompanionDataManager companionDataManager;
         private NPCDialogueData dialogueData;
         private string[] lines;
@@ -35,16 +35,15 @@ namespace BobaStop.Systems
             public bool isInitiatingDialogue = false;
             public bool isEndingDialogue = false;
         }
-
-        private void Start() {
+        
+        public void Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
             Companion.OnCompanionInitialized += GenerateConversationStart;
             
             apiClient = APIClient.Instance;
-            // yield return new WaitUntil(() => apiClient.IsReady);
         }
-
+        
         private void GenerateConversationStart(object sender, EventArgs e) {
             var companion = sender as Companion;
             if (isFirstMeeting) {
@@ -55,10 +54,6 @@ namespace BobaStop.Systems
                 apiClient.SendNewConversation(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
                 Debug.Log("New conversation called in DialogueManager");
             }
-        }
-
-        private IEnumerator AwaitAPIServer() {
-            yield return new WaitUntil(() => apiClient.IsReady);
         }
 
         private void OnInputPlayerDialogue(object sender, DialogueUIManager.OnDialogueInputEventArgs e) {
