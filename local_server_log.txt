@@ -1640,3 +1640,205 @@
 [Server-ERR] INFO:     Application startup complete.
 [Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 [Server] INFO:     127.0.0.1:17779 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [22644]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:2377 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [12200]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:2420 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [18704]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:2654 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [16688]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:3751 - "GET / HTTP/1.1" 200 OK
+[Server] INFO:     127.0.0.1:3768 - "GET /summarize_chat/character/Jade HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server-ERR] INFO:     Started server process [28332]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5429 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [29384]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:8326 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server] Write a single reply from Karen only
+[Server-ERR] Traceback (most recent call last):
+[Server] 
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server] 
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server] 
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server] Background
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server-ERR]     result = await summarize_chat(character)
+[Server] Location Knowledge: boba shop
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server] Time: 8:00 AM
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: import React from 'react';
+[Server] import { useSelector } from 'react-redux';
+[Server] 
+[Server] const Profile = () => {
+[Server]   const state = useSelector(state => state);
+[Server]   return (
+[Server]     <div>
+[Server]       {state.user ? `Name: ${state.user.name}` : 'Not logged in'}
+[Server]     </div>
+[Server]   );
+[Server] };
+[Server] 
+[Server] export default Profile;
+[Server] INFO:     127.0.0.1:8326 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server] INFO:     127.0.0.1:8326 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server] INFO:     127.0.0.1:8345 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server-ERR] INFO:     Started server process [28216]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:9521 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [26488]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:9724 - "GET / HTTP/1.1" 200 OK

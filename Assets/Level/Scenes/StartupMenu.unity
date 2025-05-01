@@ -155,6 +155,20 @@ MonoBehaviour:
     type: 3}
   musicObject: {fileID: 3910151974889802695, guid: 18df978fcd1818f418401d729d4e5620,
     type: 3}
+  musicClips:
+  - level: {fileID: 11400000, guid: 1a70f636d3acda84ca45d68e1acf5d66, type: 2}
+    clip: {fileID: 8300000, guid: 8861003266ead5d4ca0f9ecd98f79f23, type: 3}
+    volume: 1
+  - level: {fileID: 11400000, guid: 48dbded093fee6c448422b3269ba38c5, type: 2}
+    clip: {fileID: 8300000, guid: 8861003266ead5d4ca0f9ecd98f79f23, type: 3}
+    volume: 0.5
+  - level: {fileID: 11400000, guid: 4b25cdb439a12e64982cd8a6bf5e33b4, type: 2}
+    clip: {fileID: 8300000, guid: 8861003266ead5d4ca0f9ecd98f79f23, type: 3}
+    volume: 0.5
+  - level: {fileID: 11400000, guid: 0ce359082e86a3143b3e5ebafa9d944e, type: 2}
+    clip: {fileID: 8300000, guid: 27331412030d8dd4c8dba6bdfac6016b, type: 3}
+    volume: 0.5
+  fadeDuration: 1.5
 --- !u!4 &593667547
 Transform:
   m_ObjectHideFlags: 0

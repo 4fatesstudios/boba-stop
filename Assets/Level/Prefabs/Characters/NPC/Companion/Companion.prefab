@@ -8,6 +8,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1209187959081484475, guid: 508d5fcd5407f134d863bb25f719709c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1209187959081484475, guid: 508d5fcd5407f134d863bb25f719709c,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8122229861449399294, guid: 508d5fcd5407f134d863bb25f719709c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -61,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 8934818505459875391, guid: 508d5fcd5407f134d863bb25f719709c,
         type: 3}
       propertyPath: m_Name
-      value: NPC
+      value: Companion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
