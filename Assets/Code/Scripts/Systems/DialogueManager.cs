@@ -35,36 +35,31 @@ namespace BobaStop.Systems
             public bool isInitiatingDialogue = false;
             public bool isEndingDialogue = false;
         }
-        
+
         public void Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
             Companion.OnCompanionInitialized += GenerateConversationStart;
-
-            // companionData = new CompanionData {
-            //     companionName = "Karen",
-            //     rapportLevel = RapportLevel.Neutral,
-            //     rapportLevelProgress = 0
-            // };
-
+            
             apiClient = APIClient.Instance;
         }
         
         private void GenerateConversationStart(object sender, EventArgs e) {
             var companion = sender as Companion;
-            if (companion == null) {
-                Debug.Log("Companion null in GenerateConversationStart somehow idk how this would even happen");
-                return;
-            }
-            Debug.Log("Hi");
+            companionData = companion.GetCompanionDataManager().GetCompanionData();
+            dialogueData = companion.GetNPCDialogueData();
             if (isFirstMeeting) {
-                apiClient.GetFirstMeeting(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
+                apiClient.GetFirstMeeting(companionData, dialogueData, ReturnData);
                 Debug.Log("First meeting called in DialogueManager");
                 isFirstMeeting = false;
-            } else  {
-                apiClient.SendNewConversation(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
+            } else {
+                apiClient.SendNewConversation(companionData, dialogueData, ReturnData);
                 Debug.Log("New conversation called in DialogueManager");
             }
+        }
+
+        private IEnumerator AwaitAPIServer() {
+            yield return new WaitUntil(() => apiClient.IsReady);
         }
 
         private void OnInputPlayerDialogue(object sender, DialogueUIManager.OnDialogueInputEventArgs e) {
