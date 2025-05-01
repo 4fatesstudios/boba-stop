@@ -37,8 +37,7 @@ namespace BobaStop.Systems
 
             // Play music for initial scene (e.g., StartupMenu) right away
             if (currentScene == "StartupMenu") {
-                Debug.Log("hdjidjidididjifjiaefj");
-                PlayStartupMenuMusic(currentScene);
+                PlayStartupMenuMusic();
                 // Subscribe AFTER first frame so everything can initialize properly
                 StartCoroutine(SubscribeToSceneLoadedNextFrame());
             } else {
@@ -51,8 +50,8 @@ namespace BobaStop.Systems
             SceneManager.sceneLoaded += PlayLevelMusic;
         }
 
-        private void PlayStartupMenuMusic(string sceneName) {
-            StartCoroutine(FadeInNewMusic(musicClips[0].clip, fadeDuration));
+        private void PlayStartupMenuMusic() {
+            StartCoroutine(FadeInNewMusic(musicClips[0].clip, musicClips[0].volume));
         }
 
         private void PlayLevelMusic(Scene scene, LoadSceneMode mode) {

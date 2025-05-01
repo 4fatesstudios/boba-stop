@@ -21,14 +21,13 @@ namespace BobaStop
         }
 
         private void Update() {
-            // if (Input.GetKeyDown(KeyCode.N)) {
-            //     Debug.Log("hi");
-            //     PlayRapportAnimation(true);
-            // }
-            //
-            // if (Input.GetKeyUp(KeyCode.M)) {
-            //     PlayRapportAnimation(false);
-            // }
+            if (Input.GetKeyDown(KeyCode.N)) {
+                PlayRapportAnimation(true);
+            }
+            
+            if (Input.GetKeyUp(KeyCode.M)) {
+                PlayRapportAnimation(false);
+            }
         }
 
         private void PlayRapportAnimation(object sender, OnRapportUpdateArgs e) {
