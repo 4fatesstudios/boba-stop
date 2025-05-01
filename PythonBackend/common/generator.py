@@ -16,13 +16,13 @@ def start(player_name, data, retrieved_context):
 Name: {data.name}
 Age: {data.age}
 Role: {data.role}
-Living Condition: {data.living_conditions}
+Living Condition: {data.living_condition}
 Personality: {data.personality}
 Beliefs: {data.beliefs}
 Speaking Style: {data.speaking_style}
 Knowledge Scope: {data.knowledge_scope}
 Backstory: {data.backstory}
-Memory: {data.memories}
+Memory: {data.memory}
 
 World Context
 Current Location: {data.world_location}
@@ -58,7 +58,7 @@ def create_new_chat(player_name, data, retrieved_context):
 Name: {data.name}
 Age: {data.age}
 Role: {data.role}
-Living Condition: {data.living_conditions}
+Living Condition: {data.living_condition}
 Personality: {data.personality}
 Beliefs: {data.beliefs}
 Speaking Style: {data.speaking_style}

@@ -16,6 +16,10 @@ public class LocalServerManager : MonoBehaviour
     private string serverExecutable;
     private string ollamaExecutable;
     private bool isWindows;
+    
+    private string logBuffer = "";
+    private Vector2 scrollPos;
+    private string logFilePath = "local_server_log.txt";  // Path to the log file
 
     private void Awake() {
         if (Instance == null) {
@@ -60,7 +64,6 @@ public class LocalServerManager : MonoBehaviour
 #endif
     }
 
-
     private void StartProcesses()
     {
         try
@@ -70,13 +73,19 @@ public class LocalServerManager : MonoBehaviour
                 FileName = ollamaExecutable,
                 WorkingDirectory = backendPath,
                 UseShellExecute = false,
-                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
             };
 
-            // Check if Ollama already running
             if (!IsProcessRunning(Path.GetFileNameWithoutExtension(ollamaExecutable)))
             {
                 ollamaProcess = Process.Start(ollamaStartInfo);
+                ollamaProcess.OutputDataReceived += (s, e) => { if (e.Data != null) LogMessage($"[Ollama] {e.Data}"); };
+                ollamaProcess.ErrorDataReceived += (s, e) => { if (e.Data != null) LogMessage($"[Ollama-ERR] {e.Data}"); };
+                ollamaProcess.BeginOutputReadLine();
+                ollamaProcess.BeginErrorReadLine();
+
                 Debug.Log("Ollama started.");
             }
             else
@@ -89,17 +98,23 @@ public class LocalServerManager : MonoBehaviour
                 FileName = serverExecutable,
                 WorkingDirectory = backendPath,
                 UseShellExecute = false,
-                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
             };
-
-            // Set OLLAMA_MODELS environment variable
             serverStartInfo.EnvironmentVariables["OLLAMA_MODELS"] = modelPath;
 
             serverProcess = Process.Start(serverStartInfo);
+            serverProcess.OutputDataReceived += (s, e) => { if (e.Data != null) LogMessage($"[Server] {e.Data}"); };
+            serverProcess.ErrorDataReceived += (s, e) => { if (e.Data != null) LogMessage($"[Server-ERR] {e.Data}"); };
+            serverProcess.BeginOutputReadLine();
+            serverProcess.BeginErrorReadLine();
+
             Debug.Log("FastAPI server started.");
         }
         catch (Exception ex)
         {
+            LogMessage($"[ERROR] Failed to start processes: {ex.Message}");
             Debug.LogError($"Failed to start processes: {ex.Message}");
         }
     }
@@ -111,6 +126,33 @@ public class LocalServerManager : MonoBehaviour
             if (!p.HasExited) return true;
         }
         return false;
+    }
+
+    private void LogMessage(string message)
+    {
+        logBuffer += message + "\n";
+
+        // Output to the log file
+        try
+        {
+            File.AppendAllText(logFilePath, message + "\n");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error writing to log file: {ex.Message}");
+        }
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
+        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("API & Ollama Logs", GUILayout.Height(20));
+        scrollPos = GUILayout.BeginScrollView(scrollPos);
+        GUILayout.Label(logBuffer, GUI.skin.label);
+        GUILayout.EndScrollView();
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
     }
 
     private void OnApplicationQuit()

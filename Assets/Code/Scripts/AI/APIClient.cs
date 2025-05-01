@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using BobaStop.Characters;
 using BobaStop.NPCs;
 using BobaStop.Context;
 using UnityEngine;
@@ -19,23 +20,24 @@ namespace BobaStop.AI {
         public string current_story;
     }
 
+    [System.Serializable]
     public class CombinedData {
         public string name;
         public string age;
         public string role;
-        public string livingCondition;
+        public string living_condition;
         public string personality;
         public string beliefs;
-        public string speakingStyle;
-        public string knowledgeScope;
+        public string speaking_style;
+        public string knowledge_scope;
         public string backstory;
         public string memory;
-        public int rapportLevel;
-        public string locationKnowledge;
-        public string worldLocation;
-        public string worldTime;
-        public string worldWeather;
-        public string currentLevel;
+        public string location_knowledge;
+        public int rapport_level;
+        public string world_location;
+        public string world_time;
+        public string world_weather;
+        public string level_context;
     }
 
     [System.Serializable]
@@ -102,26 +104,26 @@ namespace BobaStop.AI {
         }
 
         private IEnumerator GetFirstMeetingIEnumerator(CompanionData characterData, NPCDialogueData npcData, Action<string, string> onComplete) {
-            string url = $"{baseUrl}/first_meeting/character/{characterData.companionName}";
+            string url = $"{baseUrl}/first_meeting/character/{Player.Instance.GetPlayerDataManager().GetPlayerName()}";
 
             CombinedData requestData = new CombinedData {
                 name = characterData.companionName,
                 age = npcData.age,
                 role = npcData.role,
-                livingCondition = npcData.livingCondition,
+                living_condition = npcData.livingCondition,
                 personality = npcData.personality,
                 beliefs = npcData.beliefs,
-                speakingStyle = npcData.speakingStyle,
-                knowledgeScope = npcData.knowledgeScope,
+                speaking_style = npcData.speakingStyle,
+                knowledge_scope = npcData.knowledgeScope,
                 backstory = npcData.backstory,
                 memory = npcData.memory,
-                rapportLevel = (int)characterData.rapportLevel,
+                location_knowledge = "boba shop",
+                rapport_level = (int)characterData.rapportLevel,
                 // locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
-                locationKnowledge = "boba shop",
-                worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
-                worldTime = WorldContextManager.GetTime(),
-                worldWeather = WorldContextManager.GetWeather(),
-                currentLevel = WorldContextManager.GetCurrentLevelContext()[0]
+                world_location = WorldContextManager.GetCurrentLevelAreaName(),
+                world_time = WorldContextManager.GetTime(),
+                world_weather = WorldContextManager.GetWeather(),
+                level_context = WorldContextManager.GetCurrentLevelContext()[0]
             };
 
             string json = JsonUtility.ToJson(requestData);
@@ -155,26 +157,26 @@ namespace BobaStop.AI {
             StartCoroutine(SendNewConversationIEnumerator(characterData, npcData, onComplete));
         }
         private IEnumerator SendNewConversationIEnumerator(CompanionData characterData, NPCDialogueData npcData, Action<string, string> onComplete) {
-            string url = $"{baseUrl}/new_conversation/character/{characterData.companionName}";
+            string url = $"{baseUrl}/new_conversation/character/{Player.Instance.GetPlayerDataManager().GetPlayerName()}";
 
             CombinedData requestData = new CombinedData {
                 name = characterData.companionName,
                 age = npcData.age,
                 role = npcData.role,
-                livingCondition = npcData.livingCondition,
+                living_condition = npcData.livingCondition,
                 personality = npcData.personality,
                 beliefs = npcData.beliefs,
-                speakingStyle = npcData.speakingStyle,
-                knowledgeScope = npcData.knowledgeScope,
+                speaking_style = npcData.speakingStyle,
+                knowledge_scope = npcData.knowledgeScope,
                 backstory = npcData.backstory,
                 memory = npcData.memory,
-                rapportLevel = (int)characterData.rapportLevel,
+                location_knowledge = "This is a new Boba Shop in town.",
+                rapport_level = (int)characterData.rapportLevel,
                 // locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
-                locationKnowledge = "This is a new Boba Shop in town.",
-                worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
-                worldTime = WorldContextManager.GetTime(),
-                worldWeather = WorldContextManager.GetWeather(),
-                currentLevel = WorldContextManager.GetCurrentLevelContext()[1]
+                world_location = WorldContextManager.GetCurrentLevelAreaName(),
+                world_time = WorldContextManager.GetTime(),
+                world_weather = WorldContextManager.GetWeather(),
+                level_context = WorldContextManager.GetCurrentLevelContext()[1]
             };
 
             string json = JsonUtility.ToJson(requestData);
