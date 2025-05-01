@@ -1640,3 +1640,48 @@
 [Server-ERR] INFO:     Application startup complete.
 [Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 [Server] INFO:     127.0.0.1:17779 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [22644]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:2377 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [12200]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:2420 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [18704]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:2654 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [16688]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:3751 - "GET / HTTP/1.1" 200 OK
+[Server] INFO:     127.0.0.1:3768 - "GET /summarize_chat/character/Jade HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
