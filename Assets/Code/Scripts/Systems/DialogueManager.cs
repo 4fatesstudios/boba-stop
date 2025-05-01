@@ -56,7 +56,7 @@ namespace BobaStop.Systems
         private void GenerateFirstMeeting(object sender, LevelManagerHelper.OnLevelLoadedForDialogueArgs e) {
             var companion = e.companion.GetComponent<Companion>();
             
-            apiClient.GetFirstMeeting(companion.GetCompanionName(), ReturnData);
+            // apiClient.GetFirstMeeting(companion.GetCompanionName(), ReturnData);
             Debug.Log("First meeting called in DialogueManager");
         }
 
