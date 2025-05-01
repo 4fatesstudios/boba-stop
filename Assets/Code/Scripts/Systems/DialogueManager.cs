@@ -39,33 +39,19 @@ namespace BobaStop.Systems
         private void Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
-            // LevelManagerHelper.OnLevelLoadedForDialogue += GenerateConversationStart;
             Companion.OnCompanionInitialized += GenerateConversationStart;
-
-            // companionData = new CompanionData {
-            //     companionName = "Karen",
-            //     rapportLevel = RapportLevel.Neutral,
-            //     rapportLevelProgress = 0
-            // };
-
-            // apiClient = gameObject.AddComponent<APIClient>();
+            
             apiClient = APIClient.Instance;
             // yield return new WaitUntil(() => apiClient.IsReady);
-            // apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
         }
 
         private void GenerateConversationStart(object sender, EventArgs e) {
             var companion = sender as Companion;
-            if (companion == null) {
-                Debug.Log("Companion null in GenerateConversationStart somehow idk how this would even happen");
-                return;
-            }
-            Debug.Log("Hi");
             if (isFirstMeeting) {
                 apiClient.GetFirstMeeting(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
                 Debug.Log("First meeting called in DialogueManager");
                 isFirstMeeting = false;
-            } else  {
+            } else {
                 apiClient.SendNewConversation(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
                 Debug.Log("New conversation called in DialogueManager");
             }

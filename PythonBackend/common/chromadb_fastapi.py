@@ -51,7 +51,7 @@ async def hello_world():
 async def first_meeting(character: str, data: CombinedData):
     context = retriever(data.name, f'first meeting with {data.name}')
     intro = start(character, data, context)
-    result = await chat(character, intro, "")
+    result = await chat(data.name, intro, "")
     return result
 
 
@@ -63,7 +63,7 @@ async def new_conversation(character: str, data: CombinedData):
         data,
         context
     )
-    result = await chat(character, prompt)
+    result = await chat(data.name, prompt)
     return result
 
 

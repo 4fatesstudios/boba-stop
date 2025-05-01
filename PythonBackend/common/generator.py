@@ -94,17 +94,18 @@ Write a single reply from {data.name} only
 
     return prompt
       
-async def chat(player_name, intro, prompt):
+async def chat(character_name, intro, prompt):
     global messages
 
-    messages.append({"role": "user", "content": prompt})
-
-    response_content = f"""{intro}
+    new_prompt = f"""{intro}
 ### Instructions:
-1. Respond only with dialogue in character.
-2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
-user: {prompt}
+Respond only with dialogue in character as {character_name}.
+Mira: {prompt}
 ### Response:"""
+
+    messages.append({"role": "user", "content": new_prompt})
+
+    response_content = ""
 
     async for part in await AsyncClient().chat(
         model="hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M", messages=messages, stream=True
@@ -130,7 +131,7 @@ async def summarize_chat(character_name, chat_history):
     response_content = ""
 
     async for part in await AsyncClient().chat(
-        model="llama3.2", messages=messages, stream=True
+        model="hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M", messages=messages, stream=True
     ):
         chunk = part['message']['content']
         response_content += chunk
