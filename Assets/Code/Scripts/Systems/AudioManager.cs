@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace BobaStop.Systems
@@ -20,6 +21,14 @@ namespace BobaStop.Systems
             else {
                 Destroy(gameObject); // delete duplicates
             }
+
+            SceneManager.sceneLoaded += PlayMusic;
+        }
+
+        private void PlayMusic(Scene arg0, LoadSceneMode arg1) {
+            switch (GameManager.Instance.levelManagerHelper.GetCurrentLevelProperties().levelName) {
+                case "" ;
+            };
         }
 
         public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume) {
