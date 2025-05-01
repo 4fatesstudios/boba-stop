@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using BobaStop.AI;
 using BobaStop.Data.Saved;
 using BobaStop.Systems;
 using TMPro;
@@ -6,10 +8,56 @@ using UnityEngine;
 
 namespace BobaStop.UI
 {
+    public enum Scenario {
+        Default, Karen, Aster, Kaden, Jade
+    }
+    
     public class MainMenu : MonoBehaviour {
         private int currentSaveSlot = 7;
+        private Scenario currentScenario = Scenario.Default;
         private PlayerCharacter playerCharacter = PlayerCharacter.Unselected;
         [SerializeField] private TMP_InputField playerNameText;
+        
+        [SerializeField] private TextMeshProUGUI loadingText; // Use Text if not using TMP
+        private string apiServerLoadingMessage = "Waiting on AI server response";
+        private string ollamaLoadingMessage = "Waiting on Ollama response";
+        [SerializeField] private GameObject startingMenuGO;
+        [SerializeField] private GameObject loadingGO;
+
+        private void Start() {
+            StartCoroutine(AnimateLoading());
+        }
+        
+        #region Loading State
+
+        private IEnumerator AnimateLoading() {
+            int dotCount = 0;
+
+            while (!APIClient.Instance.IsReady) {
+                dotCount = (dotCount + 1) % 4; // cycles 0-3
+                string dots = new string('.', dotCount);
+                loadingText.text = $"{apiServerLoadingMessage} {dots}";
+                yield return new WaitForSeconds(0.5f);
+            }
+            
+            // while (! OLLAMA RESPONSE) {
+            //     dotCount = (dotCount + 1) % 4; // cycles 0-3
+            //     string dots = new string('.', dotCount);
+            //     loadingText.text = $"{ollamaLoadingMessage} {dots}";
+            //     yield return new WaitForSeconds(0.5f);
+            // }
+
+            loadingText.text = "Ready !";
+            yield return new WaitForSeconds(1f);
+
+            if (startingMenuGO != null) {
+                startingMenuGO.SetActive(true);
+            }
+
+            loadingGO.SetActive(false); // Hide the loading UI
+        }
+        
+        #endregion
         
         public void CreateNewSaveGame(int slot) {
             // GameManager.Instance.CreateNewSaveGame(slot);
@@ -21,6 +69,11 @@ namespace BobaStop.UI
         
         public void PlayerCharacterSelect(int slot) {
             currentSaveSlot = slot;
+        }
+
+        public void SetScenario(Scenario scenario=Scenario.Default) {
+            currentScenario = scenario;
+            Debug.Log("hi");
         }
 
         public void PlayerCharacterSelectStart() {
