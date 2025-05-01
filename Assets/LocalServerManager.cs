@@ -7,6 +7,8 @@ using Debug = UnityEngine.Debug;
 public class LocalServerManager : MonoBehaviour
 {
     public static LocalServerManager Instance { get; private set; }
+
+    public bool showGUI = false;
     
     private Process ollamaProcess;
     private Process serverProcess;
@@ -143,8 +145,9 @@ public class LocalServerManager : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
+    private void OnGUI() {
+        if (!showGUI) return;
+        
         GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
         GUILayout.BeginVertical(GUI.skin.box);
         GUILayout.Label("API & Ollama Logs", GUILayout.Height(20));
