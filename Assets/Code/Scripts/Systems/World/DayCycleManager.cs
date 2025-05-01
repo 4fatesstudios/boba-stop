@@ -48,6 +48,7 @@ namespace BobaStop.Systems.World
         }
 
         public override void Update() {
+            return;
             if (isPaused) return;
             
             elapsedSeconds += Time.deltaTime*timeMultiplier;

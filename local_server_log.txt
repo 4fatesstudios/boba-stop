@@ -795,21 +795,11 @@
 [Server] 
 [Server] The 2015 Honda Pilot is a 3-row midsize crossover SUV available in a single well equipped trim level. Standard features include dual zone automatic climate control, a 7-speaker sound system with satellite radio, an auxiliary audio jack, Bluetooth connectivity, power accessories, cruise control, leather-wrapped steering wheel and shift knob, heated side mirrors, auto on/off headlights, keyless entry, rear privacy glass, and a trip computer. Optional features include a navigation system and a sunroof. The base LX trim has a V6 engine that produces 250 horsepower and is mated to a 5-speed automatic transmission with overdrive. Fuel economy for the front-wheel drive version is an EPA estimated 18 mpg in city driving and 25 mpg on the highway, while all-wheel drive lowers those figures to 17/24 mpg (city/highway). The all-wheel drive system can be locked in four-wheel drive mode for off-road conditions. Safety features include antilock disc brakes, stability control, traction control, hill start assist, and front, side curtain, and front seat-mounted airbags. Front-seat active head restraints are also standard. In government crash tests, the 2015 Honda Pilot received an overall rating of four stars out of a possible five, with three stars for rollover safety.
 [Server] INFO:     127.0.0.1:5981 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
-[Server-ERR] INFO:     Started server process [31212]
+[Server-ERR] INFO:     Started server process [11472]
 [Server-ERR] INFO:     Waiting for application startup.
 [Server-ERR] INFO:     Application startup complete.
 [Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-[Server] INFO:     127.0.0.1:6895 - "GET / HTTP/1.1" 200 OK
-[Server-ERR] INFO:     Started server process [22492]
-[Server-ERR] INFO:     Waiting for application startup.
-[Server-ERR] INFO:     Application startup complete.
-[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-[Server] INFO:     127.0.0.1:6926 - "GET / HTTP/1.1" 200 OK
-[Server-ERR] INFO:     Started server process [27836]
-[Server-ERR] INFO:     Waiting for application startup.
-[Server-ERR] INFO:     Application startup complete.
-[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-[Server] INFO:     127.0.0.1:7095 - "GET / HTTP/1.1" 200 OK
+[Server] INFO:     127.0.0.1:7512 - "GET / HTTP/1.1" 200 OK
 [Server] Title: first meeting with Karen
 [Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
 [Server] 
@@ -889,66 +879,734 @@
 [Server] 1. Respond only with dialogue in character.
 [Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
 [Server] user: 
-[Server] ### Response: package com.example.ecommerce.entity;
+[Server] ### Response: ### The Border Crossing
 [Server] 
-[Server] import java.util.List;
+[Server] The journey had its challenges. It was always like this, traveling from one side to the other of the river that flowed between two vastly different worlds. On the left bank were the land of the wealthy and the privileged, who took their pleasures in a lavish lifestyle filled with parties, dancing, gambling, and the constant need for novelty. Their lives were as beautiful as they were shallow; they had no real purpose beyond their own amusement.
 [Server] 
-[Server] public class Order {
-[Server]     private String orderId;
-[Server]     private Customer customer;
-[Server]     private List<OrderItem> items;
-[Server]     private String paymentStatus;
-[Server]     private double totalPrice;
+[Server] On the right bank, however, was a much simpler world where people worked the land and relied on each other for support. There, you could find a sense of community that seemed to be lacking in the opulence on the left side. While they did not have the same luxuries as those across the river, their lives were filled with genuine connection and purpose.
 [Server] 
-[Server]     public Order(String orderId, Customer customer, List<OrderItem> items, String paymentStatus, double totalPrice) {
-[Server]         this.orderId = orderId;
-[Server]         this.customer = customer;
-[Server]         this.items = items;
-[Server]         this.paymentStatus = paymentStatus;
-[Server]         this.totalPrice = totalPrice;
-[Server]     }
+[Server] Crossing the river meant navigating the turbulent waters that separated these two seemingly opposite ways of living. It wasn't a journey for the faint-hearted. There were risks involved � from treacherous currents to hidden dangers lurking beneath the surface. But the people who made this trek knew that it was not simply about traveling between two worlds, but more so about understanding and valuing the unique aspects of each world they encountered along their journey.
 [Server] 
-[Server]     public Order() {
-[Server]     }
+[Server] As they navigated the river, they discovered that there were moments when the divide became blurred � when the laughter from a left bank gathering could be heard echoing across the water, or when those on the right side took part in a dance that had been passed down through generations. It was during these shared experiences that the river seemed not to matter as much anymore; for a brief moment, both worlds were connected by a single thread of humanity.
 [Server] 
-[Server]     public String getOrderId() {
-[Server]         return orderId;
-[Server]     }
+[Server] Once they arrived safely at their destination, the travelers would find themselves immersed in their new world, embracing its challenges and delights. They would work tirelessly on the land or within the bustling cityscapes that stretched out before them. And when the day's tasks were complete, they returned to their homes, where they shared stories of their experiences with those who had not yet made the journey across the river � both enriching and deepening their connection with one another in the process.
 [Server] 
-[Server]     public void setOrderId(String orderId) {
-[Server]         this.orderId = orderId;
-[Server]     }
+[Server] The border crossing was a testament to the resilience and adaptability of people who were willing to leave behind the familiarity of their native soil for an unfamiliar land that held an entirely different way of living, all in search of understanding and growth. As they journeyed back and forth across the river, they were reminded that the true wealth was not found in material possessions or extravagant lifestyles, but rather within the connections made with others who shared the same desire for a more meaningful existence � no matter which side of the river they called home.
+[Server] INFO:     127.0.0.1:7725 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [30476]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:7832 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [27200]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:7902 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
 [Server] 
-[Server]     public Customer getCustomer() {
-[Server]         return customer;
-[Server]     }
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
 [Server] 
-[Server]     public void setCustomer(Customer customer) {
-[Server]         this.customer = customer;
-[Server]     }
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
 [Server] 
-[Server]     public List<OrderItem> getItems() {
-[Server]         return items;
-[Server]     }
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
 [Server] 
-[Server]     public void setItems(List<OrderItem> items) {
-[Server]         this.items = items;
-[Server]     }
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
 [Server] 
-[Server]     public String getPaymentStatus() {
-[Server]         return paymentStatus;
-[Server]     }
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
 [Server] 
-[Server]     public void setPaymentStatus(String paymentStatus) {
-[Server]         this.paymentStatus = paymentStatus;
-[Server]     }
 [Server] 
-[Server]     public double getTotalPrice() {
-[Server]         return totalPrice;
-[Server]     }
 [Server] 
-[Server]     public void setTotalPrice(double totalPrice) {
-[Server]         this.totalPrice = totalPrice;
-[Server]     }
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: #include "stdafx.h"
+[Server] #include "FloorPiece.h"
+[Server] 
+[Server] 
+[Server] CFloorPiece::CFloorPiece(int x, int y, int z) : CGameObject()
+[Server] {
+[Server] 	m_x = x;
+[Server] 	m_y = y;
+[Server] 	m_z = z;
 [Server] }
-[Server] INFO:     127.0.0.1:7095 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server] 
+[Server] 
+[Server] CFloorPiece::~CFloorPiece()
+[Server] {
+[Server] }
+[Server] INFO:     127.0.0.1:7906 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [9312]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:8119 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [31588]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:8153 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: User 2: AITA for expecting a friend to attend my wedding even if she�s not invited?
+[Server] User 1: You are the AH. If you can't have her there officially, don't expect her to be there unofficially. Make sure she knows why it's a no go though and that you don't hold any grudges or ill feelings against her because of this.
+[Server] User 3: I don�t think it would be disrespectful for her to come as long as she understands the situation. As OP mentioned, she has an invitation to his/her parents wedding which is on the same day as mine, so they are both in the family. She won�t be there because of a prior commitment to me, but that doesn�t mean she can�t be there just to support me.
+[Server] User 1: It's not disrespectful, it's just unofficial and might make her feel unwelcome since you invited others who were probably not expecting her to attend your wedding. I would also consider the feeling of all the other people that are officially attending the wedding. If you have a big wedding with lots of people, it may be a bit awkward for her to show up and not get recognized by anyone else there.
+[Server] User 3: There�s only a few people invited to each event, so I doubt they would even notice that she�s at both events. But if this is causing unnecessary stress for others then maybe it isn�t worth the risk. It�s an unconventional situation, but her intentions are sincere and I don�t want to deny her the opportunity to be there if it makes her feel better about being able to show support on a day that would have meant a lot to all of us.
+[Server] User 1: If she is genuinely supportive and understanding, there's no reason not to let her attend both events but make sure everyone involved is comfortable with this situation. It might be easier if you can just tell people who are at both weddings that your friend is attending both because of the same reason, like a prior commitment to you. This way it won't look as unconventional and the people attending the wedding will not feel left out or unwanted by her presence there even though they weren't officially invited.
+[Server] User 3: I�ll definitely consider this approach to avoid any issues and maintain good feelings with all parties involved. Thanks for taking the time to give advice on a somewhat complicated scenario. It helps a lot!
+[Server] INFO:     127.0.0.1:8153 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [33388]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:8331 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: # BJP-led alliance to take oath in Tripura today
+[Server] 
+[Server] ## The Bharatiary Janata Party (BJP) has emerged as the single largest party in Tripura after it won 32 seats in the 60-member Assembly.
+[Server] 
+[Server] india Updated: Mar 09, 2018 21:50 IST
+[Server] 
+[Server] Union minister Nitin Gadkari (L) with BJP president Amit Shah and party leader Ram Madhav at a meeting on Friday in Tripura.(PTI)
+[Server] 
+[Server] The Bharatiary Janata Party (BJP)-led alliance will take oath as the new government in Tripura, which is under President�s rule since February 18.
+[Server] 
+[Server] The oath-taking ceremony will be held at the Gandhi Mandap in Agartala on Saturday. A senior official from the Chief Minister�s Office said Governor Trivendra Singh Rawat would administer the oath to the new chief minister. The oath-taking ceremony of the council of ministers is also likely to take place around the same time, sources added.
+[Server] 
+[Server] The BJP has emerged as the single largest party in Tripura after it won 32 seats in the 60-member Assembly. The party formed an alliance with the Indigenous People�s Front of Tripura (IPFT), which secured four seats. The Indian National Congress, the main opposition in the state, could only win seven seats in the just concluded polls.
+[Server] 
+[Server] BJP chief Amit Shah has been overseeing the preparations for the new government formation in Tripura, as well as other Northeastern states where the party is in power or trying to expand its footprint. The BJP is also hoping to form a government in Meghalaya and Nagaland.
+[Server] 
+[Server] First Published: Mar 09, 2018 21:50 IST
+[Server] INFO:     127.0.0.1:8331 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [28176]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:8408 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: User 10: PSA: A new Coin Master event is starting today.
+[Server] Just a heads up that a new Coin Master event will be available today at 12pm EST for the next week. It's called 'Temple Treasures' and you can read about it here: https://www.gamesguideinfo.com/coin-master-temple-treasures-event/.
+[Server] 
+[Server] It's not clear if this event will also be available in non-US regions, but the events usually are.
+[Server] 
+[Server] Hope everyone has a good time and gets what they want from it!
+[Server] User 16: I don't understand why people play this game so much? What is fun or rewarding about it?
+[Server] User 20: I used to be obsessed with it. It's a simple game, easy to play while doing other things, like watching tv. You can earn coins quickly by spinning the slot machine (which is also pretty fun). It's just a simple time waster for moments where you just want to do something mindless but not completely disconnect from your surroundings.
+[Server] 
+[Server] I stopped playing after I felt the need to pay real money or be incredibly lucky to progress and keep up with my friends who were spending. I realized it wasn't a fun game anymore, it was frustrating. It's the same with many games like this, they're often designed to hook you in with their simple nature and then create a paywall to make you keep playing. But for people who do enjoy it, that doesn't matter because the fun comes from the initial ease of play or just wanting to collect things.
+[Server] User 25: Yup, I got into this game during the pandemic when I had nothing else to do and I didn't need to progress much. The slot machine was addicting enough for me. But once I found out that it would be a grind and my friends were spending real money on it, I stopped playing too. It's just not worth the frustration.
+[Server] INFO:     127.0.0.1:8408 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [21664]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:8788 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: # 2015 BMW X4
+[Server] 
+[Server] The 2015 BMW X4 is a compact luxury crossover, it is based on the same platform as the X3. It was designed to be sportier than its predecessor and provide more performance for the driver. The exterior design is very similar to that of the BMW X6, but with the front end being more like the X3 model. The new 2015 BMW X4 offers a combination of stylish exterior and interior, along with advanced technology features. It has a more dynamic and sportier driving experience compared to other vehicles in its class.
+[Server] 
+[Server] The 2015 BMW X4 is offered with two engine options: a standard 3.0-liter twin turbocharged six-cylinder engine which produces 300 horsepower, and an optional 3.0-liter TwinPower Turbo six-cylinder engine producing 320 horsepower. Both engines come standard with an eight-speed automatic transmission which is designed to provide smooth and efficient power delivery. The X4 can also be equipped with a rear-wheel drive or all-wheel drive, depending on the trim level chosen.
+[Server] 
+[Server] The interior of the 2015 BMW X4 is luxuriously appointed, providing an upscale atmosphere for both driver and passengers. It features high-quality materials throughout with premium leather and wood accents to create a comfortable and stylish cabin. The car also boasts an extensive list of standard and optional features to enhance the driving experience. Standard features include a 10.2-inch iDrive infotainment system, a navigation system, a rearview camera, dual-zone automatic climate control, and a 16-speaker Harman Kardon surround sound system.
+[Server] 
+[Server] Safety is a top priority in the 2015 BMW X4, offering numerous active and passive safety features to protect both occupants and pedestrians. The car is equipped with six airbags as standard, including driver's knee airbag for better protection in the event of a crash. Additionally, it comes with dynamic stability control, traction control, and anti-lock braking system for enhanced handling and safety during various driving conditions.
+[Server] 
+[Server] The 2015 BMW X4 has a starting price of around $48,795 for the base model with rear-wheel drive. The more powerful models with xDrive all-wheel drive are also available. With its sleek design, high-performance engines and extensive list of features, the 2015 BMW X4 offers a unique blend of luxury and performance in the compact luxury crossover segment.
+[Server] INFO:     127.0.0.1:8788 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [29900]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:9013 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server] 
+[Server-ERR] Traceback (most recent call last):
+[Server] 
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server] Background
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server] Name: Karen
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server] Age: 35
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server] Role: Town Board Leader
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server] Living Condition: 4 bedroom house
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server] 
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server] World Context
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server] 
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: The Hour of the Lynx is a story that intertwines the lives of two women, one living in 1943 and the other in present day. Both are on a journey to find answers, with the hope of understanding their pasts. A story of love, loss, and redemption, it�s about the power of nature and the bonds that connect us all.
+[Server] 
+[Server] From the publisher: In 1943, a young Finnish girl is sent by her family to find a lynx during the dark days of World War Two. In present-day Helsinki, an American man�s life is thrown into chaos when he learns his wife has been having an affair with a Finnish artist. These two seemingly unrelated events echo through time and intertwine in this deeply moving novel that asks: What if the secrets of our past have been hiding in plain sight all along?
+[Server] 
+[Server] The Hour of the Lynx is available at major retailers such as Amazon, Barnes & Noble, and Chapters/Indigo. For more information or to read an excerpt, visit the author�s website.
+[Server] 
+[Server] The Hour of the Lynx: A Novel by Jennie Fields
+[Server] Published by Penguin Random House
+[Server] Publication Date: January 5, 2021
+[Server] ISBN: 978-0349419187
+[Server] Genre: Historical Fiction, Literary Fiction
+[Server] Pages: 368
+[Server] 
+[Server] Purchase this book from our affiliate Bookshop.org.
+[Server] INFO:     127.0.0.1:9013 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server] INFO:     127.0.0.1:9013 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server] INFO:     127.0.0.1:9026 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server] INFO:     127.0.0.1:9029 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server] INFO:     127.0.0.1:9031 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'
+[Server] INFO:     127.0.0.1:9032 - "GET /summarize_chat/character/Karen HTTP/1.1" 500 Internal Server Error
+[Server-ERR] ERROR:    Exception in ASGI application
+[Server-ERR] Traceback (most recent call last):
+[Server-ERR]   File "uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+[Server-ERR]   File "uvicorn\middleware\proxy_headers.py", line 60, in __call__
+[Server-ERR]   File "fastapi\applications.py", line 1054, in __call__
+[Server-ERR]   File "starlette\applications.py", line 112, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 187, in __call__
+[Server-ERR]   File "starlette\middleware\errors.py", line 165, in __call__
+[Server-ERR]   File "starlette\middleware\exceptions.py", line 62, in __call__
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 715, in __call__
+[Server-ERR]   File "starlette\routing.py", line 735, in app
+[Server-ERR]   File "starlette\routing.py", line 288, in handle
+[Server-ERR]   File "starlette\routing.py", line 76, in app
+[Server-ERR]   File "starlette\_exception_handler.py", line 53, in wrapped_app
+[Server-ERR]   File "starlette\_exception_handler.py", line 42, in wrapped_app
+[Server-ERR]   File "starlette\routing.py", line 73, in app
+[Server-ERR]   File "fastapi\routing.py", line 301, in app
+[Server-ERR]   File "fastapi\routing.py", line 212, in run_endpoint_function
+[Server-ERR]   File "C:\Users\chris\Documents\Unity Projects\boba-stop\PythonBackend\windows\dist\chromadb_fastapi\_internal\chromadb_fastapi.py", line 77, in summarize
+[Server-ERR]     result = await summarize_chat(character)
+[Server-ERR]                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+[Server-ERR] TypeError: summarize_chat() missing 1 required positional argument: 'chat_history'

@@ -72,10 +72,10 @@ namespace BobaStop.Characters {
         }
 
         protected void OnDestroy() {
-            gameInput = GameInput.Instance;
-            gameInput.OnInteractAction += GameInput_OnInteractAction;
-            gameInput.OnAttackAction += GameInput_OnAttackAction;
-            gameInput.OnInventoryAction += GameInput_OnInventoryAction;
+            gameInput.OnInteractAction -= GameInput_OnInteractAction;
+            gameInput.OnAttackAction -= GameInput_OnAttackAction;
+            gameInput.OnInventoryAction -= GameInput_OnInventoryAction;
+            gameInput.OnOpenCompanionMenuAction -= GameInput_OnOpenCompanionMenuAction;
         }
 
         private void Update() {
@@ -181,6 +181,11 @@ namespace BobaStop.Characters {
                     interactableList.Add(interactable);
                 }
             }
+            
+            foreach (var i in interactableList) {
+                Debug.DrawLine(transform.position, i.GetTransform().position, Color.green);
+            }
+
 
             selectedInteractable = null;
             foreach (Interactions.IInteractable interactable in interactableList) {
