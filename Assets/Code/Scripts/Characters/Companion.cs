@@ -16,8 +16,11 @@ namespace BobaStop.Characters
         
         protected override void Start() {
             base.Start();
-            companionDataManager = GameManager.Instance.companionManager.GetCompanionDataManager(companionName);
             
+            
+            if (companionName == "") return; // temp for disabling Ria interactions
+            
+            companionDataManager = GameManager.Instance.companionManager.GetCompanionDataManager(companionName);
             OnCompanionInitialized?.Invoke(this, EventArgs.Empty);
         }
 
@@ -26,6 +29,8 @@ namespace BobaStop.Characters
         }
         
         public override void Interact() {
+            if (companionName == "") return; // temp for disabling Ria interactions
+            
             InvokeOnInteract();
             OnCompanionInteract?.Invoke(this, EventArgs.Empty);
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData, companionDataManager, true);
