@@ -39,7 +39,8 @@ namespace BobaStop.Systems
         private void Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
-            LevelManagerHelper.OnLevelLoadedForDialogue += GenerateConversationStart; 
+            // LevelManagerHelper.OnLevelLoadedForDialogue += GenerateConversationStart;
+            Companion.OnCompanionInitialized += GenerateConversationStart;
 
             // companionData = new CompanionData {
             //     companionName = "Karen",
@@ -53,8 +54,12 @@ namespace BobaStop.Systems
             // apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
         }
 
-        private void GenerateConversationStart(object sender, LevelManagerHelper.OnLevelLoadedForDialogueArgs e) {
-            var companion = e.companion.GetComponent<Companion>();
+        private void GenerateConversationStart(object sender, EventArgs e) {
+            var companion = sender as Companion;
+            if (companion == null) {
+                Debug.Log("Companion null in GenerateConversationStart somehow idk how this would even happen");
+                return;
+            }
             Debug.Log("Hi");
             if (isFirstMeeting) {
                 apiClient.GetFirstMeeting(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
