@@ -36,28 +36,39 @@ namespace BobaStop.Systems
             public bool isEndingDialogue = false;
         }
 
-        private IEnumerator Start() {
+        private void Start() {
             GameUIManager.Instance.dialogueUIManager.OnDialogueInput += OnInputPlayerDialogue;
             GameInput.Instance.OnEndDialogueAction += OnPlayerEndDialogue;
-            LevelManagerHelper.OnLevelLoadedForDialogue += GenerateFirstMeeting; 
+            // LevelManagerHelper.OnLevelLoadedForDialogue += GenerateConversationStart;
+            Companion.OnCompanionInitialized += GenerateConversationStart;
 
-            companionData = new CompanionData {
-                companionName = "Karen",
-                rapportLevel = RapportLevel.Neutral,
-                rapportLevelProgress = 0
-            };
+            // companionData = new CompanionData {
+            //     companionName = "Karen",
+            //     rapportLevel = RapportLevel.Neutral,
+            //     rapportLevelProgress = 0
+            // };
 
+            // apiClient = gameObject.AddComponent<APIClient>();
             apiClient = APIClient.Instance;
-            yield return new WaitUntil(() => apiClient.IsReady);
-
+            // yield return new WaitUntil(() => apiClient.IsReady);
             // apiClient.GetFirstMeeting(companionData.companionName, ReturnData);
         }
 
-        private void GenerateFirstMeeting(object sender, LevelManagerHelper.OnLevelLoadedForDialogueArgs e) {
-            var companion = e.companion.GetComponent<Companion>();
-            
-            apiClient.GetFirstMeeting(companion.GetCompanionName(), ReturnData);
-            Debug.Log("First meeting called in DialogueManager");
+        private void GenerateConversationStart(object sender, EventArgs e) {
+            var companion = sender as Companion;
+            if (companion == null) {
+                Debug.Log("Companion null in GenerateConversationStart somehow idk how this would even happen");
+                return;
+            }
+            Debug.Log("Hi");
+            if (isFirstMeeting) {
+                apiClient.GetFirstMeeting(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
+                Debug.Log("First meeting called in DialogueManager");
+                isFirstMeeting = false;
+            } else  {
+                apiClient.SendNewConversation(companion.GetCompanionDataManager().GetCompanionData(), companion.GetNPCDialogueData(), ReturnData);
+                Debug.Log("New conversation called in DialogueManager");
+            }
         }
 
         private IEnumerator AwaitAPIServer() {
@@ -69,10 +80,6 @@ namespace BobaStop.Systems
             // access string input with "e.dialogueInput"
             // somehow determine if end dialogue...
             // either call ContinueDialogue() or EndDialogue()
-            if (e.dialogueInput == "Goodbye!") {
-                EndDialogue();
-                return;
-            }
 
             if (!InputFilter.IsInputAllowed(e.dialogueInput)) {
                 OnInappropriateInput?.Invoke(this, e);
@@ -85,17 +92,6 @@ namespace BobaStop.Systems
                 "Hmm..."
             };
             Debug.Log("Received player input in DialogueManager: " + e.dialogueInput);
-        }
-
-        public void StartConversation() {
-            if (isFirstMeeting) {
-                apiClient.GetFirstMeeting(companionData, dialogueData, ReturnData);
-                Debug.Log("First meeting called in DialogueManager");
-                isFirstMeeting = false;
-            } else {
-                apiClient.SendNewConversation(companionData, dialogueData, ReturnData);
-                Debug.Log("Received first meeting in DialogueManager: " + "Hello!");
-            }
         }
 
         public void SetDialogueData(NPCDialogueData dialogueData) {
@@ -123,7 +119,6 @@ namespace BobaStop.Systems
             }
             dialogueData.memory += memory;
             dialogueData.memory += ",\n";
-            // Handle memory here
         }
 
         private void PopulateLines(string goodbye) {
@@ -190,7 +185,6 @@ namespace BobaStop.Systems
                 dialogueData = this.dialogueData,
                 isInitiatingDialogue = true
             });
-            // StartConversation();
         }
 
         public void ContinueDialogue() {

@@ -44,6 +44,7 @@ namespace BobaStop.Systems
         }
 
         public CompanionDataManager GetCompanionDataManager(string companionName) {
+            Debug.Log("got data");
             return companionData.GetValueOrDefault(companionName);
         }
     }

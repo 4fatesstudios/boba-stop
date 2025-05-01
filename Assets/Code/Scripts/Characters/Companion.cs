@@ -10,11 +10,15 @@ namespace BobaStop.Characters
         [SerializeField] private string companionName; // gets necessary data
         private CompanionDataManager companionDataManager;
 
+        public static event EventHandler OnCompanionInitialized;
+
         public static event EventHandler OnCompanionInteract;
         
         protected override void Start() {
             base.Start();
             companionDataManager = GameManager.Instance.companionManager.GetCompanionDataManager(companionName);
+            
+            OnCompanionInitialized?.Invoke(this, EventArgs.Empty);
         }
 
         public CompanionDataManager GetCompanionDataManager() {

@@ -36,5 +36,9 @@ namespace BobaStop.Characters
         public Transform GetTransform() {
             return gameObject.transform;
         }
+
+        public NPCDialogueData GetNPCDialogueData() {
+            return npcDialogueData;
+        }
     }
 }

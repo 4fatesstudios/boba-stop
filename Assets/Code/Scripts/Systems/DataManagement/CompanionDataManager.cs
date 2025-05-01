@@ -16,6 +16,11 @@ namespace BobaStop.Systems.DataManagement
 
         public CompanionDataManager(CompanionData companionData) {
             this.companionData = companionData;
+            Debug.Log("CompanionDataManager created with companion data: " + companionData.companionName);
+        }
+
+        public CompanionData GetCompanionData() {
+            return companionData;
         }
 
         public void SetCompanionData(CompanionData companionData) {
