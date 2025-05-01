@@ -309,5 +309,489 @@
 [Server-ERR] ERROR:    [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8000): only one usage of each socket address (protocol/network address/port) is normally permitted
 [Server-ERR] INFO:     Waiting for application shutdown.
 [Server-ERR] INFO:     Application shutdown complete.
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
-[ERROR] Failed to start processes: ApplicationName='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos/dist/chromadb_fastapi/chromadb_fastapi', CommandLine='', CurrentDirectory='/Users/angellyncervantes/Downloads/CSUF/CPSC 491/boba-stop/Assets/../PythonBackend/macos', Native error= Cannot find the specified file
+[Server-ERR] INFO:     Started server process [9068]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5066 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [24800]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5141 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [28532]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5303 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: # MANAGING YOUR TRANSITION TO A NEW CAREER
+[Server] 
+[Server] - In the early stages of your job search, explore career paths and assess what type of work you are most interested in pursuing. Consider your values, skills, strengths, experience and interests as these will play a significant role in determining how happy you are in your new position and the likelihood of success. This self-assessment will be an important part of your job search.
+[Server] - Identify the key transferable skills you possess that could potentially be beneficial to another industry or career path. Develop a comprehensive list of these skills, which you can share with potential employers to demonstrate how you would make a strong contribution in a new field.
+[Server] - Research different industries and companies, both large and small, and identify what they look for in their employees. This will help guide your job search by highlighting the types of positions that may be most suited to you and where you might best contribute your skills and experience.
+[Server] - Develop a strategic plan that outlines your goals, objectives, timelines and specific actions needed to successfully transition into your new career field. Include steps such as networking, updating your resume, researching job opportunities, attending workshops or seminars, or even taking courses to gain additional knowledge in the industry you want to join.
+[Server] - Network with professionals from various industries and companies to learn more about different work environments and discover potential job leads. Reach out to people in your personal and professional networks, join online communities related to your target career field, and attend industry events or conferences. Utilize social media platforms like LinkedIn to connect with relevant individuals who could be valuable resources during your job search.
+[Server] - Continually update your resume and cover letter, focusing on the skills, experiences, and accomplishments that are directly relevant to the new industry you want to enter. Highlight specific achievements and how they can be applied in a different context. Make sure your resume aligns with any industry standards or requirements and is tailored to each job application.
+[Server] - Practice interviewing techniques to help you prepare for potential interviews related to your new career path. Research common questions, practice answering them, and anticipate any questions that might specifically relate to your transition from one industry to another. Focus on how your skills and experiences can be applied in various roles and demonstrate your adaptability and passion for the new industry.
+[Server] - Seek guidance and support from friends, family members or a career counselor who can offer objective insights and help you navigate any challenges that may arise during your job search or transition process.
+[Server] - Stay positive and proactive throughout your journey as it takes time to find the right fit in a new career. Remember, persistence is key, and by remaining focused on your goal, you will eventually find a role that aligns with your skills, values, and interests while offering opportunities for growth and success.
+[Server] 
+[Server] Remember, every individual's job search experience is unique, but being proactive in researching various industries and career paths, networking with professionals, updating your resume and cover letter, and practicing interview techniques can significantly increase your chances of a successful transition to a new career.
+[Server] INFO:     127.0.0.1:5303 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [10696]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5639 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: using System;
+[Server] using System.Collections.Generic;
+[Server] using System.Text;
+[Server] 
+[Server] namespace Biblite.DAL.Entities
+[Server] {
+[Server]     public interface IBook : IEntity
+[Server]     {
+[Server]         int Id { get; set; }
+[Server] 
+[Server]         string Title { get; set; }
+[Server] 
+[Server]         string Author { get; set; }
+[Server] 
+[Server]         decimal Price { get; set; }
+[Server] 
+[Server]         DateTime PublishedAt { get; set; }
+[Server] 
+[Server]         int NumberOfPages { get; set; }
+[Server]     }
+[Server] }
+[Server] INFO:     127.0.0.1:5639 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [28644]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5749 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: We are proud to announce that we have just launched the new website for B&B Homes. With an improved user interface and a more appealing visual design, B&B Homes� new online presence is much easier to navigate. The site has also been optimized for mobile viewing, making it compatible with smartphones and tablets in addition to desktop computers.
+[Server] 
+[Server] B&B Homes provides customized home building solutions tailored to each client�s unique needs, offering personalized design services and construction management to ensure the final product aligns with the clients� vision. They are dedicated to creating exceptional, high-quality homes that exceed expectations and meet the highest standards in both craftsmanship and customer service.
+[Server] 
+[Server] The new website provides a wealth of information for potential customers about B&B Homes and their services, featuring an extensive gallery showcasing a range of custom home builds, as well as an informative blog highlighting industry news, design trends, and more. The site also includes detailed information on the company�s unique process, which starts with the initial consultation and continues through to project completion.
+[Server] 
+[Server] With its modern, user-friendly design and comprehensive content, the new website for B&B Homes will play an essential role in attracting potential clients and showcasing their impressive work. To experience it for yourself, please visit bbhomestx.com.
+[Server] INFO:     127.0.0.1:5749 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [27656]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5889 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: ## The Dilemma of Revelation
+[Server] 
+[Server] The dilemma of revelation is a logical problem that arises from the fact that if one believes in divine revelation (i.e., God or a deity revealing some knowledge), it can be argued that there are at least two possibilities: either the revelation is true and accurate, or it is not. If it is true and accurate, then there is the risk that the divine entity may make mistakes just as humans do. This would undermine the idea of divine perfection. On the other hand, if the revelation is not true and accurate, one might be left with no way to prove or disprove its truthfulness, leading to skepticism about it. The dilemma challenges the understanding of how divine revelation can be justified as an unquestionably trustworthy source of knowledge while also acknowledging the potential fallibility that comes with any communicated message.
+[Server] 
+[Server] Religious scholars and theologians have attempted various solutions to this dilemma, often proposing different ways to reconcile the divine nature with human limitations in understanding divine revelations. Some emphasize the role of interpretation and human efforts in grasping the revealed truths. Others explore the concept of divine immanence (God being present and actively involved in creation), which can lead to a more fluid and context-dependent approach to understanding revelation. Still, others argue that the nature of revelation is inherently mysterious and beyond human comprehension, leaving open the possibility that certain aspects might remain hidden or unknowable.
+[Server] 
+[Server] In summary, the dilemma of revelation highlights the challenges in reconciling the concept of a divine source with the limitations faced by humans when attempting to comprehend and interpret the revealed knowledge. It invites reflection on various perspectives regarding how one can approach this issue and maintain faith despite these potential inconsistencies or uncertainties.
+[Server] INFO:     127.0.0.1:5889 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [18012]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:5981 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: # 2015 Honda Pilot
+[Server] 
+[Server] The 2015 Honda Pilot is a 3-row midsize crossover SUV available in a single well equipped trim level. Standard features include dual zone automatic climate control, a 7-speaker sound system with satellite radio, an auxiliary audio jack, Bluetooth connectivity, power accessories, cruise control, leather-wrapped steering wheel and shift knob, heated side mirrors, auto on/off headlights, keyless entry, rear privacy glass, and a trip computer. Optional features include a navigation system and a sunroof. The base LX trim has a V6 engine that produces 250 horsepower and is mated to a 5-speed automatic transmission with overdrive. Fuel economy for the front-wheel drive version is an EPA estimated 18 mpg in city driving and 25 mpg on the highway, while all-wheel drive lowers those figures to 17/24 mpg (city/highway). The all-wheel drive system can be locked in four-wheel drive mode for off-road conditions. Safety features include antilock disc brakes, stability control, traction control, hill start assist, and front, side curtain, and front seat-mounted airbags. Front-seat active head restraints are also standard. In government crash tests, the 2015 Honda Pilot received an overall rating of four stars out of a possible five, with three stars for rollover safety.
+[Server] INFO:     127.0.0.1:5981 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
