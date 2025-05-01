@@ -76,8 +76,8 @@ async def chat_route(character: str, data: Prompt):
 @app.get("/summarize_chat/character/{character}")
 async def summarize(character: str):
     result = await summarize_chat(character)
-    text = create_text(character, result)
-    insert_post(character, result, text)
+    # text = create_text(character, result)
+    # insert_post(character, result, text)
     return {"response": result}
 
 @app.post("/insert_post/character/{character}")
