@@ -7,8 +7,11 @@ using UnityEngine;
 
 namespace BobaStop {
     public class Camera : MonoBehaviour {
+        public static Camera Instance { get; private set; }
+        
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
         private CinemachineTransposer transposer;
+        [SerializeField] private GameObject cameraGO;
 
         private float defaultFollowOffsetX = 0f;
         private float defaultFollowOffsetZ = -4f;
@@ -21,8 +24,13 @@ namespace BobaStop {
         private GameObject avgPointObject = null; // Store the avgPoint GameObject
 
         private void Awake() {
-            DontDestroyOnLoad(this);
-            DontDestroyOnLoad(virtualCamera);
+            if (Instance == null) {
+                Instance = this;
+                DontDestroyOnLoad(cameraGO); // make persistent across scenes
+            }
+            else {
+                Destroy(cameraGO); // delete duplicates
+            }
         }
         
         private void Start() {
