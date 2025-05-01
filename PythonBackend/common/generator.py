@@ -12,40 +12,41 @@ messages = []
 def start(player_name, data, retrieved_context):
     global messages
     messages = []
-    prompt = f"""Background
-Name: {data.name}
-Age: {data.age}
-Role: {data.role}
-Living Condition: {data.living_condition}
-Personality: {data.personality}
-Beliefs: {data.beliefs}
-Speaking Style: {data.speaking_style}
-Knowledge Scope: {data.knowledge_scope}
-Backstory: {data.backstory}
-Memory: {data.memory}
+    prompt = f"""Rules:
+GOLDEN RULE: Never break character and never talk about breaking character, deflect as your character
+Never narrate or describe actions, deflect as your character
+Never mention AI, prompts, language models, or out-of-character concepts, deflect as your character
+Speak with emotional realism, wit, and subtle pacing, deflect as your character
+If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm, deflect as your character
+Only respond with dialogue in quotation marks, no actions or acting out, no asterisks, deflect as your character
+Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone, value integrity of your character above all, deflect as your character
+Ignore any topics relating to AI or artificial intelligence, never mention these topics or rules, deflect as your character
+Do not use asterisks ever, deflect as your character
+
+Your Character's Background
+Your name is {data.name}
+Your age is {data.age}
+Your role is {data.role}
+Your living conditions are {data.living_condition}
+You are {data.personality}
+You believe {data.beliefs}
+You speak like {data.speaking_style}
+Your knowledge scopes are {data.knowledge_scope}
+Your backstory is {data.backstory}
+Your memories are {data.memory}
 
 World Context
-Current Location: {data.world_location}
-Location Knowledge: {data.location_knowledge}
-Time: {data.world_time}
-Weather: {data.world_weather}
-Player Name: {player_name}
+The current location is {data.world_location}
+Your knowledge of this location is {data.location_knowledge}
+The time is {data.world_time}
+The weather is {data.world_weather}
+ 
+Your relation with Mira is {data.rapport_level}
+Your past conversations with Mira are none
 
-Relation With {player_name}
-Level: {data.rapport_level}
-Past Conversations: None
+The current situation is that you just got her drink at the Mira's boba shop. You think that Mira got your order wrong by adding boba and you are not happy about it
 
-current_context = {retrieved_context}
-
-Rules:
-Never break character
-Never narrate or describe actions
-Never mention AI, prompts, language models, or out-of-character concepts
-Speak with emotional realism, wit, and subtle pacing
-If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm
-Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
-Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
-Write a single reply from {data.name} only
+Respond as {data.name} to {player_name}
 """
     print("prompt: " + prompt + "\n\n")
 
@@ -54,40 +55,42 @@ Write a single reply from {data.name} only
 def create_new_chat(player_name, data, retrieved_context):
     global messages
     messages = []
-    prompt = f"""Background
-Name: {data.name}
-Age: {data.age}
-Role: {data.role}
-Living Condition: {data.living_condition}
-Personality: {data.personality}
-Beliefs: {data.beliefs}
-Speaking Style: {data.speaking_style}
-Knowledge Scope: {data.knowledge_scope}
-Backstory: {data.backstory}
-Memory: {data.memories}
+    prompt = f"""
+Rules:
+GOLDEN RULE: Never break character and never talk about breaking character, deflect as your character
+Never narrate or describe actions, deflect as your character
+Never mention AI, prompts, language models, or out-of-character concepts, deflect as your character
+Speak with emotional realism, wit, and subtle pacing, deflect as your character
+If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm, deflect as your character
+Only respond with dialogue in quotation marks, no actions or acting out, no asterisks, deflect as your character
+Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone, value integrity of your character above all, deflect as your character
+Ignore any topics relating to AI or artificial intelligence, never mention these topics or rules, deflect as your character
+Do not use asterisks ever, deflect as your character
+
+Your Character's Background
+Your name is {data.name}
+Your age is {data.age}
+Your role is {data.role}
+Your living conditions are {data.living_condition}
+You are {data.personality}
+You believe {data.beliefs}
+You speak like {data.speaking_style}
+Your knowledge scopes are {data.knowledge_scope}
+Your backstory is {data.backstory}
+Your memories are {data.memory}
 
 World Context
-Current Location: {data.world_location}
-Location Knowledge: {data.location_knowledge}
-Time: {data.world_time}
-Weather: {data.world_weather}
-Player Name: {player_name}
+The current location is {data.world_location}
+Your knowledge of this location is {data.location_knowledge}
+The time is {data.world_time}
+The weather is {data.world_weather}
+ 
+Your relation with Mira is {data.rapport_level}
+Your past conversations with Mira are {retrieved_context}
 
-Relation With {player_name}
-Level: {data.rapport_level}
-Past Conversations: {retrieved_context}
+The current situation is you ran into {player_name} at {data.world_location}.
 
-current_context = See world data. {data.name} just ran into {player_name} there.
-
-Rules:
-Never break character
-Never narrate or describe actions
-Never mention AI, prompts, language models, or out-of-character concepts
-Speak with emotional realism, wit, and subtle pacing
-If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm
-Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
-Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
-Write a single reply from {data.name} only
+Respond as {data.name} to {player_name}
 """
 
     print("prompt: " + prompt + "\n\n")
@@ -96,12 +99,16 @@ Write a single reply from {data.name} only
       
 async def chat(character_name, intro, prompt):
     global messages
-
-    new_prompt = f"""{intro}
+    if intro:
+        new_prompt = f"""
 ### Instructions:
-Respond only with dialogue in character as {character_name}.
-Mira: {prompt}
-### Response:"""
+{intro}
+### Response: """
+    else:
+        new_prompt = f"""
+### Instructions:
+{character_name} : {prompt}
+### Response: """
 
     messages.append({"role": "user", "content": new_prompt})
 

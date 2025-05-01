@@ -51,19 +51,19 @@ async def hello_world():
 async def first_meeting(character: str, data: CombinedData):
     context = retriever(data.name, f'first meeting with {data.name}')
     intro = start(character, data, context)
-    result = await chat(data.name, intro, "")
+    result = await chat(character, intro, "")
     return result
 
 
 @app.post("/new_conversation/character/{character}")
 async def new_conversation(character: str, data: CombinedData):
     context = retriever(data.name, data.memory)
-    prompt = create_new_chat(
+    intro = create_new_chat(
         character,
         data,
         context
     )
-    result = await chat(data.name, prompt)
+    result = await chat(character, intro, "")
     return result
 
 
