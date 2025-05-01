@@ -98,21 +98,6 @@ namespace BobaStop.AI {
 
         // GET: /first_meeting/character/{character_name}
         public void GetFirstMeeting(CompanionData characterData, NPCDialogueData npcData, Action<string, string> onComplete) {
-            if (characterData == null)
-                Debug.Log("character data is null.");
-            else 
-                Debug.Log("character data not null");
-            if (npcData == null)
-                Debug.Log("npcdata is null");
-            else 
-                Debug.Log("npcdata  not null");
-            
-            if (onComplete != null)
-                Debug.LogWarning("onComplete callback is not null.");
-            else
-                Debug.LogWarning("onComplete callback is null.");
-
-            
             StartCoroutine(GetFirstMeetingIEnumerator(characterData, npcData, onComplete));
         }
 
@@ -132,6 +117,7 @@ namespace BobaStop.AI {
                 memory = npcData.memory,
                 rapportLevel = (int)characterData.rapportLevel,
                 // locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
+                locationKnowledge = "boba shop",
                 worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
                 worldTime = WorldContextManager.GetTime(),
                 worldWeather = WorldContextManager.GetWeather(),
@@ -139,6 +125,7 @@ namespace BobaStop.AI {
             };
 
             string json = JsonUtility.ToJson(requestData);
+            Debug.Log("JSON Sent: " + json);
 
             using (UnityWebRequest request = new UnityWebRequest(url, "POST")) {
                 byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
@@ -183,7 +170,7 @@ namespace BobaStop.AI {
                 memory = npcData.memory,
                 rapportLevel = (int)characterData.rapportLevel,
                 // locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
-                // locationKnowledge = "This is a new Boba Shop in town.",
+                locationKnowledge = "This is a new Boba Shop in town.",
                 worldLocation = WorldContextManager.GetCurrentLevelAreaName(),
                 worldTime = WorldContextManager.GetTime(),
                 worldWeather = WorldContextManager.GetWeather(),
