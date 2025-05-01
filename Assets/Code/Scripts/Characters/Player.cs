@@ -58,7 +58,7 @@ namespace BobaStop.Characters {
             gameInput = GameInput.Instance;
 
             gameInput.OnInteractAction += GameInput_OnInteractAction;
-            gameInput.OnAttackAction += GameInput_OnAttackAction;
+            // gameInput.OnAttackAction += GameInput_OnAttackAction;
             gameInput.OnInventoryAction += GameInput_OnInventoryAction;
             gameInput.OnOpenCompanionMenuAction += GameInput_OnOpenCompanionMenuAction;
         }
@@ -73,7 +73,7 @@ namespace BobaStop.Characters {
 
         protected void OnDestroy() {
             gameInput.OnInteractAction -= GameInput_OnInteractAction;
-            gameInput.OnAttackAction -= GameInput_OnAttackAction;
+            // gameInput.OnAttackAction -= GameInput_OnAttackAction;
             gameInput.OnInventoryAction -= GameInput_OnInventoryAction;
             gameInput.OnOpenCompanionMenuAction -= GameInput_OnOpenCompanionMenuAction;
         }

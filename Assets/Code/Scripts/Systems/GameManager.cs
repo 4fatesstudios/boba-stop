@@ -81,8 +81,8 @@ namespace BobaStop.Systems {
             shopManager.Update();
             scheduleManager.Update();
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                levelManagerHelper.SwitchScene(Resources.Load<LevelProperties>("Data/Level/StartupMenu"));
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
+                Application.Quit();
             }
         }
         #endregion
@@ -160,7 +160,7 @@ namespace BobaStop.Systems {
             LoadIntoGame(slot, playerName, character);
         }
 
-        public void LoadIntoScenario(string scenario) {
+        public void LoadIntoScenario(string scenario, string playerName, PlayerCharacter character) {
             var scene = scenario switch {
                 "Aster" => "TownSquare",
                 "Jade" => "HomeOutside",
@@ -174,6 +174,9 @@ namespace BobaStop.Systems {
             
             UpdateSaveAssociations();
             saveSystem.LoadAllDataToGame();
+            
+            Player.Instance.GetPlayerDataManager().SetPlayerCharacter(character);
+            Player.Instance.GetPlayerDataManager().SetPlayerName(playerName);
             
             StartNewDay();
         }

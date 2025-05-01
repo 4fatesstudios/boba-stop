@@ -90,7 +90,7 @@ namespace BobaStop.UI
             if (string.IsNullOrWhiteSpace(playerNameText.text)) return;
             
             if (isScenario)
-                GameManager.Instance.LoadIntoScenario(scenario);
+                GameManager.Instance.LoadIntoScenario(scenario, playerNameText.text, playerCharacter);
             else
                 GameManager.Instance.CreateNewSaveGame(currentSaveSlot, playerNameText.text, playerCharacter);
         }
