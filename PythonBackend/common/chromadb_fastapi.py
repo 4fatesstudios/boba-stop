@@ -34,13 +34,14 @@ class CombinedData(BaseModel):
     backstory: str
     memory: str
     location_knowledge: str
-    rapport_level: int
+    rapport_level: str
 
     # world context
     world_location: str
     world_time: str
     world_weather: str
     level_context: str
+    current_context: str
 
 @app.get("/")
 async def hello_world():
@@ -69,18 +70,20 @@ async def new_conversation(character: str, data: CombinedData):
 
 @app.post("/chat/character/{character}")
 async def chat_route(character: str, data: Prompt):
-    result = await chat(character, data.text)
+    result = await chat(character, '', data.text)
     return result
 
 @app.get("/summarize_chat/character/{character}")
 async def summarize(character: str):
     result = await summarize_chat(character)
+    text = create_text(character, result)
+    insert_post(character, result, text)
     return {"response": result}
 
 @app.post("/insert_post/character/{character}")
 async def insert_conversation(character: str, data: Prompt):
     text = create_text(character, data.text)
-    result = insert_post(character, data.text)
+    result = insert_post(character, data.text, text)
     return {"message": "Posts inserted successfully."}
 
 if __name__ == "__main__":

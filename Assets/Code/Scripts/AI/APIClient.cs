@@ -33,11 +33,12 @@ namespace BobaStop.AI {
         public string backstory;
         public string memory;
         public string location_knowledge;
-        public int rapport_level;
+        public string rapport_level;
         public string world_location;
         public string world_time;
         public string world_weather;
         public string level_context;
+        public string current_context;
     }
 
     [System.Serializable]
@@ -71,6 +72,19 @@ namespace BobaStop.AI {
 
         private void Start() {
             StartCoroutine(CheckServerReady());
+        }
+
+        private string getStartContext(string characterName, string playerName) {
+            if (characterName == "Karen") {
+                return $"you just got her drink at the {playerName}'s boba shop. You think that {playerName} got your order wrong by adding boba and you are not happy about it";
+            } else if (characterName == "Jade") {
+                return $"Jade is meeting the player for the first time outside the {playerName}’s boba shop. Jade is very happy with her drink and wants to tell the {playerName}. She does not know that the {playerName} is the owner of the boba shop";
+            } else if (characterName == "Kaden") {
+                return $"Kaden and his friends are playing a game of frisbee in the town square. He’ll see the {playerName} and wants to invite them to join in.";
+            } else if (characterName == "Aster") {
+                return $"{playerName} is rushing home and bumps into Aster in the town square. Aster is annoyed, but amused by {playerName} acting flustered.";
+            }
+            return $"you are at world Location. You ran into {playerName} there";
         }
 
         private IEnumerator CheckServerReady() {
@@ -117,13 +131,14 @@ namespace BobaStop.AI {
                 knowledge_scope = npcData.knowledgeScope,
                 backstory = npcData.backstory,
                 memory = npcData.memory,
-                location_knowledge = "boba shop",
-                rapport_level = (int)characterData.rapportLevel,
+                location_knowledge = "The local boba shop in town who's owner just retired.",
+                rapport_level = characterData.rapportLevel.ToString(),
                 // locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext()[0]
+                level_context = WorldContextManager.GetCurrentLevelContext()[0],
+                current_context = getStartContext(characterData.companionName, Player.Instance.GetPlayerDataManager().GetPlayerName())
             };
 
             string json = JsonUtility.ToJson(requestData);
@@ -157,6 +172,7 @@ namespace BobaStop.AI {
             StartCoroutine(SendNewConversationIEnumerator(characterData, npcData, onComplete));
         }
         private IEnumerator SendNewConversationIEnumerator(CompanionData characterData, NPCDialogueData npcData, Action<string, string> onComplete) {
+            string playerName = Player.Instance.GetPlayerDataManager().GetPlayerName();
             string url = $"{baseUrl}/new_conversation/character/{Player.Instance.GetPlayerDataManager().GetPlayerName()}";
 
             CombinedData requestData = new CombinedData {
@@ -171,12 +187,13 @@ namespace BobaStop.AI {
                 backstory = npcData.backstory,
                 memory = npcData.memory,
                 location_knowledge = "This is a new Boba Shop in town.",
-                rapport_level = (int)characterData.rapportLevel,
+                rapport_level = characterData.rapportLevel.ToString(),
                 // locationKnowledge = npcData.locationKnowledge[WorldContextManager.GetCurrentLevelAreaName()],
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext()[1]
+                level_context = WorldContextManager.GetCurrentLevelContext()[1], 
+                current_context = $"you are at World Location. You ran into {Player.Instance.GetPlayerDataManager().GetPlayerName()} there"
             };
 
             string json = JsonUtility.ToJson(requestData);
@@ -209,7 +226,7 @@ namespace BobaStop.AI {
             StartCoroutine(SendChatMessageIEnumerator(characterName, prompt, onComplete));
         }
         private IEnumerator SendChatMessageIEnumerator(string characterName, string prompt, Action<string, string> onComplete) {
-            string url = $"{baseUrl}/chat/character/{characterName}";
+            string url = $"{baseUrl}/chat/character/{Player.Instance.GetPlayerDataManager().GetPlayerName()}";
             Debug.Log("Sending chat message to: " + url);
             Debug.Log("Chat message: " + prompt);
 
@@ -261,7 +278,7 @@ namespace BobaStop.AI {
                 if (request.result == UnityWebRequest.Result.Success) {
                     string jsonResponse = request.downloadHandler.text;
                     ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
-                    Debug.Log("Chat response: " + response.response);
+                    Debug.Log("Summarized chat: " + response.response);
                     data = response.response;
                 } else {
                     Debug.LogError("Chat POST error: " + request.error);
