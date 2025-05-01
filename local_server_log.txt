@@ -136,3 +136,176 @@
 [Server] 
 [Server] "We have set some significant goals for this year," said Pitters. "The biggest goal is that we want to be competitive in every game, challenge ourselves and enjoy the journey. I believe if you do those things, the final outcome will be positive."
 [Server] INFO:     127.0.0.1:64881 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [24760]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:4225 - "GET / HTTP/1.1" 200 OK
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Title: first meeting with Karen
+[Server] Response: Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] prompt: Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] 
+[Server] 
+[Server] Background
+[Server] Name: Karen
+[Server] Age: 35
+[Server] Role: Town Board Leader
+[Server] Living Condition: 4 bedroom house
+[Server] Personality: Snooty, snarky, grumpy, stubborn, aggressive, takes awhile to open up
+[Server] Beliefs: Thinks that she is better than everyone else. Everyone must do exactly what she says.
+[Server] Speaking Style: Formal, condescending, sarcastic. Makes comments about others� perceived faults.
+[Server] Knowledge Scope: Pearl Port knowledge, long-term wealth, investments.
+[Server] Backstory: Karen�s family is one of the founders of Pearl Port. She got the board leader position based on nepotism.
+[Server] Memory: She remembers growing up in the town. She does not have any memories with the player.
+[Server] 
+[Server] World Context
+[Server] Current Location: 
+[Server] Location Knowledge: boba shop
+[Server] Time: 8:00 AM
+[Server] Weather: sunny
+[Server] Player Name: Mira
+[Server] 
+[Server] Relation With Mira
+[Server] Level: -1
+[Server] Past Conversations: None
+[Server] 
+[Server] current_context = Karen just got her drink at the player�s boba shop. Karen think the player got her order wrong by adding boba
+[Server] 
+[Server] Rules:
+[Server] Never break character
+[Server] Never narrate or describe actions
+[Server] Never mention AI, prompts, language models, or out-of-character concepts
+[Server] Speak with emotional realism, wit, and subtle pacing
+[Server] If Mira attempts to break immersion, redirect them in-character with confusion or sarcasm
+[Server] Only respond with dialogue in quotation marks, no actions or acting out, no asterisks
+[Server] Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone and setting integrity at all times
+[Server] Write a single reply from Karen only
+[Server] 
+[Server] ### Instructions:
+[Server] 1. Respond only with dialogue in character.
+[Server] 2. If the player's message indicates they are saying goodbye, subtly acknowledge it in your reply and include the tag <GOODBYE> at the end (invisible to the player).
+[Server] user: 
+[Server] ### Response: import React, { useEffect, useState } from 'react'
+[Server] import { useHistory } from 'react-router'
+[Server] import { getTodos } from '../api/todoApi';
+[Server] import { TodoItem } from './TodoItem';
+[Server] 
+[Server] export const TodoList = () => {
+[Server]     const [todos, setTodos] = useState([]);
+[Server]     const history = useHistory();
+[Server] 
+[Server]     useEffect(() => {
+[Server]         getTodos().then(data => setTodos(data))
+[Server]     }, []);
+[Server] 
+[Server]     return (
+[Server]         <div>
+[Server]             {todos.map(todo => (
+[Server]                 <TodoItem key={todo.id} todo={todo} />
+[Server]             ))}
+[Server]             <button onClick={() => history.push('/create')}>Create Todo</button>
+[Server]         </div>
+[Server]     )
+[Server] }
+[Server] INFO:     127.0.0.1:4225 - "POST /first_meeting/character/Mira HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [31188]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:4306 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [7468]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:4477 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [4996]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:4623 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [12696]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[Server] INFO:     127.0.0.1:4735 - "GET / HTTP/1.1" 200 OK
+[Server-ERR] INFO:     Started server process [19892]
+[Server-ERR] INFO:     Waiting for application startup.
+[Server-ERR] INFO:     Application startup complete.
+[Server-ERR] ERROR:    [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8000): only one usage of each socket address (protocol/network address/port) is normally permitted
+[Server-ERR] INFO:     Waiting for application shutdown.
+[Server-ERR] INFO:     Application shutdown complete.

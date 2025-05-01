@@ -58,7 +58,7 @@ namespace BobaStop.Systems {
             worldManager = new WorldManager();
             scheduleManager = new ScheduleManager();
             
-            dialogueManager = gameObject.AddComponent<DialogueManager>();
+            dialogueManager = new DialogueManager();
             inventoryManager = new InventoryManager();
             
             levelManagerHelper = new LevelManagerHelper();
@@ -73,6 +73,7 @@ namespace BobaStop.Systems {
             dayCycleManager.Start();
             shopManager.Start();
             scheduleManager.Start();
+            dialogueManager.Start();
         }
 
         private void Update() {
