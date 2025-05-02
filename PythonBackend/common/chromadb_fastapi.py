@@ -54,7 +54,7 @@ async def hello_world():
 async def first_meeting(character: str, data: CombinedData):
     context = retriever(data.name, data.player_prompt)
     intro = start(character, data, context)
-    result = await chat(character, intro, "")
+    result = await chat(character, intro, "", "")
     return result
 
 
@@ -66,13 +66,14 @@ async def new_conversation(character: str, data: CombinedData):
         data,
         context
     )
-    result = await chat(character, intro, "")
+    result = await chat(character, intro, "", "")
     return result
 
 
 @app.post("/chat/character/{character}")
 async def chat_route(character: str, data: Prompt):
-    result = await chat(character, '', data.text)
+    context = retriever(character, data.text)
+    result = await chat(character, '', data.text, context)
     return result
 
 # change to make post and add character name in create_text

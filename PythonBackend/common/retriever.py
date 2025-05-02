@@ -69,7 +69,7 @@ def insert_post(character_name, title, text):
 
 
 
-def retriever(character_name, query_text="Karen is being rude at a store", n_results=2):
+def retriever(character_name, query_text="Karen is being rude at a store", n_results=1):
     char_collection = choose_collection(character_name)
     query_embedding = embedding_model.encode(query_text).tolist()
 

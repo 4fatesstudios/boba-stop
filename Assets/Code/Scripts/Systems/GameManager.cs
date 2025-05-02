@@ -82,7 +82,7 @@ namespace BobaStop.Systems {
             scheduleManager.Update();
 
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                Application.Quit();
+                // levelManagerHelper.SwitchScene(levelManagerHelper.startingLevel);
             }
         }
         #endregion

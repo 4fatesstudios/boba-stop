@@ -9,6 +9,8 @@ rapport_level = "Friend"
 retrieved_context = "Karen is being rude at a store. She takes it out on the store worker."
 messages = []
 llm_model = "hf.co/TheBloke/MythoMax-L2-13B-GGUF:Q5_K_S"
+# llm_model = "hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M"
+# llm_model = "llama3.2"
 
 
 def start(player_name, data, retrieved_context):
@@ -102,17 +104,15 @@ Reply with a line of dialogue as {data.name} in response to {player_name}.
 
     return prompt
       
-async def chat(character_name, intro, prompt):
+async def chat(character_name, intro, prompt, context):
     global messages
-    if intro:
-        new_prompt = f"""
-### Instructions:
-{intro}
-### Response: """
+    if not prompt:
+        new_prompt = intro
     else:
         new_prompt = f"""
+{context}
 ### Instructions:
-{character_name} : {prompt}
+"{prompt}"
 ### Response: """
         print("prompt: " + new_prompt + "\n\n")
 
@@ -159,22 +159,31 @@ def create_text(player, character, title):
     global messages
 
     text = title + "\n\n"
-    for message in messages[1:]:
+
+    for message in messages:
         if message['role'] == 'user':
-            text += player + ": " + message['content'] + "\n"
-        else:
-            text = character + ": " + message['content'] + "\n"
+            content = message['content']
+            if "### Instructions:" in content:
+                instruction = content.split("### Instructions:", 1)[1].split("### Response:", 1)[0]
+                cleaned = instruction.replace("\n", "").strip()
+                text += f"{player}: {cleaned}\n"
+        elif message['role'] == 'assistant':
+            text += f"{character}: {message['content']}\n"
+
     print("text: " + text + "\n\n")
+
+    # Write the dialogue to a file
+    with open("dialogue_logs.txt", "a") as file:
+        file.write(text + "\n")  # Append the dialogue
 
     return text
 
 async def rating(player, character, text):
 
     prompt = f"""
-### Instructions:
 {text}
 
-Rate the interaction with {player} from {character}'s perspective from 0 to 10 using this scale
+This is a rating scale for interactions.
 0 - Extremely negative: deep betrayal, emotional devastation, hatred, or severe conflict.
 1 - Very negative: strong anger, rejection, emotional pain, or intense frustration.
 2 - Negative: irritation, resentment, or sadness, but less severe than 1.
@@ -186,7 +195,9 @@ Rate the interaction with {player} from {character}'s perspective from 0 to 10 u
 8 - Positive: warm interaction, support, or clear emotional connection.
 9 - Very positive: joy, affection, strong rapport, or emotional vulnerability.
 10 - Extremely positive: deep love, trust, fulfillment, or shared emotional clarity.
-DO NOT RESPOND WITH ANYTHING EXCEPT THE RATING
+### Instructions:
+Rate the interaction with {player} from {character}'s perspective from 0 to 10 using this scale
+Only respond with the number rating, no explanation
 ### Response: """
     print(prompt)
     

@@ -233,7 +233,7 @@ namespace BobaStop.AI {
             StartCoroutine(SendChatMessageIEnumerator(characterName, prompt, onComplete));
         }
         private IEnumerator SendChatMessageIEnumerator(string characterName, string prompt, Action<string, string> onComplete) {
-            string url = $"{baseUrl}/chat/character/{Player.Instance.GetPlayerDataManager().GetPlayerName()}";
+            string url = $"{baseUrl}/chat/character/{characterName}";
             Debug.Log("Sending chat message to: " + url);
             Debug.Log("Chat message: " + prompt);
 

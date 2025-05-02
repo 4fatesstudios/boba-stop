@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace BobaStop.Systems {
     public class LevelManagerHelper {
-        public readonly LevelProperties startingLevel = Resources.Load<LevelProperties>("Data/Level/DevScene1");
+        public readonly LevelProperties startingLevel = Resources.Load<LevelProperties>("Data/Level/StartupMenu");
         private LevelProperties currentLevel;
         
         public static event EventHandler<OnLevelLoadedForDialogueArgs> OnLevelLoadedForDialogue;
