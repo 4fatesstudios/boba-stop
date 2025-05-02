@@ -21,11 +21,19 @@ CHROMA_PATH = os.path.join(COMMON_DIR, "chroma_db")
 
 chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 
+# Load the collection
 karen_collection = chroma_client.get_or_create_collection("karen_history")
 jade_collection = chroma_client.get_or_create_collection("jade_history")
 kaden_collection = chroma_client.get_or_create_collection("kaden_history")
 aster_collection = chroma_client.get_or_create_collection("aster_history")
 
+# post number (use later)
+karen_post_number = 0
+jade_post_number = 0
+kaden_post_number = 0
+aster_post_number = 0
+
+# Embedding model
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")  # Lightweight model
 
 def insert_post(character_name, title, text):
