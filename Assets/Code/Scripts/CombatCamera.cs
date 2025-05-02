@@ -14,9 +14,8 @@ namespace BobaStop {
         [SerializeField] private GameObject cameraGO;
 
         private float defaultFollowOffsetX = 0f;
-        private float defaultFollowOffsetZ = -4f;
-        private float targetFollowOffsetX;
-        private float targetFollowOffsetZ;
+        private float defaultFollowOffsetY = 2f;
+        private float defaultFollowOffsetZ = -6f;
         private float zoomedFollowOffsetZ = -2f; // Zoomed-in value
         private float lerpSpeed = 2f;
         private bool isZoomedIn = false;
@@ -38,8 +37,6 @@ namespace BobaStop {
             DialogueUIManager.OnEndDialogue += ReturnToPlayer;
             
             transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
-            targetFollowOffsetX = defaultFollowOffsetX;
-            targetFollowOffsetZ = defaultFollowOffsetZ;
         }
 
         private void Update() {
@@ -87,8 +84,8 @@ namespace BobaStop {
 
             while (timeElapsed < targetTime) {
                 transposer.m_FollowOffset = new Vector3(
-                    transposer.m_FollowOffset.x,  // Keep the X-axis the same
-                    transposer.m_FollowOffset.y,  // Keep the Y-axis (tilt) the same
+                    defaultFollowOffsetX,  // Keep the X-axis the same
+                    defaultFollowOffsetY,  // Keep the Y-axis (tilt) the same
                     Mathf.Lerp(currentZ, targetZ, timeElapsed / targetTime)
                 );
                 timeElapsed += Time.deltaTime;
@@ -97,8 +94,8 @@ namespace BobaStop {
             
             // Ensure final position is exact
             transposer.m_FollowOffset = new Vector3(
-                transposer.m_FollowOffset.x,
-                transposer.m_FollowOffset.y,
+                defaultFollowOffsetX,
+                defaultFollowOffsetY,
                 targetZ
             );
         }
@@ -110,6 +107,11 @@ namespace BobaStop {
             } else {
                 Debug.LogWarning("Player.Instance is null after scene load.");
             }
+        }
+        
+        private void OnDestroy() {
+            NPC.OnNPCInteract -= ZoomInOnPlayerAndNPC;
+            DialogueUIManager.OnEndDialogue -= ReturnToPlayer;
         }
     }
 }
