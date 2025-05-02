@@ -127,6 +127,11 @@ namespace BobaStop.Systems
                 return;
             }
             var rate = Int32.Parse(rating);
+            if (rate >= 5) {
+                OnRapportUpdate?.Invoke(this, new OnRapportUpdateArgs { rapportUp = true });
+            } else {
+                OnRapportUpdate?.Invoke(this, new OnRapportUpdateArgs { rapportUp = false });
+            }
             
             Debug.Log("DialogueManager received conversation rating: " + rating);
         }
