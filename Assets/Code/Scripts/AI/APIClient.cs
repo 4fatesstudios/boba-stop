@@ -271,18 +271,11 @@ namespace BobaStop.AI {
 
         private IEnumerator SendSummarizeChatIEnumerator(CompanionData characterData, Action<string> onComplete) {
             string url = $"{baseUrl}/summarize_chat/character/{characterData.companionName}";
-            SummaryData summaryData = new SummaryData {
-                n = characterData.postCount
-            };
 
-            string json = JsonUtility.ToJson(summaryData);
             Debug.Log("Sending chat message to: " + url);
 
-            using (UnityWebRequest request = new UnityWebRequest(url, "POST")) {
-                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            using (UnityWebRequest request = new UnityWebRequest(url, "GET")) {
                 request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
 
                 yield return request.SendWebRequest();
 
@@ -290,8 +283,6 @@ namespace BobaStop.AI {
                     string jsonResponse = request.downloadHandler.text;
                     ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
                     Debug.Log("Summarized chat: " + response.response);
-                    // un-comment this line when you start inserting the posts
-                    // characterData.IncreasePostCount();
                     data = response.response;
                 } else {
                     Debug.LogError("Chat POST error: " + request.error);

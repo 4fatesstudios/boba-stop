@@ -20,7 +20,6 @@ namespace BobaStop.NPCs
         [SerializeField] public string companionName = "NoNameGiven";
         [SerializeField] public RapportLevel rapportLevel = RapportLevel.Neutral;
         [SerializeField] public int rapportLevelProgress = 0;
-        [SerializeField] public int postCount = 1;
         [SerializeField] public NPCDialogueData companionDialogueData = new();
         
         public Texture2D GetPortrait() => Resources.Load<Texture2D>("Portraits/" + companionName + "Portrait");
@@ -29,16 +28,6 @@ namespace BobaStop.NPCs
             companionName = companionData.companionName;
             rapportLevel = companionData.rapportLevel;
             rapportLevelProgress = companionData.rapportLevelProgress;
-        }
-
-        public void IncreasePostCount() {
-            postCount++;
-        }
-        public void DecreasePostCount() {
-            postCount--;
-        }
-        public void SetPostCount(int count) {
-            postCount = count;
         }
     }
 }

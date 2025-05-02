@@ -14,10 +14,6 @@ class Prompt(BaseModel):
 # Request body model for POST /insert_post
 class Post(BaseModel):
     title: str
-    n: int
-
-class SummaryData(BaseModel):
-    n: int
 
 # Request body model for POST /start
 class CombinedData(BaseModel):
@@ -72,17 +68,17 @@ async def chat_route(character: str, data: Prompt):
     result = await chat(character, '', data.text)
     return result
 
-@app.post("/summarize_chat/character/{character}")
-async def summarize(character: str, data: SummaryData):
+@app.get("/summarize_chat/character/{character}")
+async def summarize(character: str):
     result = await summarize_chat(character)
     # text = create_text(character, result)
-    # insert_post(character, result, text, data.n)
+    # insert_post(character, result, text)
     return {"response": result}
 
 @app.post("/insert_post/character/{character}")
 async def insert_conversation(character: str, data: Post):
     text = create_text(character, data.title)
-    insert_post(character, data.title, text, data.n)
+    insert_post(character, data.title, text)
     return {"message": "Posts inserted successfully."}
 
 if __name__ == "__main__":
