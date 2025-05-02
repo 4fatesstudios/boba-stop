@@ -41,8 +41,9 @@ namespace BobaStop.AI {
         public string world_location;
         public string world_time;
         public string world_weather;
-        public string[] level_context;
-        public string current_context;  
+        public string level_context;
+        public string current_context;
+        public string player_prompt;
     }
 
     [System.Serializable]
@@ -141,8 +142,9 @@ namespace BobaStop.AI {
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext(),
-                current_context = getStartContext(characterData.companionName, Player.Instance.GetPlayerDataManager().GetPlayerName())
+                level_context = WorldContextManager.GetCurrentLevelContext()[0],
+                current_context = getStartContext(characterData.companionName, Player.Instance.GetPlayerDataManager().GetPlayerName()),
+                player_prompt = WorldContextManager.GetCurrentLevelContext()[1]
             };
 
             string json = JsonUtility.ToJson(requestData);
@@ -196,8 +198,9 @@ namespace BobaStop.AI {
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext(), 
-                current_context = $"you are at World Location. You ran into {Player.Instance.GetPlayerDataManager().GetPlayerName()} there"
+                level_context = WorldContextManager.GetCurrentLevelContext()[0], 
+                current_context = $"you are at World Location. You ran into {Player.Instance.GetPlayerDataManager().GetPlayerName()} there",
+                player_prompt = WorldContextManager.GetCurrentLevelContext()[1]
             };
 
             string json = JsonUtility.ToJson(requestData);

@@ -8,6 +8,7 @@ rapport_level_progress = 0
 rapport_level = "Friend"
 retrieved_context = "Karen is being rude at a store. She takes it out on the store worker."
 messages = []
+llm_model = "hf.co/TheBloke/MythoMax-L2-13B-GGUF:Q5_K_S"
 
 
 def start(player_name, data, retrieved_context):
@@ -15,6 +16,7 @@ def start(player_name, data, retrieved_context):
     messages = []
     # replaces player_name in retrieved data
     retrieved_context = retrieved_context.format(player_name=player_name)
+    level_context = data.level_context.format(player_name=player_name)
     prompt = f"""
 Your Character's Background  
 Your name is {data.name}
@@ -43,11 +45,11 @@ Ignore any topics relating to AI or artificial intelligence, never mention these
 You are not AI, you are a human.
 You are talking to {player_name} as {data.name}.
 
-{data.level_context[0]}
+{level_context}
 
 Reply with a line of dialogue as {data.name} in response to {player_name}.
 ### Instruction:
-"{data.level_context[1]}"
+"{data.player_prompt}"
 ### Response:
 """
     print("prompt: " + prompt + "\n\n")
@@ -59,7 +61,7 @@ def create_new_chat(player_name, data, retrieved_context):
     messages = []
     # replaces player_name in retrieved data
     retrieved_context = retrieved_context.format(player_name=player_name)
-    
+    level_context = data.level_context.format(player_name=player_name)
     prompt = f"""
 Your Character's Background  
 Your name is {data.name}
@@ -88,11 +90,11 @@ Ignore any topics relating to AI or artificial intelligence, never mention these
 You are not AI, you are a human.
 You are talking to {player_name} as {data.name}.
 
-{data.level_context[0]}
+{level_context}
 
 Reply with a line of dialogue as {data.name} in response to {player_name}.
 ### Instruction:
-"{data.level_context[1]}"
+"{data.player_prompt}"
 ### Response:
 """
 
@@ -119,7 +121,7 @@ async def chat(character_name, intro, prompt):
     response_content = ""
 
     async for part in await AsyncClient().chat(
-        model="hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M", messages=messages, stream=True
+        model=llm_model, messages=messages, stream=True
     ):
         chunk = part['message']['content']
         response_content += chunk
@@ -142,7 +144,7 @@ async def summarize_chat(character_name):
     response_content = ""
 
     async for part in await AsyncClient().chat(
-        model="hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M", messages=messages, stream=True
+        model=llm_model, messages=messages, stream=True
     ):
         chunk = part['message']['content']
         response_content += chunk
@@ -193,7 +195,7 @@ DO NOT RESPOND WITH ANYTHING EXCEPT THE RATING
     response_content = ""
 
     async for part in await AsyncClient().chat(
-        model="hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M", messages=messages, stream=True
+        model=llm_model, messages=messages, stream=True
     ):
         chunk = part['message']['content']
         response_content += chunk

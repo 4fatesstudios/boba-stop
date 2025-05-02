@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, List
 import uvicorn
 from generator import *
 from retriever import *
@@ -40,8 +40,10 @@ class CombinedData(BaseModel):
     world_location: str
     world_time: str
     world_weather: str
-    level_context: str[2]
+    level_context: str
     current_context: str
+
+    player_prompt: str
 
 @app.get("/")
 async def hello_world():
@@ -50,7 +52,7 @@ async def hello_world():
 
 @app.post("/first_meeting/character/{character}")
 async def first_meeting(character: str, data: CombinedData):
-    context = retriever(data.name, f'first meeting with {data.name}')
+    context = retriever(data.name, data.player_prompt)
     intro = start(character, data, context)
     result = await chat(character, intro, "")
     return result
