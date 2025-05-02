@@ -18,14 +18,15 @@ namespace BobaStop.Characters
         
         protected override void Start() {
             base.Start();
+
+            DialogueManager.OnInitiateDialogueSuccess += InvokeOnInteract;
         }
 
         public virtual void Interact() {
-            InvokeOnInteract();
             GameManager.Instance.dialogueManager.InitiateDialogue(npcDialogueData);
         }
 
-        protected void InvokeOnInteract() {
+        private void InvokeOnInteract(object sender, EventArgs e) {
             OnNPCInteract?.Invoke(this, e: new OnNPCInteractArgs { transform = transform });
         }
         
