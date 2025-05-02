@@ -21,6 +21,7 @@ CHROMA_PATH = os.path.join(COMMON_DIR, "chroma_db")
 
 chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 
+# Load the collection
 karen_collection = chroma_client.get_or_create_collection("karen_history")
 jade_collection = chroma_client.get_or_create_collection("jade_history")
 kaden_collection = chroma_client.get_or_create_collection("kaden_history")

@@ -7,18 +7,18 @@ from retriever import *
 
 app = FastAPI()
 
+# Request body model for POST /chat
 class Prompt(BaseModel):
     text: str
 
+# Request body model for POST /insert_post
 class Post(BaseModel):
     title: str
-    text: str
+    character_name: str
 
-# Request body model for POST /new_conversation
-class ConversationData(BaseModel):
-    rapport_level: int
-    rapport_level_progress: int
-    current_story: str
+# Request body model for POST /rate_conversation
+class RateConversation(BaseModel):
+    character_name: str
 
 # Request body model for POST /start
 class CombinedData(BaseModel):
@@ -40,7 +40,7 @@ class CombinedData(BaseModel):
     world_location: str
     world_time: str
     world_weather: str
-    level_context: str
+    level_context: str[2]
     current_context: str
 
 @app.get("/")
@@ -73,6 +73,7 @@ async def chat_route(character: str, data: Prompt):
     result = await chat(character, '', data.text)
     return result
 
+# change to make post and add character name in create_text
 @app.get("/summarize_chat/character/{character}")
 async def summarize(character: str):
     result = await summarize_chat(character)
@@ -81,10 +82,16 @@ async def summarize(character: str):
     return {"response": result}
 
 @app.post("/insert_post/character/{character}")
-async def insert_conversation(character: str, data: Prompt):
-    text = create_text(character, data.text)
-    result = insert_post(character, data.text, text)
+async def insert_conversation(character: str, data: Post):
+    text = create_text(character, data.title)
+    insert_post(character, data.title, text)
     return {"message": "Posts inserted successfully."}
+
+@app.post("/rate_conversation/player/{player}")
+async def rate_conversation(player: str, data: RateConversation):
+    text = create_text(player, data.character_name, f"conversation between {player} and {data.character_name}")
+    result = await rating(player, data.character_name, text)
+    return {"response": result}
 
 if __name__ == "__main__":
     uvicorn.run("chromadb_fastapi:app", host="127.0.0.1", port=8000)

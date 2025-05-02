@@ -5,6 +5,7 @@ using BobaStop.NPCs;
 using BobaStop.Context;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Reflection;
 
 
 namespace BobaStop.AI {
@@ -14,10 +15,13 @@ namespace BobaStop.AI {
     }
 
     [System.Serializable]
-    public class ConversationRequest {
-        public int rapport_level;
-        public int rapport_level_progress;
-        public string current_story;
+    public class PostData {
+        public string title;
+        public int n;
+    }
+
+    public class RateConversationData {
+        public string character_name;
     }
 
     [System.Serializable]
@@ -37,8 +41,8 @@ namespace BobaStop.AI {
         public string world_location;
         public string world_time;
         public string world_weather;
-        public string level_context;
-        public string current_context;
+        public string[] level_context;
+        public string current_context;  
     }
 
     [System.Serializable]
@@ -137,7 +141,7 @@ namespace BobaStop.AI {
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext()[0],
+                level_context = WorldContextManager.GetCurrentLevelContext(),
                 current_context = getStartContext(characterData.companionName, Player.Instance.GetPlayerDataManager().GetPlayerName())
             };
 
@@ -192,7 +196,7 @@ namespace BobaStop.AI {
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext()[1], 
+                level_context = WorldContextManager.GetCurrentLevelContext(), 
                 current_context = $"you are at World Location. You ran into {Player.Instance.GetPlayerDataManager().GetPlayerName()} there"
             };
 
@@ -260,13 +264,12 @@ namespace BobaStop.AI {
         }
 
         // POST: /summarize_chat/character/{character}
-        // Not tested yet
-        public void SendSummarizeChat(string characterName, Action<string> onComplete) {
-            StartCoroutine(SendSummarizeChatIEnumerator(characterName, onComplete));
+        public void SendSummarizeChat(CompanionData characterData, Action<string> onComplete) {
+            StartCoroutine(SendSummarizeChatIEnumerator(characterData, onComplete));
         }
 
-        private IEnumerator SendSummarizeChatIEnumerator(string characterName, Action<string> onComplete) {
-            string url = $"{baseUrl}/summarize_chat/character/{characterName}";
+        private IEnumerator SendSummarizeChatIEnumerator(CompanionData characterData, Action<string> onComplete) {
+            string url = $"{baseUrl}/summarize_chat/player/{characterData.companionName}";
 
             Debug.Log("Sending chat message to: " + url);
 
@@ -282,10 +285,46 @@ namespace BobaStop.AI {
                     data = response.response;
                 } else {
                     Debug.LogError("Chat POST error: " + request.error);
-                    data = $"{characterName} is asleep right now. Please come back later!";
+                    data = $"{characterData.companionName} is asleep right now. Please come back later!";
                 }
             }
             onComplete?.Invoke(data);
+        }
+
+        // POST: "/rate_conversation/player/{player}"
+        public void RateConversation(CompanionData characterData,  Action<string> onComplete) {
+            StartCoroutine(RateConversationIEnumerator(characterData, onComplete));
+        }
+        private IEnumerator RateConversationIEnumerator(CompanionData characterData,  Action<string> onComplete) {
+            string playerName = Player.Instance.GetPlayerDataManager().GetPlayerName();
+            string url = $"{baseUrl}/rate_conversation/player/{playerName}";
+
+            RateConversationData requestData = new RateConversationData {
+                character_name = characterData.companionName
+            };
+
+            string json = JsonUtility.ToJson(requestData);
+
+            using (UnityWebRequest request = new UnityWebRequest(url, "POST")) {
+                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
+
+                yield return request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success) {
+                    string jsonResponse = request.downloadHandler.text;
+                    ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
+                    Debug.Log("Rating: " + response.response);
+                    data = response.response;
+                } else {
+                    Debug.LogError("POST error: " + request.error);
+                    data = $"Conversation for {characterData.companionName} had no rating";
+                }
+                // Handle the response as needed
+                onComplete?.Invoke(data);
+            }
         }
 
         public string GetData() {
