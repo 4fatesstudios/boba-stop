@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BobaStop.Systems;
 using UnityEngine;
 
 namespace BobaStop
@@ -16,8 +17,9 @@ namespace BobaStop
         
         private void Start() {
             anim = GetComponent<Animator>();
-
+            
             OnRapportUpdate += PlayRapportAnimation;
+            DialogueManager.OnCompanionStillThinking += PlayThinkingAnimation;
         }
 
         private void Update() {
@@ -28,6 +30,10 @@ namespace BobaStop
             if (Input.GetKeyUp(KeyCode.Alpha0)) {
                 PlayRapportAnimation(false);
             }
+        }
+
+        private void PlayThinkingAnimation(object sender, EventArgs e) {
+            anim.Play("Thinking");
         }
 
         private void PlayRapportAnimation(object sender, OnRapportUpdateArgs e) {

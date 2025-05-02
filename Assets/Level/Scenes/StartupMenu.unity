@@ -275,25 +275,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 540631963839954918, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
-    - target: {fileID: 5089839469562793868, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6542260546814182489, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
       propertyPath: m_Name
       value: GameUIManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8121258978776805677, guid: d11cc8bd554ee2f439084b169cb4ac6d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9147929568998341061, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
@@ -303,7 +288,7 @@ PrefabInstance:
     - target: {fileID: 9147929568998341061, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -77
       objectReference: {fileID: 0}
     - target: {fileID: 9147929568998341061, guid: d11cc8bd554ee2f439084b169cb4ac6d,
         type: 3}

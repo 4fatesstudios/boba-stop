@@ -22,6 +22,8 @@ namespace BobaStop.Systems
         
         public event EventHandler<OnDoDialogueEventArgs> OnDoDialogue;
         public event EventHandler OnInappropriateInput;
+        public static event EventHandler OnCompanionStillThinking;
+        public static event EventHandler OnInitiateDialogueSuccess;
         
         private APIClient apiClient;
 
@@ -169,10 +171,18 @@ namespace BobaStop.Systems
         }
 
         public void InitiateDialogue(NPCDialogueData dialogueData, CompanionDataManager companionDataManager=null, bool useEnvironmentContext=false) {
+            if (string.IsNullOrEmpty(dialogueText)) {
+                Debug.Log("Still thinking!!!");
+                OnCompanionStillThinking?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+            
             if (dialogueData == null) {
                 Debug.LogError("Dialogue Data is null");
                 return;
             }
+            
+            OnInitiateDialogueSuccess?.Invoke(this, EventArgs.Empty);
             
             GameManager.Instance.PauseDay();
             GameInput.Instance.EnableInputMapOnly(ActionMap.Dialogue);

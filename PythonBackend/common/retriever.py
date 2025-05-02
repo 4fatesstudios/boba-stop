@@ -26,47 +26,83 @@ karen_collection = chroma_client.get_or_create_collection("karen_history")
 jade_collection = chroma_client.get_or_create_collection("jade_history")
 kaden_collection = chroma_client.get_or_create_collection("kaden_history")
 aster_collection = chroma_client.get_or_create_collection("aster_history")
+common_collection = chroma_client.get_or_create_collection("common_knowledge")
 
-# post number (use later)
-karen_post_number = 0
-jade_post_number = 0
-kaden_post_number = 0
-aster_post_number = 0
-
-# Embedding model
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")  # Lightweight model
 
 def insert_post(character_name, title, text):
     collection = choose_collection(character_name)
 
-    id = uuid.uuid4()
+    # Check if the title already exists using metadata filter
+    results = collection.get(where={"Title": title})
 
-    embedding = embedding_model.encode(title).tolist()
+    if results["ids"]:
+        existing_id = results["ids"][0]
+        existing_metadata = results["metadatas"][0]
+        existing_text = existing_metadata.get("Text", "")
 
-    collection.add(
-        ids=[str(id)],
-        embeddings=[embedding],
-        metadatas=[{"Title": title, "Text": text}]
-    )
-    print(f"Post with ID {id} added to {character_name}'s collection.")
+        # Avoid adding duplicate text
+        if text.strip() in existing_text:
+            print(f"Duplicate text already exists for title '{title}', skipping insert.")
+            return
 
-def retriever(character_name, query_text="Karen is being rude at a store"):
-    collection = choose_collection(character_name)
+        new_text = existing_text + "\n" + text.strip()
+
+        # Update existing document
+        collection.update(
+            ids=[existing_id],
+            embeddings=[embedding_model.encode(title).tolist()],
+            metadatas=[{"Title": title, "Text": new_text}]
+        )
+        print(f"Post with Title '{title}' updated in ChromaDB.")
+    else:
+        # Insert new document
+        id = str(uuid.uuid4())
+        embedding = embedding_model.encode(title).tolist()
+
+        collection.add(
+            ids=[id],
+            embeddings=[embedding],
+            metadatas=[{"Title": title, "Text": text.strip()}]
+        )
+        print(f"Post with ID {id} and Title '{title}' added to ChromaDB.")
+
+
+
+def retriever(character_name, query_text="Karen is being rude at a store", n_results=2):
+    char_collection = choose_collection(character_name)
     query_embedding = embedding_model.encode(query_text).tolist()
 
-    results = collection.query(
+    # Query character-specific collection
+    char_results = char_collection.query(
         query_embeddings=[query_embedding],
-        n_results=2
+        n_results=n_results
     )
 
-    # Display results
-    for doc, metadata in zip(results["documents"][0], results["metadatas"][0]):
-        print(f'Title: {metadata["Title"]}')
-        if "Text" in metadata:
-            print(f'Response: {metadata["Text"]}\n')
+    # Query common knowledge collection
+    common_results = common_collection.query(
+        query_embeddings=[query_embedding],
+        n_results=n_results
+    )
 
-    retrieved_texts = [metadata["Text"] for metadata in results["metadatas"][0] if "Text" in metadata]
-    return " ".join(retrieved_texts)
+    combined_texts = []
+
+    print(f"\n--- Character: {character_name} Results ---")
+    for doc, metadata, dist in zip(char_results["documents"][0], char_results["metadatas"][0], char_results["distances"][0]):
+        print(f"Title: {metadata['Title']}")
+        print(f"Distance: {dist}")
+        print(f"Text: {metadata.get('Text', '')}\n")
+        combined_texts.append(metadata.get("Text", ""))
+
+    print(f"\n--- Common Knowledge Results ---")
+    for doc, metadata, dist in zip(common_results["documents"][0], common_results["metadatas"][0], common_results["distances"][0]):
+        print(f"Title: {metadata['Title']}")
+        print(f"Distance: {dist}")
+        print(f"Text: {metadata.get('Text', '')}\n")
+        combined_texts.append(metadata.get("Text", ""))
+
+    return " ".join(combined_texts)
+
 
 def choose_collection(character_name):
     match character_name:
@@ -78,5 +114,19 @@ def choose_collection(character_name):
             return kaden_collection
         case "Aster":
             return aster_collection
+        case "common":
+            return common_collection
         case _:
             raise ValueError("Unknown character name.")
+
+
+def clear_all_collections():
+    for collection in [karen_collection, jade_collection, kaden_collection, aster_collection, common_collection]:
+        # Retrieve all IDs in the collection
+        results = collection.get()
+        ids = results.get("ids", [])
+        if ids:
+            collection.delete(ids=ids)
+            print(f"Cleared {len(ids)} items from collection '{collection.name}'")
+        else:
+            print(f"No items to clear in collection '{collection.name}'")
