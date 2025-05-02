@@ -32,38 +32,40 @@ embedding_model = SentenceTransformer("all-MiniLM-L6-v2")  # Lightweight model
 def insert_post(character_name, title, text):
     collection = choose_collection(character_name)
 
-    # First, check if the title already exists in the collection
-    query_embedding = embedding_model.encode(title).tolist()
+    # Check if the title already exists using metadata filter
+    results = collection.get(where={"Title": title})
 
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=1
-    )
-
-    # If the title already exists, update its text
-    if results["documents"][0]:
-        existing_metadata = results["metadatas"][0][0]
+    if results["ids"]:
+        existing_id = results["ids"][0]
+        existing_metadata = results["metadatas"][0]
         existing_text = existing_metadata.get("Text", "")
-        new_text = existing_text + "\n" + text  # Append new text
 
-        # Update the existing document with the new text
+        # Avoid adding duplicate text
+        if text.strip() in existing_text:
+            print(f"Duplicate text already exists for title '{title}', skipping insert.")
+            return
+
+        new_text = existing_text + "\n" + text.strip()
+
+        # Update existing document
         collection.update(
-            ids=results["ids"][0],
-            embeddings=[query_embedding],  # Reuse the same embedding for the title
+            ids=[existing_id],
+            embeddings=[embedding_model.encode(title).tolist()],
             metadatas=[{"Title": title, "Text": new_text}]
         )
         print(f"Post with Title '{title}' updated in ChromaDB.")
     else:
-        # If title doesn't exist, create a new entry
-        id = uuid.uuid4()
+        # Insert new document
+        id = str(uuid.uuid4())
         embedding = embedding_model.encode(title).tolist()
 
         collection.add(
-            ids=[str(id)],
+            ids=[id],
             embeddings=[embedding],
-            metadatas=[{"Title": title, "Text": text}]
+            metadatas=[{"Title": title, "Text": text.strip()}]
         )
-        print(f"Post with ID {id} added to ChromaDB.")
+        print(f"Post with ID {id} and Title '{title}' added to ChromaDB.")
+
 
 
 def retriever(character_name, query_text="Karen is being rude at a store", n_results=2):
@@ -111,6 +113,8 @@ def choose_collection(character_name):
             return kaden_collection
         case "Aster":
             return aster_collection
+        case "common":
+            return common_collection
         case _:
             raise ValueError("Unknown character name.")
 

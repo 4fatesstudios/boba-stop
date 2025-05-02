@@ -19,8 +19,7 @@ def populate_all(csv_path):
         for row in reader:
             title = row["Title"].strip()
             text = row["Text"].strip()
-            for character in CHARACTERS:
-                insert_post(character, title, text)
+            insert_post("common", title, text)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Populate ChromaDB from CSV")
