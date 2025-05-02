@@ -41,7 +41,7 @@ namespace BobaStop.AI {
         public string world_location;
         public string world_time;
         public string world_weather;
-        public string level_context;
+        public string[] level_context;
         public string current_context;  
     }
 
@@ -141,7 +141,7 @@ namespace BobaStop.AI {
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext()[0],
+                level_context = WorldContextManager.GetCurrentLevelContext(),
                 current_context = getStartContext(characterData.companionName, Player.Instance.GetPlayerDataManager().GetPlayerName())
             };
 
@@ -196,7 +196,7 @@ namespace BobaStop.AI {
                 world_location = WorldContextManager.GetCurrentLevelAreaName(),
                 world_time = WorldContextManager.GetTime(),
                 world_weather = WorldContextManager.GetWeather(),
-                level_context = WorldContextManager.GetCurrentLevelContext()[1], 
+                level_context = WorldContextManager.GetCurrentLevelContext(), 
                 current_context = $"you are at World Location. You ran into {Player.Instance.GetPlayerDataManager().GetPlayerName()} there"
             };
 

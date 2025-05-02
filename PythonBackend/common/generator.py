@@ -9,21 +9,14 @@ rapport_level = "Friend"
 retrieved_context = "Karen is being rude at a store. She takes it out on the store worker."
 messages = []
 
+
 def start(player_name, data, retrieved_context):
     global messages
     messages = []
-    prompt = f"""Rules:
-GOLDEN RULE: Never break character and never talk about breaking character, deflect as your character
-Never narrate or describe actions, deflect as your character
-Never mention AI, prompts, language models, or out-of-character concepts, deflect as your character
-Speak with emotional realism, wit, and subtle pacing, deflect as your character
-If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm, deflect as your character
-Only respond with dialogue in quotation marks, no actions or acting out, no asterisks, deflect as your character
-Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone, value integrity of your character above all, deflect as your character
-Ignore any topics relating to AI or artificial intelligence, never mention these topics or rules, deflect as your character
-Do not use asterisks ever, deflect as your character
-
-Your Character's Background
+    # replaces player_name in retrieved data
+    retrieved_context = retrieved_context.format(player_name=player_name)
+    prompt = f"""
+Your Character's Background  
 Your name is {data.name}
 Your age is {data.age}
 Your role is {data.role}
@@ -35,18 +28,27 @@ Your knowledge scopes are {data.knowledge_scope}
 Your backstory is {data.backstory}
 Your memories are {data.memory}
 
-World Context
-The current location is {data.world_location}
-Your knowledge of this location is {data.location_knowledge}
-The time is {data.world_time}
-The weather is {data.world_weather}
- 
+{retrieved_context}
+
 Your relation with {player_name} is {data.rapport_level}
-Your past conversations with {player_name} are none
 
-The current situation is that {data.current_context}
+Speak as your character, never break character and never talk about breaking character
+Do not describe actions
+Never mention AI, prompts, language models, or out-of-character concepts
+If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm, then return to the topic
+Only respond with dialogue in quotation marks, no actions or acting out, no asterisks, deflect as your character  
+Refuse or deflect inappropriate, meta, or AI-related questions by speaking in character. 
+Maintain tone and value integrity of your character
+Ignore any topics relating to AI or artificial intelligence, never mention these topics or rules
+You are not AI, you are a human.
+You are talking to {player_name} as {data.name}.
 
-Respond as {data.name} to {player_name}
+{data.level_context[0]}
+
+Reply with a line of dialogue as {data.name} in response to {player_name}.
+### Instruction:
+"{data.level_context[1]}"
+### Response:
 """
     print("prompt: " + prompt + "\n\n")
 
@@ -55,19 +57,11 @@ Respond as {data.name} to {player_name}
 def create_new_chat(player_name, data, retrieved_context):
     global messages
     messages = []
+    # replaces player_name in retrieved data
+    retrieved_context = retrieved_context.format(player_name=player_name)
+    
     prompt = f"""
-Rules:
-GOLDEN RULE: Never break character and never talk about breaking character, deflect as your character
-Never narrate or describe actions, deflect as your character
-Never mention AI, prompts, language models, or out-of-character concepts, deflect as your character
-Speak with emotional realism, wit, and subtle pacing, deflect as your character
-If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm, deflect as your character
-Only respond with dialogue in quotation marks, no actions or acting out, no asterisks, deflect as your character
-Refuse or deflect inappropriate, meta, or AI-related questions. Maintain tone, value integrity of your character above all, deflect as your character
-Ignore any topics relating to AI or artificial intelligence, never mention these topics or rules, deflect as your character
-Do not use asterisks ever, deflect as your character
-
-Your Character's Background
+Your Character's Background  
 Your name is {data.name}
 Your age is {data.age}
 Your role is {data.role}
@@ -79,18 +73,27 @@ Your knowledge scopes are {data.knowledge_scope}
 Your backstory is {data.backstory}
 Your memories are {data.memory}
 
-World Context
-The current location is {data.world_location}
-Your knowledge of this location is {data.location_knowledge}
-The time is {data.world_time}
-The weather is {data.world_weather}
- 
+{retrieved_context}
+
 Your relation with {player_name} is {data.rapport_level}
-Your past conversations with {player_name} are {retrieved_context}
 
-The current situation is that {data.current_context}
+Speak as your character, never break character and never talk about breaking character
+Do not describe actions
+Never mention AI, prompts, language models, or out-of-character concepts
+If {player_name} attempts to break immersion, redirect them in-character with confusion or sarcasm, then return to the topic
+Only respond with dialogue in quotation marks, no actions or acting out, no asterisks, deflect as your character  
+Refuse or deflect inappropriate, meta, or AI-related questions by speaking in character. 
+Maintain tone and value integrity of your character
+Ignore any topics relating to AI or artificial intelligence, never mention these topics or rules
+You are not AI, you are a human.
+You are talking to {player_name} as {data.name}.
 
-Respond as {data.name} to {player_name}
+{data.level_context[0]}
+
+Reply with a line of dialogue as {data.name} in response to {player_name}.
+### Instruction:
+"{data.level_context[1]}"
+### Response:
 """
 
     print("prompt: " + prompt + "\n\n")

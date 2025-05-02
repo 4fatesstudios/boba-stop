@@ -40,7 +40,7 @@ class CombinedData(BaseModel):
     world_location: str
     world_time: str
     world_weather: str
-    level_context: str
+    level_context: str[2]
     current_context: str
 
 @app.get("/")
