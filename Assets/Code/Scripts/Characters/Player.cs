@@ -87,52 +87,52 @@ namespace BobaStop.Characters {
                 Quit();
             }
 
-            if (Input.GetKeyDown(KeyCode.M)) {
-                Debug.Log(GameManager.Instance.inventoryManager.GetInventory().GetItemSlots().ToString());
-                Debug.Log(GameManager.Instance.inventoryManager.ToReadableString());
-            }
-
-            if (Input.GetKeyDown(KeyCode.O)) {
-                Debug.Log(GameManager.Instance.dayCycleManager.GetStandardTime());
-                Debug.Log(GameManager.Instance.dayCycleManager.GetCurrentDayPhase());
-                Debug.Log(GameManager.Instance.worldManager.GetWorldDataManager().GetDay().day.ToString());
-            }
-            if (Input.GetKeyDown(KeyCode.P)) {
-                GameManager.Instance.dayCycleManager.Pause();
-            }
-            if (Input.GetKeyDown(KeyCode.L)) {
-                GameManager.Instance.dayCycleManager.Unpause();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1)) {
-                GameManager.Instance.shopManager.PrintShopSelection();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha2)) {
-                GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
-                GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping1"));
-                GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping2"));
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha3)) {
-                GameManager.Instance.shopManager.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha4)) {
-                GameManager.Instance.shopManager.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha5)) {
-                GameManager.Instance.shopManager.HandleOrderGeneration();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha6)) {
-                GameManager.Instance.shopManager.GetShopSelectionScore();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha7)) {
-                GameManager.Instance.shopManager.IncreaseShopReputationLevel();
-            }
+            // if (Input.GetKeyDown(KeyCode.M)) {
+            //     Debug.Log(GameManager.Instance.inventoryManager.GetInventory().GetItemSlots().ToString());
+            //     Debug.Log(GameManager.Instance.inventoryManager.ToReadableString());
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.O)) {
+            //     Debug.Log(GameManager.Instance.dayCycleManager.GetStandardTime());
+            //     Debug.Log(GameManager.Instance.dayCycleManager.GetCurrentDayPhase());
+            //     Debug.Log(GameManager.Instance.worldManager.GetWorldDataManager().GetDay().day.ToString());
+            // }
+            // if (Input.GetKeyDown(KeyCode.P)) {
+            //     GameManager.Instance.dayCycleManager.Pause();
+            // }
+            // if (Input.GetKeyDown(KeyCode.L)) {
+            //     GameManager.Instance.dayCycleManager.Unpause();
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            //     GameManager.Instance.shopManager.PrintShopSelection();
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            //     GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+            //     GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping1"));
+            //     GameManager.Instance.shopManager.AddToShopSelection(Resources.Load<Items.Resource>("Items/Resource/Toppings/TestTopping2"));
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            //     GameManager.Instance.shopManager.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/GreenTea"));
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            //     GameManager.Instance.shopManager.RemoveFromShopSelection(Resources.Load<Items.Resource>("Items/Resource/Bases/BlackTea"));
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            //     GameManager.Instance.shopManager.HandleOrderGeneration();
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha6)) {
+            //     GameManager.Instance.shopManager.GetShopSelectionScore();
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.Alpha7)) {
+            //     GameManager.Instance.shopManager.IncreaseShopReputationLevel();
+            // }
         }
 
         private void Quit() {

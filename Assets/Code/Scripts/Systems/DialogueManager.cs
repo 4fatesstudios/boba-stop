@@ -16,7 +16,7 @@ namespace BobaStop.Systems
         private NPCDialogueData dialogueData;
         private string[] lines;
 
-        private int maxCharPerLine = 100;
+        private int maxCharPerLine = 200;
 
         private CompanionData companionData;
         

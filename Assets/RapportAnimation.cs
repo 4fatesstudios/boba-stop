@@ -21,11 +21,11 @@ namespace BobaStop
         }
 
         private void Update() {
-            if (Input.GetKeyDown(KeyCode.N)) {
+            if (Input.GetKeyDown(KeyCode.Alpha9)) {
                 PlayRapportAnimation(true);
             }
             
-            if (Input.GetKeyUp(KeyCode.M)) {
+            if (Input.GetKeyUp(KeyCode.Alpha0)) {
                 PlayRapportAnimation(false);
             }
         }
