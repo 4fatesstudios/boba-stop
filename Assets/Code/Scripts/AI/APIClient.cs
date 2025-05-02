@@ -5,6 +5,7 @@ using BobaStop.NPCs;
 using BobaStop.Context;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Reflection;
 
 
 namespace BobaStop.AI {
@@ -14,10 +15,13 @@ namespace BobaStop.AI {
     }
 
     [System.Serializable]
-    public class ConversationRequest {
-        public int rapport_level;
-        public int rapport_level_progress;
-        public string current_story;
+    public class PostData {
+        public string title;
+        public int n;
+    }
+
+    public class SummaryData {
+        public int n;
     }
 
     [System.Serializable]
@@ -38,7 +42,7 @@ namespace BobaStop.AI {
         public string world_time;
         public string world_weather;
         public string level_context;
-        public string current_context;
+        public string current_context;  
     }
 
     [System.Serializable]
@@ -261,17 +265,24 @@ namespace BobaStop.AI {
 
         // POST: /summarize_chat/character/{character}
         // Not tested yet
-        public void SendSummarizeChat(string characterName, Action<string> onComplete) {
-            StartCoroutine(SendSummarizeChatIEnumerator(characterName, onComplete));
+        public void SendSummarizeChat(CompanionData characterData, Action<string> onComplete) {
+            StartCoroutine(SendSummarizeChatIEnumerator(characterData, onComplete));
         }
 
-        private IEnumerator SendSummarizeChatIEnumerator(string characterName, Action<string> onComplete) {
-            string url = $"{baseUrl}/summarize_chat/character/{characterName}";
+        private IEnumerator SendSummarizeChatIEnumerator(CompanionData characterData, Action<string> onComplete) {
+            string url = $"{baseUrl}/summarize_chat/character/{characterData.companionName}";
+            SummaryData summaryData = new SummaryData {
+                n = characterData.postCount
+            };
 
+            string json = JsonUtility.ToJson(summaryData);
             Debug.Log("Sending chat message to: " + url);
 
-            using (UnityWebRequest request = new UnityWebRequest(url, "GET")) {
+            using (UnityWebRequest request = new UnityWebRequest(url, "POST")) {
+                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
 
                 yield return request.SendWebRequest();
 
@@ -279,10 +290,12 @@ namespace BobaStop.AI {
                     string jsonResponse = request.downloadHandler.text;
                     ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
                     Debug.Log("Summarized chat: " + response.response);
+                    // un-comment this line when you start inserting the posts
+                    // characterData.IncreasePostCount();
                     data = response.response;
                 } else {
                     Debug.LogError("Chat POST error: " + request.error);
-                    data = $"{characterName} is asleep right now. Please come back later!";
+                    data = $"{characterData.companionName} is asleep right now. Please come back later!";
                 }
             }
             onComplete?.Invoke(data);
