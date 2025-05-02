@@ -24,6 +24,7 @@ namespace BobaStop.Systems
         public event EventHandler OnInappropriateInput;
         public static event EventHandler OnCompanionStillThinking;
         public static event EventHandler OnInitiateDialogueSuccess;
+        public static event EventHandler<OnRapportUpdateArgs> OnRapportUpdate;
         
         private APIClient apiClient;
 
@@ -36,6 +37,10 @@ namespace BobaStop.Systems
             public NPCDialogueData dialogueData = null;
             public bool isInitiatingDialogue = false;
             public bool isEndingDialogue = false;
+        }
+        
+        public class OnRapportUpdateArgs : EventArgs {
+            public bool rapportUp;
         }
 
         public void Start() {
@@ -155,7 +160,7 @@ namespace BobaStop.Systems
         public string[] GetLines() {
             return lines;
         }
-
+        
         public void SetLines(string[] lines) {
             this.lines = lines;
         }
