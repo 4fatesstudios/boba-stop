@@ -20,8 +20,8 @@ namespace BobaStop.AI {
         public int n;
     }
 
-    public class SummaryData {
-        public int n;
+    public class RateConversationData {
+        public string character_name;
     }
 
     [System.Serializable]
@@ -264,13 +264,12 @@ namespace BobaStop.AI {
         }
 
         // POST: /summarize_chat/character/{character}
-        // Not tested yet
         public void SendSummarizeChat(CompanionData characterData, Action<string> onComplete) {
             StartCoroutine(SendSummarizeChatIEnumerator(characterData, onComplete));
         }
 
         private IEnumerator SendSummarizeChatIEnumerator(CompanionData characterData, Action<string> onComplete) {
-            string url = $"{baseUrl}/summarize_chat/character/{characterData.companionName}";
+            string url = $"{baseUrl}/summarize_chat/player/{characterData.companionName}";
 
             Debug.Log("Sending chat message to: " + url);
 
@@ -290,6 +289,42 @@ namespace BobaStop.AI {
                 }
             }
             onComplete?.Invoke(data);
+        }
+
+        // POST: "/rate_conversation/player/{player}"
+        public void RateConversation(CompanionData characterData,  Action<string> onComplete) {
+            StartCoroutine(RateConversationIEnumerator(characterData, onComplete));
+        }
+        private IEnumerator RateConversationIEnumerator(CompanionData characterData,  Action<string> onComplete) {
+            string playerName = Player.Instance.GetPlayerDataManager().GetPlayerName();
+            string url = $"{baseUrl}/rate_conversation/player/{playerName}";
+
+            RateConversationData requestData = new RateConversationData {
+                character_name = characterData.companionName
+            };
+
+            string json = JsonUtility.ToJson(requestData);
+
+            using (UnityWebRequest request = new UnityWebRequest(url, "POST")) {
+                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
+
+                yield return request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success) {
+                    string jsonResponse = request.downloadHandler.text;
+                    ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(jsonResponse);
+                    Debug.Log("Rating: " + response.response);
+                    data = response.response;
+                } else {
+                    Debug.LogError("POST error: " + request.error);
+                    data = $"Conversation for {characterData.companionName} had no rating";
+                }
+                // Handle the response as needed
+                onComplete?.Invoke(data);
+            }
         }
 
         public string GetData() {

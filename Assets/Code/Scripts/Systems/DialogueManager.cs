@@ -114,6 +114,16 @@ namespace BobaStop.Systems
             Debug.Log("Received memory in DialogueManager: " + memory);
         }
 
+        private void RateConversation(string rating) {
+            if (rating == "error") {
+                Debug.LogError("Error in API response");
+                return;
+            }
+            var rate = Int32.Parse(rating);
+            
+            Debug.Log("DialogueManager received conversation rating: " + rating);
+        }
+
         private void PopulateLines(string goodbye) {
             if (dialogueText == null) {
                 lines = new[] {
@@ -189,7 +199,8 @@ namespace BobaStop.Systems
         }
 
         public void EndDialogue() {
-            apiClient.SendSummarizeChat(companionData.companionName, AddMemory);
+            // apiClient.SendSummarizeChat(companionData, AddMemory);
+            apiClient.RateConversation(companionData, RateConversation);
             OnDoDialogue?.Invoke(this, new OnDoDialogueEventArgs {
                 isEndingDialogue = true
             });

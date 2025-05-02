@@ -2,7 +2,7 @@ import asyncio
 from ollama import AsyncClient
 from retriever import *
 
-__all__ = ['start', 'create_new_chat', 'chat', 'summarize_chat', 'create_text']
+__all__ = ['start', 'create_new_chat', 'chat', 'summarize_chat', 'create_text', 'rating']
 
 rapport_level_progress = 0
 rapport_level = "Friend"
@@ -150,13 +150,53 @@ async def summarize_chat(character_name):
 
     return response_content
 
-def create_text(character_name, title):
+def create_text(player, character, title):
     global messages
 
     text = title + "\n\n"
     for message in messages[1:]:
-        message_content = message['role'] + message['content']
-        text += message_content + "\n"
+        if message['role'] == 'user':
+            text += player + ": " + message['content'] + "\n"
+        else:
+            text = character + ": " + message['content'] + "\n"
     print("text: " + text + "\n\n")
 
     return text
+
+async def rating(player, character, text):
+
+    prompt = f"""
+### Instructions:
+{text}
+
+Rate the interaction with {player} from {character}'s perspective from 0 to 10 using this scale
+0 - Extremely negative: deep betrayal, emotional devastation, hatred, or severe conflict.
+1 - Very negative: strong anger, rejection, emotional pain, or intense frustration.
+2 - Negative: irritation, resentment, or sadness, but less severe than 1.
+3 - Mildly negative: tension, discomfort, awkwardness, or emotional distance.
+4 - Slightly negative: disappointed or underwhelmed, but not confrontational.
+5 - Neutral: emotionally indifferent, detached, or unsure how to feel.
+6 - Slightly positive: mild approval, interest, or appreciation.
+7 - Moderately positive: pleased, friendly, or cooperative tone.
+8 - Positive: warm interaction, support, or clear emotional connection.
+9 - Very positive: joy, affection, strong rapport, or emotional vulnerability.
+10 - Extremely positive: deep love, trust, fulfillment, or shared emotional clarity.
+DO NOT RESPOND WITH ANYTHING EXCEPT THE RATING
+### Response: """
+    print(prompt)
+    
+    messages.append({"role": "user", "content": prompt})
+
+    response_content = ""
+
+    async for part in await AsyncClient().chat(
+        model="hf.co/TheBloke/MythoMist-7B-GGUF:Q4_K_M", messages=messages, stream=True
+    ):
+        chunk = part['message']['content']
+        response_content += chunk
+
+    messages.append({"role": "assistant", "content": response_content})
+
+    print(response_content)
+
+    return response_content

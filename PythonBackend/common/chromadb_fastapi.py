@@ -14,6 +14,11 @@ class Prompt(BaseModel):
 # Request body model for POST /insert_post
 class Post(BaseModel):
     title: str
+    character_name: str
+
+# Request body model for POST /rate_conversation
+class RateConversation(BaseModel):
+    character_name: str
 
 # Request body model for POST /start
 class CombinedData(BaseModel):
@@ -68,6 +73,7 @@ async def chat_route(character: str, data: Prompt):
     result = await chat(character, '', data.text)
     return result
 
+# change to make post and add character name in create_text
 @app.get("/summarize_chat/character/{character}")
 async def summarize(character: str):
     result = await summarize_chat(character)
@@ -80,6 +86,12 @@ async def insert_conversation(character: str, data: Post):
     text = create_text(character, data.title)
     insert_post(character, data.title, text)
     return {"message": "Posts inserted successfully."}
+
+@app.post("/rate_conversation/player/{player}")
+async def rate_conversation(player: str, data: RateConversation):
+    text = create_text(player, data.character_name, f"conversation between {player} and {data.character_name}")
+    result = await rating(player, data.character_name, text)
+    return {"response": result}
 
 if __name__ == "__main__":
     uvicorn.run("chromadb_fastapi:app", host="127.0.0.1", port=8000)
