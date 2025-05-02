@@ -8,17 +8,11 @@ namespace BobaStop
 {
     public class RapportAnimation : MonoBehaviour {
         private Animator anim;
-
-        public static event EventHandler<OnRapportUpdateArgs> OnRapportUpdate;
-
-        public class OnRapportUpdateArgs : EventArgs {
-            public bool rapportUp;
-        }
         
         private void Start() {
             anim = GetComponent<Animator>();
             
-            OnRapportUpdate += PlayRapportAnimation;
+            DialogueManager.OnRapportUpdate += PlayRapportAnimation;
             DialogueManager.OnCompanionStillThinking += PlayThinkingAnimation;
         }
 
@@ -36,7 +30,7 @@ namespace BobaStop
             anim.Play("Thinking");
         }
 
-        private void PlayRapportAnimation(object sender, OnRapportUpdateArgs e) {
+        private void PlayRapportAnimation(object sender, DialogueManager.OnRapportUpdateArgs e) {
             anim.Play(e.rapportUp ? "Rapport_Up" : "Rapport_Down");
         }
         
@@ -45,11 +39,11 @@ namespace BobaStop
         }
 
         private void OnDisable() {
-            OnRapportUpdate -= PlayRapportAnimation;
+            DialogueManager.OnRapportUpdate -= PlayRapportAnimation;
         }
 
         private void OnDestroy() {
-            OnRapportUpdate -= PlayRapportAnimation;
+            DialogueManager.OnRapportUpdate -= PlayRapportAnimation;
         }
     }
 }
