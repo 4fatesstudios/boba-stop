@@ -28,10 +28,8 @@ aster_collection = chroma_client.get_or_create_collection("aster_history")
 
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")  # Lightweight model
 
-def insert_post(character_name, title, text):
+def insert_post(character_name, title, text, id=0):
     collection = choose_collection(character_name)
-
-    id = uuid.uuid4()
 
     embedding = embedding_model.encode(title).tolist()
 
@@ -40,7 +38,7 @@ def insert_post(character_name, title, text):
         embeddings=[embedding],
         metadatas=[{"Title": title, "Text": text}]
     )
-    print(f"Post with ID {id} added to ChromaDB.")
+    print(f"Post with ID {id} added to {character_name}'s collection.")
 
 def retriever(character_name, query_text="Karen is being rude at a store"):
     collection = choose_collection(character_name)
@@ -72,3 +70,17 @@ def choose_collection(character_name):
             return aster_collection
         case _:
             raise ValueError("Unknown character name.")
+        
+if __name__ == "__main__":
+    chroma_client.delete_collection("karen_history")
+    karen_collection = chroma_client.get_or_create_collection("karen_history")
+    chroma_client.delete_collection("jade_history")
+    jade_collection = chroma_client.get_or_create_collection("jade_history")
+    chroma_client.delete_collection("kaden_history")
+    kaden_collection = chroma_client.get_or_create_collection("kaden_history")
+    chroma_client.delete_collection("aster_history")
+    aster_collection = chroma_client.get_or_create_collection("aster_history")
+    insert_post("Karen", "first meeting with Karen", "Karen just got her drink at the player’s boba shop. Karen think the player got her order wrong by adding boba")
+    insert_post("Jade", "first meeting with Jade", "Jade is meeting the player for the first time at the player’s boba shop. Jade is ordering a boba drink before she heads back to work.")
+    insert_post("Kaden", "first meeting with Kaden", "Kaden and his friends are playing a game of frisbee in the town square. He’ll see the player and wants to invite them to join in.")
+    insert_post("Aster", "first meeting with Aster", "The Player is rushing home and bumps into Aster in the town square. Aster is annoyed, but amused by the player acting flustered.")

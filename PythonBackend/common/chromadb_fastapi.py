@@ -7,18 +7,17 @@ from retriever import *
 
 app = FastAPI()
 
+# Request body model for POST /chat
 class Prompt(BaseModel):
     text: str
 
+# Request body model for POST /insert_post
 class Post(BaseModel):
     title: str
-    text: str
+    n: int
 
-# Request body model for POST /new_conversation
-class ConversationData(BaseModel):
-    rapport_level: int
-    rapport_level_progress: int
-    current_story: str
+class SummaryData(BaseModel):
+    n: int
 
 # Request body model for POST /start
 class CombinedData(BaseModel):
@@ -73,17 +72,17 @@ async def chat_route(character: str, data: Prompt):
     result = await chat(character, '', data.text)
     return result
 
-@app.get("/summarize_chat/character/{character}")
-async def summarize(character: str):
+@app.post("/summarize_chat/character/{character}")
+async def summarize(character: str, data: SummaryData):
     result = await summarize_chat(character)
     # text = create_text(character, result)
-    # insert_post(character, result, text)
+    # insert_post(character, result, text, data.n)
     return {"response": result}
 
 @app.post("/insert_post/character/{character}")
-async def insert_conversation(character: str, data: Prompt):
-    text = create_text(character, data.text)
-    result = insert_post(character, data.text, text)
+async def insert_conversation(character: str, data: Post):
+    text = create_text(character, data.title)
+    insert_post(character, data.title, text, data.n)
     return {"message": "Posts inserted successfully."}
 
 if __name__ == "__main__":
