@@ -42,7 +42,7 @@ namespace BobaStop.Characters {
 
             if (!playerInSightRange && !playerInAttackRange && allowStateChange) Patrolling();
             if (playerInSightRange && !playerInAttackRange && allowStateChange) ChasePlayer();
-            if (playerInAttackRange && playerInSightRange && allowStateChange) OnAttack();
+            if (playerInAttackRange && playerInSightRange && allowStateChange) OnStartAttack();
 
             FlipSpriteToForwardVector(agent.desiredVelocity.normalized);
             isWalking = agent.velocity.sqrMagnitude > 0;
@@ -79,7 +79,7 @@ namespace BobaStop.Characters {
             agent.SetDestination(player.position);
         }
 
-        public override void OnAttack() {
+        private void OnStartAttack() {
             agent.SetDestination(transform.position);
 
             // transform.LookAt(player.position);
@@ -87,18 +87,20 @@ namespace BobaStop.Characters {
             if (!alreadyAttacked) {
                 allowStateChange = false;
 
-                // Calculate the direction from this GameObject to the Player.Instance
-                Vector3 directionToPlayer = (Player.Instance.transform.position - transform.position).normalized;
-                // Set the position of the child attackGameObject
-                attackGameObject.transform.position = transform.position + directionToPlayer * 0.2f;
-
-                Debug.Log("attack");
-                combatController.Attack(attack);
                 base.OnAttack();
 
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }
+        }
+
+        public override void OnAttack() {
+            // Calculate the direction from this GameObject to the Player.Instance
+            Vector3 directionToPlayer = (Player.Instance.transform.position - transform.position).normalized;
+            // Set the position of the child attackGameObject
+            attackGameObject.transform.position = transform.position + directionToPlayer * 0.2f;
+
+            combatController.Attack(attack);
         }
 
         public override void OnAttackFinish() {

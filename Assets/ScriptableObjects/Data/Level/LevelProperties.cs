@@ -1,0 +1,14 @@
+using UnityEngine;
+
+namespace BobaStop.Data.Level
+{
+    [CreateAssetMenu(menuName = "Data/Level/Properties", fileName = "LevelProperties")]
+    public class LevelProperties : ScriptableObject {
+        public string levelName;
+        public string localAreaName;
+        public LevelProperties[] adjacentLevels; // for loading purposes ONLY
+        public string[] levelContext;
+        public bool companionPresent;
+        public string companionName;
+    }
+}

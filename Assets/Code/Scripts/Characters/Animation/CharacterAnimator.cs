@@ -1,44 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace BobaStop.Characters.Animation {
-    public abstract class CharacterAnimator : MonoBehaviour {
-        protected const string IS_WALKING = "IsWalking";
-        protected const string ON_ATTACK = "OnAttack";
+namespace BobaStop.Characters.Animation
+{
+    public class CharacterAnimator : MonoBehaviour
+    {
+        [SerializeField] protected Animator animator;
+        [SerializeField] private Character character;
+        [SerializeField] private string animFileCharName;
 
-        [SerializeField] protected Character character;
-        protected Animator animator;
-
-        protected void Awake() {
-            animator = GetComponent<Animator>();
-        }
-
-        protected void Start() {
-            character.OnAttackAction += Character_OnHandleAttackAction;
-        }
-
-        protected void Update() {
-            SetWalkingAnimation();
-        }
-
-        protected void SetWalkingAnimation() {
-            animator.SetBool(IS_WALKING, character.IsWalking());
-        }
-
-        protected void Character_OnHandleAttackAction(object sender, EventArgs e) {
-            animator.SetTrigger(ON_ATTACK);
-        }
-
-        // call from specific associated animation frame event
         public virtual void OnAttackAnimation_Attack() {
-            character.OnAttack();
+            if (character is CombatCharacter combatCharacter) {
+                combatCharacter.OnAttack();
+            }
         }
 
-        // call from specific associated animation frame event
         public virtual void OnAttackAnimation_Finish() {
-            character.OnAttackFinish();
+            if (character is CombatCharacter combatCharacter) {
+                combatCharacter.OnAttackFinish();
+            }
+        }
+        
+        private void Update() {
+            animator.Play(character.GetCurrentAction() + "_" + character.GetCurrentFacingDirection());
         }
     }
 }

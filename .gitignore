@@ -553,7 +553,7 @@ __pycache__/
 # !tools/packages.config
 
 # Tabs Studio
-*.tss
+# *.tss
 
 # Telerik's JustMock configuration file
 *.jmconfig
@@ -618,3 +618,12 @@ FodyWeavers.xsd
 # Ignore Local Assets
 Assets/LocalAssets/
 Assets/LocalAssets.meta
+
+# Ignore Python files:
+*/__pycache__
+*/__pycache__*
+
+
+PythonBackend/common/GGUF_Models/
+PythonBackend/windows/
+PythonBackend/macos/
